@@ -4,7 +4,7 @@ echo "         Starting server installation"
 echo 
 echo
 
-install_user = $(who am i | awk '{print $1}')
+install_user=$(who am i | awk '{print $1}')
 echo
 echo "Installing system for $install_user"
 echo
