@@ -1,8 +1,10 @@
-echo "Start server installation"
-echo "Install for username:"
-read install_user
+echo 
+echo "Starting server installation"
+echo 
+echo "Installing system for $USER"
+#read install_user
 
-echo "Setting up system for $install_user"
+#echo "Setting up system for $install_user"
 
 
 # SETTING LOCALES
@@ -15,6 +17,8 @@ $install_timezone = "Europe/Copenhagen"
 read -p "Set system timezone (Europe/Copenhagen): " install_timezone
 
 sudo timedatectl set-timezone $install_timezone
+
+sudo install_security.sh
 
 
 #locale-gen UTF-8
