@@ -11,6 +11,12 @@ sudo locale-gen UTF-8
 /usr/sbin/update-locale LANG=en_GB.utf8
 
 
+#locale-gen UTF-8
+#git config --global core.filemode false
+#git config --global user.name "__username__"
+#git config --global user.email "__EMAIL__"
+#git config --global credential.helper cache
+
 
 # MAKE SITES FOLDER
 if [ ! -d "/srv/sites" ]; then
