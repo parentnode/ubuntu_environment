@@ -1,7 +1,10 @@
+echo "---------------------------------------------"
 echo 
-echo "Starting server installation"
+echo "         Starting server installation"
 echo 
+echo
 echo "Installing system for $USER"
+echo
 #read install_user
 
 #echo "Setting up system for $install_user"
@@ -11,21 +14,23 @@ echo "Installing system for $USER"
 sudo locale-gen en_GB.UTF-8
 
 
-echo "TIMEZONE"
-
-$install_timezone = "Europe/Copenhagen"
-read -p "Set system timezone (Europe/Copenhagen): " install_timezone
-
-sudo timedatectl set-timezone $install_timezone
-
-sudo install_security.sh
+# SETTING DEFAULT GIT USER
+git config --global core.filemode false
+git config --global user.name "$USER"
+git config --global credential.helper cache
 
 
-#locale-gen UTF-8
-#git config --global core.filemode false
-#git config --global user.name "__username__"
-#git config --global user.email "__EMAIL__"
-#git config --global credential.helper cache
+
+echo
+echo
+echo "Setting timezone to: Europe/Copenhagen"
+echo
+sudo timedatectl set-timezone "Europe/Copenhagen"
+
+
+# INSTALL SECURITY
+sudo /srv/tools/_tools/install_security.sh
+
 
 
 # MAKE SITES FOLDER
@@ -39,12 +44,17 @@ if [ ! -d "/srv/conf" ]; then
 fi
 
 
-
+echo
+echo
+echo "Copying terminal configuration"
+echo
 # ADD COMMANDS ALIAS'
-#cat /srv/tools/configuration/dot_profile > /home/$install_user/.profile
+cat /srv/tools/_conf/dot_profile > /home/$USER/.profile
 
 
 
 echo
-echo "You are done - continue with next step in the manual"
+echo
+echo "You are done - reboot the server and see you in a bit (sudo reboot)"
+echo
 
