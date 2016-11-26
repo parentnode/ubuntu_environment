@@ -3,7 +3,7 @@ echo "-----------------------------------------"
 echo
 echo "               SECURITY"
 echo
-echo grep -q -E "^deploy:" /etc/group
+grep -q -E "^deploy:" /etc/group
 
 read -p "Secure server (Y/n): " install_security
 if test "$install_security" = "Y"; then
