@@ -134,8 +134,10 @@ if test "$install_security" = "Y"; then
 	fi
 
 
+	echo "Checking IP TABLES"
+	echo
+
 	# RESTORE IPTABLES
-#		iptables-restore < /srv/tools/_conf/iptables.rules
 	iptables-restore < /etc/iptables.up.rules
 
 	# SHOW IPTABLES
@@ -144,11 +146,18 @@ if test "$install_security" = "Y"; then
 	# SAVE NEW IPTABLES
 	iptables-save > /etc/iptables.up.rules
 
-	# LOAD ON BOOT
-	echo "#!/bin/sh" >> /etc/network/if-pre-up.d/iptables
-	echo "/sbin/iptables-restore < /etc/iptables.up.rules" >> /etc/network/if-pre-up.d/iptables
-	chmod +x /etc/network/if-pre-up.d/iptables
 
+	if [ ! -b "/etc/network/if-pre-up.d/iptables" ]; then
+
+		echo "Enable restore on boot"
+		echo
+
+		# LOAD ON BOOT
+		echo "#!/bin/sh" >> /etc/network/if-pre-up.d/iptables
+		echo "/sbin/iptables-restore < /etc/iptables.up.rules" >> /etc/network/if-pre-up.d/iptables
+		chmod +x /etc/network/if-pre-up.d/iptables
+
+	fi
 
 
 	#
