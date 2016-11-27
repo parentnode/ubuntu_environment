@@ -57,11 +57,17 @@ if test "$install_security" = "Y"; then
 		echo
 		echo "Updating port to: $install_port"
 		# SSH CONFIG
-		sed -i 's/Port\ 22/Port\ '+"$install_port"+'/;' /etc/ssh/sshd_config
+#		sed -i 's/Port\ 22/Port\ '+"$install_port"+'/;' /etc/ssh/sshd_config
+		sed -i "s/Port\ 22/Port\ $install_port/;" /etc/ssh/sshd_config
 
 	fi
 
-	sed -i 's/PermitRootLogin\ yes/PermitRootLogin\ no/; s/PasswordAuthentication\ yes/PasswordAuthentication\ no/; s/X11Forwarding yes/X11Forwarding no/; s/UsePAM no/UsePAM yes/;' /etc/ssh/sshd_config
+
+	sed -i 's/PermitRootLogin\ yes/PermitRootLogin\ no/;' /etc/ssh/sshd_config
+	sed -i 's/PasswordAuthentication\ yes/PasswordAuthentication\ no/;' /etc/ssh/sshd_config
+	sed -i 's/X11Forwarding yes/X11Forwarding no/;' /etc/ssh/sshd_config
+	sed -i 's/UsePAM no/UsePAM yes/;' /etc/ssh/sshd_config
+
 
 	install_no_dns=$(grep -q -E "^UseDNS no$" /etc/ssh/sshd_config)
 	echo "install_no_dns=$install_no_dns"
