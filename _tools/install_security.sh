@@ -88,7 +88,8 @@ if test "$install_security" = "Y"; then
 	install_ssh_allowed_users=$(grep -E "^AllowUsers" /etc/ssh/sshd_config)
 	echo "install_ssh_allowed_users=$install_ssh_allowed_users"
 	if test -z "$install_ssh_allowed_users"; then
-		echo "should not do this"
+		echo
+		echo "Adding AllowUsers and $install_user to sshd_config"
 		echo "AllowUsers "$install_user >> /etc/ssh/sshd_config
 
 	# USERS ARE ALLOWED
@@ -96,42 +97,60 @@ if test "$install_security" = "Y"; then
 
 		# IS CURRENT USER ALLOWED
 		install_ssh_user=$(grep -E "^AllowUsers.*[\ ]$install_user(\ |$)" /etc/ssh/sshd_config)
-		echo "install_ssh_user=$install_ssh_user"
 		if test -z "$install_ssh_user"; then
-			echo "should not do this either"
+			echo
+			echo "Adding $install_user to AllowUsers"
 			echo "$install_ssh_allowed_users $install_user" >> /etc/ssh/sshd_config
 		fi
 		
 	fi
 
-	# echo "AllUs: $install_ssh_allowed_users"
-	#
-	#
-	# install_ssh_user=$(grep -E "\ $install_user" /etc/ssh/sshd_config)
-	# echo "install_ssh_user=$install_ssh_user"
-	# # is $install_ssh_user empty, user was not found
-	# if test -z "$install_ssh_user"; then
-	# fi
 
 
-	# echo
-	# echo
-	# echo "Setup IP TABLES"
-	# echo
-	#
-	# # RESTORE IPTABLES
-	# iptables-restore < /srv/tools/configuration/iptables.rules
-	#
-	# # SHOW IPTABLES
-	# iptables -L
-	#
-	# # SAVE NEW IPTABLES
-	# iptables-save > /etc/iptables.up.rules
-	#
-	# # LOAD ON BOOT
-	# echo "#!/bin/sh" >> /etc/network/if-pre-up.d/iptables
-	# echo "/sbin/iptables-restore < /etc/iptables.up.rules" >> /etc/network/if-pre-up.d/iptables
-	# chmod +x /etc/network/if-pre-up.d/iptables
+	echo
+	echo
+	echo "            IP TABLES"
+	echo
+
+	if [ -b "/etc/iptables.up.rules" ]; then
+
+
+		echo "Copying default rules"
+		echo
+
+		cp /srv/tools/_conf/iptables.rules /etc/iptables.up.rules
+
+
+
+	fi
+
+	if test -n "$install_port"; then
+
+		echo "Updating SSH port"
+		echo
+
+		sed -i "s/NEW\ --dport\ [0-9]\+/NEW\ --dport\ $install_port/;" /etc/iptables.up.rules
+
+	fi
+
+
+	# RESTORE IPTABLES
+#		iptables-restore < /srv/tools/_conf/iptables.rules
+	iptables-restore < /etc/iptables.up.rules
+
+	# SHOW IPTABLES
+	iptables -L
+
+	# SAVE NEW IPTABLES
+	iptables-save > /etc/iptables.up.rules
+
+	# LOAD ON BOOT
+	echo "#!/bin/sh" >> /etc/network/if-pre-up.d/iptables
+	echo "/sbin/iptables-restore < /etc/iptables.up.rules" >> /etc/network/if-pre-up.d/iptables
+	chmod +x /etc/network/if-pre-up.d/iptables
+
+
+
 	#
 
 	# echo
