@@ -85,16 +85,30 @@ if test "$install_security" = "Y"; then
 
 
 
-	install_ssh_allowed_users=$(grep -E "^AllowUsers.+$" /etc/ssh/sshd_config)
-	echo "AllUs: $install_ssh_allowed_users"
+	install_ssh_allowed_users=$(grep -E "^AllowUsers" /etc/ssh/sshd_config)
+	if test -z "install_ssh_allowed_users"; then
 
-
-	install_ssh_user=$(grep -E "\ $install_user" /etc/ssh/sshd_config)
-	echo "install_ssh_user=$install_ssh_user"
-	# is $install_ssh_user empty, user was not found
-	if test -z "$install_ssh_user"; then
 		echo "AllowUsers "$install_user >> /etc/ssh/sshd_config
+
+	# USERS ARE ALLOWED
+	else
+
+		# IS CURRENT USER ALLOWED
+		install_ssh_user=$(grep -E "\ $install_user" /etc/ssh/sshd_config)
+		if test -z "$install_ssh_user"; then
+			echo "$install_ssh_allowed_users $install_user" >> /etc/ssh/sshd_config
+		fi
+		
 	fi
+
+	# echo "AllUs: $install_ssh_allowed_users"
+	#
+	#
+	# install_ssh_user=$(grep -E "\ $install_user" /etc/ssh/sshd_config)
+	# echo "install_ssh_user=$install_ssh_user"
+	# # is $install_ssh_user empty, user was not found
+	# if test -z "$install_ssh_user"; then
+	# fi
 
 
 	# echo
