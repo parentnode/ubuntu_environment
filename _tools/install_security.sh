@@ -47,6 +47,7 @@ if test "$install_security" = "Y"; then
 		mv /home/$install_user/.key /home/$install_user/.ssh/authorized_keys
 	fi
 
+
 	# UPDATE PERMISSIONS EVERY TIME
 	chown -R $install_user:$install_user /home/$install_user/.ssh
 	chmod 700 /home/$install_user/.ssh
@@ -63,8 +64,8 @@ if test "$install_security" = "Y"; then
 		echo "Updating port to: $install_port"
 		# SSH CONFIG
 #		sed -i 's/Port\ 22/Port\ '+"$install_port"+'/;' /etc/ssh/sshd_config
-#		sed -i "s/Port\ \digit\+/Port\ $install_port/;" /etc/ssh/sshd_config
-		sed -i "s/Port\ 333/Port\ $install_port/;" /etc/ssh/sshd_config
+		sed -i "s/Port\ [0-9]\+/Port\ $install_port/;" /etc/ssh/sshd_config
+#		sed -i "s/Port\ 333/Port\ $install_port/;" /etc/ssh/sshd_config
 
 	fi
 
