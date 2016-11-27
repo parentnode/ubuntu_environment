@@ -62,6 +62,11 @@ if test "$install_security" = "Y"; then
 	fi
 
 
+	install_ssh_allowed_users=$(grep -q -E "\^AllowUsers\+" /etc/ssh/sshd_config)
+
+	echo "AllUs: $install_ssh_allowed_users"
+
+
 	install_ssh_user=$(grep -q -E "\ $install_user" /etc/ssh/sshd_config)
 	# is $install_ssh_user empty, user was not found
 	if test -z "$install_ssh_user"; then
