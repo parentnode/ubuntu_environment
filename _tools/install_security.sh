@@ -56,7 +56,7 @@ if test "$install_security" = "Y"; then
 		echo
 		echo "Updating port to: $install_port"
 		# SSH CONFIG
-		sed -i 's/Port\ 22/Port\ "$install_port"/;' /etc/ssh/sshd_config
+		sed -i 's/Port\ 22/Port\ '+"$install_port"+'/;' /etc/ssh/sshd_config
 
 	fi
 
