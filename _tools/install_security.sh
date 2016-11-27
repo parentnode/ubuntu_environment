@@ -56,26 +56,25 @@ if test "$install_security" = "Y"; then
 
 	# UPDATE SSH PORT
 	echo
-	echo "Change SSH port (leave empty to leave unchanged)"
+	echo "Change SSH port (empty to leave unchanged)"
 	read -p "SSH port: " install_port
 	if test -n "$install_port"; then
 
 		echo
 		echo "Updating port to: $install_port"
 		# SSH CONFIG
-#		sed -i 's/Port\ 22/Port\ '+"$install_port"+'/;' /etc/ssh/sshd_config
 		sed -i "s/Port\ [0-9]\+/Port\ $install_port/;" /etc/ssh/sshd_config
-#		sed -i "s/Port\ 333/Port\ $install_port/;" /etc/ssh/sshd_config
 
 	fi
 
-
+	# UPDATE ADDITIONAL SETTING
 	sed -i 's/PermitRootLogin\ yes/PermitRootLogin\ no/;' /etc/ssh/sshd_config
 	sed -i 's/PasswordAuthentication\ yes/PasswordAuthentication\ no/;' /etc/ssh/sshd_config
 	sed -i 's/X11Forwarding yes/X11Forwarding no/;' /etc/ssh/sshd_config
 	sed -i 's/UsePAM no/UsePAM yes/;' /etc/ssh/sshd_config
 
 
+	# WAS THE NO DNS STATEMENT ADDED
 	install_no_dns=$(grep -E "^UseDNS no$" /etc/ssh/sshd_config)
 	echo "install_no_dns=$install_no_dns"
 	if [ -z "$install_no_dns" ]; then
@@ -86,7 +85,7 @@ if test "$install_security" = "Y"; then
 	fi
 
 
-	install_ssh_allowed_users=$(grep -E "^AllowUsers" /etc/ssh/sshd_config)
+	install_ssh_allowed_users=$(grep -E "^AllowUsers.+" /etc/ssh/sshd_config)
 
 	echo "AllUs: $install_ssh_allowed_users"
 
