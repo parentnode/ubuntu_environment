@@ -9,13 +9,6 @@ echo
 echo "Installing system for $install_user"
 echo
 
-#read install_user
-
-#echo "Setting up system for $install_user"
-
-
-# SETTING LOCALES
-sudo locale-gen en_GB.UTF-8
 
 
 # SETTING DEFAULT GIT USER
