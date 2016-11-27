@@ -13,7 +13,7 @@ if test "$install_security" = "Y"; then
 	echo
 
 	install_deploy=$(grep -q -E "^deploy:" /etc/group)
-	if ! test -z "$install_deploy"; then
+	if test -z "$install_deploy"; then
 		echo "Creating deploy user"
 
 		## CREATE DEPLOY GROUP AND USER
@@ -42,21 +42,29 @@ if test "$install_security" = "Y"; then
 
 
 	echo
-	echo
+	echo "Change SSH port (leave empty to leave unchanged)"
 	read -p "SSH port: " install_port
-	if test -z "$install_port"; then
+	if test -n "$install_port"; then
 
+		echo
+		echo "Updating port to: $install_port"
 		# SSH CONFIG
-		sed -i 's/Port\ \d\+/Port\ "$install_port"/;' /etc/ssh/sshd_config
+		sed -i 's/Port\ 22/Port\ "$install_port"/;' /etc/ssh/sshd_config
 
 	fi
 
 	sed -i 's/PermitRootLogin\ yes/PermitRootLogin\ no/; s/PasswordAuthentication\ yes/PasswordAuthentication\ no/; s/X11Forwarding yes/X11Forwarding no/; s/UsePAM no/UsePAM yes/;' /etc/ssh/sshd_config
 
-	install_ssh_user=$(grep -q -E "\ $install_user" /etc/ssh/sshd_config)
-	if test -z "$install_ssh_user"; then
+	install_no_dns=$(grep -q -E "\ UseDNS no" /etc/ssh/sshd_config)
+	if test -n "$install_no_dns"; then
 		echo "" >> /etc/ssh/sshd_config
 		echo "UseDNS no" >> /etc/ssh/sshd_config
+	fi
+
+
+	install_ssh_user=$(grep -q -E "\ $install_user" /etc/ssh/sshd_config)
+	# is $install_ssh_user empty, user was not found
+	if test -z "$install_ssh_user"; then
 		echo "AllowUsers "$install_user >> /etc/ssh/sshd_config
 	fi
 
