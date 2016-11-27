@@ -95,7 +95,7 @@ if test "$install_security" = "Y"; then
 	else
 
 		# IS CURRENT USER ALLOWED
-		install_ssh_user=$(grep -E "^AllowUsers.?[\ ]$install_user(\ |$)" /etc/ssh/sshd_config)
+		install_ssh_user=$(grep -E "^AllowUsers.*[\ ]$install_user(\ |$)" /etc/ssh/sshd_config)
 		echo "install_ssh_user=$install_ssh_user"
 		if test -z "$install_ssh_user"; then
 			echo "should not do this either"
