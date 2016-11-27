@@ -12,7 +12,9 @@ if test "$install_security" = "Y"; then
 
 	echo
 
+
 	install_deploy=$(grep -q -E "^deploy:" /etc/group)
+	echo "install_deploy=$install_deploy"
 	if test -z "$install_deploy"; then
 		echo "Creating deploy user"
 
@@ -23,6 +25,11 @@ if test "$install_security" = "Y"; then
 		useradd -g deploy deploy
 		# ADD RELEVANT USERS TO DEPLOY GROUP
 		usermod -a -G deploy www-data
+	fi
+
+	install_deploy_user=$(grep -q -E "^deploy:\+:$install_user" /etc/group)
+	echo "install_deploy_user=$install_deploy_user"
+	if test -z "$install_deploy_user"; then
 		usermod -a -G deploy $install_user
 	fi
 
@@ -31,7 +38,7 @@ if test "$install_security" = "Y"; then
 		mkdir -p /home/$install_user/.ssh
 	fi
 
-	if [ ! -b "/home/$install_user/.key" ]; then
+	if test -b "/home/$install_user/.key"; then
 		mv /home/$install_user/.key /home/$install_user/.ssh/authorized_keys
 	fi
 
@@ -56,7 +63,10 @@ if test "$install_security" = "Y"; then
 	sed -i 's/PermitRootLogin\ yes/PermitRootLogin\ no/; s/PasswordAuthentication\ yes/PasswordAuthentication\ no/; s/X11Forwarding yes/X11Forwarding no/; s/UsePAM no/UsePAM yes/;' /etc/ssh/sshd_config
 
 	install_no_dns=$(grep -q -E "^UseDNS no$" /etc/ssh/sshd_config)
+	echo "install_no_dns=$install_no_dns"
 	if test -n "$install_no_dns"; then
+		echo "installing_no_dns=$install_no_dns"
+
 		echo "" >> /etc/ssh/sshd_config
 		echo "UseDNS no" >> /etc/ssh/sshd_config
 	fi
@@ -68,6 +78,7 @@ if test "$install_security" = "Y"; then
 
 
 	install_ssh_user=$(grep -q -E "\ $install_user" /etc/ssh/sshd_config)
+	echo "install_ssh_user=$install_ssh_user"
 	# is $install_ssh_user empty, user was not found
 	if test -z "$install_ssh_user"; then
 		echo "AllowUsers "$install_user >> /etc/ssh/sshd_config
