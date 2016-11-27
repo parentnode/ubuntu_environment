@@ -13,14 +13,13 @@ if test "$install_security" = "Y"; then
 	echo
 
 
+	## CREATE DEPLOY GROUP AND USER
 	install_deploy=$(grep -E "^deploy:" /etc/group)
-	echo "install_deploy=$install_deploy"
 	if test -z "$install_deploy"; then
 
 		echo "Creating deploy user"
 		echo
 
-		## CREATE DEPLOY GROUP AND USER
 		# CREATE GROUP
 		groupadd deploy
 		# ADD DEPLOY USER TO GROUP
@@ -30,12 +29,13 @@ if test "$install_security" = "Y"; then
 	fi
 
 
-	install_deploy_user=$(grep -E "^deploy:.+kaestel2" /etc/group)
-#	install_deploy_user=$(grep -E "^deploy:.+$install_user" /etc/group)
+#	install_deploy_user=$(grep -E "^deploy:.+kaestel2" /etc/group)
+	install_deploy_user=$(grep -E "^deploy:.+$install_user" /etc/group)
 	if test -z "$install_deploy_user"; then
-		echo "installing_deploy_user"
+		echo "Adding $install_user to deploy group"
 		usermod -a -G deploy $install_user
 	fi
+
 
 	if [ ! -d "/home/$install_user/.ssh" ]; then
 		# SETUP SSH KEY
