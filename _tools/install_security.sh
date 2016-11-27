@@ -109,10 +109,10 @@ if test "$install_security" = "Y"; then
 
 	echo
 	echo
-	echo "            IP TABLES"
+	echo "                  IP TABLES"
 	echo
 
-	if [ -b "/etc/iptables.up.rules" ]; then
+	if [ ! -b "/etc/iptables.up.rules" ]; then
 
 
 		echo "Copying default rules"
