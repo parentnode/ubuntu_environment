@@ -31,7 +31,7 @@ if test "$install_security" = "Y"; then
 		mkdir -p /home/$install_user/.ssh
 	fi
 
-	if [ ! -d "/home/$install_user/.key" ]; then
+	if [ ! -b "/home/$install_user/.key" ]; then
 		mv /home/$install_user/.key /home/$install_user/.ssh/authorized_keys
 	fi
 
@@ -55,14 +55,14 @@ if test "$install_security" = "Y"; then
 
 	sed -i 's/PermitRootLogin\ yes/PermitRootLogin\ no/; s/PasswordAuthentication\ yes/PasswordAuthentication\ no/; s/X11Forwarding yes/X11Forwarding no/; s/UsePAM no/UsePAM yes/;' /etc/ssh/sshd_config
 
-	install_no_dns=$(grep -q -E "\ UseDNS no" /etc/ssh/sshd_config)
+	install_no_dns=$(grep -q -E "^UseDNS no$" /etc/ssh/sshd_config)
 	if test -n "$install_no_dns"; then
 		echo "" >> /etc/ssh/sshd_config
 		echo "UseDNS no" >> /etc/ssh/sshd_config
 	fi
 
 
-	install_ssh_allowed_users=$(grep -q -E "\^AllowUsers\+" /etc/ssh/sshd_config)
+	install_ssh_allowed_users=$(grep -q -E "^AllowUsers\+" /etc/ssh/sshd_config)
 
 	echo "AllUs: $install_ssh_allowed_users"
 
