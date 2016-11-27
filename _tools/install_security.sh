@@ -29,8 +29,12 @@ if test "$install_security" = "Y"; then
 	fi
 
 
-	install_deploy_user=$(grep -E "^deploy:\+$install_user" /etc/group)
+	install_deploy_user=$(grep -E "^deploy:*$install_user" /etc/group)
 	echo "install_deploy_user=$install_deploy_user"
+
+	install_deploy_user2=$(grep -E "[,:]{1}$install_user" /etc/group)
+	echo "install_deploy_user2=$install_deploy_user2"
+
 	if test -z "$install_deploy_user"; then
 		echo "installing_deploy_user"
 		usermod -a -G deploy $install_user
