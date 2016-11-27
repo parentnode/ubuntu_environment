@@ -111,16 +111,11 @@ if test "$install_security" = "Y"; then
 
 
 
-	echo
-	echo
-	echo "                  IP TABLES"
-	echo
-
 	if [ ! -b "/etc/iptables.up.rules" ]; then
 
 
-		echo "Copying default rules"
 		echo
+		echo "Copying default rules for IP TABLES"
 
 		cp /srv/tools/_conf/iptables.rules /etc/iptables.up.rules
 
@@ -130,14 +125,15 @@ if test "$install_security" = "Y"; then
 
 	if test -n "$install_port"; then
 
-		echo "Updating SSH port"
 		echo
+		echo "Updating SSH port access"
 
 		sed -i "s/NEW\ --dport\ [0-9]\+/NEW\ --dport\ $install_port/;" /etc/iptables.up.rules
 
 	fi
 
 
+	echo
 	echo "Checking IP TABLES"
 	echo
 
