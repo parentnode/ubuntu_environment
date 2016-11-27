@@ -29,7 +29,7 @@ if test "$install_security" = "Y"; then
 	fi
 
 
-	install_deploy_user=$(grep -E "^deploy:\+[,:]$install_user" /etc/group)
+	install_deploy_user=$(grep -E "^deploy:\+$install_user" /etc/group)
 	echo "install_deploy_user=$install_deploy_user"
 	if test -z "$install_deploy_user"; then
 		echo "installing_deploy_user"
@@ -71,7 +71,7 @@ if test "$install_security" = "Y"; then
 	sed -i 's/UsePAM no/UsePAM yes/;' /etc/ssh/sshd_config
 
 
-	install_no_dns=$(grep -q -E "^UseDNS no$" /etc/ssh/sshd_config)
+	install_no_dns=$(grep -E "^UseDNS no$" /etc/ssh/sshd_config)
 	echo "install_no_dns=$install_no_dns"
 	if [ -n "$install_no_dns" ]; then
 		echo "installing_no_dns=$install_no_dns"
@@ -81,12 +81,12 @@ if test "$install_security" = "Y"; then
 	fi
 
 
-	install_ssh_allowed_users=$(grep -q -E "^AllowUsers\+" /etc/ssh/sshd_config)
+	install_ssh_allowed_users=$(grep -E "^AllowUsers\+" /etc/ssh/sshd_config)
 
 	echo "AllUs: $install_ssh_allowed_users"
 
 
-	install_ssh_user=$(grep -q -E "\ $install_user" /etc/ssh/sshd_config)
+	install_ssh_user=$(grep -E "\ $install_user" /etc/ssh/sshd_config)
 	echo "install_ssh_user=$install_ssh_user"
 	# is $install_ssh_user empty, user was not found
 	if test -z "$install_ssh_user"; then
