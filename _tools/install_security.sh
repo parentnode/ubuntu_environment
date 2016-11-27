@@ -41,9 +41,13 @@ if test "$install_security" = "Y"; then
 	if [ ! -d "/home/$install_user/.ssh" ]; then
 		mkdir -p /home/$install_user/.ssh
 	fi
+ 
 
 	# IS TEMP KEY AVAILABLE
 	if [ -b "/home/$install_user/.key" ]; then
+
+		echo
+		echo "Installing key"
 		mv /home/$install_user/.key /home/$install_user/.ssh/authorized_keys
 	fi
 
@@ -86,7 +90,6 @@ if test "$install_security" = "Y"; then
 
 
 	install_ssh_allowed_users=$(grep -E "^AllowUsers" /etc/ssh/sshd_config)
-	echo "install_ssh_allowed_users=$install_ssh_allowed_users"
 	if test -z "$install_ssh_allowed_users"; then
 		echo
 		echo "Adding AllowUsers and $install_user to sshd_config"
@@ -149,7 +152,7 @@ if test "$install_security" = "Y"; then
 
 	if [ ! -b "/etc/network/if-pre-up.d/iptables" ]; then
 
-		echo "Enable restore on boot"
+		echo "Enable IP TABLE on boot"
 		echo
 
 		# LOAD ON BOOT
@@ -171,5 +174,9 @@ if test "$install_security" = "Y"; then
 	# service ssh restart
 
 else
+
+	echo
 	echo "Skipping security"
+	echo
+
 fi
