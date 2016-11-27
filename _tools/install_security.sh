@@ -14,6 +14,7 @@ if test "$install_security" = "Y"; then
 
 
 	install_deploy=$(grep -E "^deploy:" /etc/group)
+	echo "install_deploy=$install_deploy"
 	if test -z "$install_deploy"; then
 
 		echo "Creating deploy user"
@@ -60,7 +61,7 @@ if test "$install_security" = "Y"; then
 		echo "Updating port to: $install_port"
 		# SSH CONFIG
 #		sed -i 's/Port\ 22/Port\ '+"$install_port"+'/;' /etc/ssh/sshd_config
-		sed -i "s/Port\ 22/Port\ $install_port/;" /etc/ssh/sshd_config
+		sed -i "s/Port\ \digit\+/Port\ $install_port/;" /etc/ssh/sshd_config
 
 	fi
 
