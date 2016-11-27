@@ -29,7 +29,7 @@ if test "$install_security" = "Y"; then
 	fi
 
 
-#	install_deploy_user=$(grep -E "^deploy:.+kaestel2" /etc/group)
+	# ADD CURRENT USER TO DEPLOY GROUP
 	install_deploy_user=$(grep -E "^deploy:.+$install_user" /etc/group)
 	if test -z "$install_deploy_user"; then
 		echo "Adding $install_user to deploy group"
@@ -37,11 +37,12 @@ if test "$install_security" = "Y"; then
 	fi
 
 
+	# SETUP SSH KEY
 	if [ ! -d "/home/$install_user/.ssh" ]; then
-		# SETUP SSH KEY
 		mkdir -p /home/$install_user/.ssh
 	fi
 
+	# IS TEMP KEY AVAILABLE
 	if [ -b "/home/$install_user/.key" ]; then
 		mv /home/$install_user/.key /home/$install_user/.ssh/authorized_keys
 	fi
@@ -52,6 +53,7 @@ if test "$install_security" = "Y"; then
 	chmod 600 /home/$install_user/.ssh/authorized_keys
 
 
+	# UPDATE SSH PORT
 	echo
 	echo "Change SSH port (leave empty to leave unchanged)"
 	read -p "SSH port: " install_port
@@ -61,7 +63,8 @@ if test "$install_security" = "Y"; then
 		echo "Updating port to: $install_port"
 		# SSH CONFIG
 #		sed -i 's/Port\ 22/Port\ '+"$install_port"+'/;' /etc/ssh/sshd_config
-		sed -i "s/Port\ \digit\+/Port\ $install_port/;" /etc/ssh/sshd_config
+#		sed -i "s/Port\ \digit\+/Port\ $install_port/;" /etc/ssh/sshd_config
+		sed -i "s/Port\ 333/Port\ $install_port/;" /etc/ssh/sshd_config
 
 	fi
 
@@ -74,7 +77,7 @@ if test "$install_security" = "Y"; then
 
 	install_no_dns=$(grep -E "^UseDNS no$" /etc/ssh/sshd_config)
 	echo "install_no_dns=$install_no_dns"
-	if [ -n "$install_no_dns" ]; then
+	if [ -z "$install_no_dns" ]; then
 		echo "installing_no_dns=$install_no_dns"
 
 		echo "" >> /etc/ssh/sshd_config
