@@ -30,6 +30,7 @@ if test "$install_security" = "Y"; then
 	install_deploy_user=$(grep -q -E "^deploy:\+:$install_user" /etc/group)
 	echo "install_deploy_user=$install_deploy_user"
 	if test -z "$install_deploy_user"; then
+		echo "installing_deploy_user=$install_deploy_user"
 		usermod -a -G deploy $install_user
 	fi
 
@@ -38,7 +39,7 @@ if test "$install_security" = "Y"; then
 		mkdir -p /home/$install_user/.ssh
 	fi
 
-	if test -b "/home/$install_user/.key"; then
+	if [ -b "/home/$install_user/.key"]; then
 		mv /home/$install_user/.key /home/$install_user/.ssh/authorized_keys
 	fi
 
@@ -64,7 +65,7 @@ if test "$install_security" = "Y"; then
 
 	install_no_dns=$(grep -q -E "^UseDNS no$" /etc/ssh/sshd_config)
 	echo "install_no_dns=$install_no_dns"
-	if test -n "$install_no_dns"; then
+	if [ -n "$install_no_dns" ]; then
 		echo "installing_no_dns=$install_no_dns"
 
 		echo "" >> /etc/ssh/sshd_config
