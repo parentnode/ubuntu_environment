@@ -41,7 +41,7 @@ if test "$install_security" = "Y"; then
 		mkdir -p /home/$install_user/.ssh
 	fi
 
-	if [ -b "/home/$install_user/.key"]; then
+	if [ -b "/home/$install_user/.key" ]; then
 		mv /home/$install_user/.key /home/$install_user/.ssh/authorized_keys
 	fi
 
