@@ -76,17 +76,16 @@ if test "$install_security" = "Y"; then
 
 	# WAS THE NO DNS STATEMENT ADDED
 	install_no_dns=$(grep -E "^UseDNS no$" /etc/ssh/sshd_config)
-	echo "install_no_dns=$install_no_dns"
 	if [ -z "$install_no_dns" ]; then
-		echo "installing_no_dns=$install_no_dns"
+		echo "Adding: UseDNS no"
 
 		echo "" >> /etc/ssh/sshd_config
 		echo "UseDNS no" >> /etc/ssh/sshd_config
 	fi
 
 
-	install_ssh_allowed_users=$(grep -E "^AllowUsers.+" /etc/ssh/sshd_config)
 
+	install_ssh_allowed_users=$(grep -E "^AllowUsers.+$" /etc/ssh/sshd_config)
 	echo "AllUs: $install_ssh_allowed_users"
 
 
