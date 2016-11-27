@@ -52,6 +52,13 @@ cat /srv/tools/_conf/dot_profile > /home/$install_user/.profile
 
 echo
 echo
+echo "Login command:"
+
+port_number=$(grep -E "^Port\ ([0-9]+)$" /etc/ssh/sshd_config | sed "s/Port //;")
+ip_address=$(dig +short myip.opendns.com @resolver1.opendns.com)
+echo "ssh -p $port_number kaestel@$ip_address"
+echo 
+echo
 echo "You are done - reboot the server and see you in a bit (sudo reboot)"
 echo
 

@@ -138,13 +138,13 @@ if test "$install_security" = "Y"; then
 	echo
 
 	# RESTORE IPTABLES
-#	iptables-restore < /etc/iptables.up.rules
+	iptables-restore < /etc/iptables.up.rules
 
 	# SHOW IPTABLES
-#	iptables -L
+	iptables -L
 
 	# SAVE NEW IPTABLES
-#	iptables-save > /etc/iptables.up.rules
+	iptables-save > /etc/iptables.up.rules
 
 
 	if [ ! -b "/etc/network/if-pre-up.d/iptables" ]; then
