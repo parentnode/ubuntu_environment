@@ -33,6 +33,7 @@ if test "$install_security" = "Y"; then
 	install_deploy_user=$(grep -E "^deploy:.+$install_user" /etc/group)
 	if test -z "$install_deploy_user"; then
 		echo "Adding $install_user to deploy group"
+		echo
 		usermod -a -G deploy $install_user
 	fi
 
@@ -44,10 +45,10 @@ if test "$install_security" = "Y"; then
  
 
 	# IS TEMP KEY AVAILABLE
-	if [ -b "/home/$install_user/.key" ]; then
+	if [ -e "/home/$install_user/.key" ]; then
 
-		echo
 		echo "Installing key"
+		echo
 		mv /home/$install_user/.key /home/$install_user/.ssh/authorized_keys
 	fi
 
