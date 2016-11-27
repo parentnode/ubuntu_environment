@@ -81,7 +81,7 @@ if test "$install_security" = "Y"; then
 	fi
 
 
-	install_ssh_allowed_users=$(grep -E "^AllowUsers\+" /etc/ssh/sshd_config)
+	install_ssh_allowed_users=$(grep -E "^AllowUsers" /etc/ssh/sshd_config)
 
 	echo "AllUs: $install_ssh_allowed_users"
 
