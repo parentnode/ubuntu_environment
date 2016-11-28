@@ -1,3 +1,4 @@
+#!/bin/bash
 
 echo "-----------------------------------------"
 echo
@@ -160,15 +161,13 @@ if test "$install_security" = "Y"; then
 	fi
 
 
-	#
-
-	# echo
-	# echo
-	# echo "Restarting service"
-	# echo
+	echo
+	echo
+	echo "Restarting SSH service"
+	echo
 	#
 	# # RESTART SSH
-	# service ssh restart
+	service ssh restart
 
 else
 

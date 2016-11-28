@@ -1,3 +1,5 @@
+#!/bin/bash
+
 echo "---------------------------------------------"
 echo 
 echo "         Starting server installation"
@@ -59,6 +61,10 @@ ip_address=$(dig +short myip.opendns.com @resolver1.opendns.com)
 echo "ssh -p $port_number kaestel@$ip_address"
 echo 
 echo
-echo "You are done - reboot the server and see you in a bit (sudo reboot)"
+echo "You are done!"
+echo
+echo "Reboot the server (sudo reboot) and log in again (ssh -p $port_number kaestel@$ip_address)"
+echo
+echo "See you in a bit "
 echo
 
