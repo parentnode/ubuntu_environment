@@ -7,8 +7,8 @@ echo
 echo
 
 
-read -p "Setup Webserver (Y/n): " install_webserverconf
-if test "$install_webserverconf" = "Y"; then
+read -p "Setup Webserver (Y/n): " install_webserver_conf
+if test "$install_webserver_conf" = "Y"; then
 
 
 	install_apache_servername=$(grep -E "^ServerName" /etc/apache2/apache2.conf)
@@ -24,7 +24,7 @@ if test "$install_webserverconf" = "Y"; then
 	fi
 
 	install_apache_parentnode_includes=$(grep -E "^IncludeOptional /srv/conf/*.conf" /etc/apache2/apache2.conf)
-	if test -z "install_apache_parentnode_includes"; then
+	if test -z "$install_apache_parentnode_includes"; then
 
 		# ADD GIT CONF SETUP
 		echo "IncludeOptional /srv/conf/*.conf" >> /etc/apache2/apache2.conf
