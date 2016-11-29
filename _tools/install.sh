@@ -27,11 +27,6 @@ echo
 sudo timedatectl set-timezone "Europe/Copenhagen"
 
 
-# INSTALL SECURITY
-sudo /srv/tools/_tools/install_security.sh
-
-
-
 # MAKE SITES FOLDER
 if [ ! -d "/srv/sites" ]; then
 	mkdir /srv/sites
@@ -41,6 +36,14 @@ fi
 if [ ! -d "/srv/conf" ]; then
 	mkdir /srv/conf
 fi
+
+
+# INSTALL SECURITY
+sudo /srv/tools/_tools/install_security.sh
+
+# INSTALL SECURITY
+sudo /srv/tools/_tools/install_security.sh
+
 
 
 echo
