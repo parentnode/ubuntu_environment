@@ -7,7 +7,6 @@ echo
 echo
 
 
-read -p "Install software (Y/n): " install_software
 if test "$install_software" = "Y"; then
 
 

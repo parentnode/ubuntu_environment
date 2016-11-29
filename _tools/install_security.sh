@@ -7,7 +7,6 @@ echo
 echo
 
 
-read -p "Secure server (Y/n): " install_security
 if test "$install_security" = "Y"; then
 
 	echo
@@ -60,9 +59,6 @@ if test "$install_security" = "Y"; then
 
 
 	# UPDATE SSH PORT
-	echo
-	echo "Change SSH port (empty to leave unchanged)"
-	read -p "SSH port: " install_port
 	if test -n "$install_port"; then
 
 		echo
@@ -89,7 +85,7 @@ if test "$install_security" = "Y"; then
 	fi
 
 
-
+	# ADD ALLOWUSERS STATMENT
 	install_ssh_allowed_users=$(grep -E "^AllowUsers" /etc/ssh/sshd_config)
 	if test -z "$install_ssh_allowed_users"; then
 		echo

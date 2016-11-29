@@ -15,9 +15,49 @@ export install_user
 echo
 echo "Installing system for $install_user"
 echo
+echo "To simplify the process, please select your install options"
 
-read -p "Please enter your email address: " install_email
+read -p "Secure the server (Y/n): " install_security
+export install_security
+
+read -p "Install software (Y/n): " install_software
+export install_software
+
+read -p "Install HTACCESS Password (Y/n): " install_htpassword_for_user
+export install_htpassword_for_user
+
+read -p "Set up Apache/PHP (Y/n): " install_webserver_conf
+export install_webserver_conf
+
+read -p "Install MAIL (Y/n): " install_mail
+export install_mail
+
+read -p "Install FFMPEG (Y/n): " install_ffmpeg
+export install_ffmpeg
+
+read -p "Install WKHTML (Y/n): " install_wkhtml
+export install_wkhtml
+
+
+echo "Please enter the information required for your install:"
+
+
+read -p "Your email address: " install_email
 export install_email
+
+
+if test "$install_security" = "Y"; then
+
+	# GET CURRENT PORT NUMBER
+	port_number=$(grep -E "^Port\ ([0-9]+)$" /etc/ssh/sshd_config | sed "s/Port //;")
+
+	echo "Specify SSH port (empty to keep $port_number)"
+	read -p "SSH port: " install_port
+	export install_port
+
+fi
+
+
 
 
 # SETTING DEFAULT GIT USER
@@ -58,8 +98,14 @@ fi
 # INSTALL WEBSERVER CONFIGURATION
 . /srv/tools/_tools/install_webserver_configuration.sh
 
+# INSTALL MAIL
+. /srv/tools/_tools/install_mail.sh
+
 # INSTALL FFMPEG
 . /srv/tools/_tools/install_ffmpeg.sh
+
+# INSTALL WKHTMLTO
+. /srv/tools/_tools/install_wkhtmlto.sh
 
 
 
@@ -71,7 +117,7 @@ echo
 cat /srv/tools/_conf/dot_profile > /home/$install_user/.profile
 
 
-# GET PORT NUMBER AND IP ADDRESS
+# GET CURRENT PORT NUMBER AND IP ADDRESS
 port_number=$(grep -E "^Port\ ([0-9]+)$" /etc/ssh/sshd_config | sed "s/Port //;")
 ip_address=$(dig +short myip.opendns.com @resolver1.opendns.com)
 

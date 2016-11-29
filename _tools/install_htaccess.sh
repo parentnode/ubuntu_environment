@@ -7,7 +7,6 @@ echo
 echo
 
 
-read -p "Install HTACCESS Password (Y/n): " install_htpassword_for_user
 if test "$install_htpassword_for_user" = "Y"; then
 
 	echo
