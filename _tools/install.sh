@@ -48,25 +48,26 @@ echo
 
 read -p "Your email address: " install_email
 export install_email
+echo
 
-
+# HTACCESS PASSWORD
 if test "$install_htpassword_for_user" = "Y"; then
 
-	echo "HTACCESS PASSWORD FOR $install_user:"
-	read -p "SSH port: " install_htaccess_password
+	read -s "HTACCESS PASSWORD FOR $install_user: " install_htaccess_password
 	export install_htaccess_password
+	echo
 
 fi
 
-
+# SSH PORT
 if test "$install_security" = "Y"; then
 
 	# GET CURRENT PORT NUMBER
 	port_number=$(grep -E "^Port\ ([0-9]+)$" /etc/ssh/sshd_config | sed "s/Port //;")
 
-	echo "Specify SSH port (empty to keep $port_number)"
-	read -p "SSH port: " install_port
+	read -p "Specify SSH port (leave empty to keep $port_number): " install_port
 	export install_port
+	echo
 
 fi
 
@@ -112,13 +113,13 @@ fi
 . /srv/tools/_tools/install_webserver_configuration.sh
 
 # INSTALL MAIL
-. /srv/tools/_tools/install_mail.sh
+#. /srv/tools/_tools/install_mail.sh
 
 # INSTALL FFMPEG
 . /srv/tools/_tools/install_ffmpeg.sh
 
 # INSTALL WKHTMLTO
-. /srv/tools/_tools/install_wkhtmlto.sh
+#. /srv/tools/_tools/install_wkhtmlto.sh
 
 
 
