@@ -22,7 +22,7 @@ if test "$install_webserver_conf" = "Y"; then
 
 	fi
 
-	install_apache_parentnode_includes=$(grep -E "^IncludeOptional \/srv\/conf\/\*\.conf" /etc/apache2/apache2.conf)
+	install_apache_parentnode_includes=$(grep -E "^IncludeOptional\ \/srv\/conf\/\*\.conf" /etc/apache2/apache2.conf)
 	if test -z "$install_apache_parentnode_includes"; then
 
 		# ADD GIT CONF SETUP
