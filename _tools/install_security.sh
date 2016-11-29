@@ -5,6 +5,9 @@ echo
 echo "               SECURITY"
 echo
 echo
+
+
+# GET INSTALL USER
 install_user=$(who am i | awk '{print $1}')
 
 

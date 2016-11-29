@@ -6,11 +6,18 @@ echo "        Starting server installation"
 echo 
 echo
 
+
+# GET INSTALL USER
 install_user=$(who am i | awk '{print $1}')
+export install_user
+
+
 echo
 echo "Installing system for $install_user"
 echo
 
+read -p "Please enter your email address: " install_email
+export install_email
 
 
 # SETTING DEFAULT GIT USER
@@ -44,14 +51,13 @@ sudo /srv/tools/_tools/install_security.sh
 # INSTALL SOFTWARE
 sudo /srv/tools/_tools/install_software.sh
 
-# INSTALL SOFTWARE
+# INSTALL HTACCESS PASSWORD
 sudo /srv/tools/_tools/install_htaccess.sh
 
-
 # INSTALL WEBSERVER CONFIGURATION
-#sudo /srv/tools/_tools/install_webserver.sh
+sudo /srv/tools/_tools/install_webserver_configuration.sh
 
-# INSTALL SOFTWARE
+# INSTALL FFMPEG
 sudo /srv/tools/_tools/install_ffmpeg.sh
 
 
