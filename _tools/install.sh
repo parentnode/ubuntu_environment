@@ -53,9 +53,13 @@ echo
 # HTACCESS PASSWORD
 if test "$install_htpassword_for_user" = "Y"; then
 
-	printf "HTACCESS password for $install_user: "
-	read -s install_htaccess_password
+	read -s -p "HTACCESS password for $install_user: " install_htaccess_password
+
 	export install_htaccess_password
+	echo
+
+	echo
+
 	echo
 
 fi
