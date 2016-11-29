@@ -21,7 +21,7 @@ if test "$install_software" = "Y"; then
 	apt install apache2 apache2-utils ssl-cert
 
 	# INSTALL PHP
-	apt install libapache2-mod-php php php-cli php-common php-curl php-dev php-imagick php-mcrypt php-memcached php-mhash php-mysqlnd php-xmlrpc memcached
+	apt install libapache2-mod-php php7.0 php7.0-cli php7.0-common php7.0-curl php7.0-dev php-imagick php7.0-mcrypt php-memcached php7.0-mysql php7.0-xmlrpc memcached
 
 	# INSTALL ZIP, LOG ROTATION, CURL
 	apt install zip logrotate curl
