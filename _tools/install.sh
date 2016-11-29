@@ -1,7 +1,5 @@
 #!/bin/bash -e
 
-trap command SIGINT
-
 echo "---------------------------------------------"
 echo 
 echo "        Starting server installation"
