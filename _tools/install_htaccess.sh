@@ -14,11 +14,11 @@ if test "$install_htpassword_for_user" = "Y"; then
 
 	if [ ! -e "/srv/auth-file" ]; then
 
-		htpasswd -cm /srv/auth-file $install_user
+		htpasswd -cmb /srv/auth-file $install_user $install_htaccess_password
 
 	else
 
-		htpasswd -m /srv/auth-file $install_user
+		htpasswd -mb /srv/auth-file $install_user $install_htaccess_password
 
 	fi
 
