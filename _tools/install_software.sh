@@ -18,7 +18,7 @@ if test "$install_software" = "Y"; then
 	# aptitude install landscape-client landscape-common
 
 	# INSTALL APACHE
-	apt install apache2 apache2-mpm-prefork apache2-utils ssl-cert
+	apt install apache2 apache2-utils ssl-cert
 
 	# INSTALL PHP
 	apt install libapache2-mod-php php php-cli php-common php-curl php-dev php-imagick php-mcrypt php-memcached php-mhash php-mysqlnd php-xmlrpc memcached
