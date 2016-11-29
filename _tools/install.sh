@@ -24,19 +24,19 @@ export install_security
 read -p "Install software (Y/n): " install_software
 export install_software
 
-read -p "Install HTACCESS Password (Y/n): " install_htpassword_for_user
+read -p "Install .htaccess (Y/n): " install_htpassword_for_user
 export install_htpassword_for_user
 
 read -p "Set up Apache/PHP (Y/n): " install_webserver_conf
 export install_webserver_conf
 
-read -p "Install MAIL (Y/n): " install_mail
+read -p "Install mail (Y/n): " install_mail
 export install_mail
 
-read -p "Install FFMPEG (Y/n): " install_ffmpeg
+read -p "Install ffmpeg (Y/n): " install_ffmpeg
 export install_ffmpeg
 
-read -p "Install WKHTML (Y/n): " install_wkhtml
+read -p "Install wkhtmlto (Y/n): " install_wkhtml
 export install_wkhtml
 
 
@@ -53,10 +53,9 @@ echo
 # HTACCESS PASSWORD
 if test "$install_htpassword_for_user" = "Y"; then
 
-	read -sp "HTACCESS password for $install_user: " install_htaccess_password
+	read -s -p "HTACCESS password for $install_user: " install_htaccess_password
 	export install_htaccess_password
 	echo
-	echo "ps: $install_htaccess_password";
 
 fi
 
