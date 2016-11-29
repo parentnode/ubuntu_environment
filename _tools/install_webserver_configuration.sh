@@ -2,10 +2,10 @@
 
 echo "-----------------------------------------"
 echo
-echo "          Set up Apache/PHP"
+echo "          SET UP APACHE/PHP"
 echo
 echo
-
+echo
 
 if test "$install_webserver_conf" = "Y"; then
 
