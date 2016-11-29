@@ -123,8 +123,7 @@ if test "$install_security" = "Y"; then
 
 		echo
 		echo "Updating SSH port access"
-
-		sudo sed -i "s/NEW\ --dport\ [0-9]\+/NEW\ --dport\ $install_port/;" /etc/iptables.up.rules
+		sed -i "s/NEW\ -m\ tcp\ --dport\ [0-9]\+/NEW\ -m\ tcp\ --dport\ $install_port/;" /etc/iptables.up.rules
 
 	fi
 
