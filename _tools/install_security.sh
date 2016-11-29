@@ -124,7 +124,7 @@ if test "$install_security" = "Y"; then
 		echo
 		echo "Updating SSH port access"
 
-		sed -i "s/NEW\ --dport\ [0-9]\+/NEW\ --dport\ $install_port/;" /etc/iptables.up.rules
+		sudo sed -i "s/NEW\ --dport\ [0-9]\+/NEW\ --dport\ $install_port/;" /etc/iptables.up.rules
 
 	fi
 
@@ -143,7 +143,7 @@ if test "$install_security" = "Y"; then
 	iptables-save > /etc/iptables.up.rules
 
 
-	if [ ! -b "/etc/network/if-pre-up.d/iptables" ]; then
+	if [ ! -e "/etc/network/if-pre-up.d/iptables" ]; then
 
 		echo "Enable IP TABLE on boot"
 		echo
