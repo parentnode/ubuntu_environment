@@ -23,6 +23,7 @@ export install_email
 # SETTING DEFAULT GIT USER
 git config --global core.filemode false
 git config --global user.name "$install_user"
+git config --global user.email "$install_email"
 git config --global credential.helper cache
 
 
@@ -46,19 +47,19 @@ fi
 
 
 # INSTALL SECURITY
-sudo /srv/tools/_tools/install_security.sh
+. /srv/tools/_tools/install_security.sh
 
 # INSTALL SOFTWARE
-sudo /srv/tools/_tools/install_software.sh
+. /srv/tools/_tools/install_software.sh
 
 # INSTALL HTACCESS PASSWORD
 . /srv/tools/_tools/install_htaccess.sh
 
 # INSTALL WEBSERVER CONFIGURATION
-sudo /srv/tools/_tools/install_webserver_configuration.sh
+. /srv/tools/_tools/install_webserver_configuration.sh
 
 # INSTALL FFMPEG
-sudo /srv/tools/_tools/install_ffmpeg.sh
+. /srv/tools/_tools/install_ffmpeg.sh
 
 
 

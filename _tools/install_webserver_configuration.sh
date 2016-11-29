@@ -25,8 +25,8 @@ if test "$install_webserverconf" = "Y"; then
 
 
 	# UPDATE PHP CONF
-	cat /srv/tools/_conf/php-apache2.ini > /etc/php5/apache2/php.ini
-	cat /srv/tools/_conf/php-cli.ini > /etc/php5/cli/php.ini
+	cat /srv/tools/_conf/php-apache2.ini > /etc/php/7.0/apache2/php.ini
+	cat /srv/tools/_conf/php-cli.ini > /etc/php/7.0/cli/php.ini
 
 	# ADD APACHE MODULES
 	a2enmod ssl

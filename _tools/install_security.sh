@@ -7,10 +7,6 @@ echo
 echo
 
 
-# GET INSTALL USER
-install_user=$(who am i | awk '{print $1}')
-
-
 read -p "Secure server (Y/n): " install_security
 if test "$install_security" = "Y"; then
 
