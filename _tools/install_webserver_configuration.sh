@@ -11,15 +11,30 @@ read -p "Setup Webserver (Y/n): " install_webserverconf
 if test "$install_webserverconf" = "Y"; then
 
 
+	install_apache_servername=$(grep -E "^ServerName" /etc/apache2/apache2.conf)
+	if test -z "$install_apache_servername"; then
 
-	# SET SERVERNAME
-	echo "ServerName "$HOSTNAME >> /etc/apache2/apache2.conf
+		# SET SERVERNAME
+		echo "ServerName $HOSTNAME" >> /etc/apache2/apache2.conf
 
-	# ADD GIT CONF SETUP
-	echo "IncludeOptional /srv/conf/*.conf" >> /etc/apache2/apache2.conf
+	else
+
+		sed -i "s/ServerName [a-zA-Z0-9\.\-\_]\+/ServerName $HOSTNAME/;" /etc/apache2/sites-available/default.conf
+
+	fi
+
+	install_apache_parentnode_includes=$(grep -E "^IncludeOptional /srv/conf/*.conf" /etc/apache2/apache2.conf)
+	if test -z "install_apache_parentnode_includes"; then
+
+		# ADD GIT CONF SETUP
+		echo "IncludeOptional /srv/conf/*.conf" >> /etc/apache2/apache2.conf
+
+	fi
+
 
 	# ADD DEFAULT APACHE CONF
 	cat /srv/tools/_conf/default.conf > /etc/apache2/sites-available/default.conf
+	# REPLACE EMAIL WITH PREVIOUSLY STATED EMAIL
 	sed -i "s/webmaster@localhost/$install_email/;" /etc/apache2/sites-available/default.conf
 	
 
@@ -39,11 +54,15 @@ if test "$install_webserverconf" = "Y"; then
 	# DISABLE ORG DEFAULT SITE
 	a2dissite 000-default
 
+
+	echo
+	echo "Restarting Apache"
+	echo
+	echo
+
 	# RESTART APACHE
 	service apache2 restart
 
-	echo
-	echo
 
 else
 
