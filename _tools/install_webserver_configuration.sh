@@ -22,7 +22,8 @@ if test "$install_webserver_conf" = "Y"; then
 
 	fi
 
-	install_parentnode_includes=$(grep -E "^IncludeOptional\ /srv/conf" /etc/apache2/apache2.conf)
+#					port_number=$(grep -E "^Port\ ([0-9]+)$" /etc/ssh/sshd_config | sed "s/Port //;")
+	install_parentnode_includes=$(grep -E "^IncludeOptional\ \\\/srv\\\/conf" /etc/apache2/apache2.conf)
 #	install_parentnode_includes=$(grep -E "^IncludeOptional\ \/srv\/conf\/\*\.conf" /etc/apache2/apache2.conf)
 	# if test -z "$install_parentnode_apache"; then
 	#
