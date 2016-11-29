@@ -162,9 +162,10 @@ if test "$install_security" = "Y"; then
 
 
 	echo
-	echo
 	echo "Restarting SSH service"
 	echo
+	echo
+
 	#
 	# # RESTART SSH
 	service ssh restart
@@ -173,6 +174,7 @@ else
 
 	echo
 	echo "Skipping security"
+	echo
 	echo
 
 fi

@@ -42,10 +42,17 @@ fi
 sudo /srv/tools/_tools/install_security.sh
 
 # INSTALL SOFTWARE
+sudo /srv/tools/_tools/install_htaccess.sh
+
+
+# INSTALL SOFTWARE
 sudo /srv/tools/_tools/install_software.sh
 
 # INSTALL WEBSERVER CONFIGURATION
 #sudo /srv/tools/_tools/install_webserver.sh
+
+# INSTALL SOFTWARE
+sudo /srv/tools/_tools/install_ffmpeg.sh
 
 
 
