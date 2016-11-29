@@ -107,7 +107,7 @@ if test "$install_security" = "Y"; then
 
 
 
-	if [ ! -b "/etc/iptables.up.rules" ]; then
+	if [ ! -e "/etc/iptables.up.rules" ]; then
 
 
 		echo
