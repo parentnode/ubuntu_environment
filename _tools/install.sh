@@ -57,9 +57,6 @@ if test "$install_htpassword_for_user" = "Y"; then
 
 	export install_htaccess_password
 	echo
-
-	echo
-
 	echo
 
 fi
