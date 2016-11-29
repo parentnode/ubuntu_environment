@@ -1,11 +1,10 @@
-#!/bin/bash
+#!/bin/bash -e
 
 echo "-----------------------------------------"
 echo
 echo "               SOFTWARE"
 echo
 echo
-install_user=$(who am i | awk '{print $1}')
 
 
 read -p "Install software (Y/n): " install_software
