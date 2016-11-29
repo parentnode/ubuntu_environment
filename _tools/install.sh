@@ -52,7 +52,7 @@ sudo /srv/tools/_tools/install_security.sh
 sudo /srv/tools/_tools/install_software.sh
 
 # INSTALL HTACCESS PASSWORD
-sudo /srv/tools/_tools/install_htaccess.sh
+sudo source /srv/tools/_tools/install_htaccess.sh
 
 # INSTALL WEBSERVER CONFIGURATION
 sudo /srv/tools/_tools/install_webserver_configuration.sh

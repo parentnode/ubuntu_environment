@@ -19,14 +19,14 @@ if test "$install_webserverconf" = "Y"; then
 	echo "IncludeOptional /srv/conf/*.conf" >> /etc/apache2/apache2.conf
 
 	# ADD DEFAULT APACHE CONF
-	cat /srv/tools/configuration/default.conf > /etc/apache2/sites-available/default.conf
+	cat /srv/tools/_conf/default.conf > /etc/apache2/sites-available/default.conf
 	sed -i "s/webmaster@localhost/$install_email/;" /etc/apache2/sites-available/default.conf
 	
 
 
 	# UPDATE PHP CONF
-	cat /srv/tools/configuration/php-apache2.ini > /etc/php5/apache2/php.ini
-	cat /srv/tools/configuration/php-cli.ini > /etc/php5/cli/php.ini
+	cat /srv/tools/_conf/php-apache2.ini > /etc/php5/apache2/php.ini
+	cat /srv/tools/_conf/php-cli.ini > /etc/php5/cli/php.ini
 
 	# ADD APACHE MODULES
 	a2enmod ssl
