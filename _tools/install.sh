@@ -1,8 +1,10 @@
-#!/bin/bash
+#!/bin/bash -e
+
+trap command SIGINT
 
 echo "---------------------------------------------"
 echo 
-echo "         Starting server installation"
+echo "        Starting server installation"
 echo 
 echo
 
@@ -41,8 +43,11 @@ fi
 # INSTALL SECURITY
 sudo /srv/tools/_tools/install_security.sh
 
-# INSTALL SECURITY
-sudo /srv/tools/_tools/install_security.sh
+# INSTALL SOFTWARE
+sudo /srv/tools/_tools/install_software.sh
+
+# INSTALL WEBSERVER CONFIGURATION
+#sudo /srv/tools/_tools/install_webserver.sh
 
 
 
@@ -54,19 +59,22 @@ echo
 cat /srv/tools/_conf/dot_profile > /home/$install_user/.profile
 
 
+# GET PORT NUMBER AND IP ADDRESS
+port_number=$(grep -E "^Port\ ([0-9]+)$" /etc/ssh/sshd_config | sed "s/Port //;")
+ip_address=$(dig +short myip.opendns.com @resolver1.opendns.com)
 
 echo
 echo
 echo "Login command:"
-
-port_number=$(grep -E "^Port\ ([0-9]+)$" /etc/ssh/sshd_config | sed "s/Port //;")
-ip_address=$(dig +short myip.opendns.com @resolver1.opendns.com)
+echo
 echo "ssh -p $port_number kaestel@$ip_address"
 echo 
 echo
 echo "You are done!"
 echo
-echo "Reboot the server (sudo reboot) and log in again (ssh -p $port_number kaestel@$ip_address)"
+echo "Reboot the server (sudo reboot)"
+echo "and log in again (ssh -p $port_number kaestel@$ip_address)"
+echo
 echo
 echo "See you in a bit "
 echo
