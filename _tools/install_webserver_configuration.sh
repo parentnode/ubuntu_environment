@@ -19,7 +19,7 @@ if test "$install_webserver_conf" = "Y"; then
 
 	else
 
-		sed -i "s/ServerName [a-zA-Z0-9\.\-\_]\+/ServerName $HOSTNAME/;" /etc/apache2/sites-available/default.conf
+		sed -i "s/^ServerName\ [a-zA-Z0-9\.\-\_]\+/^ServerName\ $HOSTNAME/;" /etc/apache2/sites-available/default.conf
 
 	fi
 
