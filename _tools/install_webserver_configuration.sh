@@ -76,6 +76,9 @@ if test "$install_webserver_conf" = "Y"; then
 
 	sudo mysql_secure_installation
 
+	echo
+	echo
+
 
 else
 

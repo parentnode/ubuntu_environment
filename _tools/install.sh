@@ -27,9 +27,6 @@ export install_software
 read -p "Install .htaccess (Y/n): " install_htpassword_for_user
 export install_htpassword_for_user
 
-read -p "Set up Apache/PHP (Y/n): " install_webserver_conf
-export install_webserver_conf
-
 read -p "Install mail (Y/n): " install_mail
 export install_mail
 
@@ -38,6 +35,9 @@ export install_ffmpeg
 
 read -p "Install wkhtmlto (Y/n): " install_wkhtml
 export install_wkhtml
+
+read -p "Set up Apache/PHP/MariaDB (Y/n): " install_webserver_conf
+export install_webserver_conf
 
 
 echo
