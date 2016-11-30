@@ -26,16 +26,21 @@ if test "$install_mail" = "Y"; then
 	# update aliases
 #	read -p "Forward internal mails to (email): " install_email
 
-	if grep -R "root:" "/etc/aliases"; then
-		echo "Aliases exists"
-	else
-		echo "Updating aliases"
 
-		sudo chmod 777 -R /etc/aliases
-		echo "root:	install_email" >> /etc/aliases
-		echo "$USER:	install_email" >> /etc/aliases
-		sudo chmod 644 -R /etc/aliases
+	echo "Updating aliases"
+	echo
+
+	sudo chmod 777 -R /etc/aliases
+
+	if ! grep -R "root:" "/etc/aliases"; then
+		echo "root:	$install_email" >> /etc/aliases
 	fi
+
+	if ! grep -R "$install_user:" "/etc/aliases"; then
+		echo "$install_user:	$install_email" >> /etc/aliases
+	fi
+
+	sudo chmod 644 -R /etc/aliases
 
 	sudo newaliases
 
@@ -43,7 +48,7 @@ if test "$install_mail" = "Y"; then
 	sudo service postfix restart
 
 
-	echo "Your email was configured correctly" | mail -s "Linux server email setup" install_email
+	echo "Your email was configured correctly" | mail -s "Linux server email setup" $install_email
 	echo
 	echo
 
