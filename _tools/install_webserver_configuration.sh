@@ -73,6 +73,8 @@ if test "$install_webserver_conf" = "Y"; then
 	echo "Configuring mariaDB"
 	echo
 	echo
+	echo "PLEASE NOTE: If you disable remote root login, you will not be able to log into root account with SequelPro"
+	echo
 
 	sudo mysql_secure_installation
 
