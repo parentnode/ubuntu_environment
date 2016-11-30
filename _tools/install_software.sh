@@ -29,6 +29,7 @@ if test "$install_software" = "Y"; then
 	# INSTALL mariaDB
 	apt install mariadb-server
 
+
 	echo
 	echo
 

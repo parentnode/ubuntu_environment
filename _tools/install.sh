@@ -111,17 +111,17 @@ fi
 # INSTALL HTACCESS PASSWORD
 . /srv/tools/_tools/install_htaccess.sh
 
-# INSTALL WEBSERVER CONFIGURATION
-. /srv/tools/_tools/install_webserver_configuration.sh
-
-# INSTALL MAIL
-. /srv/tools/_tools/install_mail.sh
-
 # INSTALL FFMPEG
 . /srv/tools/_tools/install_ffmpeg.sh
 
 # INSTALL WKHTMLTO
 . /srv/tools/_tools/install_wkhtmlto.sh
+
+# INSTALL WEBSERVER CONFIGURATION
+. /srv/tools/_tools/install_webserver_configuration.sh
+
+# INSTALL MAIL
+. /srv/tools/_tools/install_mail.sh
 
 
 

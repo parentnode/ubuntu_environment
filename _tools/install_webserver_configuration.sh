@@ -63,6 +63,14 @@ if test "$install_webserver_conf" = "Y"; then
 	service apache2 restart
 
 
+	echo
+	echo "Configuring mariaDB"
+	echo
+	echo
+
+	sudo mysql_secure_installation
+
+
 else
 
 	echo
