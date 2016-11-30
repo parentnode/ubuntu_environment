@@ -2,12 +2,17 @@
 
 echo "-----------------------------------------"
 echo
-echo "          SET UP APACHE/PHP"
+echo "          SET UP APACHE/PHP/MARIADB"
 echo
 echo
 echo
 
 if test "$install_webserver_conf" = "Y"; then
+
+	echo
+	echo "Configuring Apache and PHP"
+	echo
+	echo
 
 
 	install_apache_servername=$(grep -E "^ServerName" /etc/apache2/apache2.conf)
@@ -37,11 +42,6 @@ if test "$install_webserver_conf" = "Y"; then
 	sed -i "s/webmaster@localhost/$install_email/;" /etc/apache2/sites-available/default.conf
 	
 
-
-	# UPDATE PHP CONF
-	cat /srv/tools/_conf/php-apache2.ini > /etc/php/7.0/apache2/php.ini
-	cat /srv/tools/_conf/php-cli.ini > /etc/php/7.0/cli/php.ini
-
 	# ADD APACHE MODULES
 	a2enmod ssl
 	a2enmod rewrite
@@ -52,6 +52,12 @@ if test "$install_webserver_conf" = "Y"; then
 
 	# DISABLE ORG DEFAULT SITE
 	a2dissite 000-default
+
+
+	# UPDATE PHP CONF
+	cat /srv/tools/_conf/php-apache2.ini > /etc/php/7.0/apache2/php.ini
+	cat /srv/tools/_conf/php-cli.ini > /etc/php/7.0/cli/php.ini
+
 
 
 	echo
