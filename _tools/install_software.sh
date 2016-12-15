@@ -25,7 +25,6 @@ if test "$install_software" = "Y"; then
 	# INSTALL ZIP, LOG ROTATION, CURL
 	apt install zip logrotate curl
 
-	# INSTALL MYSQL
 	# INSTALL mariaDB
 	apt install mariadb-server
 
