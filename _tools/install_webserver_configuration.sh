@@ -82,9 +82,9 @@ if test "$install_webserver_conf" = "Y"; then
 	echo
 	echo
 
-	read -p "Please enter your MariaDB password to enable logrotation: " db_root_password
+	read -s -p "Please enter your MariaDB password to enable logrotation: " db_root_password
 	# REPLACE EMAIL WITH PREVIOUSLY STATED EMAIL
-	sudo sed -i "s/password =/password = db_root_password/;" /etc/mysql/debian.cnf
+	sudo sed -i "s/password =/password = $db_root_password/;" /etc/mysql/debian.cnf
 
 	echo
 	echo
