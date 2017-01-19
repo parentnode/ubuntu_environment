@@ -7,14 +7,14 @@ echo
 echo
 
 
-if test "$install_security" = "Y"; then
+if [ "$install_security" = "Y" ]; then
 
 	echo "test"
 
 
 	# ## CREATE DEPLOY GROUP AND USER
 	install_deploy=$(grep -E "^deploy:" /etc/group)
-	if test -z "$install_deploy"; then
+	if [ -z "$install_deploy" ]; then
 
 		echo "Creating deploy user"
 		echo
