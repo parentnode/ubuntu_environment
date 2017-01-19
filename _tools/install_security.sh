@@ -13,7 +13,9 @@ if [ "$install_security" = "Y" ]; then
 
 
 	# ## CREATE DEPLOY GROUP AND USER
-#	install_deploy=$(grep -E "^deploy:" /etc/group)
+	install_deploy=$(grep -E "^deploy:" /etc/group)
+	echo "test3"
+
 	install_deploy=1
 	if [ -z "$install_deploy" ]; then
 
