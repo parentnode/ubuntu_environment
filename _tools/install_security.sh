@@ -9,23 +9,23 @@ echo
 
 if test "$install_security" = "Y"; then
 
-	echo
+	echo "test"
 
 
-	## CREATE DEPLOY GROUP AND USER
-	install_deploy=$(grep -E "^deploy:" /etc/group)
-	if test -z "$install_deploy"; then
-
-		echo "Creating deploy user"
-		echo
-
-		# CREATE GROUP
-		groupadd deploy
-		# ADD DEPLOY USER TO GROUP
-		useradd -g deploy deploy
-		# ADD RELEVANT USERS TO DEPLOY GROUP
-		usermod -a -G deploy www-data
-	fi
+	# ## CREATE DEPLOY GROUP AND USER
+	# install_deploy=$(grep -E "^deploy:" /etc/group)
+	# if test -z "$install_deploy"; then
+	#
+	# 	echo "Creating deploy user"
+	# 	echo
+	#
+	# 	# CREATE GROUP
+	# 	groupadd deploy
+	# 	# ADD DEPLOY USER TO GROUP
+	# 	useradd -g deploy deploy
+	# 	# ADD RELEVANT USERS TO DEPLOY GROUP
+	# 	usermod -a -G deploy www-data
+	# fi
 
 	#
 	# # ADD CURRENT USER TO DEPLOY GROUP
