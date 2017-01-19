@@ -13,7 +13,7 @@ if [ "$install_security" = "Y" ]; then
 
 
 	# ## CREATE DEPLOY GROUP AND USER
-	install_deploy=$(grep -E "^deploy:" /etc/group)
+	install_deploy=$(sudo grep -E "^deploy:" /etc/group)
 	if [ -z "$install_deploy" ]; then
 
 		echo "Creating deploy user"
