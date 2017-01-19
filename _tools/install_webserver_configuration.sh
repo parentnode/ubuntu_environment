@@ -16,7 +16,7 @@ if test "$install_webserver_conf" = "Y"; then
 
 
 #	install_apache_servername=$(grep -E "^ServerName" /etc/apache2/apache2.conf || echo "")
-	if grep -E "^ServerName" /etc/apache2/apache2.conf; then
+	if grep -E "^ServerName" /etc/apache2/apache2.conf || echo ""; then
 
 		# SET SERVERNAME
 		echo "ServerName $HOSTNAME" >> /etc/apache2/apache2.conf
