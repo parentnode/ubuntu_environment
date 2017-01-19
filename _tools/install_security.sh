@@ -13,11 +13,11 @@ if [ "$install_security" = "Y" ]; then
 
 
 	# ## CREATE DEPLOY GROUP AND USER
-	install_deploy=$(grep -E "^deploy:" /etc/group || echo "")
+#	install_deploy=$(grep -E "^deploy:" /etc/group || echo "")
 	echo "test3"
 
 #	install_deploy=1
-	if [ -z "$install_deploy" ]; then
+	if [ ! grep -E "^deploy:" /etc/group ]; then
 
 		echo "Creating deploy user"
 		echo
@@ -30,21 +30,23 @@ if [ "$install_security" = "Y" ]; then
 		usermod -a -G deploy www-data
 	fi
 	echo "test2"
-	#
-	# # ADD CURRENT USER TO DEPLOY GROUP
-	install_deploy_user=$(grep -E "^deploy:.+$install_user" /etc/group)
-	# if test -z "$install_deploy_user"; then
-	# 	echo "Adding $install_user to deploy group"
-	# 	echo
-	# 	usermod -a -G deploy $install_user
-	# fi
-	#
-	#
-	# # SETUP SSH KEY
-	# if [ ! -d "/home/$install_user/.ssh" ]; then
-	# 	mkdir -p /home/$install_user/.ssh
-	# fi
-	#
+
+	# ADD CURRENT USER TO DEPLOY GROUP
+#	install_deploy_user=$(grep -E "^deploy:.+$install_user" /etc/group)
+	if [ ! grep -E "^deploy:.+$install_user" /etc/group ]; then
+		# install_deploy_user=$(grep -E "^deploy:.+$install_user" /etc/group)
+		# if test -z "$install_deploy_user"; then
+		echo "Adding $install_user to deploy group"
+		echo
+		usermod -a -G deploy $install_user
+	fi
+
+
+	# SETUP SSH KEY
+	if [ ! -d "/home/$install_user/.ssh" ]; then
+		mkdir -p /home/$install_user/.ssh
+	fi
+
 	#
 	# # IS TEMP KEY AVAILABLE
 	# if [ -e "/home/$install_user/.key" ]; then
