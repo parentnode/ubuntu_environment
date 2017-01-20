@@ -83,7 +83,7 @@ if [ "$install_security" = "Y" ]; then
 
 
 	# WAS THE NO DNS STATEMENT ADDED
-	install_no_dns=$(grep -E "^UseDNS no$" /etc/ssh/sshd_config)
+	install_no_dns=$(grep -E "^UseDNS no$" /etc/ssh/sshd_config || echo "")
 	if [ -z "$install_no_dns" ]; then
 		echo "Adding: UseDNS no"
 
@@ -93,7 +93,7 @@ if [ "$install_security" = "Y" ]; then
 
 
 	# ADD ALLOWUSERS STATMENT
-	install_ssh_allowed_users=$(grep -E "^AllowUsers" /etc/ssh/sshd_config)
+	install_ssh_allowed_users=$(grep -E "^AllowUsers" /etc/ssh/sshd_config || echo "")
 	if test -z "$install_ssh_allowed_users"; then
 		echo
 		echo "Adding AllowUsers and $install_user to sshd_config"
@@ -103,7 +103,7 @@ if [ "$install_security" = "Y" ]; then
 	else
 
 		# IS CURRENT USER ALLOWED
-		install_ssh_user=$(grep -E "^AllowUsers.*[\ ]$install_user(\ |$)" /etc/ssh/sshd_config)
+		install_ssh_user=$(grep -E "^AllowUsers.*[\ ]$install_user(\ |$)" /etc/ssh/sshd_config || echo "")
 		if test -z "$install_ssh_user"; then
 			echo
 			echo "Adding $install_user to AllowUsers"
