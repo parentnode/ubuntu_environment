@@ -9,15 +9,9 @@ echo
 
 if [ "$install_security" = "Y" ]; then
 
-	echo "test"
-
 
 	# ## CREATE DEPLOY GROUP AND USER
 	install_deploy=$(grep -E "^deploy:" /etc/group || echo "")
-	echo "test3"
-
-#	install_deploy=1
-#	if ! grep -E "^deploy:" /etc/group; then
 	if [ -z "$install_deploy" ]; then
 
 		echo "Creating deploy user"
@@ -30,14 +24,12 @@ if [ "$install_security" = "Y" ]; then
 		# ADD RELEVANT USERS TO DEPLOY GROUP
 		usermod -a -G deploy www-data
 	fi
-	echo "test2"
+
 
 	# ADD CURRENT USER TO DEPLOY GROUP
 	install_deploy_user=$(grep -E "^deploy:.+$install_user" /etc/group || echo "")
 	if [ -z "$install_deploy_user" ]; then
-#	if ! grep -E "^deploy:.+$install_user" /etc/group; then
-		# install_deploy_user=$(grep -E "^deploy:.+$install_user" /etc/group)
-		# if test -z "$install_deploy_user"; then
+
 		echo "Adding $install_user to deploy group"
 		echo
 		usermod -a -G deploy $install_user
