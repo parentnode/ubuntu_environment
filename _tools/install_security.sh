@@ -33,7 +33,7 @@ if [ "$install_security" = "Y" ]; then
 	echo "test2"
 
 	# ADD CURRENT USER TO DEPLOY GROUP
-	install_deploy_user=$(grep -E "^deploy:.+$install_user" /etc/group)
+	install_deploy_user=$(grep -E "^deploy:.+$install_user" /etc/group || echo "")
 	if [ -z "$install_deploy_user" ]; then
 #	if ! grep -E "^deploy:.+$install_user" /etc/group; then
 		# install_deploy_user=$(grep -E "^deploy:.+$install_user" /etc/group)
