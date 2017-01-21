@@ -74,19 +74,43 @@ if test "$install_webserver_conf" = "Y"; then
 	echo "Configuring mariaDB"
 	echo
 	echo
-	echo "During the mariaDB configuaration, you will be asked a series of questions."
-	echo "PLEASE NOTE: If you disable remote root login, you will not be able to log into root account with SequelPro."
-	echo
 
+
+	# Do we have root password
+	if [ ! -z "$db_root_password" ]; then
+
+		# Checking mysql login - trying to log in without password
+		sudo mysql --user=root -e exit 2>/dev/null
+		dbstatus=`echo $?`
+		# Login was successful - it means that DB was not set up yet
+		if [ "$dbstatus" -eq 0 ]; then
+
+			# set login mode (mysql_native_password) and password for root account
+			echo "UPDATE mysql.user SET plugin = 'mysql_native_password', password = PASSWORD('$db_root_password') WHERE user = 'root'; FLUSH PRIVILEGES;" | sudo mysql -u root
+
+			# REPLACE PASSWORD FOR MAINTANENCE ACCOUNT
+			sudo sed -i "s/password = .\*/password = $db_root_password/;" /etc/mysql/debian.cnf
+
+		fi
+
+	fi
+	#
+	# db_root_setup=$(sudo mysql -u root || echo "")
+	#
+	#
+	#
+	#
+	# echo "During the mariaDB configuaration, you will be asked a series of questions."
+	# echo "PLEASE NOTE: If you disable remote root login, you will not be able to log into root account with SequelPro."
+	# echo
+	#
 #	sudo mysql_secure_installation
 
-	echo
-	echo
+#	echo
+#	echo
 
 #	read -s -p "Please enter your MariaDB password to enable logrotation: " db_root_password
 
-	# REPLACE EMAIL WITH PREVIOUSLY STATED EMAIL
-#	sudo sed -i "s/password = .\*/password = $db_root_password/;" /etc/mysql/debian.cnf
 
 	echo
 	echo

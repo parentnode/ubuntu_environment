@@ -24,11 +24,11 @@ export install_security
 read -p "Install software (Y/n): " install_software
 export install_software
 
+read -p "Set up Apache/PHP/MariaDB (Y/n): " install_webserver_conf
+export install_webserver_conf
+
 read -p "Install .htaccess (Y/n): " install_htpassword_for_user
 export install_htpassword_for_user
-
-read -p "Install mail (Y/n): " install_mail
-export install_mail
 
 read -p "Install ffmpeg (Y/n): " install_ffmpeg
 export install_ffmpeg
@@ -36,8 +36,10 @@ export install_ffmpeg
 read -p "Install wkhtmlto (Y/n): " install_wkhtml
 export install_wkhtml
 
-read -p "Set up Apache/PHP/MariaDB (Y/n): " install_webserver_conf
-export install_webserver_conf
+read -p "Install mail (Y/n): " install_mail
+export install_mail
+
+
 
 
 echo
@@ -69,6 +71,15 @@ if test "$install_security" = "Y"; then
 
 	read -p "Specify SSH port (leave empty to keep $port_number): " install_port
 	export install_port
+	echo
+
+fi
+
+# MYSQL ROOT PASSWORD
+if test "$install_webserver_conf" = "Y"; then
+
+	read -p "Enter new root DB password: " db_root_password
+	export db_root_password
 	echo
 
 fi
@@ -108,6 +119,9 @@ fi
 # INSTALL SOFTWARE
 . /srv/tools/_tools/install_software.sh
 
+# INSTALL WEBSERVER CONFIGURATION
+. /srv/tools/_tools/install_webserver_configuration.sh
+
 # INSTALL HTACCESS PASSWORD
 . /srv/tools/_tools/install_htaccess.sh
 
@@ -116,9 +130,6 @@ fi
 
 # INSTALL WKHTMLTO
 . /srv/tools/_tools/install_wkhtmlto.sh
-
-# INSTALL WEBSERVER CONFIGURATION
-. /srv/tools/_tools/install_webserver_configuration.sh
 
 # INSTALL MAIL
 . /srv/tools/_tools/install_mail.sh
