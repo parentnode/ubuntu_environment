@@ -77,7 +77,7 @@ if test "$install_webserver_conf" = "Y"; then
 
 
 	# Do we have root password
-	if [ ! -z "$db_root_password" ]; then
+	if [ -n "$db_root_password" ]; then
 
 		# Checking mysql login - trying to log in without password
 		sudo mysql --user=root -e exit 2>/dev/null
