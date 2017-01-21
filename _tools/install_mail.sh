@@ -10,12 +10,14 @@ echo
 if test "$install_mail" = "Y"; then
 
 	echo
-	echo "This is only for sending notification mails from this server. It does not use a valid email-address for sending."
+	echo "This is only for sending system notification mails from this server. It does not use a valid email-address for sending."
 	echo
-	echo "Choose \"Internet Site\" when prompted for setup type."
+	echo "Install should autofill values, but choose \"Internet Site\" if prompted for setup type."
 	echo
 
 	# INSTALL MAIL (for data protection plan)
+	debconf-set-selections <<< "postfix postfix/mailname string $HOSTNAME"
+	debconf-set-selections <<< "postfix postfix/main_mailer_type string 'Internet Site'"
 	sudo apt install -y mailutils
 
 
@@ -23,10 +25,8 @@ if test "$install_mail" = "Y"; then
 	sed -i 's/inet_interfaces = loopback-only/inet_interfaces = localhost/;' /etc/postfix/main.cf
 	sed -i 's/inet_interfaces = all/inet_interfaces = localhost/;' /etc/postfix/main.cf
 
+
 	# update aliases
-#	read -p "Forward internal mails to (email): " install_email
-
-
 	echo "Updating aliases"
 	echo
 

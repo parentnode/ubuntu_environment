@@ -71,7 +71,7 @@ if test "$install_webserver_conf" = "Y"; then
 
 
 	echo
-	echo "Configuring mariaDB"
+	echo "Configuring MariaDB"
 	echo
 	echo
 
@@ -91,25 +91,11 @@ if test "$install_webserver_conf" = "Y"; then
 			# REPLACE PASSWORD FOR MAINTANENCE ACCOUNT
 			sudo sed -i "s/password = .\*/password = $db_root_password/;" /etc/mysql/debian.cnf
 
+			echo "DB Root access configured"
+
 		fi
 
 	fi
-	#
-	# db_root_setup=$(sudo mysql -u root || echo "")
-	#
-	#
-	#
-	#
-	# echo "During the mariaDB configuaration, you will be asked a series of questions."
-	# echo "PLEASE NOTE: If you disable remote root login, you will not be able to log into root account with SequelPro."
-	# echo
-	#
-#	sudo mysql_secure_installation
-
-#	echo
-#	echo
-
-#	read -s -p "Please enter your MariaDB password to enable logrotation: " db_root_password
 
 
 	echo

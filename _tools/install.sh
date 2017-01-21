@@ -78,7 +78,7 @@ fi
 # MYSQL ROOT PASSWORD
 if test "$install_webserver_conf" = "Y"; then
 
-	read -p "Enter new root DB password: " db_root_password
+	read -s -p "Enter new root DB password: " db_root_password
 	export db_root_password
 	echo
 
