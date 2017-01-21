@@ -80,10 +80,12 @@ if test "$install_webserver_conf" = "Y"; then
 	if [ -n "$db_root_password" ]; then
 
 		# Checking mysql login - trying to log in without password
-		sudo mysql --user=root -e exit 2>/dev/null
-		dbstatus=`echo $?`
+		dbstatus=$(sudo mysql --user=root -e exit 2>/dev/null || echo 1)
+
+#		sudo mysql --user=root -e exit 2>/dev/null || echo "1"
+#		dbstatus=`echo $?`
 		# Login was successful - it means that DB was not set up yet
-		if [ "$dbstatus" -eq 0 ]; then
+		if [ -z "$dbstatus" ]; then
 
 			# set login mode (mysql_native_password) and password for root account
 			echo "UPDATE mysql.user SET plugin = 'mysql_native_password', password = PASSWORD('$db_root_password') WHERE user = 'root'; FLUSH PRIVILEGES;" | sudo mysql -u root
