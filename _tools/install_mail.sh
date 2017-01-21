@@ -16,7 +16,7 @@ if test "$install_mail" = "Y"; then
 	echo
 
 	# INSTALL MAIL (for data protection plan)
-	sudo apt install mailutils
+	sudo apt install -y mailutils
 
 
 	# change default configuration

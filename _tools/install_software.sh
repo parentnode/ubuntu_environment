@@ -17,16 +17,16 @@ if test "$install_software" = "Y"; then
 	# aptitude install landscape-client landscape-common
 
 	# INSTALL APACHE
-	apt install apache2 apache2-utils ssl-cert
+	apt install -y apache2 apache2-utils ssl-cert
 
 	# INSTALL PHP
-	apt install libapache2-mod-php php7.0 php7.0-cli php7.0-common php7.0-curl php7.0-dev php-imagick php7.0-mcrypt php7.0-mbstring php7.0-zip php-memcached php7.0-mysql php7.0-xmlrpc memcached
+	apt install -y libapache2-mod-php php7.0 php7.0-cli php7.0-common php7.0-curl php7.0-dev php-imagick php7.0-mcrypt php7.0-mbstring php7.0-zip php-memcached php7.0-mysql php7.0-xmlrpc memcached
 
 	# INSTALL ZIP, LOG ROTATION, CURL
-	apt install zip logrotate curl
+	apt install -y zip logrotate curl
 
 	# INSTALL mariaDB
-	apt install mariadb-server
+	apt install -y mariadb-server
 
 
 	echo
