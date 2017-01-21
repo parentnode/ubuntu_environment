@@ -78,15 +78,15 @@ if test "$install_webserver_conf" = "Y"; then
 	echo "PLEASE NOTE: If you disable remote root login, you will not be able to log into root account with SequelPro."
 	echo
 
-	sudo mysql_secure_installation
+#	sudo mysql_secure_installation
 
 	echo
 	echo
 
-	read -s -p "Please enter your MariaDB password to enable logrotation: " db_root_password
+#	read -s -p "Please enter your MariaDB password to enable logrotation: " db_root_password
 
 	# REPLACE EMAIL WITH PREVIOUSLY STATED EMAIL
-	sudo sed -i "s/password = .\+/password = $db_root_password/;" /etc/mysql/debian.cnf
+#	sudo sed -i "s/password = .\*/password = $db_root_password/;" /etc/mysql/debian.cnf
 
 	echo
 	echo
