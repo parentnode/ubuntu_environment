@@ -2,7 +2,7 @@
 
 echo "-----------------------------------------"
 echo
-echo "               MAIL"
+echo "                  MAIL"
 echo
 echo
 

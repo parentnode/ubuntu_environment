@@ -2,7 +2,7 @@
 
 echo "-----------------------------------------"
 echo
-echo "               FFMPEG"
+echo "                 FFMPEG"
 echo
 echo
 
