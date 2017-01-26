@@ -80,6 +80,7 @@ if test "$install_webserver_conf" = "Y"; then
 	if [ -n "$db_root_password" ]; then
 
 		# Checking mysql login - trying to log in without password (UBUNTU 16.04)
+		# dbstatus=$(sudo mysql --user=root -e exit 2>/dev/null || echo 1)
 
 		# Checking mysql login - trying to log in with temp password (UBUNTU 14.04)
 		dbstatus=$(sudo mysql --user=root --password=temp -e exit 2>/dev/null || echo 1)
@@ -88,7 +89,7 @@ if test "$install_webserver_conf" = "Y"; then
 		if [ -z "$dbstatus" ]; then
 
 			# set login mode (mysql_native_password) and password for root account
-			echo "UPDATE mysql.user SET plugin = '', password = PASSWORD('$db_root_password') WHERE user = 'root'; FLUSH PRIVILEGES;" | sudo mysql -u root
+			echo "UPDATE mysql.user SET plugin = '', password = PASSWORD('$db_root_password') WHERE user = 'root'; FLUSH PRIVILEGES;" | sudo mysql -u root -ptemp
 
 			# FOR UBUNTU 16.04/MariaDB 10
 			# echo "UPDATE mysql.user SET plugin = 'mysql_native_password', password = PASSWORD('$db_root_password') WHERE user = 'root'; FLUSH PRIVILEGES;" | sudo mysql -u root
