@@ -55,7 +55,7 @@ if test "$install_mail" = "Y"; then
 		sudo service postfix restart
 
 
-		echo "Your email was configured correctly" | mail -s "Linux server email setup" $install_email
+		echo "Your email was configured correctly on $HOSTNAME" | mail -s "Linux server email setup" $install_email
 		echo
 		echo
 
