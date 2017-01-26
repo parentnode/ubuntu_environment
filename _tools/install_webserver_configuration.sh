@@ -79,11 +79,11 @@ if test "$install_webserver_conf" = "Y"; then
 	# Do we have root password
 	if [ -n "$db_root_password" ]; then
 
-		# Checking mysql login - trying to log in without password
-		dbstatus=$(sudo mysql --user=root -e exit 2>/dev/null || echo 1)
+		# Checking mysql login - trying to log in without password (UBUNTU 16.04)
 
-#		sudo mysql --user=root -e exit 2>/dev/null || echo "1"
-#		dbstatus=`echo $?`
+		# Checking mysql login - trying to log in with temp password (UBUNTU 14.04)
+		dbstatus=$(sudo mysql --user=root --password=temp -e exit 2>/dev/null || echo 1)
+
 		# Login was successful - it means that DB was not set up yet
 		if [ -z "$dbstatus" ]; then
 
