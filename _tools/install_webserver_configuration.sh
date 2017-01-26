@@ -56,8 +56,8 @@ if test "$install_webserver_conf" = "Y"; then
 
 
 	# UPDATE PHP CONF
-	cat /srv/tools/_conf/php-apache2.ini > /etc/php/7.1/apache2/php.ini
-	cat /srv/tools/_conf/php-cli.ini > /etc/php/7.1/cli/php.ini
+	cat /srv/tools/_conf/php-apache2.ini > /etc/php5/apache2/php.ini
+	cat /srv/tools/_conf/php-cli.ini > /etc/php5/cli/php.ini
 
 
 
