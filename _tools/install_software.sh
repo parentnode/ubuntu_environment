@@ -37,6 +37,9 @@ if test "$install_software" = "Y"; then
 	sudo apt install -y zip logrotate curl
 
 	# INSTALL mariaDB
+	# Avoid password prompt - password will be set in install_webserver_configuration
+	debconf-set-selections <<< "mariadb-server-5.5 mariadb-server/root_password ''"
+	debconf-set-selections <<< "mariadb-server-5.5 mariadb-server/root_password_again password ''"
 	sudo apt install -y mariadb-server
 
 
