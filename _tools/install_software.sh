@@ -20,7 +20,7 @@ if test "$install_software" = "Y"; then
 	sudo apt install -y apache2 apache2-utils ssl-cert
 
 	# INSTALL PHP5.5
-	sudo apt install -y libapache2-mod-php5 php5 php5-cli php5-common php5-curl php5-dev php5-imagick php5-mcrypt php5-mbstring php5-zip php5-memcached php5-mysql php5-xmlrpc memcached
+	sudo apt install -y libapache2-mod-php5 php5 php5-cli php5-common php5-curl php5-dev php5-imagick php5-mcrypt php5-memcached php5-mysql php5-xmlrpc memcached
 
 
 	# For coming Ubuntu 16.04 install (when Memcached issues have been resolved)
