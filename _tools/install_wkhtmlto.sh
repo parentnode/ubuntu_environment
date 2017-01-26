@@ -12,7 +12,7 @@ echo
 if test "$install_wkhtml" = "Y"; then
 
 	# WKHTML - FORCE PASSWORD RENEWAL
-	# sudo -k apt install -y wkhtmltopdf
+	sudo apt install -y wkhtmltopdf
 	sudo cp /srv/tools/_conf/wkhtmltoimage /usr/bin/static_wkhtmltoimage
 	sudo cp /srv/tools/_conf/wkhtmltopdf /usr/bin/static_wkhtmltopdf
 
