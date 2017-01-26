@@ -39,12 +39,9 @@ if test "$install_software" = "Y"; then
 	# INSTALL mariaDB
 	# Avoid password prompt - password will be set in install_webserver_configuration (NOT NEEDED FOR UBUNTU 16.04)
 	export DEBIAN_FRONTEND=noninteractive
-	debconf-set-selections <<< "mariadb-server-5.5 mysql-server/root_password password 'temp'"
-	debconf-set-selections <<< "mariadb-server-5.5 mysql-server/root_password_again password 'temp'"
-#	debconf-set-selections <<< "mariadb-server-5.5 mariadb-server-5.5/root_password password ''"
-#	debconf-set-selections <<< "mariadb-server-5.5 mariadb-server-5.5/root_password_again password ''"
-#	debconf-set-selections <<< "mysql-server mysql-server/root_password ''"
-#	debconf-set-selections <<< "mysql-server mysql-server/root_password_again password ''"
+	debconf-set-selections <<< "mariadb-server-5.5 mysql-server/root_password password temp"
+	debconf-set-selections <<< "mariadb-server-5.5 mysql-server/root_password_again password temp"
+
 	sudo -E apt install -q -y mariadb-server
 
 
