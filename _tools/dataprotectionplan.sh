@@ -12,10 +12,10 @@ echo "- make zipped tarball"
 echo "- encrypt data"
 echo "- send as email"
 
-if [ -d "/srv/crons/db/$1" ]; then
+if [ -d "/srv/crons/conf/db/$1" ]; then
 
 	# read username and password from conf file
-	config=$(<"/srv/crons/db/$1")
+	config=$(<"/srv/crons/conf/db/$1")
 
 	# split string
 	username=${config%|*}
