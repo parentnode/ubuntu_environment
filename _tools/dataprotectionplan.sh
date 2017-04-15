@@ -12,8 +12,6 @@ echo "- make zipped tarball"
 echo "- encrypt data"
 echo "- send as email"
 
-echo "/srv/crons/conf/db/$1";
-
 
 if [ -e "/srv/crons/conf/db/$1" ]; then
 
