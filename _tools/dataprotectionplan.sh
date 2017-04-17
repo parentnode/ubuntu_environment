@@ -3,7 +3,12 @@
 
 # crontab: 45 3 * * * /srv/tools/_tools/dataprotectionplan.sh #DB# #RECIPIENT1[,RECIPIENT2]#
 
-# Username and Password must be found in /srv/crons/conf/db/#DB#
+# Username and Password must be found in /srv/crons/conf/db/#DB# as username|password (no newline)
+#
+# Remember to set appropriate permissions for cron configs 
+# sudo chown -R root:root /srv/crons/conf
+# sudo chmod -R 600 /srv/crons/conf
+
 
 echo "DATAPROTECTIONPLAN FOR $1"
 echo "- read username and passwod"
@@ -22,15 +27,19 @@ if [ -e "/srv/crons/conf/db/$1" ]; then
 	username=${config%|*}
 	password=${config#*|}
 
+	# dump data
 	mysqldump -u $username -p$password $1 > $1.sql
 
+	# make tarball
 	tar -czvf $1.sql.tar.gz $1.sql
 
+	# encrypt
 	openssl aes-128-cbc -k $password < $1.sql.tar.gz > $1.sql.tar.gz.aes
 
 	# decryption done by
 	# openssl aes-128-cbc -d < yourfile.txt.aes > yourfile.txt
 
+	# send file
 	echo "You are welcome :)" | mail -s "DATA PROTECTION PLAN FOR $1" -A $1.sql.tar.gz.aes $2
 
 
