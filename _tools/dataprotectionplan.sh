@@ -26,15 +26,10 @@ if [ -e "/srv/crons/conf/db/$1" ]; then
 	# not working in sh and cronjob runs as sh (not bash)
 	# config=$(<"/srv/crons/conf/db/$1")
 
-	echo "config: $config"
-
 	# split string
 	username=${config%|*}
 	password=${config#*|}
 
-
-	echo "username: $username"
-	echo "password: $password"
 
 	# dump data
 	mysqldump -u $username -p$password $1 > $1.sql
