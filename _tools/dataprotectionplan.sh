@@ -21,8 +21,10 @@ echo "- send as email"
 if [ -e "/srv/crons/conf/db/$1" ]; then
 
 	# read username and password from conf file
-	config=$(<"/srv/crons/conf/db/$1")
+	config=$(cat "/srv/crons/conf/db/$1")
 
+	# not working in sh and cronjob runs as sh (not bash)
+	# config=$(<"/srv/crons/conf/db/$1")
 
 	echo "config: $config"
 
