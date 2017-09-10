@@ -69,7 +69,7 @@ if [ "$install_security" = "Y" ]; then
 
 	# UPDATE ADDITIONAL SETTING
 	sed -i 's/PermitRootLogin\ yes/PermitRootLogin\ no/;' /etc/ssh/sshd_config
-	sed -i 's/PasswordAuthentication\ yes/PasswordAuthentication\ no/;' /etc/ssh/sshd_config
+	sed -i 's/[#]\?PasswordAuthentication\ yes/PasswordAuthentication\ no/;' /etc/ssh/sshd_config
 	sed -i 's/X11Forwarding yes/X11Forwarding no/;' /etc/ssh/sshd_config
 	sed -i 's/UsePAM no/UsePAM yes/;' /etc/ssh/sshd_config
 

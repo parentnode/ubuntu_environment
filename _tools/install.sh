@@ -152,13 +152,13 @@ echo
 echo
 echo "Login command:"
 echo
-echo "ssh -p $port_number kaestel@$ip_address"
+echo "ssh -p $port_number $install_user@$ip_address"
 echo 
 echo
 echo "You are done!"
 echo
 echo "Reboot the server (sudo reboot)"
-echo "and log in again (ssh -p $port_number kaestel@$ip_address)"
+echo "and log in again (ssh -p $port_number $install_user@$ip_address)"
 echo
 echo
 echo "See you in a bit "
