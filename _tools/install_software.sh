@@ -37,8 +37,28 @@ if test "$install_software" = "Y"; then
 	phpize
 	./configure
 	make
-	make test
+	#make test
 	sudo make install
+
+	cd ..
+	rm v3.0.2.tar.gz
+	rm -R php-memcached-3.0.2
+
+
+	wget https://github.com/igbinary/igbinary/archive/2.0.4.tar.gz
+	tar -xvzf 2.0.4.tar.gz
+	cd igbinary-2.0.4
+
+	phpize
+	./configure CFLAGS="-O2 -g" --enable-igbinary
+	make
+	#make test
+	sudo make install
+
+	cd ..
+	rm 2.0.4.tar.gz
+	rm -R igbinary-2.0.4
+
 
 
 	# INSTALL PHP7.1
