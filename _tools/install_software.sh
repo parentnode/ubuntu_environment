@@ -26,6 +26,7 @@ if test "$install_software" = "Y"; then
 	# For coming Ubuntu 16.04 install (when Memcached issues have been resolved)
 	#sudo add-apt-repository -y ppa:ondrej/php
 	#sudo apt update -y
+	sudo apt install pkg-config build-essential libmemcached-dev
 
 	# INSTALL PHP7.0
 	sudo apt install -y libapache2-mod-php php7.0 php7.0-cli php7.0-common php7.0-curl php7.0-dev php-imagick php-igbinary php-msgpack php7.0-mcrypt php7.0-mbstring php7.0-zip php-memcached php7.0-mysql php7.0-xmlrpc memcached
