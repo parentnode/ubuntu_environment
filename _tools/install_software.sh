@@ -28,10 +28,22 @@ if test "$install_software" = "Y"; then
 	#sudo apt update -y
 
 	# INSTALL PHP7.0
-#	sudo apt install -y libapache2-mod-php php7.0 php7.0-cli php7.0-common php7.0-curl php7.0-dev php-imagick php7.0-mcrypt php7.0-mbstring php7.0-zip php-memcached php7.0-mysql php7.0-xmlrpc memcached
+	sudo apt install -y libapache2-mod-php php7.0 php7.0-cli php7.0-common php7.0-curl php7.0-dev php-imagick php-igbinary php-msgpack php7.0-mcrypt php7.0-mbstring php7.0-zip php-memcached php7.0-mysql php7.0-xmlrpc memcached
+
+	wget https://github.com/php-memcached-dev/php-memcached/archive/v3.0.2.tar.gz
+	tar -xvzf v3.0.2.tar.gz
+	cd php-memcached-3.0.2
+
+	phpize
+	./configure
+	make
+	make test
+	sudo make install
+
 
 	# INSTALL PHP7.1
-	sudo apt install -y --allow-unauthenticated libapache2-mod-php php7.1 php7.1-cli php7.1-common php7.1-curl php7.1-dev php-imagick php-igbinary php-msgpack php7.1-mcrypt php7.1-mbstring php7.1-zip php-memcached php7.1-mysql php7.1-xmlrpc memcached
+	#sudo apt install -y --allow-unauthenticated libapache2-mod-php php7.1 php7.1-cli php7.1-common php7.1-curl php7.1-dev php-imagick php-igbinary php-msgpack php7.1-mcrypt php7.1-mbstring php7.1-zip php-memcached php7.1-mysql php7.1-xmlrpc memcached
+	#sudo apt install libapache2-mod-php php7.1 php7.1-cli php7.1-common php7.1-curl php7.1-dev php-imagick php-igbinary php-msgpack php7.1-mcrypt php7.1-mbstring php7.1-zip php-memcached php7.1-mysql php7.1-xmlrpc memcached
 
 	# INSTALL PHP5.6
 	# sudo apt install -y libapache2-mod-php php5.6 php5.6-cli php5.6-common php5.6-curl php5.6-dev php-imagick php5.6-mcrypt php5.6-mbstring php5.6-zip php-memcached php5.6-mysql php5.6-xmlrpc memcached
