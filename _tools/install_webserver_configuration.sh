@@ -56,8 +56,13 @@ if test "$install_webserver_conf" = "Y"; then
 
 
 	# UPDATE PHP CONF
-	cat /srv/tools/_conf/php-apache2.ini > /etc/php5/apache2/php.ini
-	cat /srv/tools/_conf/php-cli.ini > /etc/php5/cli/php.ini
+	# PHP 5
+	#cat /srv/tools/_conf/php-apache2.ini > /etc/php5/apache2/php.ini
+	#cat /srv/tools/_conf/php-cli.ini > /etc/php5/cli/php.ini
+
+	# PHP 7.1
+	cat /srv/tools/_conf/php-apache2.ini > /etc/php/7.1/apache2/php.ini
+	cat /srv/tools/_conf/php-cli.ini > /etc/php/7.1/cli/php.ini
 
 
 
@@ -80,19 +85,19 @@ if test "$install_webserver_conf" = "Y"; then
 	if [ -n "$db_root_password" ]; then
 
 		# Checking mysql login - trying to log in without password (UBUNTU 16.04)
-		# dbstatus=$(sudo mysql --user=root -e exit 2>/dev/null || echo 1)
+		dbstatus=$(sudo mysql --user=root -e exit 2>/dev/null || echo 1)
 
 		# Checking mysql login - trying to log in with temp password (UBUNTU 14.04)
-		dbstatus=$(sudo mysql --user=root --password=temp -e exit 2>/dev/null || echo 1)
+		#dbstatus=$(sudo mysql --user=root --password=temp -e exit 2>/dev/null || echo 1)
 
 		# Login was successful - it means that DB was not set up yet
 		if [ -z "$dbstatus" ]; then
 
 			# set login mode (mysql_native_password) and password for root account
-			echo "UPDATE mysql.user SET plugin = '', password = PASSWORD('$db_root_password') WHERE user = 'root'; FLUSH PRIVILEGES;" | sudo mysql -u root -ptemp
+			#echo "UPDATE mysql.user SET plugin = '', password = PASSWORD('$db_root_password') WHERE user = 'root'; FLUSH PRIVILEGES;" | sudo mysql -u root -ptemp
 
 			# FOR UBUNTU 16.04/MariaDB 10
-			# echo "UPDATE mysql.user SET plugin = 'mysql_native_password', password = PASSWORD('$db_root_password') WHERE user = 'root'; FLUSH PRIVILEGES;" | sudo mysql -u root
+			echo "UPDATE mysql.user SET plugin = 'mysql_native_password', password = PASSWORD('$db_root_password') WHERE user = 'root'; FLUSH PRIVILEGES;" | sudo mysql -u root
 
 			# REPLACE PASSWORD FOR MAINTANENCE ACCOUNT
 			sudo sed -i "s/password = .\*/password = $db_root_password/;" /etc/mysql/debian.cnf
