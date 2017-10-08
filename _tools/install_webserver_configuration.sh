@@ -60,9 +60,13 @@ if test "$install_webserver_conf" = "Y"; then
 	#cat /srv/tools/_conf/php-apache2.ini > /etc/php5/apache2/php.ini
 	#cat /srv/tools/_conf/php-cli.ini > /etc/php5/cli/php.ini
 
+	# PHP 7.0
+	cat /srv/tools/_conf/php-apache2.ini > /etc/php/7.0/apache2/php.ini
+	cat /srv/tools/_conf/php-cli.ini > /etc/php/7.0/cli/php.ini
+
 	# PHP 7.1
-	cat /srv/tools/_conf/php-apache2.ini > /etc/php/7.1/apache2/php.ini
-	cat /srv/tools/_conf/php-cli.ini > /etc/php/7.1/cli/php.ini
+	#cat /srv/tools/_conf/php-apache2.ini > /etc/php/7.1/apache2/php.ini
+	#cat /srv/tools/_conf/php-cli.ini > /etc/php/7.1/cli/php.ini
 
 
 
