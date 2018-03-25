@@ -39,6 +39,9 @@ export install_wkhtml
 read -p "Install mail (Y/n): " install_mail
 export install_mail
 
+read -p "Install Let's encrypt (Y/n): " install_letsencrypt
+export install_letsencrypt
+
 
 
 
@@ -133,6 +136,9 @@ fi
 
 # INSTALL MAIL
 . /srv/tools/_tools/install_mail.sh
+
+# INSTALL LET'S ENCRYPT
+. /srv/tools/_tools/install_letsencrypt.sh
 
 
 
