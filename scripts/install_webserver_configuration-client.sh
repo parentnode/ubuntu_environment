@@ -61,14 +61,22 @@ if test "$install_webserver_conf" = "Y"; then
 	#cat /srv/tools/conf-client/php-cli.ini > /etc/php5/cli/php.ini
 
 	# PHP 7.0
-	cat /srv/tools/conf-client/php-apache2.ini > /etc/php/7.0/apache2/php.ini
-	cat /srv/tools/conf-client/php-cli.ini > /etc/php/7.0/cli/php.ini
+	cat /srv/tools/conf-client/php-apache2.ini > /etc/php/7.2/apache2/php.ini
+	cat /srv/tools/conf-client/php-cli.ini > /etc/php/7.2/cli/php.ini
+
 
 	# PHP 7.1
 	#cat /srv/tools/conf-client/php-apache2.ini > /etc/php/7.1/apache2/php.ini
 	#cat /srv/tools/conf-client/php-cli.ini > /etc/php/7.1/cli/php.ini
 
 
+	# MAKE LOGS FOLDER
+	if [ ! -e "/srv/sites/apache/apache.conf" ]; then
+
+		# Add Default apache conf
+		cat /srv/tools/conf-client/apache.conf > /srv/sites/apache/apache.conf
+
+	fi
 
 	echo
 	echo "Restarting Apache"

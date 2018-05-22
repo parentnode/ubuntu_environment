@@ -89,16 +89,16 @@ fi
 
 
 # INSTALL SOFTWARE
-. /srv/tools/_tools/install_software.sh
+. /srv/tools/scripts/install_software.sh
 
 # INSTALL WEBSERVER CONFIGURATION
-. /srv/tools/_tools/install_webserver_configuration.sh
+. /srv/tools/scripts/install_webserver_configuration-client.sh
 
 # INSTALL FFMPEG
-. /srv/tools/_tools/install_ffmpeg.sh
+. /srv/tools/scripts/install_ffmpeg.sh
 
 # INSTALL WKHTMLTO
-. /srv/tools/_tools/install_wkhtmlto.sh
+. /srv/tools/scripts/install_wkhtmlto.sh
 
 
 

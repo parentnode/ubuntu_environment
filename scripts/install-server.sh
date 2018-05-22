@@ -117,28 +117,28 @@ fi
 
 
 # INSTALL SECURITY
-. /srv/tools/_tools/install_security.sh
+. /srv/tools/scripts/install_security.sh
 
 # INSTALL SOFTWARE
-. /srv/tools/_tools/install_software.sh
+. /srv/tools/scripts/install_software.sh
 
 # INSTALL WEBSERVER CONFIGURATION
-. /srv/tools/_tools/install_webserver_configuration.sh
+. /srv/tools/scripts/install_webserver_configuration-server.sh
 
 # INSTALL HTACCESS PASSWORD
-. /srv/tools/_tools/install_htaccess.sh
+. /srv/tools/scripts/install_htaccess.sh
 
 # INSTALL FFMPEG
-. /srv/tools/_tools/install_ffmpeg.sh
+. /srv/tools/scripts/install_ffmpeg.sh
 
 # INSTALL WKHTMLTO
-. /srv/tools/_tools/install_wkhtmlto.sh
+. /srv/tools/scripts/install_wkhtmlto.sh
 
 # INSTALL MAIL
-. /srv/tools/_tools/install_mail.sh
+. /srv/tools/scripts/install_mail.sh
 
 # INSTALL LET'S ENCRYPT
-. /srv/tools/_tools/install_letsencrypt.sh
+. /srv/tools/scripts/install_letsencrypt.sh
 
 
 

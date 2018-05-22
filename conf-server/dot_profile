@@ -45,12 +45,12 @@ export LC_ALL="en_GB.UTF-8"
 
 alias apache="sudo service apache2"
 
-alias update_conf="/srv/tools/_tools/update_conf.sh"
-alias update_server="/srv/tools/_tools/update_server.sh"
-alias update_wkhtml="/srv/tools/_tools/update_wkhtml.sh"
-alias update_tools="/srv/tools/_tools/update_tools.sh"
+alias update_conf="/srv/tools/scripts/update_conf.sh"
+alias update_server="/srv/tools/scripts/update_server.sh"
+alias update_wkhtml="/srv/tools/scripts/update_wkhtml.sh"
+alias update_tools="/srv/tools/scripts/update_tools.sh"
 
 
-#alias update_env="sh /srv/tools/_tools/update_env.sh"
-#alias update_awstats="sudo php /srv/tools/_tools/update_awstats.php"
-#alias mysql_grant="php /srv/tools/_tools/mysql_grant.php"
+#alias update_env="sh /srv/tools/scripts/update_env.sh"
+#alias update_awstats="sudo php /srv/tools/scripts/update_awstats.php"
+#alias mysql_grant="php /srv/tools/scripts/mysql_grant.php"
