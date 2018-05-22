@@ -26,41 +26,41 @@ if test "$install_software" = "Y"; then
 	# For coming Ubuntu 16.04 install (when Memcached issues have been resolved)
 	#sudo add-apt-repository -y ppa:ondrej/php
 	#sudo apt update -y
-	sudo apt install pkg-config build-essential libmemcached-dev
+#	sudo apt install pkg-config build-essential libmemcached-dev
 
 	# INSTALL PHP7.0
-	sudo apt install -y libapache2-mod-php php7.0 php7.0-cli php7.0-common php7.0-curl php7.0-dev php-imagick php-igbinary php-msgpack php7.0-mcrypt php7.0-mbstring php7.0-zip php-memcached php7.0-mysql php7.0-xmlrpc memcached
+	sudo apt install -y libapache2-mod-php php7.2 php7.2-cli php7.2-common php7.2-curl php7.2-dev php-imagick php-igbinary php-msgpack php7.2-mbstring php7.2-zip php-memcached php7.2-mysql php7.2-xmlrpc memcached
 
-	wget https://github.com/php-memcached-dev/php-memcached/archive/v3.0.2.tar.gz
-	tar -xvzf v3.0.2.tar.gz
-	cd php-memcached-3.0.2
-
-	phpize
-	./configure
-	make
-	#make test
-	sudo make install
-
-	cd ..
-	rm v3.0.2.tar.gz
-	rm -R php-memcached-3.0.2
-
-
-	wget https://github.com/igbinary/igbinary/archive/2.0.4.tar.gz
-	tar -xvzf 2.0.4.tar.gz
-	cd igbinary-2.0.4
-
-	phpize
-	./configure CFLAGS="-O2 -g" --enable-igbinary
-	make
-	#make test
-	sudo make install
-
-	cd ..
-	rm 2.0.4.tar.gz
-	rm -R igbinary-2.0.4
-
-
+	# wget https://github.com/php-memcached-dev/php-memcached/archive/v3.0.2.tar.gz
+	# tar -xvzf v3.0.2.tar.gz
+	# cd php-memcached-3.0.2
+	#
+	# phpize
+	# ./configure
+	# make
+	# #make test
+	# sudo make install
+	#
+	# cd ..
+	# rm v3.0.2.tar.gz
+	# rm -R php-memcached-3.0.2
+	#
+	#
+	# wget https://github.com/igbinary/igbinary/archive/2.0.4.tar.gz
+	# tar -xvzf 2.0.4.tar.gz
+	# cd igbinary-2.0.4
+	#
+	# phpize
+	# ./configure CFLAGS="-O2 -g" --enable-igbinary
+	# make
+	# #make test
+	# sudo make install
+	#
+	# cd ..
+	# rm 2.0.4.tar.gz
+	# rm -R igbinary-2.0.4
+	#
+	#
 
 	# INSTALL PHP7.1
 	#sudo apt install -y --allow-unauthenticated libapache2-mod-php php7.1 php7.1-cli php7.1-common php7.1-curl php7.1-dev php-imagick php-igbinary php-msgpack php7.1-mcrypt php7.1-mbstring php7.1-zip php-memcached php7.1-mysql php7.1-xmlrpc memcached
