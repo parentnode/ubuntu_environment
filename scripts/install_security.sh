@@ -112,7 +112,7 @@ if [ "$install_security" = "Y" ]; then
 		echo
 		echo "Copying default rules for IP TABLES"
 
-		cp /srv/tools/_conf/iptables.rules /etc/iptables.up.rules
+		cp /srv/tools/conf/iptables.rules /etc/iptables.up.rules
 
 
 

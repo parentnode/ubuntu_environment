@@ -38,7 +38,7 @@ if test "$install_webserver_conf" = "Y"; then
 
 
 	# ADD DEFAULT APACHE CONF
-	cat /srv/tools/_conf/default.conf > /etc/apache2/sites-available/default.conf
+	cat /srv/tools/conf-server/default.conf > /etc/apache2/sites-available/default.conf
 	# REPLACE EMAIL WITH PREVIOUSLY STATED EMAIL
 	sed -i "s/webmaster@localhost/$install_email/;" /etc/apache2/sites-available/default.conf
 	
@@ -57,16 +57,16 @@ if test "$install_webserver_conf" = "Y"; then
 
 	# UPDATE PHP CONF
 	# PHP 5
-	#cat /srv/tools/_conf/php-apache2.ini > /etc/php5/apache2/php.ini
-	#cat /srv/tools/_conf/php-cli.ini > /etc/php5/cli/php.ini
+	#cat /srv/tools/conf-server/php-apache2.ini > /etc/php5/apache2/php.ini
+	#cat /srv/tools/conf-server/php-cli.ini > /etc/php5/cli/php.ini
 
 	# PHP 7.0
-	cat /srv/tools/_conf/php-apache2.ini > /etc/php/7.0/apache2/php.ini
-	cat /srv/tools/_conf/php-cli.ini > /etc/php/7.0/cli/php.ini
+	cat /srv/tools/conf-server/php-apache2.ini > /etc/php/7.0/apache2/php.ini
+	cat /srv/tools/conf-server/php-cli.ini > /etc/php/7.0/cli/php.ini
 
 	# PHP 7.1
-	#cat /srv/tools/_conf/php-apache2.ini > /etc/php/7.1/apache2/php.ini
-	#cat /srv/tools/_conf/php-cli.ini > /etc/php/7.1/cli/php.ini
+	#cat /srv/tools/conf-server/php-apache2.ini > /etc/php/7.1/apache2/php.ini
+	#cat /srv/tools/conf-server/php-cli.ini > /etc/php/7.1/cli/php.ini
 
 
 

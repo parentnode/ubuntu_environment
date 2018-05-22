@@ -147,7 +147,7 @@ echo
 echo "Copying terminal configuration"
 echo
 # ADD COMMANDS ALIAS'
-cat /srv/tools/_conf/dot_profile > /home/$install_user/.profile
+cat /srv/tools/conf-server/dot_profile > /home/$install_user/.profile
 
 
 # GET CURRENT PORT NUMBER AND IP ADDRESS
