@@ -63,7 +63,7 @@ if [ "$install_security" = "Y" ]; then
 		echo
 		echo "Updating port to: $install_port"
 		# SSH CONFIG
-		sed -i "s/Port\ [0-9]\+/Port\ $install_port/;" /etc/ssh/sshd_config
+		sed -i "s/[#]\?Port\ [0-9]\+/Port\ $install_port/;" /etc/ssh/sshd_config
 
 	fi
 
@@ -72,16 +72,9 @@ if [ "$install_security" = "Y" ]; then
 	sed -i 's/[#]\?PasswordAuthentication\ yes/PasswordAuthentication\ no/;' /etc/ssh/sshd_config
 	sed -i 's/X11Forwarding yes/X11Forwarding no/;' /etc/ssh/sshd_config
 	sed -i 's/UsePAM no/UsePAM yes/;' /etc/ssh/sshd_config
+	sed -i 's/[#]\?UseDNS no/UseDNS no/;' /etc/ssh/sshd_config
+	sed -i 's/[#]\?LoginGraceTime\ 2m/LoginGraceTime\ 30s/;' /etc/ssh/sshd_config
 
-
-	# WAS THE NO DNS STATEMENT ADDED
-	install_no_dns=$(grep -E "^UseDNS no$" /etc/ssh/sshd_config || echo "")
-	if [ -z "$install_no_dns" ]; then
-		echo "Adding: UseDNS no"
-
-		echo "" >> /etc/ssh/sshd_config
-		echo "UseDNS no" >> /etc/ssh/sshd_config
-	fi
 
 
 	# ADD ALLOWUSERS STATMENT
@@ -160,7 +153,7 @@ if [ "$install_security" = "Y" ]; then
 	echo
 
 	#
-	# # RESTART SSH
+	# RESTART SSH
 	service ssh restart
 
 else
