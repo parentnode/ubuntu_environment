@@ -12,3 +12,12 @@ ubuntu_environment is licensed as follows:
 
 ##Source code:
 https://github.com/parentnode/ubuntu_environment/blob/master/MIT-LICENSE.md
+
+
+
+# Contributing to parentNode
+
+Any help is welcome. 
+
+
+Please contact us at [contribute@parentnode.dk](mailto:contribute@parentnode.dk)

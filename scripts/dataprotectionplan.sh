@@ -1,5 +1,5 @@
 # Usage
-# OLD: crontab: 45 3 * * * /srv/tools/_tools/dataprotectionplan.sh #DB# #DB-USER# #DB-PASS# #RECIPIENT1[,RECIPIENT2]#
+# OLD: crontab: 45 3 * * * /srv/tools/scripts/dataprotectionplan.sh #DB# #DB-USER# #DB-PASS# #RECIPIENT1[,RECIPIENT2]#
 
 # crontab: 45 3 * * * /srv/tools/scripts/dataprotectionplan.sh #DB# #RECIPIENT1[,RECIPIENT2]#
 
