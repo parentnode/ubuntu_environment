@@ -62,6 +62,8 @@ if test "$install_mail" = "Y"; then
 	else
 
 		echo "Setting up mail tools failed!"
+		echo
+		echo
 
 	fi
 
