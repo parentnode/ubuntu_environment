@@ -13,6 +13,12 @@ export install_user
 
 
 echo
+echo "SUDO USER:$SUDO_USER" 
+echo
+echo
+
+
+echo
 echo "Installing system for $install_user"
 echo
 echo "To speed up the process, please select your install options now:"
@@ -43,6 +49,12 @@ read -p "Your email address: " install_email
 export install_email
 echo
 
+
+dbstatus=$(sudo mysql --user=root -e exit 2>/dev/null || echo 1)
+echo
+echo "DB status: $dbstatus"
+echo
+echo
 
 # MYSQL ROOT PASSWORD
 if test "$install_webserver_conf" = "Y"; then
