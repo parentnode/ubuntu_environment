@@ -109,6 +109,8 @@ echo
 # ADD COMMANDS ALIAS'
 cat /srv/tools/conf-client/dot_profile > /home/$install_user/.profile
 
+echo "cat /srv/tools/conf-client/dot_profile > /home/$install_user/.profile"
+
 
 echo 
 echo
