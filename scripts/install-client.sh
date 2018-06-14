@@ -8,14 +8,15 @@ echo
 
 
 # GET INSTALL USER
-install_user=$(whoami | awk '{print $1}')
+install_user=$SUDO_USER
+#$(whoami | awk '{print $1}')
 export install_user
 
 
-echo
-echo "SUDO USER:$SUDO_USER" 
-echo
-echo
+# echo
+# echo "SUDO USER:$SUDO_USER"
+# echo
+# echo
 
 
 echo
@@ -50,14 +51,14 @@ export install_email
 echo
 
 
-dbstatus=$(sudo mysql --user=root -e exit 2>/dev/null || echo 1)
-echo
-echo "DB status: $dbstatus"
-echo
-echo
+# dbstatus=$(sudo mysql --user=root -e exit 2>/dev/null || echo 1)
+# echo
+# echo "DB status: $dbstatus"
+# echo
+# echo
 
 # MYSQL ROOT PASSWORD
-if test "$install_webserver_conf" = "Y"; then
+if [ "$install_webserver_conf" = "Y" ] && [ -z "$dbstatus" ]; then
 
 	read -s -p "Enter new root DB password: " db_root_password
 	export db_root_password
