@@ -51,7 +51,7 @@ export install_email
 echo
 
 
-# dbstatus=$(sudo mysql --user=root -e exit 2>/dev/null || echo 1)
+dbstatus=$(sudo mysql --user=root -e exit 2>/dev/null || echo 1)
 # echo
 # echo "DB status: $dbstatus"
 # echo
