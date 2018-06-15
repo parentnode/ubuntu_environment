@@ -102,7 +102,7 @@ if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 
 		# Restart apache after modification
 		echo ""
-		echo "Restating Apache"
+		echo "Restarting Apache"
 		sudo service apache2 restart
 
 
