@@ -130,6 +130,9 @@ if [ -z "$install_bash_profile" ]; then
 	echo "fi" >> /home/$install_user/.bashrc
 fi
 
+# Change Folder Rights from root to current user
+chown -R $SUDO_USER:$SUDO_USER /srv/sites
+
 
 
 echo 
