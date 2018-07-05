@@ -52,10 +52,6 @@ echo
 
 
 dbstatus=$(sudo mysql --user=root -e exit 2>/dev/null || echo 1)
-# echo
-# echo "DB status: $dbstatus"
-# echo
-# echo
 
 # MYSQL ROOT PASSWORD
 if [ "$install_webserver_conf" = "Y" ] && [ -z "$dbstatus" ]; then
@@ -99,6 +95,8 @@ if [ ! -d "/srv/sites/apache/logs" ]; then
 	mkdir /srv/sites/apache/logs
 fi
 
+# Change Folder Rights from root to current user
+chown -R $SUDO_USER:$SUDO_USER /srv/sites
 
 
 # INSTALL SOFTWARE
@@ -120,9 +118,21 @@ echo
 echo "Copying terminal configuration"
 echo
 # ADD COMMANDS ALIAS'
-cat /srv/tools/conf-client/dot_profile > /home/$install_user/.profile
+cat /srv/tools/conf-client/dot_bash_profile > /home/$install_user/.bash_profile
 
-echo "cat /srv/tools/conf-client/dot_profile > /home/$install_user/.profile"
+install_bash_profile=$(grep -E "HOME\/\.bash_profile" /home/$install_user/.bashrc || echo "")
+if [ -z "$install_bash_profile" ]; then
+
+	# Add .bash_profile to .bashrc
+	echo
+	echo "if [ -f \"\$HOME/.bash_profile\" ]; then" >> /home/$install_user/.bashrc
+	echo " . \"\$HOME/.bash_profile\"" >> /home/$install_user/.bashrc
+	echo "fi" >> /home/$install_user/.bashrc
+fi
+
+# Change Folder Rights from root to current user
+chown -R $SUDO_USER:$SUDO_USER /srv/sites
+
 
 
 echo 
