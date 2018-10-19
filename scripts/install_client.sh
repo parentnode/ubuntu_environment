@@ -54,6 +54,7 @@ echo
 dbstatus=$(sudo mysql --user=root -e exit 2>/dev/null || echo 1)
  
 # MYSQL ROOT PASSWORD
+<<<<<<< HEAD
 echo "Supply password"
 if [ "$install_webserver_conf" = "Y" ]; then
 
@@ -78,6 +79,13 @@ if [ "$install_webserver_conf" = "Y" ]; then
     		fi	
 		done
 	fi
+=======
+if [ "$install_webserver_conf" = "Y" ] && [ -z "$dbstatus" ]; then
+
+	read -s -p "Enter new root DB password: " db_root_password
+	export db_root_password
+	echo
+>>>>>>> parent of 653262d... Verify password function
 
 fi
 
