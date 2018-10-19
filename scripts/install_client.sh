@@ -68,7 +68,8 @@ if [ "$install_webserver_conf" = "Y" ]; then
     		read -s -p "Verify new root DB password: " db_root_password2    
     		if [ $db_root_password != $db_root_password2 ]; then
     			echo ""
-    			echo "Not same"
+    			echo "Not same "
+				echo ""
     		else 
     			echo ""
     			echo "Same"
