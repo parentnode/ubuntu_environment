@@ -54,42 +54,31 @@ echo
 dbstatus=$(sudo mysql --user=root -e exit 2>/dev/null || echo 1)
 
 # MYSQL ROOT PASSWORD
-<<<<<<< HEAD
-<<<<<<< HEAD
 echo "Supply password"
-if [ "$install_webserver_conf" = "Y" ]; then
-=======
+
 if [ "$install_webserver_conf" = "Y" ] && [ -z "$dbstatus" ]; then
->>>>>>> parent of 617a508... Update scripts/install_client.sh
-
-	if [ -z "$dbstatus" ]; then
-		echo "MariaDB already Exists"
-	else
-
-		while [ true ]
-		do
-    		read -s -p "Enter new root DB password: " db_root_password
-    		echo ""
-    		read -s -p "Verify new root DB password: " db_root_password2    
-    		if [ $db_root_password != $db_root_password2 ]; then
-    			echo ""
-    			echo "Not same "
-				echo ""
-    		else 
-    			echo ""
-    			echo "Same"
-    			export $db_root_password
-    			break
-    		fi	
-		done
+	while [ true ]
+	do
+		read -s -p "Enter new root DB password: " db_root_password
+		echo ""
+		read -s -p "Verify new root DB password: " db_root_password2    
+		if [ $db_root_password != $db_root_password2 ]; then
+			echo ""
+			echo "Not same "
+			echo ""
+		else 
+			echo ""
+			echo "Same"
+			export $db_root_password
+			break
+		fi	
+	done
 	fi
-=======
 if [ "$install_webserver_conf" = "Y" ] && [ -z "$dbstatus" ]; then
 
 	read -s -p "Enter new root DB password: " db_root_password
 	export db_root_password
 	echo
->>>>>>> parent of 653262d... Verify password function
 
 fi
 
