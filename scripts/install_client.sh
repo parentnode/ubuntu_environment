@@ -52,11 +52,15 @@ echo
 
 
 dbstatus=$(sudo mysql --user=root -e exit 2>/dev/null || echo 1)
- 
+
 # MYSQL ROOT PASSWORD
+<<<<<<< HEAD
 <<<<<<< HEAD
 echo "Supply password"
 if [ "$install_webserver_conf" = "Y" ]; then
+=======
+if [ "$install_webserver_conf" = "Y" ] && [ -z "$dbstatus" ]; then
+>>>>>>> parent of 617a508... Update scripts/install_client.sh
 
 	if [ -z "$dbstatus" ]; then
 		echo "MariaDB already Exists"
