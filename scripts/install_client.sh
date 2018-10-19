@@ -52,8 +52,9 @@ echo
 
 
 dbstatus=$(sudo mysql --user=root -e exit 2>/dev/null || echo 1)
-
+ 
 # MYSQL ROOT PASSWORD
+echo "Supply password"
 if [ "$install_webserver_conf" = "Y" ] && [ -z "$dbstatus" ]; then
 
 	while [ true ]
