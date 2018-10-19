@@ -123,7 +123,7 @@ chown -R $SUDO_USER:$SUDO_USER /srv/sites
 . /srv/tools/scripts/install_software.sh
 
 # INSTALL WEBSERVER CONFIGURATION
-. /srv/tools/scripts/install_webserver_configuration-client.sh
+#. /srv/tools/scripts/install_webserver_configuration-client.sh
 
 # INSTALL FFMPEG
 . /srv/tools/scripts/install_ffmpeg.sh
