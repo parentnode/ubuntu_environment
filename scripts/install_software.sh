@@ -54,7 +54,7 @@ if test "$install_software" = "Y"; then
 	# debconf-set-selections <<< "mariadb-server-5.5 mysql-server/root_password password temp"
 	# debconf-set-selections <<< "mariadb-server-5.5 mysql-server/root_password_again password temp"
 
-	sudo -E apt install -q -y mariadb-server
+	#sudo -E apt install -q -y mariadb-server
 
 
 	echo
