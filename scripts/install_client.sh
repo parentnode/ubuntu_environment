@@ -56,10 +56,7 @@ echo
 # MYSQL ROOT PASSWORD
 echo "Supply password"
 
-mysqlstatus=$(dpkg --get-selections | grep 'mysql-common' )
 
-echo "Is it installed"
-mysql_installed=$mysql_installed
 #Checks if root password are set
 
 
@@ -74,8 +71,8 @@ mysql_installed=$mysql_installed
 #new
 case "$install_webserver_conf" in
 	"Y")
-		echo "Status for mysql: $mysql_installed" 
-		if [ -n "$mysql_installed" ]; then
+		
+		if [ -d "\var\lib\mysql" ]; then
 			echo "Mariadb installed "
 			#if [ -z "$dbstatus" ]; then
 			#	echo "Root password not set" 
