@@ -58,25 +58,67 @@ dbstatus=$(sudo mysql --user=root -e exit 2>/dev/null || echo 1)
 echo "Supply password"
 
 
+#Checks if root password are set
+mysqlstatus=$(dpkg --get-selections | grep mysql)
+dbstatus=$(sudo mysql --user=root -e exit 2>/dev/null || echo 1)
 
-if [ "$install_webserver_conf" = "Y" ] && [ -z "$dbstatus" ]; then
-	while [ true ]
-	do
-		read -s -p "Enter new root DB password: " db_root_password
-		echo ""
-		read -s -p "Verify new root DB password: " db_root_password2    
-		if [ $db_root_password != $db_root_password2 ]; then
-			echo ""
-			echo "Not same "
-			echo ""
-		else 
-			echo ""
-			echo "Same"
-			export $db_root_password
-			break
-		fi	
-	done
-fi
+#echo "dbstatus: $dbstatus"
+#echo "Mysql status: $mysqlstatus"
+echo "Initiate mariadb install"
+case $install_webserver_conf in
+	"Y")
+		 
+		if [ -z "$mysqlstatus" ]; then
+		echo "Mariadb not installed "
+		else
+			echo "Mysql allready installed"
+			if [ -z "$dbstatus" ]; then
+				echo "Root password not set" 
+				while [ true ]
+				do
+					read -s -p "Enter new root DB password: " db_root_password
+					echo ""
+					read -s -p "Verify new root DB password: " db_root_password2    
+					if [ $db_root_password != $db_root_password2 ]; then
+						echo ""
+						echo "Not same "
+						echo ""
+					else 
+						echo ""
+						echo "Same"
+						export $db_root_password
+						break
+					fi	
+				done
+			else
+				echo "Are mysql allready installed? "				
+				echo "Maybe you allready have set your password"
+				 
+			fi
+		fi ;;
+	"n")
+		echo "Skipping mysql setup" ;;
+esac
+
+#Newer but still old
+#if [ "$install_webserver_conf" = "Y" ] && [ -z "$dbstatus" ]; then
+#	while [ true ]
+#	do
+#		read -s -p "Enter new root DB password: " db_root_password
+#		echo ""
+#		read -s -p "Verify new root DB password: " db_root_password2    
+#		if [ $db_root_password != $db_root_password2 ]; then
+#			echo ""
+#			echo "Not same "
+#			echo ""
+#		else 
+#			echo ""
+#			echo "Same"
+#			export $db_root_password
+#			break
+#		fi	
+#	done
+#fi
 
 #Old
 #if [ "$install_webserver_conf" = "Y" ] && [ -z "$dbstatus" ]; then
