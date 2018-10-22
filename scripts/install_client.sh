@@ -58,7 +58,7 @@ echo "Supply password"
 
 
 #Checks if root password are set
-mysqlstatus=$(dpkg --get-selections | grep mysql || echo 1)
+mysqlstatus=$(dpkg --get-selections | grep mysql)
 
 
 #dbstatus=$(sudo mysql --user=root -e exit 2>/dev/null || echo 1)
@@ -67,6 +67,8 @@ mysqlstatus=$(dpkg --get-selections | grep mysql || echo 1)
 #echo "dbstatus: $dbstatus"
 #echo "Mysql status: $mysqlstatus"
 #echo "Initiate mariadb install"
+
+#new
 case "$install_webserver_conf" in
 	"Y")
 		echo "Initiate mariadb install" 
