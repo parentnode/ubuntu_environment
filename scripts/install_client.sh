@@ -56,7 +56,7 @@ echo
 # MYSQL ROOT PASSWORD
 echo "Supply password"
 
-mysqlstatus=$(dpkg --get-selections | grep "mysql-common" )
+mysqlstatus=$(dpkg --get-selections | grep 'mysql-common' )
 echo
 #Checks if root password are set
 
