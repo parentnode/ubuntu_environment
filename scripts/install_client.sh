@@ -48,7 +48,7 @@ echo
 
 read -p "Your email address: " install_email
 export install_email
-
+echo
 
 #dbstatus=$(sudo mysql --user=root -e exit 2>/dev/null || echo 1)
 #mysqlstatus=$(dpkg --get-selections | grep mysql)
@@ -56,7 +56,9 @@ export install_email
 # MYSQL ROOT PASSWORD
 echo "Supply password"
 
-
+mysqlstatus=$(dpkg --get-selections | grep "mysql-common" )
+export mysqlstatus
+echo
 #Checks if root password are set
 
 
@@ -72,7 +74,7 @@ echo "Supply password"
 case "$install_webserver_conf" in
 	"Y")
 		echo "Initiate mariadb install"
-		mysqlstatus=$(dpkg --get-selections | grep "mysql-common" || echo 1 )
+		
 		echo "Status for mysql: $mysqlstatus" 
 		if [ -z "$mysqlstatus" ]; then
 			echo "Mariadb not installed "
