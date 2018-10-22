@@ -59,7 +59,7 @@ echo "Supply password"
 
 #Checks if root password are set
 mysqlstatus=$(dpkg --get-selections | grep mysql)
-
+export mysqlstatus
 echo "$mysqlstatus"
 #dbstatus=$(sudo mysql --user=root -e exit 2>/dev/null || echo 1)
 
