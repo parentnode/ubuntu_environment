@@ -69,9 +69,7 @@ case $install_webserver_conf in
 	"Y")
 		 
 		if [ -z "$mysqlstatus" ]; then
-		echo "Mariadb not installed "
-		else
-			echo "Mysql allready installed"
+			echo "Mariadb not installed "
 			if [ -z "$dbstatus" ]; then
 				echo "Root password not set" 
 				while [ true ]
@@ -95,6 +93,8 @@ case $install_webserver_conf in
 				echo "Maybe you allready have set your password"
 				 
 			fi
+		else
+			echo "Mysql allready installed"
 		fi ;;
 	"n")
 		echo "Skipping mysql setup" ;;
