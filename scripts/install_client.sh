@@ -52,8 +52,8 @@ echo
 
 
 dbstatus=$(sudo mysql --user=root -e exit 2>/dev/null || echo 1)
-mysqlstatus=$(dpkg --get-selections | grep mysql)
-echo $mysqlstatus
+#mysqlstatus=$(dpkg --get-selections | grep mysql)
+#echo $mysqlstatus
 # MYSQL ROOT PASSWORD
 echo "Supply password"
 
