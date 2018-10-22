@@ -61,7 +61,7 @@ echo "Supply password"
 
 
 
-dbstatus=$(sudo mysql --user=root -e exit 2>/dev/null)
+dbstatus=$(sudo mysql --user=root -e exit 2>/dev/null || echo 1)
 
 
 #echo "dbstatus: $dbstatus"
