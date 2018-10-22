@@ -71,8 +71,11 @@ dbstatus=$(sudo mysql --user=root -e exit 2>/dev/null || echo 1)
 #new
 case "$install_webserver_conf" in
 	"Y")
-		if [ -d "\var\lib\mysql" ]; then
+		if [ -d "/var/lib/mysql" ]; then
 			echo "Mariadb installed "
+			
+		else
+			echo "mariadb not installed"
 			if [ -z "$dbstatus" ]; then
 				echo "Root password not set" 
 				while [ true ]
@@ -95,8 +98,6 @@ case "$install_webserver_conf" in
 				echo "Maybe you allready have set your password"
 				 
 			fi
-		else
-			echo "mariadb not installed"
 		fi ;;
 	"n")
 		echo "Skipping mysql setup" ;;
