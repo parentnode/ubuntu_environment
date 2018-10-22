@@ -58,7 +58,7 @@ echo "Supply password"
 
 
 #Checks if root password are set
-#mysqlstatus=$(dpkg --get-selections | grep mysql)
+mysqlstatus=$(dpkg --get-selections | grep mysql)
 
 
 #dbstatus=$(sudo mysql --user=root -e exit 2>/dev/null || echo 1)
@@ -69,35 +69,35 @@ echo "Supply password"
 #echo "Initiate mariadb install"
 case "$install_webserver_conf" in
 	"Y")
-		echo "Initiate mariadb install" ;;
-		#if [ -z "$mysqlstatus" ]; then
-		#	echo "Mariadb not installed "
-		#	#if [ -z "$dbstatus" ]; then
-		#	#	echo "Root password not set" 
-		#	#	while [ true ]
-		#	#	do
-		#	#		read -s -p "Enter new root DB password: " db_root_password
-		#	#		echo ""
-		#	#		read -s -p "Verify new root DB password: " db_root_password2    
-		#	#		if [ $db_root_password != $db_root_password2 ]; then
-		#	#			echo ""
-		#	#			echo "Not same "
-		#	#			echo ""
-		#	#		else 
-		#	#			echo ""
-		#	#			echo "Same"
-		#	#			export $db_root_password
-		#	#			break
-		#	#		fi	
-		#	#	done
-		#	#else
-		#	#	echo "Are mysql allready installed? "				
-		#	#	echo "Maybe you allready have set your password"
-		#	#	 
-		#	#fi
-		#else
-		#	echo "Mysql allready installed"
-		#fi ;;
+		echo "Initiate mariadb install" 
+		if [ -z "$mysqlstatus" ]; then
+			echo "Mariadb not installed "
+			#if [ -z "$dbstatus" ]; then
+			#	echo "Root password not set" 
+			#	while [ true ]
+			#	do
+			#		read -s -p "Enter new root DB password: " db_root_password
+			#		echo ""
+			#		read -s -p "Verify new root DB password: " db_root_password2    
+			#		if [ $db_root_password != $db_root_password2 ]; then
+			#			echo ""
+			#			echo "Not same "
+			#			echo ""
+			#		else 
+			#			echo ""
+			#			echo "Same"
+			#			export $db_root_password
+			#			break
+			#		fi	
+			#	done
+			#else
+			#	echo "Are mysql allready installed? "				
+			#	echo "Maybe you allready have set your password"
+			#	 
+			#fi
+		else
+			echo "Mysql allready installed"
+		fi ;;
 	"n")
 		echo "Skipping mysql setup" ;;
 esac
@@ -172,7 +172,7 @@ chown -R $SUDO_USER:$SUDO_USER /srv/sites
 . /srv/tools/scripts/install_software.sh
 
 # INSTALL WEBSERVER CONFIGURATION
-. /srv/tools/scripts/install_webserver_configuration-client.sh
+#. /srv/tools/scripts/install_webserver_configuration-client.sh
 
 # INSTALL FFMPEG
 . /srv/tools/scripts/install_ffmpeg.sh
