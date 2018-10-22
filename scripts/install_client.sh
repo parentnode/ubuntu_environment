@@ -52,11 +52,12 @@ echo
 
 
 dbstatus=$(sudo mysql --user=root -e exit 2>/dev/null || echo 1)
-#mysqlstatus=$(dpkg --get-selections | grep mysql)
+mysqlstatus=$(dpkg --get-selections | grep mysql)
+echo $mysqlstatus
 # MYSQL ROOT PASSWORD
 echo "Supply password"
-# && [ -z "$mysqlstatus" ]
-if [ "$install_webserver_conf" = "Y" ] && [ -z "$dbstatus" ]; then
+
+if [ "$install_webserver_conf" = "Y" ] && [ -z "$dbstatus" ] && [ -z "$mysqlstatus" ]; then
 	while [ true ]
 	do
 		read -s -p "Enter new root DB password: " db_root_password
