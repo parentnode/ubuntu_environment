@@ -109,10 +109,10 @@ if test "$install_webserver_conf" = "Y"; then
 			#echo "UPDATE mysql.user SET plugin = '', password = PASSWORD('$db_root_password') WHERE user = 'root'; FLUSH PRIVILEGES;" | sudo mysql -u root -ptemp
 
 			# FOR UBUNTU 16.04/MariaDB 10
-			echo "UPDATE mysql.user SET plugin = 'mysql_native_password', password = PASSWORD('$db_root_password') WHERE user = 'root'; FLUSH PRIVILEGES;" | sudo mysql -u root
+			#cho "UPDATE mysql.user SET plugin = 'mysql_native_password', password = PASSWORD('$db_root_password') WHERE user = 'root'; FLUSH PRIVILEGES;" | sudo mysql -u root
 
 			# REPLACE PASSWORD FOR MAINTANENCE ACCOUNT
-			sudo sed -i "s/password = .*/password = $db_root_password/;" /etc/mysql/debian.cnf
+			#sudo sed -i "s/password = .*/password = $db_root_password/;" /etc/mysql/debian.cnf
 
 			echo "DB Root access configured"
 
