@@ -48,7 +48,6 @@ echo
 
 read -p "Your email address: " install_email
 export install_email
-echo
 
 
 #dbstatus=$(sudo mysql --user=root -e exit 2>/dev/null || echo 1)
