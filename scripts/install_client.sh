@@ -61,7 +61,7 @@ echo "Supply password"
 
 
 
-#dbstatus=$(sudo mysql --user=root -e exit 2>/dev/null || echo 1)
+dbstatus=$(sudo mysql --user=root -e exit 2>/dev/null || echo 1)
 
 
 #echo "dbstatus: $dbstatus"
@@ -71,32 +71,30 @@ echo "Supply password"
 #new
 case "$install_webserver_conf" in
 	"Y")
-		
 		if [ -d "\var\lib\mysql" ]; then
 			echo "Mariadb installed "
-			#if [ -z "$dbstatus" ]; then
-			#	echo "Root password not set" 
-			#	while [ true ]
-			#	do
-			#		read -s -p "Enter new root DB password: " db_root_password
-			#		echo ""
-			#		read -s -p "Verify new root DB password: " db_root_password2    
-			#		if [ $db_root_password != $db_root_password2 ]; then
-			#			echo ""
-			#			echo "Not same "
-			#			echo ""
-			#		else 
-			#			echo ""
-			#			echo "Same"
-			#			export $db_root_password
-			#			break
-			#		fi	
-			#	done
-			#else
-			#	echo "Are mysql allready installed? "				
-			#	echo "Maybe you allready have set your password"
-			#	 
-			#fi
+			if [ -z "$dbstatus" ]; then
+				echo "Root password not set" 
+				while [ true ]
+				do
+					read -s -p "Enter new root DB password: " db_root_password
+					echo ""
+					read -s -p "Verify new root DB password: " db_root_password2    
+					if [ $db_root_password != $db_root_password2 ]; then
+						echo ""
+						echo "Not same "
+						echo ""
+					else 
+						echo ""
+						echo "Same"
+						export $db_root_password
+						break
+					fi	
+				done
+			else			
+				echo "Maybe you allready have set your password"
+				 
+			fi
 		else
 			echo "mariadb not installed"
 		fi ;;
