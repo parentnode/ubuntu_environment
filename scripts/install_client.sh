@@ -74,13 +74,13 @@ if [ "$install_webserver_conf" = "Y" ] && [ -z "$dbstatus" ]; then
 		fi	
 	done
 	fi
-if [ "$install_webserver_conf" = "Y" ] && [ -z "$dbstatus" ]; then
-
-	read -s -p "Enter new root DB password: " db_root_password
-	export db_root_password
-	echo
-
-fi
+#if [ "$install_webserver_conf" = "Y" ] && [ -z "$dbstatus" ]; then
+#
+#	read -s -p "Enter new root DB password: " db_root_password
+#	export db_root_password
+#	echo
+#
+#fi
 
 
 
