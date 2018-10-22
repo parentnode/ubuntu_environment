@@ -57,7 +57,7 @@ echo $mysqlstatus
 # MYSQL ROOT PASSWORD
 echo "Supply password"
 
-if [ "$install_webserver_conf" = "Y" ] && [[ -z "$dbstatus" ] && [ -z "$mysqlstatus" ]]; then
+if [[ "$install_webserver_conf" = "Y" ] && [ -z "$dbstatus" ]] && [ -z "$mysqlstatus" ]; then
 	while [ true ]
 	do
 		read -s -p "Enter new root DB password: " db_root_password
