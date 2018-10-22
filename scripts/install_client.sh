@@ -70,7 +70,7 @@ echo "Supply password"
 
 #new
 case "$install_webserver_conf" in
-	'"Y"')
+	"Y")
 		echo "Initiate mariadb install"
 		mysqlstatus=$(dpkg --get-selections | grep "mysql" )
 		echo "Status for mysql: $mysqlstatus" 
@@ -102,7 +102,7 @@ case "$install_webserver_conf" in
 		else
 			echo "Mysql allready installed"
 		fi ;;
-	'"n"')
+	"n")
 		echo "Skipping mysql setup" ;;
 esac
 
