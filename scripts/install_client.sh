@@ -70,7 +70,7 @@ echo "Status for mysql: $mysqlstatus"
 
 #new
 case "$install_webserver_conf" in
-	"Y")
+	'"Y"')
 		echo "Initiate mariadb install" 
 		if [ -z "$mysqlstatus" ]; then
 			echo "Mariadb not installed "
@@ -100,7 +100,7 @@ case "$install_webserver_conf" in
 		else
 			echo "Mysql allready installed"
 		fi ;;
-	"n")
+	'"n"')
 		echo "Skipping mysql setup" ;;
 esac
 
