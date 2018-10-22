@@ -72,7 +72,7 @@ echo "Supply password"
 case "$install_webserver_conf" in
 	"Y")
 		echo "Initiate mariadb install"
-		mysqlstatus=$(dpkg --get-selections | grep "mysql" )
+		mysqlstatus=$(dpkg --get-selections | grep "mysql-common" )
 		echo "Status for mysql: $mysqlstatus" 
 		if [ -z "$mysqlstatus" ]; then
 			echo "Mariadb not installed "
