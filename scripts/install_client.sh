@@ -75,11 +75,6 @@ if [ "$install_webserver_conf" = "Y" ]; then
 			echo
 			set_password="1"
 		fi
-		
-	else 
-		echo "Mariadb not installed"
-		
-	fi
 fi
 if [ "$set_password" = "1" ]; then
 
