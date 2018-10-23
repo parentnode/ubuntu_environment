@@ -56,13 +56,11 @@ echo
 # MYSQL ROOT PASSWORD
 echo "Supply password"
 
-
-mariadb_status=$(sudo systemctl status mariadb | grep "Active: active (running)")
 root_password_status=$(sudo mysql --user=root -e exit 2>/dev/null || echo "1")
 set_password="0"
 if [ "$install_webserver_conf" = "Y" ]; then
 	#Check if mariadb are installed and running
-	if [ -e "/usr/sbin/mysqld" ] && [ -n "$mariadb_status" ]; then
+	if [ -e "/usr/sbin/mysqld" ] && [ -n $(sudo systemctl status mariadb | grep "Active: active (running)") ]; then
 		echo "Mariadb installed "
 	else 
 		echo "Mariadb not previously installed"
