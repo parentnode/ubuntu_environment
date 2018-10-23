@@ -61,25 +61,21 @@ mariadb_status=$(sudo systemctl status mariadb | grep "Active: active (running)"
 root_password_status=$(sudo mysql --user=root -e exit 2>/dev/null || echo "1")
 set_password="0"
 if [ "$install_webserver_conf" = "Y" ]; then
-	
 	#Check if mariadb are installed and running
 	if [ -e "/usr/sbin/mysqld" ] && [ -n "$mariadb_status" ]; then
 		echo "Mariadb installed "
-		#Checks if root password are set #line 10
-		if [ "$root_password_status" = "1" ]; then
-			echo "Root password is set"
-			echo
-			set_password="0"
-		else 
-			echo "Root password is not set "
-			echo
-			set_password="1"
-		fi
-		
 	else 
-		echo "Mariadb not installed"
-		# INSTALL SOFTWARE
-		. /srv/tools/scripts/install_software.sh
+		echo "Mariadb not previously installed"
+	fi
+	#Checks if root password are set #line 10
+	if [ "$root_password_status" = "1" ]; then
+		echo "Root password is set"
+		echo
+		set_password="0"
+	else 
+		echo "Root password is not set "
+		echo
+		set_password="1"
 	fi
 fi
 if [ "$set_password" = "1" ]; then
