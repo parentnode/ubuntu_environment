@@ -56,54 +56,48 @@ echo
 # MYSQL ROOT PASSWORD
 echo "Supply password"
 
-if [ "$install_webserver_conf" = "Y" ] && [ -z "$dbstatus" ]; then
-
-	read -s -p "Enter new root DB password: " db_root_password
-	export db_root_password
-	echo
+root_password_status=$(sudo mysql --user=root -e exit 2>/dev/null || echo "1")
+set_password="0"
+if [ "$install_webserver_conf" = "Y" ]; then
+	#Check if mariadb are installed and running
+	if [ -e "/usr/sbin/mysqld" ] && [ -n $(sudo systemctl status mariadb | grep "Active: active (running)") ]; then
+		echo "Mariadb installed "
+		#Checks if root password are set
+		if [ "$root_password_status" = "1" ]; then
+			echo "Root password is set"
+			echo
+			set_password="0"
+		else 
+			echo "Root password is not set "
+			echo
+			set_password="1"
+		fi
+	else 
+		echo "Mariadb not previously installed"
+		echo "Installer will beging now"
+		set_password="1"
+	fi
+	
 fi
-#root_password_status=$(sudo mysql --user=root -e exit 2>/dev/null || echo "1")
-#set_password="0"
-#if [ "$install_webserver_conf" = "Y" ]; then
-#	#Check if mariadb are installed and running
-#	if [ -e "/usr/sbin/mysqld" ] && [ -n $(sudo systemctl status mariadb | grep "Active: active (running)") ]; then
-#		echo "Mariadb installed "
-#		#Checks if root password are set
-#		if [ "$root_password_status" = "1" ]; then
-#			echo "Root password is set"
-#			echo
-#			set_password="0"
-#		else 
-#			echo "Root password is not set "
-#			echo
-#			set_password="1"
-#		fi
-#	else 
-#		echo "Mariadb not previously installed"
-#		echo "Installer will beging now"
-#		set_password="1"
-#	fi
-#	
-#fi
-#if [ "$set_password" = "1" ]; then
-#
-#	while [ $set_password ]
-#	do
-#		read -s -p "Enter new root DB password: " db_root_password
-#		echo ""
-#		read -s -p "Verify new root DB password: " db_root_password2    
-#		if [ $db_root_password != $db_root_password2 ]; then
-#			echo ""
-#			echo "Not same "
-#			echo ""
-#		else 
-#			echo ""
-#			echo "Same"
-#			export $db_root_password
-#			break
-#		fi	
-#	done
-#fi
+if [ "$set_password" = "1" ]; then
+
+	while [ $set_password ]
+	do
+		read -s -p "Enter new root DB password: " db_root_password
+		echo ""
+		read -s -p "Verify new root DB password: " db_root_password2    
+		if [ $db_root_password != $db_root_password2 ]; then
+			echo ""
+			echo "Not same "
+			echo ""
+		else 
+			echo ""
+			echo "Same"
+			export $db_root_password
+			break
+		fi	
+	done
+fi
 
 # SETTING DEFAULT GIT USER
 git config --global core.filemode false
