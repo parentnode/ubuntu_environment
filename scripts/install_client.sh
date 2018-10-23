@@ -57,6 +57,46 @@ echo
 echo "Supply password"
 
 
+
+
+# SETTING DEFAULT GIT USER
+git config --global core.filemode false
+git config --global user.name "$install_user"
+git config --global user.email "$install_email"
+git config --global credential.helper cache
+
+
+
+echo
+echo
+echo "Setting timezone to: Europe/Copenhagen"
+echo
+sudo timedatectl set-timezone "Europe/Copenhagen"
+
+
+# MAKE SITES FOLDER
+if [ ! -d "/srv/sites" ]; then
+	mkdir /srv/sites
+fi
+
+# MAKE APACHE FOLDER
+if [ ! -d "/srv/sites/apache" ]; then
+	mkdir /srv/sites/apache
+fi
+
+# MAKE LOGS FOLDER
+if [ ! -d "/srv/sites/apache/logs" ]; then
+	mkdir /srv/sites/apache/logs
+fi
+
+# Change Folder Rights from root to current user
+chown -R $SUDO_USER:$SUDO_USER /srv/sites
+
+
+# INSTALL SOFTWARE
+. /srv/tools/scripts/install_software.sh
+
+
 mariadb_status=$(sudo systemctl status mariadb | grep "Active: active (running)")
 root_password_status=$(sudo mysql --user=root -e exit 2>/dev/null || echo "1")
 set_password="0"
@@ -95,43 +135,6 @@ if [ "$set_password" = "1" ]; then
 		fi	
 	done
 fi
-
-# SETTING DEFAULT GIT USER
-git config --global core.filemode false
-git config --global user.name "$install_user"
-git config --global user.email "$install_email"
-git config --global credential.helper cache
-
-
-
-echo
-echo
-echo "Setting timezone to: Europe/Copenhagen"
-echo
-sudo timedatectl set-timezone "Europe/Copenhagen"
-
-
-# MAKE SITES FOLDER
-if [ ! -d "/srv/sites" ]; then
-	mkdir /srv/sites
-fi
-
-# MAKE APACHE FOLDER
-if [ ! -d "/srv/sites/apache" ]; then
-	mkdir /srv/sites/apache
-fi
-
-# MAKE LOGS FOLDER
-if [ ! -d "/srv/sites/apache/logs" ]; then
-	mkdir /srv/sites/apache/logs
-fi
-
-# Change Folder Rights from root to current user
-chown -R $SUDO_USER:$SUDO_USER /srv/sites
-
-
-# INSTALL SOFTWARE
-. /srv/tools/scripts/install_software.sh
 
 # INSTALL WEBSERVER CONFIGURATION
 . /srv/tools/scripts/install_webserver_configuration-client.sh
