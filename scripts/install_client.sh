@@ -60,7 +60,7 @@ root_password_status=$(sudo mysql --user=root -e exit 2>/dev/null || echo "1")
 set_password="0"
 if [ "$install_webserver_conf" = "Y" ]; then
 	#Check if mariadb are installed and running
-	if [ -e "/usr/sbin/mysqld" ]; then
+	if [ -e "/lib/systemd/system/mariadb.service" ]; then
 		echo "Mariadb installed "
 		#Checks if root password are set
 		if [  -z "$root_password_status" ]; then
