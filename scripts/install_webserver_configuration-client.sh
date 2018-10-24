@@ -14,15 +14,16 @@ if test "$install_webserver_conf" = "Y"; then
 	echo
 	echo
 
-
+	# Check for server name
 	install_apache_servername=$(grep -E "^ServerName" /etc/apache2/apache2.conf || echo "")
+	# If no results
 	if [ -z "$install_apache_servername" ]; then
 
 		# SET SERVERNAME
 		echo "ServerName $HOSTNAME" >> /etc/apache2/apache2.conf
 
 	else
-
+		# Replace existing servername with hostname
 		sed -i "s/^ServerName\ [a-zA-Z0-9\.\_-]\+/ServerName\ $HOSTNAME/;" /etc/apache2/apache2.conf
 
 	fi
