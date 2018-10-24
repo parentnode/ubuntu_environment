@@ -28,12 +28,12 @@ if test "$install_software" = "Y"; then
 	#sudo apt update -y
 #	sudo apt install pkg-config build-essential libmemcached-dev
 
-	# INSTALL PHP7.0
+	# INSTALL PHP7.2
 	sudo apt install -y libapache2-mod-php php7.2 php7.2-cli php7.2-common php7.2-curl php7.2-dev php7.2-mbstring php7.2-zip php7.2-mysql php7.2-xmlrpc
 
 	sudo apt install -y php-redis php-imagick php-igbinary php-msgpack 
 	# php-memcached memcached
-
+	# INSTALL REDIS 
 	sudo apt install -y redis
 
 
