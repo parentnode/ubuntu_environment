@@ -153,6 +153,9 @@ cat /srv/tools/conf-server/dot_profile > /home/$install_user/.profile
 # GET CURRENT PORT NUMBER AND IP ADDRESS
 port_number=$(grep -E "^Port\ ([0-9]+)$" /etc/ssh/sshd_config | sed "s/Port //;")
 ip_address=$(dig +short myip.opendns.com @resolver1.opendns.com)
+# The "dig" way of getting IP does not work with Linode images
+# Consider replacing with:
+# curl -s http://whatismyip.akamai.com/
 
 echo
 echo
