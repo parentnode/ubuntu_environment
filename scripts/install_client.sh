@@ -46,9 +46,6 @@ echo "Please enter the information required for your install:"
 echo
 
 
-read -p "Your email address: " install_email
-export install_email
-echo
 
 #dbstatus=$(sudo mysql --user=root -e exit 2>/dev/null || echo 1)
 #mysqlstatus=$(dpkg --get-selections | grep mysql)
@@ -100,33 +97,46 @@ if [ "$set_password" = "1" ]; then
 fi
 
 # SETTING DEFAULT GIT USER
-git config --global core.filemode false
-git config --global user.name "$install_user"
-git config --global user.email "$install_email"
-git config --global credential.helper cache
+echo
+echo
+read -p "Set up new git username and contact email? (Y/n): " set_git_user
+if [ "$set_git_user" = "Y" ]; then
+  read -p "  Provide git username: " new_git_username
+  git config --global user.name "$new_git_username"
+  read -p "  Provide contact email for git (This might become public!): " new_git_email
+  git config --global user.email "$new_git_email"
+fi
 
+read -p "Configure git globally with recommended settings? (Y/n): " set_git_config
+if [ "$set_git_config" = "Y" ]; then
+  git config --global core.filemode false
+  git config --global credential.helper cache
+fi
 
 
 echo
 echo
-echo "Setting timezone to: Europe/Copenhagen"
+read -p "Set  timezone to Europe/Copenhagen system-wide? (recommended) (Y/n): " set_timezone
+if [ "$set_timezone" = "Y" ]; then
+  sudo timedatectl set-timezone "Europe/Copenhagen"
+fi
+
 echo
-sudo timedatectl set-timezone "Europe/Copenhagen"
 
 
 # MAKE SITES FOLDER
 if [ ! -d "/srv/sites" ]; then
-	mkdir /srv/sites
+  mkdir /srv/sites
 fi
 
 # MAKE APACHE FOLDER
 if [ ! -d "/srv/sites/apache" ]; then
-	mkdir /srv/sites/apache
+  mkdir /srv/sites/apache
 fi
 
 # MAKE LOGS FOLDER
 if [ ! -d "/srv/sites/apache/logs" ]; then
-	mkdir /srv/sites/apache/logs
+  mkdir /srv/sites/apache/logs
 fi
 
 # Change Folder Rights from root to current user
@@ -157,11 +167,11 @@ cat /srv/tools/conf-client/dot_bash_profile > /home/$install_user/.bash_profile
 install_bash_profile=$(grep -E "HOME\/\.bash_profile" /home/$install_user/.bashrc || echo "")
 if [ -z "$install_bash_profile" ]; then
 
-	# Add .bash_profile to .bashrc
-	echo
-	echo "if [ -f \"\$HOME/.bash_profile\" ]; then" >> /home/$install_user/.bashrc
-	echo " . \"\$HOME/.bash_profile\"" >> /home/$install_user/.bashrc
-	echo "fi" >> /home/$install_user/.bashrc
+  # Add .bash_profile to .bashrc
+  echo
+  echo "if [ -f \"\$HOME/.bash_profile\" ]; then" >> /home/$install_user/.bashrc
+  echo " . \"\$HOME/.bash_profile\"" >> /home/$install_user/.bashrc
+  echo "fi" >> /home/$install_user/.bashrc
 fi
 
 # Change Folder Rights from root to current user
