@@ -201,7 +201,6 @@ checkFileContent()
 		# if there are any default keys in dot_profile
 		if [[ -n $check_for_key ]];
 		then
-			echo "Default ${default_values[line]}"
 			# Update the values connected to the key
 			sed -i -e "s,${default_keys[line]}\=.*,$(trimString "${default_values[line]}"),g" "$file"
 			
