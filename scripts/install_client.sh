@@ -114,20 +114,36 @@ echo
 sudo timedatectl set-timezone "Europe/Copenhagen"
 
 
-# MAKE SITES FOLDER
-if [ ! -d "/srv/sites" ]; then
-	mkdir /srv/sites
-fi
+checkPath()
+{
+	path=$1	
+	if [ ! -d "$path" ]; then
+		mkdir $path
+	else 
+		echo "Allready Exist"
+	fi
+}
+#create_folder_if_no_exist
+checkPath "/srv/sites"
+checkPath "/srv/sites/apache"
+checkPath "/srv/sites/apache/logs"
 
-# MAKE APACHE FOLDER
-if [ ! -d "/srv/sites/apache" ]; then
-	mkdir /srv/sites/apache
-fi
 
-# MAKE LOGS FOLDER
-if [ ! -d "/srv/sites/apache/logs" ]; then
-	mkdir /srv/sites/apache/logs
-fi
+## MAKE SITES FOLDER
+#if [ ! -d "/srv/sites" ]; then
+#	mkdir /srv/sites
+#fi
+#create_folder_if_no_exist "/srv/sites"
+#
+## MAKE APACHE FOLDER
+#if [ ! -d "/srv/sites/apache" ]; then
+#	mkdir /srv/sites/apache
+#fi
+#
+## MAKE LOGS FOLDER
+#if [ ! -d "/srv/sites/apache/logs" ]; then
+#	mkdir /srv/sites/apache/logs
+#fi
 
 # Change Folder Rights from root to current user
 chown -R $SUDO_USER:$SUDO_USER /srv/sites
