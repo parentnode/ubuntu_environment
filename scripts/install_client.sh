@@ -124,20 +124,36 @@ fi
 echo
 
 
-# MAKE SITES FOLDER
-if [ ! -d "/srv/sites" ]; then
-  mkdir /srv/sites
-fi
+checkPath()
+{
+	path=$1	
+	if [ ! -d "$path" ]; then
+		mkdir $path
+	else 
+		echo "Allready Exist"
+	fi
+}
+#create_folder_if_no_exist
+checkPath "/srv/sites"
+checkPath "/srv/sites/apache"
+checkPath "/srv/sites/apache/logs"
 
-# MAKE APACHE FOLDER
-if [ ! -d "/srv/sites/apache" ]; then
-  mkdir /srv/sites/apache
-fi
 
-# MAKE LOGS FOLDER
-if [ ! -d "/srv/sites/apache/logs" ]; then
-  mkdir /srv/sites/apache/logs
-fi
+## MAKE SITES FOLDER
+#if [ ! -d "/srv/sites" ]; then
+#	mkdir /srv/sites
+#fi
+#create_folder_if_no_exist "/srv/sites"
+#
+## MAKE APACHE FOLDER
+#if [ ! -d "/srv/sites/apache" ]; then
+#	mkdir /srv/sites/apache
+#fi
+#
+## MAKE LOGS FOLDER
+#if [ ! -d "/srv/sites/apache/logs" ]; then
+#	mkdir /srv/sites/apache/logs
+#fi
 
 # Change Folder Rights from root to current user
 chown -R $SUDO_USER:$SUDO_USER /srv/sites
@@ -155,6 +171,47 @@ chown -R $SUDO_USER:$SUDO_USER /srv/sites
 # INSTALL WKHTMLTO
 . /srv/tools/scripts/install_wkhtmlto.sh
 
+#utilities for bash profile configuration
+# Takes a string and removes leading and following tabs and spaces
+trimString(){
+	trim=$1
+	echo "${trim}" | sed -e 's/^[ \t]*//'
+}
+checkFileContent() 
+{
+	#dot_profile
+	file=$1
+	#bash_profile.default
+	default=$2
+	echo "Updating $file"
+	# Splits output based on new lines
+	IFS=$'\n'
+	# Reads all of default int to an variable
+	default=$( < "$default" )
+
+	# Every key value pair looks like this (taken from bash_profile.default )
+	# "alias mysql_grant" alias mysql_grant="php /srv/tools/scripts/mysql_grant.php"
+	# The key komprises of value between the first and second quotation '"'
+	default_keys=( $( echo "$default" | grep ^\" |cut -d\" -f2))
+	# The value komprises of value between the third, fourth and fifth quotation '"'
+	default_values=( $( echo "$default" | grep ^\" |cut -d\" -f3,4,5))
+	unset IFS
+	
+	for line in "${!default_keys[@]}"
+	do		
+		# do dot_profile contain any of the keys in bash_profile.default
+		check_for_key=$(grep -R "${default_keys[line]}" "$file")
+		# if there are any default keys in dot_profile
+		if [[ -n $check_for_key ]];
+		then
+			# Update the values connected to the key
+			sed -i -e "s,${default_keys[line]}\=.*,$(trimString "${default_values[line]}"),g" "$file"
+			
+		fi
+		
+	done
+	
+}
 
 
 echo
@@ -164,7 +221,8 @@ if [ "$set_terminal_config" = "Y" ]; then
   echo "Copying terminal configuration"
   echo
   # ADD COMMANDS ALIAS'
-  cat /srv/tools/conf-client/dot_bash_profile > /home/$install_user/.bash_profile
+  #cat /srv/tools/conf-client/dot_bash_profile > /home/$install_user/.bash_profile
+  checkFileContent "/home/$install_user/.bash_profile" "/srv/tools/conf-client/dot_bash_profile"
 
   install_bash_profile=$(grep -E "HOME\/\.bash_profile" /home/$install_user/.bashrc || echo "")
   if [ -z "$install_bash_profile" ]; then
