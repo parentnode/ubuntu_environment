@@ -18,12 +18,13 @@ export install_user
 # echo
 # echo
 
-
+source /srv/tools/scripts/functions.sh
 echo
 echo "Installing system for $install_user"
 echo
 echo "To speed up the process, please select your install options now:"
 echo
+
 
 read -p "Install software (Y/n): " install_software
 export install_software
