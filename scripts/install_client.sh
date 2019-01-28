@@ -211,7 +211,7 @@ checkFileContent()
 }
 if [ ! -f "$HOME/.bash_profile" ]; 
 then
-	cp /srv/tools/conf-client/dot_bash_profile /$HOME/.bash_profile
+	cp /srv/tools/conf-client/default_conf_complete /$HOME/.bash_profile
 fi
 
 checkFileContent "/home/$install_user/.bash_profile" "/srv/tools/conf-client/dot_bash_profile"
