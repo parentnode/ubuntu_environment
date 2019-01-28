@@ -209,10 +209,14 @@ checkFileContent()
 	done
 	
 }
+if [ ! -f "$HOME/.bash_profile" ]; 
+then
+	cp /srv/tools/conf-client/dot_bash_profile /$HOME/.bash_profile
+fis
 
 checkFileContent "/home/$install_user/.bash_profile" "/srv/tools/conf-client/dot_bash_profile"
 
-install_bash_profile=$(grep -E "HOME\/\.bash_profile" /home/$install_user/.bashrc || echo "")
+install_bash_profile=$(grep -E "\$HOME\/\.bash_profile" /home/$install_user/.bashrc || echo "")
 if [ -z "$install_bash_profile" ]; then
 
 	# Add .bash_profile to .bashrc
