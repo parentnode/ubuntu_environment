@@ -79,6 +79,7 @@ if test "$install_webserver_conf" = "Y"; then
 		echo "Installer will begin now"
 		set_password="1"
 		export set_password
+		echo ""
 	fi
 	
 fi
