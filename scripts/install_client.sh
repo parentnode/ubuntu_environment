@@ -86,6 +86,8 @@ if [ "$set_password" = "1" ]; then
 
 	while [ $set_password ]
 	do
+		echo "Password's can only start with an letter and contain letters and numbers [0-9]"
+		echo ""
 		read -s -p "Enter new root DB password: " db_root_password
 		echo ""
 		read -s -p "Verify new root DB password: " db_root_password2    
