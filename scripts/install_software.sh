@@ -111,10 +111,14 @@ if test "$install_software" = "Y"; then
 	fi
 	# INSTALL FFMPEG
 	bash /srv/tools/scripts/install_ffmpeg.sh
-
+	echo
+	echo "Installing ffmpeg done"
+	echo
 	# INSTALL WKHTMLTO
 	bash /srv/tools/scripts/install_wkhtmlto.sh
-
+	echo
+	echo "Installing wkhtml done"
+	echo
 else
 
 	echo
