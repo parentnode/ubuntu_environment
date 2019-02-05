@@ -30,11 +30,11 @@ if test "$install_webserver_conf" = "Y"; then
 
 	# Give access to /srv/sites folder from the apache configuration added to bottom of /etc/apache2/apache2.conf
 
-	echo "<Directory "/srv/sites">" >> /etc/apache2/apache2.conf
-	echo "	Options Indexes FollowSymLinks MultiViews" >> /etc/apache2/apache2.conf
-	echo "	AllowOverride All" >> /etc/apache2/apache2.conf
-	echo "	Require all granted" >> /etc/apache2/apache2.conf
-	echo "</Directory>" >> /etc/apache2/apache2.conf
+	#echo "<Directory "/srv/sites">" >> /etc/apache2/apache2.conf
+	#echo "	Options Indexes FollowSymLinks MultiViews" >> /etc/apache2/apache2.conf
+	#echo "	AllowOverride All" >> /etc/apache2/apache2.conf
+	#echo "	Require all granted" >> /etc/apache2/apache2.conf
+	#echo "</Directory>" >> /etc/apache2/apache2.conf
 
 	# remove path (slashes) from output to avoid problem with testing string
 	install_parentnode_includes=$(grep "^IncludeOptional \/srv\/sites\/apache\/\*\.conf" /etc/apache2/apache2.conf | sed "s/\/srv\/sites\/apache\/\*\.conf//;" || echo "")
