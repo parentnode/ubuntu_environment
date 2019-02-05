@@ -147,17 +147,6 @@ chown -R $SUDO_USER:$SUDO_USER /srv/sites
 # INSTALL SOFTWARE
 . /srv/tools/scripts/install_software.sh
 
-# INSTALL WEBSERVER CONFIGURATION
-#. /srv/tools/scripts/install_webserver_configuration-client.sh
-
-# INSTALL FFMPEG
-#. /srv/tools/scripts/install_ffmpeg.sh
-
-# INSTALL WKHTMLTO
-#. /srv/tools/scripts/install_wkhtmlto.sh
-
-
-
 echo
 echo
 echo "Copying terminal configuration"
