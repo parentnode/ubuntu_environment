@@ -2,7 +2,7 @@
 
 echo "---------------------------------------------"
 echo 
-echo "        Starting server installation"
+echo "Starting parentnode webstack for Ubuntu installation"
 echo 
 echo
 
@@ -126,6 +126,7 @@ checkPath()
 	path=$1	
 	if [ ! -d "$path" ]; then
 		mkdir $path
+		echo "Path: $path created"
 	else 
 		echo "Allready Exist"
 	fi
@@ -134,23 +135,8 @@ checkPath()
 checkPath "/srv/sites"
 checkPath "/srv/sites/apache"
 checkPath "/srv/sites/apache/logs"
+checkPath "/srv/sites/parentnode"
 
-
-## MAKE SITES FOLDER
-#if [ ! -d "/srv/sites" ]; then
-#	mkdir /srv/sites
-#fi
-#create_folder_if_no_exist "/srv/sites"
-#
-## MAKE APACHE FOLDER
-#if [ ! -d "/srv/sites/apache" ]; then
-#	mkdir /srv/sites/apache
-#fi
-#
-## MAKE LOGS FOLDER
-#if [ ! -d "/srv/sites/apache/logs" ]; then
-#	mkdir /srv/sites/apache/logs
-#fi
 
 # Change Folder Rights from root to current user
 chown -R $SUDO_USER:$SUDO_USER /srv/sites
@@ -240,6 +226,6 @@ chown -R $SUDO_USER:$SUDO_USER /srv/sites
 
 echo 
 echo
-echo "            ------ You are done! ------"
+echo "------ You are done! ------"
 echo
 
