@@ -102,7 +102,7 @@ if [ "$set_password" = "1" ]; then
 		else 
 			echo ""
 			echo "Same"
-			export $db_root_password
+			export db_root_password
 			break
 		fi	
 	done
