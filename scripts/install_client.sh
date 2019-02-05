@@ -228,7 +228,7 @@ chown -R $SUDO_USER:$SUDO_USER /srv/sites
 
 echo ""
 echo "parentNode installed in Ubuntu "
-ehco ""
+echo ""
 echo "Install complete"
 echo "--------------------------------------------------------------"
 echo ""
