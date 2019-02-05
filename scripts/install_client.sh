@@ -1,10 +1,12 @@
 #!/bin/bash -e
 
-echo "---------------------------------------------"
-echo 
-echo "Starting parentnode webstack for Ubuntu installation"
-echo 
-echo
+echo "--------------------------------------------------------------"
+echo ""
+echo "Installing parentNode in ubuntu"
+echo "DO NOT CLOSE UNTIL INSTALL ARE COMPLETE" 
+echo "You will see 'Install complete' message once it's done"
+echo ""
+echo ""
 
 
 # GET INSTALL USER
@@ -224,8 +226,10 @@ chown -R $SUDO_USER:$SUDO_USER /srv/sites
 
 
 
-echo 
-echo
-echo "------ You are done! ------"
-echo
+echo ""
+echo "parentNode installed in Ubuntu "
+ehco ""
+echo "Install complete"
+echo "--------------------------------------------------------------"
+echo ""
 
