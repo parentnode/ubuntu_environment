@@ -44,14 +44,14 @@ export install_wkhtml
 
 
 echo
-echo
+echo "-------------------------------------------------------"
 echo "Please enter the information required for your install:"
-echo
+echo "-------------------------------------------------------"
 
 
-read -p "Your email address: " install_email
-export install_email
-echo
+#read -p "Your email address: " install_email
+#export install_email
+#echo
 
 #dbstatus=$(sudo mysql --user=root -e exit 2>/dev/null || echo 1)
 #mysqlstatus=$(dpkg --get-selections | grep mysql)
@@ -110,8 +110,13 @@ fi
 
 # SETTING DEFAULT GIT USER
 git config --global core.filemode false
-git config --global user.name "$install_user"
-git config --global user.email "$install_email"
+#git config --global user.name "$install_user"
+#git config --global user.email "$install_email"
+
+# Checks if git credential are allready set, promts for input if not
+git_configured "name"
+git_configured "email"
+
 git config --global credential.helper cache
 
 
@@ -134,11 +139,14 @@ checkPath()
 	fi
 }
 #create_folder_if_no_exist
-checkPath "/srv/sites"
-checkPath "/srv/sites/apache"
-checkPath "/srv/sites/apache/logs"
-checkPath "/srv/sites/parentnode"
-
+#checkPath "/srv/sites"
+#checkPath "/srv/sites/apache"
+#checkPath "/srv/sites/apache/logs"
+#checkPath "/srv/sites/parentnode"
+checkFolderOrCreate "/srv/sites"
+checkFolderOrCreate "/srv/sites/apache"
+checkFolderOrCreate "/srv/sites/apache/logs"
+checkFolderOrCreate "/srv/sites/parentnode"
 
 # Change Folder Rights from root to current user
 chown -R $SUDO_USER:$SUDO_USER /srv/sites
