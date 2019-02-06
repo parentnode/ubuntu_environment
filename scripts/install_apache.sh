@@ -41,6 +41,8 @@
 		echo "	Require all granted" >> /etc/apache2/apache2.conf
 		echo "</Directory>" >> /etc/apache2/apache2.conf
     	echo "" >> /etc/apache2/apache2.conf
+	else
+		echo "Permissions for apache to /srv/sites: ok"
 	fi
 
 	# remove path (slashes) from output to avoid problem with testing string
