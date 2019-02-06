@@ -26,18 +26,22 @@
         echo
 	fi
 
-	# Give access to /srv/sites folder from the apache configuration added to bottom of /etc/apache2/apache2.conf
-	echo 
-	echo "Granting access for e.g. asset builder into /srv/sites"
-	echo
-
-	echo
-	echo "<Directory "/srv/sites">" >> /etc/apache2/apache2.conf
-	echo "	Options Indexes FollowSymLinks MultiViews" >> /etc/apache2/apache2.conf
-	echo "	AllowOverride All" >> /etc/apache2/apache2.conf
-	echo "	Require all granted" >> /etc/apache2/apache2.conf
-	echo "</Directory>" >> /etc/apache2/apache2.conf
-    echo
+	
+	install_apache_access_for_srv_sites=$(grep -E "^<Directory \"/srv/sites\">" /etc/apache2/apache2.conf || echo "")
+	if [ -z "$install_apache_access_for_srv_sites" ]; then
+		# Give access to /srv/sites folder from the apache configuration added to bottom of /etc/apache2/apache2.conf
+		echo 
+		echo "Granting access for e.g. asset builder into /srv/sites"
+		echo
+		
+		echo "" >> /etc/apache2/apache2.conf
+		echo "<Directory "/srv/sites">" >> /etc/apache2/apache2.conf
+		echo "	Options Indexes FollowSymLinks MultiViews" >> /etc/apache2/apache2.conf
+		echo "	AllowOverride All" >> /etc/apache2/apache2.conf
+		echo "	Require all granted" >> /etc/apache2/apache2.conf
+		echo "</Directory>" >> /etc/apache2/apache2.conf
+    	echo "" >> /etc/apache2/apache2.conf
+	fi
 
 	# remove path (slashes) from output to avoid problem with testing string
     install_parentnode_includes=$(grep "^IncludeOptional \/srv\/sites\/apache\/\*\.conf" /etc/apache2/apache2.conf | sed "s/\/srv\/sites\/apache\/\*\.conf//;" || echo "")
