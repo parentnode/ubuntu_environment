@@ -9,7 +9,6 @@ echo
 
 if test "$install_software" = "Y"; then
 
-
 	echo
 	echo "Installing software"
 	echo
@@ -91,7 +90,7 @@ if test "$install_software" = "Y"; then
 		echo
 		echo
 		# RESTART APACHE
-		#sudo service apache2 restart
+		service apache2 restart
 
 		echo
 		echo "Installing and configuring mariadb"
