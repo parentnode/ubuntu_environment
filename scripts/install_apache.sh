@@ -27,7 +27,7 @@
 	fi
 
 	
-	install_apache_access_for_srv_sites=$(grep -E "^<Directory \"\/srv\/sites\">" /etc/apache2/apache2.conf || echo "")
+	install_apache_access_for_srv_sites=$(grep -E "^<Directory /srv/sites>" /etc/apache2/apache2.conf || echo "")
 	if [ -z "$install_apache_access_for_srv_sites" ]; then
 		# Give access to /srv/sites folder from the apache configuration added to bottom of /etc/apache2/apache2.conf
 		echo 
