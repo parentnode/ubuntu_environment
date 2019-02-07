@@ -162,8 +162,8 @@ chown -R $SUDO_USER:$SUDO_USER /srv/sites
 
 
 # INSTALL SOFTWARE
-. /srv/tools/scripts/install_software.sh
-
+#. /srv/tools/scripts/install_software.sh
+. /srv/tools/scripts/full_install_software.sh
 echo
 echo
 echo "Copying terminal configuration"
