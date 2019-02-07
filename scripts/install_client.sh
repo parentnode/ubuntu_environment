@@ -57,14 +57,12 @@ echo "-------------------------------------------------------"
 #mysqlstatus=$(dpkg --get-selections | grep mysql)
 #echo $mysqlstatus
 # MYSQL ROOT PASSWORD
-if [ -e "/srv/tools/scripts/password.txt" ];then
-	sudo rm /srv/tools/scripts/password.txt
-fi
+#if [ -e "/srv/tools/scripts/password.txt" ];then
+#	sudo rm /srv/tools/scripts/password.txt
+#fi
 echo "Supply password"
-sudo touch /srv/tools/scripts/password.txt
-sudo chmod 777 /srv/tools/scripts/password.txt 
-root_password_status=$(sudo mysql --user=root -e exit 2>/srv/tools/scripts/password.txt)
-test_password=$(grep "using password: NO" /srv/tools/scripts/password.txt || echo "")
+root_password_status=$(sudo mysql --user=root -e exit 2>/dev/null || echo "")
+#test_password=$(grep "using password: NO" /srv/tools/scripts/password.txt || echo "")
 
 echo
 #set_password="0"
@@ -73,7 +71,7 @@ if test "$install_webserver_conf" = "Y"; then
 	if [ -e "/lib/systemd/system/mariadb.service" ]; then
 		echo "Mariadb installed "
 		#Checks if root password are set
-		if [ -z "$test_password" ]; then
+		if [ -z "$root_password_status" ]; then
 			echo "Root password is not set "
 			echo
 			set_password="1"
@@ -115,8 +113,6 @@ if test "$set_password" = "1"; then
 		fi	
 	done
 fi
-
-sudo rm /srv/tools/scripts/password.txt
 # SETTING DEFAULT GIT USER
 git config --global core.filemode false
 #git config --global user.name "$install_user"
@@ -162,8 +158,7 @@ chown -R $SUDO_USER:$SUDO_USER /srv/sites
 
 
 # INSTALL SOFTWARE
-#. /srv/tools/scripts/install_software.sh
-. /srv/tools/scripts/full_install_software.sh
+. /srv/tools/scripts/install_software.sh
 echo
 echo
 echo "Copying terminal configuration"
