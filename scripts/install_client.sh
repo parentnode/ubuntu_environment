@@ -57,12 +57,22 @@ echo "-------------------------------------------------------"
 #mysqlstatus=$(dpkg --get-selections | grep mysql)
 #echo $mysqlstatus
 # MYSQL ROOT PASSWORD
+if [ -e "/srv/tools/scripts/password.txt"];then
+	sudo rm /srv/tools/scripts/password.txt
+fi
 echo "Supply password"
 sudo touch /srv/tools/scripts/password.txt
 sudo chmod 777 /srv/tools/scripts/password.txt 
 root_password_status=$(sudo mysql --user=root -e exit 2>/srv/tools/scripts/password.txt)
 test_password=$(grep "using password: NO" /srv/tools/scripts/password.txt || echo "")
 echo "Test: ---->  $test_password"
+if [ -z "$test_password" ];then
+	echo "Password set"
+
+else 
+	echo "Password not set"
+fi
+sudo rm /srv/tools/scripts/password.txt
 #echo
 ##set_password="0"
 #if test "$install_webserver_conf" = "Y"; then
