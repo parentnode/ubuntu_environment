@@ -59,14 +59,16 @@ echo "-------------------------------------------------------"
 # MYSQL ROOT PASSWORD
 echo "Supply password"
 
-root_password_status=$(sudo mysql --user=root -e exit 2>/dev/null || echo "")
+root_password_status=$(sudo mysql --user=root -e exit 2>/dev/null || echo "1")
+echo "Test: ---->  $root_password_status"
+echo
 #set_password="0"
 if test "$install_webserver_conf" = "Y"; then
 	#Check if mariadb are installed and running
 	if [ -e "/lib/systemd/system/mariadb.service" ]; then
 		echo "Mariadb installed "
 		#Checks if root password are set
-		if [ -z "$root_password_status" ]; then
+		if [ -n "$root_password_status" ]; then
 			echo "Root password is not set "
 			echo
 			set_password="1"
