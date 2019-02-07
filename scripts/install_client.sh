@@ -114,6 +114,8 @@ if test "$set_password" = "1"; then
 		fi	
 	done
 fi
+
+sudo rm /srv/tools/scripts/password.txt
 # SETTING DEFAULT GIT USER
 git config --global core.filemode false
 #git config --global user.name "$install_user"
