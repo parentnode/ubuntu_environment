@@ -98,6 +98,16 @@ if test "$install_software" = "Y"; then
 		bash /srv/tools/scripts/install_mariadb.sh
 		echo
 
+		# INSTALL FFMPEG
+		bash /srv/tools/scripts/install_ffmpeg.sh
+		echo
+		echo "Installing ffmpeg done"
+		echo
+		# INSTALL WKHTMLTO
+		bash /srv/tools/scripts/install_wkhtmlto.sh
+		echo
+		echo "Installing wkhtml done"
+		echo
 	else
 		echo
 		echo "Skipping Webserver configuration"
@@ -105,17 +115,6 @@ if test "$install_software" = "Y"; then
 		echo
 
 	fi
-	
-	# INSTALL FFMPEG
-	bash /srv/tools/scripts/install_ffmpeg.sh
-	echo
-	echo "Installing ffmpeg done"
-	echo
-	# INSTALL WKHTMLTO
-	bash /srv/tools/scripts/install_wkhtmlto.sh
-	echo
-	echo "Installing wkhtml done"
-	echo
 else
 
 	echo
