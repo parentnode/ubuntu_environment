@@ -66,7 +66,7 @@ if test "$install_webserver_conf" = "Y"; then
 	if [ -e "/lib/systemd/system/mariadb.service" ]; then
 		echo "Mariadb installed "
 		#Checks if root password are set
-		if test "$root_password_status" = "1" ]; then
+		if test "$root_password_status" = "1"; then
 			echo "Root password is not set "
 			echo
 			set_password="1"
