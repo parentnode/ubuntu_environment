@@ -49,20 +49,21 @@ echo "Please enter the information required for your install:"
 echo "-------------------------------------------------------"
 
 
-#read -p "Your email address: " install_email
-#export install_email
+echo "Please enter your email for apache installation"
+read -p "Your email address: " install_email
+export install_email
 #echo
 
 #dbstatus=$(sudo mysql --user=root -e exit 2>/dev/null || echo 1)
 #mysqlstatus=$(dpkg --get-selections | grep mysql)
 #echo $mysqlstatus
 # MYSQL ROOT PASSWORD
-#if [ -e "/srv/tools/scripts/password.txt" ];then
-#	sudo rm /srv/tools/scripts/password.txt
-#fi
+if [ -e "/srv/tools/scripts/password.txt" ];then
+	sudo rm /srv/tools/scripts/password.txt
+fi
 echo "Supply password"
-root_password_status=$(sudo mysql --user=root -e exit 2>/dev/null || echo "1")
-#test_password=$(grep "using password: NO" /srv/tools/scripts/password.txt || echo "")
+root_password_status=$(sudo mysql --user=root -e exit 2>/srv/tools/scripts/password.txt)
+test_password=$(grep "using password: NO" /srv/tools/scripts/password.txt || echo "")
 
 echo
 #set_password="0"
@@ -71,7 +72,7 @@ if test "$install_webserver_conf" = "Y"; then
 	if [ -e "/lib/systemd/system/mariadb.service" ]; then
 		echo "Mariadb installed "
 		#Checks if root password are set
-		if [ -z "$root_password_status" ]; then
+		if [ -z "$test_password" ]; then
 			echo "Root password is not set "
 			echo
 			set_password="1"

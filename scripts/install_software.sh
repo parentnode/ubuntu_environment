@@ -67,13 +67,13 @@ if test "$install_software" = "Y"; then
 
 	if test "$install_webserver_conf" = "Y"; then
 		echo
-		echo "Installing and configuring apache2"
+		echo "Configuring apache2"
 		echo
 		bash /srv/tools/scripts/install_apache.sh
 		echo
 
 		echo
-		echo "Installing and configuring php"
+		echo "Configuring php"
 		echo
 		bash /srv/tools/scripts/install_php.sh
 		echo	
@@ -93,7 +93,7 @@ if test "$install_software" = "Y"; then
 		service apache2 restart
 
 		echo
-		echo "Installing and configuring mariadb"
+		echo "Configuring mariadb"
 		echo
 		bash /srv/tools/scripts/install_mariadb.sh
 		echo
