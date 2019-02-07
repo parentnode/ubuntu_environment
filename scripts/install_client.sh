@@ -58,9 +58,10 @@ echo "-------------------------------------------------------"
 #echo $mysqlstatus
 # MYSQL ROOT PASSWORD
 echo "Supply password"
-
-root_password_status=$(sudo mysql --user=root -e exit 2>&1 || echo "")
-echo "Test: ---->  $root_password_status"
+password_set=""
+root_password_status=$(sudo mysql --user=root -e exit 2>$password_set || echo "")
+test_password=$(echo "$password_set" | grep "using password: NO" || echo "")
+echo "Test: ---->  $test_password"
 echo
 #set_password="0"
 if test "$install_webserver_conf" = "Y"; then
