@@ -57,7 +57,7 @@ echo "-------------------------------------------------------"
 #mysqlstatus=$(dpkg --get-selections | grep mysql)
 #echo $mysqlstatus
 # MYSQL ROOT PASSWORD
-if [ -e "/srv/tools/scripts/password.txt"];then
+if [ -e "/srv/tools/scripts/password.txt" ];then
 	sudo rm /srv/tools/scripts/password.txt
 fi
 echo "Supply password"
