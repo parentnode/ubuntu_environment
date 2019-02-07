@@ -52,7 +52,8 @@ if test "$install_software" = "Y"; then
 		echo "Restarting Apache"
 		echo
 		echo
-
+		# RESTART APACHE
+		sudo service apache2 restart
 
 		echo
 		echo "Installing and configuring mariadb"
@@ -67,8 +68,7 @@ if test "$install_software" = "Y"; then
 		echo
 
 	fi
-	# RESTART APACHE
-	sudo service apache2 restart
+	
 	# INSTALL FFMPEG
 	bash /srv/tools/scripts/install_ffmpeg.sh
 	echo
