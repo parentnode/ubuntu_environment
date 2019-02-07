@@ -1,9 +1,4 @@
 #!/bin/bash -e
-echo
-echo "Installing mariadb"
-echo
-sudo -E apt install -q -y mariadb-server
-echo 
 
 echo
 echo "Configuring mariadb"
