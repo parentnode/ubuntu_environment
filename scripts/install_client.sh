@@ -66,7 +66,7 @@ sudo chmod 777 /srv/tools/scripts/password.txt
 root_password_status=$(sudo mysql --user=root -e exit 2>/srv/tools/scripts/password.txt)
 test_password=$(grep "using password: NO" /srv/tools/scripts/password.txt || echo "")
 echo "Test: ---->  $test_password"
-if [ -z "$test_password" ];then
+if [ -n "$test_password" ];then
 	echo "Password set"
 
 else 
