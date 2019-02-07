@@ -59,7 +59,7 @@ echo "-------------------------------------------------------"
 # MYSQL ROOT PASSWORD
 echo "Supply password"
 
-root_password_status=$(sudo mysql --user=root -e exit 2>/dev/null || echo "1")
+root_password_status=$(sudo mysql --user=root -e exit 2>/dev/null || echo "")
 echo "Test: ---->  $root_password_status"
 echo
 #set_password="0"
