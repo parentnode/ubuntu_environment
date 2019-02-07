@@ -9,7 +9,8 @@ echo
 echo "Configuring mariadb"
 echo
 
-
+# RESTART APACHE
+service apache2 restart
 
 # Do we have root password
 if [ -n "$db_root_password" ]; then

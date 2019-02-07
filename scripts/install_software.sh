@@ -53,7 +53,7 @@ if test "$install_software" = "Y"; then
 		echo
 		echo
 		# RESTART APACHE
-		sudo service apache2 restart
+		#sudo service apache2 restart
 
 		echo
 		echo "Installing and configuring mariadb"
