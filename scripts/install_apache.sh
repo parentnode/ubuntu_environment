@@ -1,11 +1,6 @@
 #!/bin/bash -e
 
 # INSTALL APACHE
-	echo
-    echo "Installing apache"
-    sudo apt install -y apache2 apache2-utils ssl-cert
-    echo
-
     echo
     echo "Configuring apache"
 	echo
