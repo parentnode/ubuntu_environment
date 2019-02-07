@@ -18,6 +18,7 @@ if test "$install_software" = "Y"; then
 
 	if test "$install_webserver_conf" = "Y"; then
 
+		sudo service apache2 stop 2>/dev/null
 		echo
 		echo "Installing and configuring apache2"
 		echo
@@ -46,14 +47,14 @@ if test "$install_software" = "Y"; then
 			# Add Default apache conf
 			cat /srv/tools/conf-client/apache.conf > /srv/sites/apache/apache.conf
 		fi
+		# RESTART APACHE
+		service apache2 restart
 
 		echo
 		echo "Restarting Apache"
 		echo
 		echo
 
-		# RESTART APACHE
-		service apache2 restart
 
 		echo
 		echo "Installing and configuring mariadb"
