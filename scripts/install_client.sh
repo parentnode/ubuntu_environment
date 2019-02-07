@@ -1,10 +1,12 @@
 #!/bin/bash -e
 
-echo "---------------------------------------------"
-echo 
-echo "        Starting server installation"
-echo 
-echo
+echo "--------------------------------------------------------------"
+echo ""
+echo "Installing parentNode in ubuntu"
+echo "DO NOT CLOSE UNTIL INSTALL ARE COMPLETE" 
+echo "You will see 'Install complete' message once it's done"
+echo ""
+echo ""
 
 
 # GET INSTALL USER
@@ -18,12 +20,13 @@ export install_user
 # echo
 # echo
 
-
+source /srv/tools/scripts/functions.sh
 echo
 echo "Installing system for $install_user"
 echo
 echo "To speed up the process, please select your install options now:"
 echo
+
 
 read -p "Install software (Y/n): " install_software
 export install_software
@@ -41,29 +44,35 @@ export install_wkhtml
 
 
 echo
-echo
+echo "-------------------------------------------------------"
 echo "Please enter the information required for your install:"
-echo
+echo "-------------------------------------------------------"
 
 
+echo "Please enter your email for apache installation"
 read -p "Your email address: " install_email
 export install_email
-echo
+#echo
 
 #dbstatus=$(sudo mysql --user=root -e exit 2>/dev/null || echo 1)
 #mysqlstatus=$(dpkg --get-selections | grep mysql)
 #echo $mysqlstatus
 # MYSQL ROOT PASSWORD
+if [ -e "/srv/tools/scripts/password.txt" ];then
+	sudo rm /srv/tools/scripts/password.txt
+fi
 echo "Supply password"
+root_password_status=$(sudo mysql --user=root -e exit 2>/srv/tools/scripts/password.txt)
+test_password=$(grep "using password: NO" /srv/tools/scripts/password.txt || echo "")
 
-root_password_status=$(sudo mysql --user=root -e exit 2>/dev/null || echo "1")
+echo
 #set_password="0"
 if test "$install_webserver_conf" = "Y"; then
 	#Check if mariadb are installed and running
 	if [ -e "/lib/systemd/system/mariadb.service" ]; then
 		echo "Mariadb installed "
 		#Checks if root password are set
-		if test "$root_password_status" = "1" ]; then
+		if [ -z "$test_password" ]; then
 			echo "Root password is not set "
 			echo
 			set_password="1"
@@ -83,8 +92,9 @@ if test "$install_webserver_conf" = "Y"; then
 	fi
 	
 fi
-if [ "$set_password" = "1" ]; then
 
+
+if test "$set_password" = "1"; then
 	while [ $set_password ]
 	do
 		echo "Password's can only start with an letter and contain letters and numbers [0-9]"
@@ -99,16 +109,22 @@ if [ "$set_password" = "1" ]; then
 		else 
 			echo ""
 			echo "Same"
-			export $db_root_password
+			export db_root_password
 			break
 		fi	
 	done
 fi
 
+sudo rm /srv/tools/scripts/password.txt
 # SETTING DEFAULT GIT USER
 git config --global core.filemode false
-git config --global user.name "$install_user"
-git config --global user.email "$install_email"
+#git config --global user.name "$install_user"
+#git config --global user.email "$install_email"
+
+# Checks if git credential are allready set, promts for input if not
+git_configured "name"
+git_configured "email"
+
 git config --global credential.helper cache
 
 
@@ -125,31 +141,20 @@ checkPath()
 	path=$1	
 	if [ ! -d "$path" ]; then
 		mkdir $path
+		echo "Path: $path created"
 	else 
 		echo "Allready Exist"
 	fi
 }
 #create_folder_if_no_exist
-checkPath "/srv/sites"
-checkPath "/srv/sites/apache"
-checkPath "/srv/sites/apache/logs"
-
-
-## MAKE SITES FOLDER
-#if [ ! -d "/srv/sites" ]; then
-#	mkdir /srv/sites
-#fi
-#create_folder_if_no_exist "/srv/sites"
-#
-## MAKE APACHE FOLDER
-#if [ ! -d "/srv/sites/apache" ]; then
-#	mkdir /srv/sites/apache
-#fi
-#
-## MAKE LOGS FOLDER
-#if [ ! -d "/srv/sites/apache/logs" ]; then
-#	mkdir /srv/sites/apache/logs
-#fi
+#checkPath "/srv/sites"
+#checkPath "/srv/sites/apache"
+#checkPath "/srv/sites/apache/logs"
+#checkPath "/srv/sites/parentnode"
+checkFolderOrCreate "/srv/sites"
+checkFolderOrCreate "/srv/sites/apache"
+checkFolderOrCreate "/srv/sites/apache/logs"
+checkFolderOrCreate "/srv/sites/parentnode"
 
 # Change Folder Rights from root to current user
 chown -R $SUDO_USER:$SUDO_USER /srv/sites
@@ -157,18 +162,6 @@ chown -R $SUDO_USER:$SUDO_USER /srv/sites
 
 # INSTALL SOFTWARE
 . /srv/tools/scripts/install_software.sh
-
-# INSTALL WEBSERVER CONFIGURATION
-. /srv/tools/scripts/install_webserver_configuration-client.sh
-
-# INSTALL FFMPEG
-. /srv/tools/scripts/install_ffmpeg.sh
-
-# INSTALL WKHTMLTO
-. /srv/tools/scripts/install_wkhtmlto.sh
-
-
-
 echo
 echo
 echo "Copying terminal configuration"
@@ -237,8 +230,10 @@ chown -R $SUDO_USER:$SUDO_USER /srv/sites
 
 
 
-echo 
-echo
-echo "            ------ You are done! ------"
-echo
+echo ""
+echo "parentNode installed in Ubuntu "
+echo ""
+echo "Install complete"
+echo "--------------------------------------------------------------"
+echo ""
 
