@@ -58,9 +58,10 @@ echo "-------------------------------------------------------"
 #echo $mysqlstatus
 # MYSQL ROOT PASSWORD
 echo "Supply password"
-password_set=""
-root_password_status=$(sudo mysql --user=root -e exit 2>"$password_set")
-test_password=$(echo "$password_set" | grep "using password: NO" || echo "")
+sudo touch /srv/tools/scripts/password.txt
+sudo chmod 777 /srv/tools/scripts/password.txt 
+root_password_status=$(sudo mysql --user=root -e exit 2>/srv/tools/scripts/password.txt)
+test_password=$(grep "using password: NO" /srv/tools/scripts/password.txt || echo "")
 echo "Test: ---->  $test_password"
 #echo
 ##set_password="0"
