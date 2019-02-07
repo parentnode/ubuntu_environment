@@ -61,7 +61,7 @@ echo "-------------------------------------------------------"
 #	sudo rm /srv/tools/scripts/password.txt
 #fi
 echo "Supply password"
-root_password_status=$(sudo mysql --user=root -e exit 2>/dev/null || echo "")
+root_password_status=$(sudo mysql --user=root -e exit 2>/dev/null || echo "1")
 #test_password=$(grep "using password: NO" /srv/tools/scripts/password.txt || echo "")
 
 echo
