@@ -59,57 +59,57 @@ echo "-------------------------------------------------------"
 # MYSQL ROOT PASSWORD
 echo "Supply password"
 password_set=""
-root_password_status=$(sudo mysql --user=root -e exit 2>$password_set || echo "")
+root_password_status=$(sudo mysql --user=root -e exit 2>"$password_set")
 test_password=$(echo "$password_set" | grep "using password: NO" || echo "")
 echo "Test: ---->  $test_password"
-echo
-#set_password="0"
-if test "$install_webserver_conf" = "Y"; then
-	#Check if mariadb are installed and running
-	if [ -e "/lib/systemd/system/mariadb.service" ]; then
-		echo "Mariadb installed "
-		#Checks if root password are set
-		if [ -n "$root_password_status" ]; then
-			echo "Root password is not set "
-			echo
-			set_password="1"
-			export set_password
-		else 
-			echo "Root password is set"
-			echo
-			set_password="0"
-			export set_password
-		fi
-	else 
-		echo "Mariadb not previously installed"
-		echo "Installer will begin now"
-		set_password="1"
-		export set_password
-		echo ""
-	fi
-	
-fi
-if test "$set_password" = "1"; then
-	while [ $set_password ]
-	do
-		echo "Password's can only start with an letter and contain letters and numbers [0-9]"
-		echo ""
-		read -s -p "Enter new root DB password: " db_root_password
-		echo ""
-		read -s -p "Verify new root DB password: " db_root_password2    
-		if [ $db_root_password != $db_root_password2 ]; then
-			echo ""
-			echo "Not same "
-			echo ""
-		else 
-			echo ""
-			echo "Same"
-			export db_root_password
-			break
-		fi	
-	done
-fi
-
+#echo
+##set_password="0"
+#if test "$install_webserver_conf" = "Y"; then
+#	#Check if mariadb are installed and running
+#	if [ -e "/lib/systemd/system/mariadb.service" ]; then
+#		echo "Mariadb installed "
+#		#Checks if root password are set
+#		if [ -n "$root_password_status" ]; then
+#			echo "Root password is not set "
+#			echo
+#			set_password="1"
+#			export set_password
+#		else 
+#			echo "Root password is set"
+#			echo
+#			set_password="0"
+#			export set_password
+#		fi
+#	else 
+#		echo "Mariadb not previously installed"
+#		echo "Installer will begin now"
+#		set_password="1"
+#		export set_password
+#		echo ""
+#	fi
+#	
+#fi
+#if test "$set_password" = "1"; then
+#	while [ $set_password ]
+#	do
+#		echo "Password's can only start with an letter and contain letters and numbers [0-9]"
+#		echo ""
+#		read -s -p "Enter new root DB password: " db_root_password
+#		echo ""
+#		read -s -p "Verify new root DB password: " db_root_password2    
+#		if [ $db_root_password != $db_root_password2 ]; then
+#			echo ""
+#			echo "Not same "
+#			echo ""
+#		else 
+#			echo ""
+#			echo "Same"
+#			export db_root_password
+#			break
+#		fi	
+#	done
+#fi
+#
 # SETTING DEFAULT GIT USER
 git config --global core.filemode false
 #git config --global user.name "$install_user"
