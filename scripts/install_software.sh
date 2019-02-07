@@ -47,8 +47,6 @@ if test "$install_software" = "Y"; then
 			# Add Default apache conf
 			cat /srv/tools/conf-client/apache.conf > /srv/sites/apache/apache.conf
 		fi
-		# RESTART APACHE
-		service apache2 restart
 
 		echo
 		echo "Restarting Apache"
@@ -69,6 +67,8 @@ if test "$install_software" = "Y"; then
 		echo
 
 	fi
+	# RESTART APACHE
+	sudo service apache2 restart
 	# INSTALL FFMPEG
 	bash /srv/tools/scripts/install_ffmpeg.sh
 	echo
