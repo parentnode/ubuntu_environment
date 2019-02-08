@@ -9,8 +9,11 @@ guiText(){
 			echo
 			echo
 			echo "More info regarding $1"
-			echo "Or subject: $2"
 			echo "can be found on $3"
+			if [ -n "$4" ];
+			then
+				echo "and $4"
+			fi
 			echo
 			echo
 			;;
