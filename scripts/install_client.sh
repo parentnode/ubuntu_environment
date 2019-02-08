@@ -48,7 +48,7 @@ then
 	export use_parentnode_dot_bash_profile
 else
 	guiText "Terminal" "Install"
-	./srv/tools/scripts/install_promt.sh
+	bash /srv/tools/scripts/install_promt.sh
 fi
 
 # MYSQL ROOT PASSWORD
