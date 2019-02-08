@@ -20,6 +20,10 @@ guiText(){
 		"Comment")
 			echo
 			echo "$1:"
+			if [ -n "$3" ];
+			then
+				echo "$3"
+			fi
 			echo
 			;;
 		"Section")
