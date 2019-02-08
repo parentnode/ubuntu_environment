@@ -67,7 +67,7 @@ if test "$install_software" = "Y"; then
 			cat /srv/tools/conf-client/apache.conf > /srv/sites/apache/apache.conf
 		fi
 
-		guiText "Restarting Apache"
+		guiText "Restarting Apache" "Comment"
 		# RESTARTING APACHE ARE IMPORTANT FOR REST OF THE SCRIPT!!
 		service apache2 restart
 
