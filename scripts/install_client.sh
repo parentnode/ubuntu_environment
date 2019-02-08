@@ -30,11 +30,14 @@ export install_ffmpeg
 echo
 read -p "Install wkhtmlto (Y/n): " install_wkhtml
 export install_wkhtml
-guiText "Please enter the information required for your install:" "Section"
+
 
 guiText "Please enter your email for apache installation" "Comment"
 read -p "Your email address: " install_email
 export install_email
+
+guiText ".bash profile are loaded in to your promt when you start ubuntu " "Comment" 
+"when this installer are done it will change color and when you are entering an git repository"
 
 if [ -f "$HOME/.bash_profile" ];
 then
@@ -42,6 +45,7 @@ then
 	guiText "Pressing n will only add aliases needed for later use, but it might require professional use" "Comment"
 	read -p "Do you wan't to add parentnode configuration to your .bash_profile (Y/n): " use_parentnode_dot_bash_profile
 	export use_parentnode_dot_bash_profile
+
 fi
 
 # MYSQL ROOT PASSWORD
