@@ -105,7 +105,7 @@ checkFileContent()
 	file=$1
 	#bash_profile.default
 	default=$2
-	echo "Updating $file"
+	echo "Updating $file alias"
 	# Splits output based on new lines
 	IFS=$'\n'
 	# Reads all of default int to an variable
