@@ -30,7 +30,7 @@ export install_ffmpeg
 echo
 read -p "Install wkhtmlto (Y/n): " install_wkhtml
 export install_wkhtml
-guiText "Please enter the information required for your install:" "Comment"
+guiText "Please enter the information required for your install:" "Section"
 
 guiText "Please enter your email for apache installation" "Comment"
 read -p "Your email address: " install_email
