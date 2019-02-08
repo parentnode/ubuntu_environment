@@ -36,6 +36,14 @@ guiText "Please enter your email for apache installation" "Comment"
 read -p "Your email address: " install_email
 export install_email
 
+if [ -f "$HOME/.bash_profile" ];
+then
+	guiText "You  allready have a .bash_profile" "Comment"
+	guiText "Pressing n will only add aliases needed for later use, but it might require professional use" "Comment"
+	read -p "Do you wan't to add parentnode configuration to your .bash_profile (Y/n): " use_parentnode_dot_bash_profile
+	export use_parentnode_dot_bash_profile
+fi
+
 # MYSQL ROOT PASSWORD
 if [ -e "/srv/tools/scripts/password.txt" ];then
 	sudo rm /srv/tools/scripts/password.txt
@@ -133,8 +141,14 @@ guiText "Software" "Start"
 
 guiText "Setting up your terminal" "Section"
 
-guiText "Terminal" "Install"
-
+if test $use_parentnode_dot_bash_profile = Y;
+then
+	guiText "Terminal" "Install"
+	./srv/tools/scripts/install_promp.sh
+else 
+	guiText "Adding alias" "Comment"
+	checkFileContent "/home/$install_user/.bash_profile" "/srv/tools/conf-client/dot_bash_profile"
+fi
 # Change Folder Rights from root to current user
 guiText "Changing folder rights from root to current user" "Comment"
 chown -R $SUDO_USER:$SUDO_USER /srv/sites
