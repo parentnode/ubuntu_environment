@@ -6,24 +6,31 @@ guiText(){
 	case $2 in 
 		"Link")
 			echo
+			echo
 			echo "More info regarding $1"
 			echo "Or subject: $2"
 			echo "can be found on $3"
+			echo
 			echo
 			;;
 		"Comment")
 			echo
 			echo "$1:"
+			echo
 			;;
 		"Section")
+			echo
 			echo 
 			echo "{---$1---}"	
+			echo
 			echo
 			;;
 		#These following commentary cases are used for installing and configuring setup
 		"Start")
 			echo
+			echo
 			echo "Starting installation process for $1"
+			echo
 			echo
 			;;
 		"Download")
@@ -31,6 +38,7 @@ guiText(){
 			echo "Downloading files for the installation of $1"
 			echo "This could take some time depending on your internet connection"
 			echo "and hardware configuration"
+			echo
 			echo
 			;;
 		"Install")
@@ -60,12 +68,16 @@ guiText(){
 			;;
 		"Done")
 			echo
+			echo
 			echo "Installation process for $1 are done"
+			echo
 			echo
 			;;
 		"Skip")
 			echo
+			echo
 			echo "Skipping Installation process for $1"
+			echo
 			echo
 			;;
 		*)
