@@ -1,9 +1,4 @@
 #!/bin/bash -e
-
-echo
-echo "Configuring mariadb"
-echo
-
 # Do we have root password
 if [ -n "$db_root_password" ]; then
 
@@ -20,17 +15,14 @@ if [ -n "$db_root_password" ]; then
         #echo "UPDATE mysql.user SET plugin = '', password = PASSWORD('$db_root_password') WHERE user = 'root'; FLUSH PRIVILEGES;" | sudo mysql -u root -ptemp
 
         # FOR UBUNTU 16.04/MariaDB 10
+        guiText "password" "Install"
         echo "UPDATE mysql.user SET plugin = 'mysql_native_password', password = PASSWORD('$db_root_password') WHERE user = 'root'; FLUSH PRIVILEGES;" | sudo mysql -u root
-
+        guiText "maintenance password" "Replace" "new password"
         # REPLACE PASSWORD FOR MAINTANENCE ACCOUNT
         sudo sed -i "s/password = .*/password = $db_root_password/;" /etc/mysql/debian.cnf
 
-        echo "DB Root access configured"
+        guiText "DB Root access" "Installed"
 
     fi
 
 fi
-
-echo
-echo "Installing and configuring mariadb done"
-echo

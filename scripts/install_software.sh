@@ -7,20 +7,12 @@ echo
 echo
 
 
-if test "$install_software" = "Y"; then
-
-	echo
-	echo "Installing software"
-	echo
-	
-	echo
-    echo "Installing apache"
+if test "$install_software" = "Y"; then	
+    guiText "Apache2" "Start"
     sudo apt install -y apache2 apache2-utils ssl-cert
     echo
 
-	echo
-	echo "Installing php"
-	echo
+	guiText "PHP7.2" "Start"
 
 	# INSTALL PHP5.5
 	#	sudo apt install -y libapache2-mod-php5 php5 php5-cli php5-common php5-curl php5-dev php5-imagick php5-mcrypt php5-memcached php5-mysqlnd php5-xmlrpc memcached
@@ -43,40 +35,30 @@ if test "$install_software" = "Y"; then
 	sudo apt install -y php-redis php-imagick php-igbinary php-msgpack 
 	echo
 
-	echo
-	echo "Installing redis"
-	echo
+	guiText "Redis" "Start"
 	sudo apt install -y redis
-	echo
+	guiText "Redis" "Done"
 
-	echo
-	echo "Installing zip, log rotation and curl"
-	echo
+	guiText "Zip, Log Rotation and Curl" "Start"
 	sudo apt install -y zip logrotate curl
-	echo
+	guiText "Zip, Log Rotation and Curl" "Done"
 
-	echo
-	echo "Installing mariadb"
-	echo
+	guiText "MariaDB" "Start"
 	sudo -E apt install -q -y mariadb-server
-	echo 
+	
 
 	
 	# INSTALL SYS-INFO
 	# aptitude install landscape-client landscape-common
 
 	if test "$install_webserver_conf" = "Y"; then
-		echo
-		echo "Configuring apache2"
-		echo
+		guiText "Apache2" "Install"
 		bash /srv/tools/scripts/install_apache.sh
-		echo
+		guiText "Apache2" "Done"
 
-		echo
-		echo "Configuring php"
-		echo
+		guiText "PHP" "Install"
 		bash /srv/tools/scripts/install_php.sh
-		echo	
+		guiText "PHP7.2" "Done"	
 
 		
 		# MAKE LOGS FOLDER
@@ -85,41 +67,25 @@ if test "$install_software" = "Y"; then
 			cat /srv/tools/conf-client/apache.conf > /srv/sites/apache/apache.conf
 		fi
 
-		echo
-		echo "Restarting Apache"
-		echo
-		echo
-		# RESTART APACHE
+		guiText "Restarting Apache" "Comment"
+		# RESTARTING APACHE ARE IMPORTANT FOR REST OF THE SCRIPT!!
 		service apache2 restart
 
-		echo
-		echo "Configuring mariadb"
-		echo
+		guiText "MariaDB" "Install"
 		bash /srv/tools/scripts/install_mariadb.sh
-		echo
-
-		# INSTALL FFMPEG
-		bash /srv/tools/scripts/install_ffmpeg.sh
-		echo
-		echo "Installing ffmpeg done"
-		echo
-		# INSTALL WKHTMLTO
-		bash /srv/tools/scripts/install_wkhtmlto.sh
-		echo
-		echo "Installing wkhtml done"
-		echo
+		guiText "MariaDB" "Done"
 	else
-		echo
-		echo "Skipping Webserver configuration"
-		echo
-		echo
-
+		guiText "Webserver" "Skip"
 	fi
+	# INSTALL FFMPEG
+	guiText "FFMPEF" "Start"
+	bash /srv/tools/scripts/install_ffmpeg.sh
+	guiText "FFMPEG" "Done"
+	
+	# INSTALL WKHTMLTO
+	guiText "WKHTML" "Start"
+	bash /srv/tools/scripts/install_wkhtmlto.sh
+	guiText "WKHTML" "Done"
 else
-
-	echo
-	echo "Skipping software"
-	echo
-	echo
-
+	guiText "Software" "Skip"
 fi

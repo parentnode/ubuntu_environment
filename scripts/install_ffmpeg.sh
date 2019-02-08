@@ -23,13 +23,10 @@ if test "$install_ffmpeg" = "Y"; then
 	# cd ..
 	# rm -R ffmpeg-3.2.1
 
-	echo
-	echo
-
 else
 
 	echo
-	echo "Skipping FFMPEG"
+	guiText "FFMPEG" "Skip"
 	echo
 	echo
 
