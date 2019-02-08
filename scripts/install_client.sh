@@ -17,7 +17,7 @@ export install_user
 
 source /srv/tools/scripts/functions.sh
 guiText "Installing system for $install_user" "Comment"
-guiText "To speed up the process, please select your install options now:" "Comment"
+guiText "To speed up the process, please select your install options now:" "Section"
 
 read -p "Install software (Y/n): " install_software
 export install_software
