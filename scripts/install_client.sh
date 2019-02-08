@@ -16,8 +16,8 @@ export install_user
 
 
 source /srv/tools/scripts/functions.sh
-guiText "Installing system for $install_user"
-guiText "To speed up the process, please select your install options now:"
+guiText "Installing system for $install_user" "Comment"
+guiText "To speed up the process, please select your install options now:" "Comment"
 
 read -p "Install software (Y/n): " install_software
 export install_software
@@ -30,9 +30,9 @@ export install_ffmpeg
 echo
 read -p "Install wkhtmlto (Y/n): " install_wkhtml
 export install_wkhtml
-guiText "Please enter the information required for your install:"
+guiText "Please enter the information required for your install:" "Comment"
 
-guiText "Please enter your email for apache installation"
+guiText "Please enter your email for apache installation" "Comment"
 read -p "Your email address: " install_email
 export install_email
 
@@ -90,6 +90,7 @@ if test "$set_password" = "1"; then
 fi
 guiText "Cleaning up temporary files" "Comment"
 sudo rm /srv/tools/scripts/password.txt
+
 # SETTING DEFAULT GIT USER
 guiText "Setting Default GIT USER" "Section"
 git config --global core.filemode false
@@ -156,7 +157,7 @@ if [ -z "$install_bash_profile" ]; then
 fi
 
 # Change Folder Rights from root to current user
-guiText "Changing folder rights from root to current user"
+guiText "Changing folder rights from root to current user" "Comment"
 chown -R $SUDO_USER:$SUDO_USER /srv/sites
 
 
