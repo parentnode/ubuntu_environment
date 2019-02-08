@@ -36,9 +36,8 @@ guiText "Please enter your email for apache installation" "Comment"
 read -p "Your email address: " install_email
 export install_email
 
-guiText ".bash profile are loaded in to your promt when you start ubuntu "
-+ "Comment"
-+ "when this installer are done it will change color and when you are entering an git repository"
+guiText ".bash profile are loaded in to your promt when you start ubuntu " "Comment"\
+"when this installer are done it will change color and when you are entering an git repository"
 
 if [ -f "$HOME/.bash_profile" ];
 then
