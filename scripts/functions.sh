@@ -1,3 +1,4 @@
+#!/bin/bash -e
 guiText(){
 	# Automatic comment format for simple setup as a text based gui
 	# eg. guiText "Redis" "Start"
