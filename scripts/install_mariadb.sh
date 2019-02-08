@@ -1,7 +1,4 @@
 #!/bin/bash -e
-
-guiText "MariaDB" "Install"
-
 # Do we have root password
 if [ -n "$db_root_password" ]; then
 
@@ -29,5 +26,3 @@ if [ -n "$db_root_password" ]; then
     fi
 
 fi
-
-guiText "MariaDB" "Done"

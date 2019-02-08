@@ -1,6 +1,4 @@
 #!/bin/bash -e
-
-guiText "PHP" "Install"
 # UPDATE PHP CONF
 # PHP 5
 #cat /srv/tools/conf-client/php-apache2.ini > /etc/php5/apache2/php.ini
@@ -17,6 +15,3 @@ echo
 
 guiText "php-cli.ini" "Install"
 cat /srv/tools/conf-client/php-cli.ini > /etc/php/7.2/cli/php.ini
-echo
-
-guiText "PHP" "Done"

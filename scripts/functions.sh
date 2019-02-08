@@ -1,12 +1,29 @@
 guiText(){
-	# Automatic comments for simple setup as a gui
-	# eg. guiText "Redis" "Starting"
+	# Automatic comment format for simple setup as a text based gui
+	# eg. guiText "Redis" "Start"
 	# $1 Name of object to process
 	# $2 Type of process
 	case $2 in 
+		"Link")
+			echo
+			echo "More info regarding $1"
+			echo "Or subject: $2"
+			echo "can be found on $3"
+			echo
+			;;
+		"Comment")
+			echo
+			echo "$1:"
+			;;
+		"Section")
+			echo 
+			echo "{---$1---}"	
+			echo
+			;;
+		#These following commentary cases are used for installing and configuring setup
 		"Start")
 			echo
-			echo "Starting installation progress for $1"
+			echo "Starting installation process for $1"
 			echo
 			;;
 		"Download")
@@ -28,7 +45,7 @@ guiText(){
 			;;
 		"Installed")
 			echo
-			echo "$1 Installed"
+			echo "$1 Installed no need for installation at this point"
 			echo
 			;;
 		"Enable")
@@ -52,9 +69,8 @@ guiText(){
 			echo
 			;;
 		*)
-			echo
-			echo "More info regarding $1 and $2 can be found on https://github.com/parentnode/ubuntu-environment"
-			echo "and https://parentnode.dk"
+			echo 
+			echo "Are you sure you wanted to use gui text here?"
 			echo
 			;;
 
@@ -109,16 +125,47 @@ guiText(){
 }
 export -f guiText
 
-#checkPath()
-#{
-#	path=$1	
-#	if [ ! -d "$path" ]; then
-#		mkdir $path
-#	else 
-#		echo "Allready Exist"
-#	fi
-#}
-#export checkPath
+trimString(){
+	trim=$1
+	echo "${trim}" | sed -e 's/^[ \t]*//'
+}
+export -f trimString
+checkFileContent() 
+{
+	#dot_profile
+	file=$1
+	#bash_profile.default
+	default=$2
+	echo "Updating $file"
+	# Splits output based on new lines
+	IFS=$'\n'
+	# Reads all of default int to an variable
+	default=$( < "$default" )
+
+	# Every key value pair looks like this (taken from bash_profile.default )
+	# "alias mysql_grant" alias mysql_grant="php /srv/tools/scripts/mysql_grant.php"
+	# The key komprises of value between the first and second quotation '"'
+	default_keys=( $( echo "$default" | grep ^\" |cut -d\" -f2))
+	# The value komprises of value between the third, fourth and fifth quotation '"'
+	default_values=( $( echo "$default" | grep ^\" |cut -d\" -f3,4,5))
+	unset IFS
+	
+	for line in "${!default_keys[@]}"
+	do		
+		# do dot_profile contain any of the keys in bash_profile.default
+		check_for_key=$(grep -R "${default_keys[line]}" "$file")
+		# if there are any default keys in dot_profile
+		if [[ -n $check_for_key ]];
+		then
+			# Update the values connected to the key
+			sed -i -e "s,${default_keys[line]}\=.*,$(trimString "${default_values[line]}"),g" "$file"
+			
+		fi
+		
+	done
+	
+}
+export -f checkFileContent
 
 # Checks if a folder exists if not it will be created
 checkFolderOrCreate(){

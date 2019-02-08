@@ -7,15 +7,12 @@ echo
 echo
 
 
-if test "$install_software" = "Y"; then
-
-	guiText "Software" "Start"
-	
+if test "$install_software" = "Y"; then	
     guiText "Apache2" "Start"
     sudo apt install -y apache2 apache2-utils ssl-cert
     echo
 
-	guiText "PHP7.2"
+	guiText "PHP7.2" "Start"
 
 	# INSTALL PHP5.5
 	#	sudo apt install -y libapache2-mod-php5 php5 php5-cli php5-common php5-curl php5-dev php5-imagick php5-mcrypt php5-memcached php5-mysqlnd php5-xmlrpc memcached
@@ -40,15 +37,15 @@ if test "$install_software" = "Y"; then
 
 	guiText "Redis" "Start"
 	sudo apt install -y redis
-	echo
+	guiText "Redis" "Done"
 
 	guiText "Zip, Log Rotation and Curl" "Start"
 	sudo apt install -y zip logrotate curl
-	echo
+	guiText "Zip, Log Rotation and Curl" "Done"
 
 	guiText "MariaDB" "Start"
 	sudo -E apt install -q -y mariadb-server
-	echo 
+	
 
 	
 	# INSTALL SYS-INFO
@@ -57,11 +54,11 @@ if test "$install_software" = "Y"; then
 	if test "$install_webserver_conf" = "Y"; then
 		guiText "Apache2" "Install"
 		bash /srv/tools/scripts/install_apache.sh
-		echo
+		guiText "Apache2" "Done"
 
 		guiText "PHP" "Install"
 		bash /srv/tools/scripts/install_php.sh
-		echo	
+		guiText "PHP7.2" "Done"	
 
 		
 		# MAKE LOGS FOLDER
@@ -76,13 +73,15 @@ if test "$install_software" = "Y"; then
 
 		guiText "MariaDB" "Install"
 		bash /srv/tools/scripts/install_mariadb.sh
-		echo
+		guiText "MariaDB" "Done"
 
 		# INSTALL FFMPEG
+		guiText "FFMPEF" "Start"
 		bash /srv/tools/scripts/install_ffmpeg.sh
 		guiText "FFMPEG" "Done"
 		
 		# INSTALL WKHTMLTO
+		guiText "WKHTML" "Start"
 		bash /srv/tools/scripts/install_wkhtmlto.sh
 		guiText "WKHTML" "Done"
 	else
