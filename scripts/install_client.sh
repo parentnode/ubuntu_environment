@@ -36,9 +36,7 @@ guiText "Please enter your email for apache installation" "Comment"
 read -p "Your email address: " install_email
 export install_email
 
-guiText ".bash profile are loaded in to your promt when you start ubuntu" \
-"Comment" \
-"when this installer are done it will change color and when you are entering an git repository"
+echo 
 
 if [ -f "$HOME/.bash_profile" ];
 then
@@ -151,7 +149,7 @@ guiText "Setting up your terminal" "Section"
 if test $use_parentnode_dot_bash_profile = Y;
 then
 	guiText "Terminal" "Install"
-	./srv/tools/scripts/install_promt.sh
+	bash /srv/tools/scripts/install_promt.sh
 else 
 	guiText "Adding alias" "Comment"
 	checkFileContent "/home/$install_user/.bash_profile" "/srv/tools/conf-client/dot_bash_profile"
