@@ -46,7 +46,9 @@ then
 	guiText "Pressing n will only add aliases needed for later use, but it might require professional use" "Comment"
 	read -p "Do you wan't to add parentnode configuration to your .bash_profile (Y/n): " use_parentnode_dot_bash_profile
 	export use_parentnode_dot_bash_profile
-
+else
+	guiText "Terminal" "Install"
+	./srv/tools/scripts/install_promt.sh
 fi
 
 # MYSQL ROOT PASSWORD
@@ -149,7 +151,7 @@ guiText "Setting up your terminal" "Section"
 if test $use_parentnode_dot_bash_profile = Y;
 then
 	guiText "Terminal" "Install"
-	./srv/tools/scripts/install_promp.sh
+	./srv/tools/scripts/install_promt.sh
 else 
 	guiText "Adding alias" "Comment"
 	checkFileContent "/home/$install_user/.bash_profile" "/srv/tools/conf-client/dot_bash_profile"
