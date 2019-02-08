@@ -74,19 +74,18 @@ if test "$install_software" = "Y"; then
 		guiText "MariaDB" "Install"
 		bash /srv/tools/scripts/install_mariadb.sh
 		guiText "MariaDB" "Done"
-
-		# INSTALL FFMPEG
-		guiText "FFMPEF" "Start"
-		bash /srv/tools/scripts/install_ffmpeg.sh
-		guiText "FFMPEG" "Done"
-		
-		# INSTALL WKHTMLTO
-		guiText "WKHTML" "Start"
-		bash /srv/tools/scripts/install_wkhtmlto.sh
-		guiText "WKHTML" "Done"
 	else
 		guiText "Webserver" "Skip"
 	fi
+	# INSTALL FFMPEG
+	guiText "FFMPEF" "Start"
+	bash /srv/tools/scripts/install_ffmpeg.sh
+	guiText "FFMPEG" "Done"
+	
+	# INSTALL WKHTMLTO
+	guiText "WKHTML" "Start"
+	bash /srv/tools/scripts/install_wkhtmlto.sh
+	guiText "WKHTML" "Done"
 else
 	guiText "Software" "Skip"
 fi
