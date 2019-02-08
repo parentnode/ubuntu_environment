@@ -1,3 +1,114 @@
+guiText(){
+	# Automatic comments for simple setup as a gui
+	# eg. guiText "Redis" "Starting"
+	# $1 Name of object to process
+	# $2 Type of process
+	case $2 in 
+		"Start")
+			echo
+			echo "Starting installation progress for $1"
+			echo
+			;;
+		"Download")
+			echo
+			echo "Downloading files for the installation of $1"
+			echo "This could take some time depending on your internet connection"
+			echo "and hardware configuration"
+			echo
+			;;
+		"Install")
+			echo
+			echo "Configuring installation for $1"
+			echo
+			;;
+		"Replace")
+			echo
+			echo "Replacing $1 with $3"
+			echo
+			;;
+		"Installed")
+			echo
+			echo "$1 Installed"
+			echo
+			;;
+		"Enable")
+			echo
+			echo "Enabling $1"
+			echo
+			;;
+		"Disable")
+			echo
+			echo "Disabling $2"
+			echo
+			;;
+		"Done")
+			echo
+			echo "Installation process for $1 are done"
+			echo
+			;;
+		"Skip")
+			echo
+			echo "Skipping Installation process for $1"
+			echo
+			;;
+		*)
+			echo
+			echo "More info regarding $1 and $2 can be found on https://github.com/parentnode/ubuntu-environment"
+			echo "and https://parentnode.dk"
+			echo
+			;;
+
+	esac
+	#if test $2 = "Start";
+	#then
+	#	echo
+	#	echo "Starting installation progress for $1"
+	#	echo
+	#fi
+#
+	#if test $2 = "Download";
+	#then
+	#	echo
+	#	echo "Downloading files for the installation of $1"
+	#	echo "This could take some time depending on your internet connection"
+	#	echo "and hardware configuration"
+	#	echo
+	#fi
+	#if test $2 = "Install";
+	#then
+	#	echo
+	#	echo "Configuring installation for $1"
+	#	echo
+	#fi
+	#if test $2 = "Installed";
+	#then 
+	#	echo
+	#	echo "Installation for $1 are allready complete"
+	#	echo
+	#fi
+	#if test $2 = "Enable";
+	#then 
+	#	echo
+	#	echo "Enabling $1"
+	#	echo
+	#fi
+	#if test $2 = "Done";
+	#then
+	#	echo
+	#	echo "Installation process for $1 are done"
+	#	echo
+	#fi
+	#if test $2 ="Skip";
+	#then 
+	#	echo
+	#	echo "Skipping Installation process for $1"
+	#	echo
+	#fi
+#
+
+}
+export -f guiText
+
 #checkPath()
 #{
 #	path=$1	

@@ -1,8 +1,6 @@
 #!/bin/bash -e
 
-echo 
-echo "Configuring php"
-echo
+guiText "PHP" "Install"
 # UPDATE PHP CONF
 # PHP 5
 #cat /srv/tools/conf-client/php-apache2.ini > /etc/php5/apache2/php.ini
@@ -12,17 +10,13 @@ echo
 #cat /srv/tools/conf-client/php-apache2.ini > /etc/php/7.1/apache2/php.ini
 #cat /srv/tools/conf-client/php-cli.ini > /etc/php/7.1/cli/php.ini
 
-echo
-echo "Copying contents from parentnode apache2.ini into /etc/php/7.2/apache2/php.ini"
-echo
+guiText "apache2.ini" "Install"
 # PHP 7.2
 cat /srv/tools/conf-client/php-apache2.ini > /etc/php/7.2/apache2/php.ini
 echo
-echo "Copying contents from parentnode php-cli.ini into /etc/php/7.2/cli/php.ini"
-echo
+
+guiText "php-cli.ini" "Install"
 cat /srv/tools/conf-client/php-cli.ini > /etc/php/7.2/cli/php.ini
 echo
 
-echo
-echo "Installing and configuring php done"
-echo
+guiText "PHP" "Done"
