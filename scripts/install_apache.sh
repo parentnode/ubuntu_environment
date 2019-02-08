@@ -1,7 +1,6 @@
 #!/bin/bash -e
 
 # INSTALL APACHE
-    guiText "Apache" "Install"
     # Check for server name
 	install_apache_servername=$(grep -E "^ServerName" /etc/apache2/apache2.conf || echo "")
 	# If no results
@@ -71,6 +70,3 @@
     guiText "original default site" "Disable"
     a2dissite 000-default
 
-    echo
-    guiText "Apache2" "Done"
-    echo

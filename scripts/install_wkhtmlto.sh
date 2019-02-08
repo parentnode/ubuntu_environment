@@ -19,7 +19,7 @@ if test "$install_wkhtml" = "Y"; then
 	# sudo cp /srv/tools/conf/wkhtmltopdf /usr/bin/static_wkhtmltopdf
 
 else
-	echo "Skipping WKHTML"
+	guiText "SWKHTML" "Skip"
 fi
 
 echo
