@@ -144,7 +144,7 @@ chown -R $SUDO_USER:$SUDO_USER /srv/sites
 echo ""
 echo "parentNode installed in Ubuntu "
 echo ""
-guiText "Ubuntu Webstack" "Link" "https://parentnode.dk" "https://github.com/parentnode/ubuntu_environment"
+guiText "Ubuntu Webstack" "Link" "https://parentnode.dk/blog/installing-the-web-stack-on-ubuntu" "https://github.com/parentnode/ubuntu_environment"
 echo "Install complete"
 echo "--------------------------------------------------------------"
 echo ""
