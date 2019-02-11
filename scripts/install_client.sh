@@ -142,7 +142,7 @@ guiText "Software" "Section"
 guiText "Software" "Start"
 # INSTALL SOFTWARE
 . /srv/tools/scripts/install_software.sh
-
+. /srv/tools/scripts/install_webserver_configuration_client.sh
 
 guiText "Setting up your terminal" "Section"
 
