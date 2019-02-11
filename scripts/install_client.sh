@@ -146,7 +146,7 @@ guiText "Software" "Start"
 
 guiText "Setting up your terminal" "Section"
 
-if test $use_parentnode_dot_bash_profile = Y;
+if test $use_parentnode_dot_bash_profile = "Y";
 then
 	guiText "Terminal" "Install"
 	bash /srv/tools/scripts/install_promt.sh
