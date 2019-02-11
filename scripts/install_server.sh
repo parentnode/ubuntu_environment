@@ -129,10 +129,10 @@ fi
 . /srv/tools/scripts/install_htaccess.sh
 
 # INSTALL FFMPEG
-. /srv/tools/scripts/install_ffmpeg.sh
+#. /srv/tools/scripts/install_ffmpeg.sh
 
 # INSTALL WKHTMLTO
-. /srv/tools/scripts/install_wkhtmlto.sh
+#. /srv/tools/scripts/install_wkhtmlto.sh
 
 # INSTALL MAIL
 . /srv/tools/scripts/install_mail.sh
