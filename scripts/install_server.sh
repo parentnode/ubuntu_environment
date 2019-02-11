@@ -11,6 +11,7 @@ echo
 install_user=$(who am i | awk '{print $1}')
 export install_user
 
+source /srv/tools/scripts/functions.sh
 
 echo
 echo "Installing system for $install_user"
