@@ -3,10 +3,6 @@
 # ADD COMMANDS ALIAS'
 #cat /srv/tools/conf-client/dot_bash_profile > /home/$install_user/.bash_profile
 # Takes a string and removes leading and following tabs and spaces
-guiText ".bash profile are loaded in to your promt when you start ubuntu" \
-"Comment" \
-"when this installer are done it will change color and when you are entering an git repository"
-
 
 if [ ! -f "$HOME/.bash_profile" ]; 
 then
