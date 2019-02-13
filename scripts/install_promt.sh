@@ -7,7 +7,7 @@
 if [ ! -f "$HOME/.bash_profile" ]; 
 then
 	guiText "parentnode terminal" "Install"
-	cp /srv/tools/conf-client/default_conf_complete /$HOME/.bash_profile
+	sudo cp /srv/tools/conf-client/default_conf_complete /$HOME/.bash_profile
 fi
 
 checkAlias "/home/$install_user/.bash_profile" "/srv/tools/conf-client/dot_bash_profile"
