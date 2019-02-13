@@ -120,8 +120,8 @@ git config --global core.filemode false
 #git config --global user.email "$install_email"
 
 # Checks if git credential are allready set, promts for input if not
-git_configured "name"
-git_configured "email"
+gitConfigured "name"
+gitConfigured "email"
 
 git config --global credential.helper cache
 
