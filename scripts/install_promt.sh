@@ -16,7 +16,7 @@ checkFileContent "/home/$install_user/.bash_profile" "/srv/tools/conf-client/dot
 install_bash_profile=$(grep -E ". $HOME/.bash_profile" /$HOME/.bashrc || echo "")
 #install_bash_profile=$(grep -E "\$HOME\/\.bash_profile" /home/$install_user/.bashrc || echo "")
 if [ -z "$install_bash_profile" ]; then
-
+	guiText ".bash_profile" "Install" ".bashrc"
 	# Add .bash_profile to .bashrc
 	echo
 	echo "if [ -f \"$HOME/.bash_profile\" ]; then" >> /$HOME/.bashrc
