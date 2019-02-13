@@ -43,6 +43,10 @@ then
 	else 
 		guiText "Apache email" "Installed"
 	fi
+else
+	guiText "Please enter your email for apache installation" "Comment"
+	read -p "Your email address: " install_email
+	export install_email
 fi
 
 echo 
