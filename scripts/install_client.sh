@@ -40,6 +40,8 @@ then
 		guiText "Please enter your email for apache installation" "Comment"
 		read -p "Your email address: " install_email
 		export install_email
+	else 
+		guiText "Apache email" "Installed"
 	fi
 fi
 
