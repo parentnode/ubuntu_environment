@@ -106,7 +106,7 @@ trimString(){
 	echo "${trim}" | sed -e 's/^[ \t]*//'
 }
 export -f trimString
-checkFileContent() 
+checkAlias() 
 {
 	#dot_profile
 	file=$1
@@ -141,8 +141,20 @@ checkFileContent()
 	done
 	
 }
-export -f checkFileContent
+export -f checkAlias
 
+# Checks string content
+checkStringInFile(){
+	search_string=$(grep -E "$1" $2 || echo "")
+	if [ -z "$search_string" ]; 
+	then
+		echo "Not Found"
+	else
+		echo "Found"
+	fi
+
+}
+export -f checkStringInFile
 # Checks if a folder exists if not it will be created
 checkFolderOrCreate(){
 	folderName=$1

@@ -10,7 +10,9 @@ then
 	cp /srv/tools/conf-client/default_conf_complete /$HOME/.bash_profile
 fi
 
-checkFileContent "/home/$install_user/.bash_profile" "/srv/tools/conf-client/dot_bash_profile"
+checkAlias "/home/$install_user/.bash_profile" "/srv/tools/conf-client/dot_bash_profile"
+
+#checkStringInFile "export PS1" "$HOME/.bash_profile"
 
 
 install_bash_profile=$(grep -E ". $HOME/.bash_profile" /$HOME/.bashrc || echo "")
