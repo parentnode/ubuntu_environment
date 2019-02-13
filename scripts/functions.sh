@@ -52,6 +52,9 @@ guiText(){
 		"Install")
 			echo
 			echo "Configuring installation for $1"
+			if [ -n "$3" ]; then
+				echo "in $3"
+			fi
 			echo
 			;;
 		"Replace")
