@@ -61,7 +61,7 @@ guiText(){
 			;;
 		"Installed")
 			echo
-			echo "$1 Installed no need for installation at this point"
+			echo "$1 Installed no need for more action at this point"
 			echo
 			;;
 		"Enable")

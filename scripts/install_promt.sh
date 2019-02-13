@@ -22,4 +22,6 @@ if [ -z "$install_bash_profile" ]; then
 	echo "if [ -f \"$HOME/.bash_profile\" ]; then" >> /$HOME/.bashrc
 	echo " \. $HOME/.bash_profile" >> $HOME/.bashrc
 	echo "fi" >> $HOME/.bashrc
+else
+	guiText ".bash_profile" "Installed"
 fi
