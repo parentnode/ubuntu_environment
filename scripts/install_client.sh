@@ -152,7 +152,7 @@ then
 	bash /srv/tools/scripts/install_promt.sh
 else 
 	guiText "Adding alias" "Comment"
-	checkFileContent "/home/$install_user/.bash_profile" "/srv/tools/conf-client/dot_bash_profile"
+	checkAlias "/home/$install_user/.bash_profile" "/srv/tools/conf-client/dot_bash_profile"
 fi
 # Change Folder Rights from root to current user
 guiText "Changing folder rights from root to current user" "Comment"
