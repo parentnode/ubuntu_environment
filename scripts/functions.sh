@@ -180,7 +180,7 @@ checkFolderOrCreate(){
 export -f checkFolderOrCreate
 
 # Setting Git credentials if needed
-git_configured(){
+gitConfigured(){
 	git_credential=$1
 	credential_configured=$(git config --global user.$git_credential || echo "")
 	if [ -z "$credential_configured" ];
@@ -195,4 +195,22 @@ git_configured(){
 	fi
 	echo ""
 }
-export -f git_configured
+export -f gitConfigured
+
+installedPackage(){
+	installed_package=$(dpkg --get-selections | grep $1 || echo "")
+	if [ -z "$installed_package" ];
+	then
+		guiText "$1" "Installing"
+		sudo apt install $1 -y
+		if [ "$1" == "ffmpeg" ]; then
+			sudo -$2 apt install $1 -y
+		fi
+		if [ "$1" == "mariadb-server" ]; then
+			sudo -$2 apt install -$3 $1 -y
+		fi
+	else 
+		guiText "$1" "Installed"
+	fi
+}
+export -f installedPackage
