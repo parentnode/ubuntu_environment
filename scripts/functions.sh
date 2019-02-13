@@ -49,6 +49,16 @@ guiText(){
 			echo
 			echo
 			;;
+		"Exist")
+			echo
+			echo "$1 allready exists"
+			if [ -n "$3" ];
+			then
+				echo "checking for $3"
+			fi
+			echo
+			echo
+			;;
 		"Install")
 			echo
 			echo "Configuring installation for $1"
