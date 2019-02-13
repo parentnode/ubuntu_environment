@@ -31,10 +31,17 @@ echo
 read -p "Install wkhtmlto (Y/n): " install_wkhtml
 export install_wkhtml
 
-
-guiText "Please enter your email for apache installation" "Comment"
-read -p "Your email address: " install_email
-export install_email
+if [ -f "/etc/apache2/sites-enabled/default.conf" ];
+then 
+	guiText "default.conf" "Exist" "server admin mail"
+	server_admin_mail=$(grep "ServerAdmin" /etc/apache2/sites-enabled/default.conf | cut -d " " -f2 || echo "")
+	if [ -z "$server_admin_mail" ];
+	then
+		guiText "Please enter your email for apache installation" "Comment"
+		read -p "Your email address: " install_email
+		export install_email
+	fi
+fi
 
 echo 
 
