@@ -12,6 +12,7 @@ fi
 
 checkAlias "/home/$install_user/.bash_profile" "/srv/tools/conf-client/dot_bash_profile"
 
+
 #checkStringInFile "export PS1" "$HOME/.bash_profile"
 
 

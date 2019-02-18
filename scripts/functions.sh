@@ -152,6 +152,34 @@ checkAlias()
 	
 }
 export -f checkAlias
+#!/bin/bash -e
+updateStatementInFile(){
+    check_statement=$1
+	input_file=$2
+	output_file=$3
+	read_input_file=$(<"$input_file")
+	read_output_file=$( < "$output_file")
+	check=$(echo "$read_output_file" | grep -E ^"$1" || echo "")
+	if [ -n "$check" ];
+	then 
+		sed -i "/# $check_statement/,/# end $check_statement/d" "$output_file"
+		echo "$read_input_file" | sed -n "/# $1/,/# end $1/p" >> "$output_file"
+	fi
+	echo ""	
+}
+export -f updateStatementInFile
+
+# Updates all the sections in the .bash_profile file with files in parentnode dot_profile
+copyParentNodePromptToFile(){
+	#updateStatementInFile "admin check" "/mnt/c/srv/tools/conf/dot_profile" "$HOME/.bash_profile"
+	updateStatementInFile "running bash" "/mnt/c/srv/tools/conf/dot_profile" "$HOME/.bash_profile"
+	updateStatementInFile "set path" "/mnt/c/srv/tools/conf/dot_profile" "$HOME/.bash_profile"
+	## Updates the git_prompt function found in .bash_profile 
+	# simpler version instead of copyParentNodeGitPromptToFile. awaiting approval 
+	updateStatementInFile "enable git prompt" "/mnt/c/srv/tools/conf/dot_profile_git_promt" "$HOME/.bash_profile"
+	
+}
+export -f copyParentNodePromptToFile
 
 # Checks string content
 checkStringInFile(){
@@ -165,6 +193,7 @@ checkStringInFile(){
 
 }
 export -f checkStringInFile
+
 # Checks if a folder exists if not it will be created
 checkFolderOrCreate(){
 	folderName=$1

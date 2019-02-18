@@ -34,7 +34,9 @@ export install_wkhtml
 if [ -f "/etc/apache2/sites-enabled/default.conf" ];
 then 
 	guiText "default.conf" "Exist" "server admin mail"
-	server_admin_mail=$(grep "ServerAdmin" /etc/apache2/sites-enabled/default.conf | cut -d " " -f2 || echo "")
+	server_admin_mail=$(grep ^"ServerAdmin" /etc/apache2/sites-enabled/default.conf | cut -d " " -f2 || echo "")
+	
+	echo "Mail for apache is now $server_admin_mail"
 	if [ -z "$server_admin_mail" ];
 	then
 		guiText "Please enter your email for apache installation" "Comment"
