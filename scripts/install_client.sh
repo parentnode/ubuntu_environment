@@ -37,7 +37,7 @@ then
 	install_email=$(grep "ServerAdmin" /etc/apache2/sites-enabled/default.conf | cut -d " " -f2 || echo "")
 	#export server_admin_mail
 	echo "Mail for apache is: $install_email"
-	if [ -z "$install_email" ];
+	if [ -z "$install_email" ] || [ "$install_email" = "webmaster@localhost" ];
 	then
 		guiText "Please enter your email for apache installation" "Comment"
 		read -p "Your email address: " install_email
