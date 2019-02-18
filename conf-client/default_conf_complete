@@ -17,7 +17,7 @@ git_prompt () {
 
 export PS1="\[$(tput bold)\]\[$(tput setaf 0)\]\u@\h \[$(tput setaf 2)\]\W\$(git_prompt)\[$(tput sgr0)\]\[$(tput setaf 4)\] \\$"
 export LC_ALL="en_GB.UTF-8"
-#end enable git prompt
+# end enable git prompt
 
 # alias
 alias apache="sudo service apache2"
