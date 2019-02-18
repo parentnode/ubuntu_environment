@@ -10,7 +10,9 @@ then
 	sudo cp /srv/tools/conf-client/default_conf_complete /$HOME/.bash_profile
 fi
 
-checkAlias "/home/$install_user/.bash_profile" "/srv/tools/conf-client/dot_bash_profile"
+updateStatementInFile "enable git prompt" "srv/tools/conf-client/default_conf_complete" "$HOME/.bash_profile"
+updateStatementInFile "alias" "srv/tools/conf-client/default_conf_complete" "$HOME/.bash_profile"
+#checkAlias "/home/$install_user/.bash_profile" "/srv/tools/conf-client/dot_bash_profile"
 
 
 #checkStringInFile "export PS1" "$HOME/.bash_profile"
