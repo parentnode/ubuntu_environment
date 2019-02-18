@@ -233,7 +233,7 @@ installedPackage(){
 	if [ -z "$installed_package" ];
 	then
 		guiText "$1" "Install"
-		sudo apt install $1 -y
+		sudo apt install -y $1
 		if [ "$1" == "ffmpeg" ]; then
 			sudo -$2 apt install $1 -y
 		fi
