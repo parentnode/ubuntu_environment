@@ -166,8 +166,6 @@ updateStatementInFile(){
 		sed -i "/# $1/,/# end $1/d" "$output_file"
 		# inserts parentnode newest block of code
 		echo "$read_input_file" | sed -n "/# $1/,/# end $1/p" >> "$output_file"
-	else 
-		echo "$read_input_file" | sed -n "/# $1/,/# end $1/p" >> "$output_file"
 	fi
 	echo ""	
 }
