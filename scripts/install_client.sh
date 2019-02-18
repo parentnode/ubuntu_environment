@@ -62,8 +62,8 @@ then
 	read -p "Do you wan't to add parentnode configuration to your .bash_profile (Y/n): " use_parentnode_dot_bash_profile
 	export use_parentnode_dot_bash_profile
 else
-	guiText "Terminal" "Install"
-	bash /srv/tools/scripts/install_promt.sh
+	guiText "parentnode terminal" "Install"
+	sudo cp /srv/tools/conf-client/default_conf_complete /$HOME/.bash_profile
 fi
 
 # MYSQL ROOT PASSWORD

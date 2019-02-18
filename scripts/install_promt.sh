@@ -4,11 +4,11 @@
 #cat /srv/tools/conf-client/dot_bash_profile > /home/$install_user/.bash_profile
 # Takes a string and removes leading and following tabs and spaces
 
-if [ ! -f "$HOME/.bash_profile" ]; 
-then
-	guiText "parentnode terminal" "Install"
-	sudo cp /srv/tools/conf-client/default_conf_complete /$HOME/.bash_profile
-fi
+#if [ ! -f "$HOME/.bash_profile" ]; 
+#then
+#	guiText "parentnode terminal" "Install"
+#	sudo cp /srv/tools/conf-client/default_conf_complete /$HOME/.bash_profile
+#fi
 guiText "Existing .bash_profile" "Replace" "parentnode promt"
 updateStatementInFile "enable git prompt" "/srv/tools/conf-client/default_conf_complete" "$HOME/.bash_profile"
 updateStatementInFile "alias" "/srv/tools/conf-client/default_conf_complete" "$HOME/.bash_profile"

@@ -160,8 +160,13 @@ updateStatementInFile(){
 	read_input_file=$(<"$input_file")
 	read_output_file=$( < "$output_file")
 	check=$(echo "$read_output_file" | grep -E ^"$1" || echo "")
-	if [ -n "$check" ];
+	if [ -z "$check" ];
 	then 
+		# deletes existing block of code
+		#sed -i "/# $1/,/# end $1/d" "$output_file"
+		# inserts parentnode newest block of code
+		echo "$read_input_file" | sed -n "/# $1/,/# end $1/p" >> "$output_file"
+	else
 		# deletes existing block of code
 		sed -i "/# $1/,/# end $1/d" "$output_file"
 		# inserts parentnode newest block of code
