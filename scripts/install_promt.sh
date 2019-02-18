@@ -10,13 +10,13 @@
 #	sudo cp /srv/tools/conf-client/default_conf_complete /$HOME/.bash_profile
 #fi
 guiText "Existing .bash_profile" "Replace" "parentnode promt"
-does_parentnode_git_exist=$(grep -E "enable_git_prompt" $HOME/.bash_profile || echo "")
+does_parentnode_git_exist=$(grep -E "git_prompt ()" $HOME/.bash_profile || echo "")
 does_parentnode_alias_exist=$(grep -E "alias" $HOME/.bash_profile || echo "")
 if [ -z "$does_parentnode_git_exist" ] || [ -z "$does_parentnode_alias_exist" ];
 then
 	sudo cp /srv/tools/conf-client/default_conf_complete /$HOME/.bash_profile
 else
-	updateStatementInFile "git_prompt ()" "/srv/tools/conf-client/default_conf_complete" "$HOME/.bash_profile"
+	updateStatementInFile "enable_git_prompt" "/srv/tools/conf-client/default_conf_complete" "$HOME/.bash_profile"
 	updateStatementInFile "alias" "/srv/tools/conf-client/default_conf_complete" "$HOME/.bash_profile"
 fi
 #checkAlias "/home/$install_user/.bash_profile" "/srv/tools/conf-client/dot_bash_profile"
