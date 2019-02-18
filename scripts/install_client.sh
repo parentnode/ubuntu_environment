@@ -57,7 +57,7 @@ echo
 
 if [ -f "$HOME/.bash_profile" ];
 then
-	guiText "You  allready have a .bash_profile" "Comment"
+	guiText ".bash_profile" "Exist"
 	guiText "Pressing n will only add aliases needed for later use, but it might require professional use" "Comment"
 	read -p "Do you wan't to add parentnode configuration to your .bash_profile (Y/n): " use_parentnode_dot_bash_profile
 	export use_parentnode_dot_bash_profile
