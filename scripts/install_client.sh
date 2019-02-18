@@ -44,7 +44,7 @@ then
 		export install_email
 	else 
 		guiText "Apache email" "Installed"
-		install_email = $install_email
+		install_email = "$install_email"
 		export install_email
 	fi
 else
