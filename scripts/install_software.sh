@@ -52,8 +52,8 @@ if test "$install_software" = "Y"; then
 	installedPackage "php-msgpack"
 
 	guiText "Redis" "Start"
-	#sudo apt install -y redis
-	installedPackage "redis"
+	sudo apt install -y redis
+	#installedPackage "redis"
 	guiText "Redis" "Done"
 
 	guiText "Zip, Log Rotation and Curl" "Start"
