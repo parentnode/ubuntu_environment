@@ -69,14 +69,25 @@ else
 	if [ -z "$install_bash_profile" ]; then
 		guiText ".bash_profile" "Install" ".bashrc"
 		# Add .bash_profile to .bashrc
-		
+
 		echo
 		echo "if [ -f \"$HOME/.bash_profile\" ]; then" >> /$HOME/.bashrc
-		echo " . $HOME/.bash_profile" >> $HOME/.bashrc
+		echo " . $HOME/.bash_profile" >> $HOME/.bashrcY
 		echo "fi" >> $HOME/.bashrc
 	else
 		guiText ".bash_profile" "Installed"
 	fi
+fi
+
+guiText "Setting up your terminal" "Section"
+
+if test "$use_parentnode_dot_bash_profile" = "Y";
+then
+	guiText "Terminal" "Install"
+	bash /srv/tools/scripts/install_promt.sh
+else 
+	guiText "Adding alias" "Comment"
+	checkAlias "/home/$install_user/.bash_profile" "/srv/tools/conf-client/dot_bash_profile"
 fi
 
 # MYSQL ROOT PASSWORD
@@ -174,16 +185,7 @@ guiText "Software" "Start"
 . /srv/tools/scripts/install_software.sh
 . /srv/tools/scripts/install_webserver_configuration_client.sh
 
-guiText "Setting up your terminal" "Section"
 
-if test "$use_parentnode_dot_bash_profile" = "Y";
-then
-	guiText "Terminal" "Install"
-	bash /srv/tools/scripts/install_promt.sh
-else 
-	guiText "Adding alias" "Comment"
-	checkAlias "/home/$install_user/.bash_profile" "/srv/tools/conf-client/dot_bash_profile"
-fi
 
 
 # Change Folder Rights from root to current user
