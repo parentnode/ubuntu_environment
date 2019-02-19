@@ -64,6 +64,19 @@ then
 else
 	guiText "parentnode terminal" "Install"
 	sudo cp /srv/tools/conf-client/default_conf_complete /$HOME/.bash_profile
+	install_bash_profile=$(grep -E ". $HOME/.bash_profile" /$HOME/.bashrc || echo "")
+	#install_bash_profile=$(grep -E "\$HOME\/\.bash_profile" /home/$install_user/.bashrc || echo "")
+	if [ -z "$install_bash_profile" ]; then
+		guiText ".bash_profile" "Install" ".bashrc"
+		# Add .bash_profile to .bashrc
+		
+		echo
+		echo "if [ -f \"$HOME/.bash_profile\" ]; then" >> /$HOME/.bashrc
+		echo " . $HOME/.bash_profile" >> $HOME/.bashrc
+		echo "fi" >> $HOME/.bashrc
+	else
+		guiText ".bash_profile" "Installed"
+	fi
 fi
 
 # MYSQL ROOT PASSWORD
@@ -172,19 +185,7 @@ else
 	checkAlias "/home/$install_user/.bash_profile" "/srv/tools/conf-client/dot_bash_profile"
 fi
 
-install_bash_profile=$(grep -E ". $HOME/.bash_profile" /$HOME/.bashrc || echo "")
-#install_bash_profile=$(grep -E "\$HOME\/\.bash_profile" /home/$install_user/.bashrc || echo "")
-if [ -z "$install_bash_profile" ]; then
-	guiText ".bash_profile" "Install" ".bashrc"
-	# Add .bash_profile to .bashrc
-	
-	echo
-	echo "if [ -f \"$HOME/.bash_profile\" ]; then" >> /$HOME/.bashrc
-	echo " . $HOME/.bash_profile" >> $HOME/.bashrc
-	echo "fi" >> $HOME/.bashrc
-else
-	guiText ".bash_profile" "Installed"
-fi
+
 # Change Folder Rights from root to current user
 guiText "Changing folder rights from root to current user" "Comment"
 chown -R $SUDO_USER:$SUDO_USER /srv/sites
