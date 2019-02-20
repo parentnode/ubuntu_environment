@@ -72,7 +72,7 @@ else
 
 		echo
 		echo "if [ -f \"$HOME/.bash_profile\" ]; then" >> /$HOME/.bashrc
-		echo " . $HOME/.bash_profile" >> $HOME/.bashrcY
+		echo " . $HOME/.bash_profile" >> $HOME/.bashrc
 		echo "fi" >> $HOME/.bashrc
 	else
 		guiText ".bash_profile" "Installed"
