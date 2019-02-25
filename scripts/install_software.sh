@@ -65,7 +65,7 @@ if test "$install_software" = "Y"; then
 
 	guiText "MariaDB" "Start"
 	#sudo -E apt install -q -y mariadb-server
-	installedPackage "mariadb-server" "E" "q"
+	installedPackage "mariadb-server-10.2" "E" "q"
 	# INSTALL FFMPEG
 	guiText "FFMPEF" "Start"
 	. /srv/tools/scripts/install_ffmpeg.sh
