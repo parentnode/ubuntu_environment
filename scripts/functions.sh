@@ -256,6 +256,7 @@ installedPackage(){
 			sudo add-apt-repository 'deb [arch=amd64,arm64,ppc64el] http://mirrors.dotsrc.org/mariadb/repo/10.2/ubuntu bionic main'
 			sudo apt update
 			sudo -$2 apt install -$3 $1 -y
+			sudo mysql_secure_installation "$db_root_password"
 		fi
 	else 
 		guiText "$1" "Installed"
