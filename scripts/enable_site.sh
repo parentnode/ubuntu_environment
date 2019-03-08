@@ -100,7 +100,7 @@ if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 			echo "Project already enabled in $host_file_path"
 
 		fi
-
+		sudo chown -R www-data:staff "$document_root"
 		# Restart apache after modification
 		echo ""
 		echo "Restarting Apache"
