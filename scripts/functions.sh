@@ -167,18 +167,18 @@ checkAlias()
 export -f checkAlias
 #!/bin/bash -e
 updateStatementInFile(){
-    	check_statement=$1
+    	#check_statement=$1
 	input_file=$2
 	output_file=$3
 	read_input_file=$(<"$input_file")
 	read_output_file=$( < "$output_file")
-	check=$(echo "$read_output_file" | grep -E ^"$check_statement" || echo "")
+	check=$(echo "$read_output_file" | grep -E ^"$1" || echo "")
 	if [ -n "$check" ];
 	then 
 		# deletes existing block of code
-		sed -i "/# $check_statement/,/# end $check_statement/d" "$output_file"
+		sed -i "/# $1/,/# end $1/d" "$output_file"
 		# inserts parentnode newest block of code
-		echo "$read_input_file" | sed -n "/# $check_statement/,/# end $check_statement/p" >> "$output_file"
+		echo "$read_input_file" | sed -n "/# $1/,/# end $1/p" >> "$output_file"
 	fi
 	echo ""	
 }
