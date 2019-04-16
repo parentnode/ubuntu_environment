@@ -84,7 +84,7 @@ guiText "Setting up your terminal" "Section"
 if test "$use_parentnode_dot_bash_profile" = "Y";
 then
 	guiText "Terminal" "Install"
-	bash /srv/tools/scripts/install_promt.sh
+	/srv/tools/scripts/install_promt.sh
 else 
 	guiText "Adding alias" "Comment"
 	checkAlias "/home/$install_user/.bash_profile" "/srv/tools/conf-client/dot_bash_profile"
