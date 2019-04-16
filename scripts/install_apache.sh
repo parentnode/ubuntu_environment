@@ -16,7 +16,15 @@
         echo
 	fi
 
-	
+	# remove path (slashes) from output to avoid problem with testing string
+    install_parentnode_includes=$(grep "^IncludeOptional \/srv\/sites\/apache\/\*\.conf" /etc/apache2/apache2.conf | sed "s/\/srv\/sites\/apache\/\*\.conf//;" || echo "")
+	if test -z "$install_parentnode_includes"; then
+		# ADD GIT CONF SETUP
+        guiText "GIT configuration" "Install"
+		echo "IncludeOptional /srv/sites/apache/*.conf" >> /etc/apache2/apache2.conf
+		echo
+	fi
+
 	install_apache_access_for_srv_sites=$(grep -E "^<Directory /srv/sites>" /etc/apache2/apache2.conf || echo "")
 	if [ -z "$install_apache_access_for_srv_sites" ]; then
 		# Give access to /srv/sites folder from the apache configuration added to bottom of /etc/apache2/apache2.conf
@@ -32,16 +40,6 @@
 	else
 		guiText "access to /srv/sites" "Installed"
 	fi
-
-	# remove path (slashes) from output to avoid problem with testing string
-    install_parentnode_includes=$(grep "^IncludeOptional \/srv\/sites\/apache\/\*\.conf" /etc/apache2/apache2.conf | sed "s/\/srv\/sites\/apache\/\*\.conf//;" || echo "")
-	if test -z "$install_parentnode_includes"; then
-		# ADD GIT CONF SETUP
-        guiText "GIT configuration" "Install"
-		echo "IncludeOptional /srv/sites/apache/*.conf" >> /etc/apache2/apache2.conf
-		echo
-	fi
-
 
 	# ADD DEFAULT APACHE CONF
 	guiText "default parentNode apache conf" "Install"

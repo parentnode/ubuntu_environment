@@ -8,9 +8,12 @@ echo
 
 
 if test "$install_software" = "Y"; then	
-    guiText "Apache2" "Start"
-    sudo apt install -y apache2 apache2-utils ssl-cert
-    echo
+    
+	guiText "Apache2" "Start"
+    #sudo apt install -y apache2 apache2-utils ssl-cert
+	installedPackage "apache2"
+	installedPackage "apache2-utils"
+	installedPackage "ssl-cert"
 
 	guiText "PHP7.2" "Start"
 
@@ -31,61 +34,53 @@ if test "$install_software" = "Y"; then
 	#sudo apt install libapache2-mod-php php7.1 php7.1-cli php7.1-common php7.1-curl php7.1-dev php-imagick php-igbinary php-msgpack php7.1-mcrypt php7.1-mbstring php7.1-zip php-memcached php7.1-mysql php7.1-xmlrpc memcached
 
 	# INSTALL PHP7.2
-	sudo apt install -y libapache2-mod-php php7.2 php7.2-cli php7.2-common php7.2-curl php7.2-dev php7.2-mbstring php7.2-zip php7.2-mysql php7.2-xmlrpc
-	sudo apt install -y php-redis php-imagick php-igbinary php-msgpack 
-	echo
+	#sudo apt install -y libapache2-mod-php php7.2 php7.2-cli php7.2-common php7.2-curl php7.2-dev php7.2-mbstring php7.2-zip php7.2-mysql php7.2-xmlrpc
+	installedPackage "libapache2-mod-php"
+	installedPackage "php7.2"
+	installedPackage "php7.2-cli"
+	installedPackage "php7.2-common"
+	installedPackage "php7.2-curl"
+	installedPackage "php7.2-dev"
+	installedPackage "php7.2-mbstring"
+	installedPackage "php7.2-zip"
+	installedPackage "php7.2-mysql"
+	installedPackage "php7.2-xmlrpc"
+	#sudo apt install -y php-redis php-imagick php-igbinary php-msgpack 
+	installedPackage "php-redis"
+	installedPackage "php-imagick"
+	installedPackage "php-igbinary"
+	installedPackage "php-msgpack"
 
 	guiText "Redis" "Start"
 	sudo apt install -y redis
+	#installedPackage "redis"
 	guiText "Redis" "Done"
 
 	guiText "Zip, Log Rotation and Curl" "Start"
-	sudo apt install -y zip logrotate curl
+	#sudo apt install -y zip logrotate curl
+	installedPackage "zip"
+	installedPackage "logrotate"
+	installedPackage "curl"
 	guiText "Zip, Log Rotation and Curl" "Done"
 
 	guiText "MariaDB" "Start"
-	sudo -E apt install -q -y mariadb-server
+	#sudo -E apt install -q -y mariadb-server
 	
+	installedPackage "mariadb-server" "E" "q"
+	# INSTALL FFMPEG
+	guiText "FFMPEF" "Start"
+	. /srv/tools/scripts/install_ffmpeg.sh
+	guiText "FFMPEG" "Done"
+
+	# INSTALL WKHTMLTO
+	guiText "WKHTML" "Start"
+	. /srv/tools/scripts/install_wkhtmlto.sh
+	guiText "WKHTML" "Done"
 
 	
 	# INSTALL SYS-INFO
 	# aptitude install landscape-client landscape-common
 
-	if test "$install_webserver_conf" = "Y"; then
-		guiText "Apache2" "Install"
-		bash /srv/tools/scripts/install_apache.sh
-		guiText "Apache2" "Done"
-
-		guiText "PHP" "Install"
-		bash /srv/tools/scripts/install_php.sh
-		guiText "PHP7.2" "Done"	
-
-		
-		# MAKE LOGS FOLDER
-		if [ ! -e "/srv/sites/apache/apache.conf" ]; then
-			# Add Default apache conf
-			cat /srv/tools/conf-client/apache.conf > /srv/sites/apache/apache.conf
-		fi
-
-		guiText "Restarting Apache" "Comment"
-		# RESTARTING APACHE ARE IMPORTANT FOR REST OF THE SCRIPT!!
-		service apache2 restart
-
-		guiText "MariaDB" "Install"
-		bash /srv/tools/scripts/install_mariadb.sh
-		guiText "MariaDB" "Done"
-	else
-		guiText "Webserver" "Skip"
-	fi
-	# INSTALL FFMPEG
-	guiText "FFMPEF" "Start"
-	bash /srv/tools/scripts/install_ffmpeg.sh
-	guiText "FFMPEG" "Done"
-	
-	# INSTALL WKHTMLTO
-	guiText "WKHTML" "Start"
-	bash /srv/tools/scripts/install_wkhtmlto.sh
-	guiText "WKHTML" "Done"
 else
 	guiText "Software" "Skip"
 fi

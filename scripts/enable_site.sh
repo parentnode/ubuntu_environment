@@ -59,7 +59,7 @@ if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 			echo "Adding $parentnode_project_path/apache/httpd-vhosts.conf to apache.conf"
 
 			# Include project cont in apache.conf
-			echo ""	
+			echo ""	>> "$apache_file_path"
 			echo "Include \"$parentnode_project_path/apache/httpd-vhosts.conf\"" >> "$apache_file_path"
 
 		# project already exists in apache.conf
@@ -100,7 +100,6 @@ if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 			echo "Project already enabled in $host_file_path"
 
 		fi
-
 		# Restart apache after modification
 		echo ""
 		echo "Restarting Apache"
