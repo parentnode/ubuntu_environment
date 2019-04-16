@@ -12,7 +12,7 @@
 #guiText "Existing .bash_profile" "Replace" "parentnode promt"
 does_parentnode_git_exist=$(grep -E "git_prompt ()" $HOME/.bash_profile || echo "")
 does_parentnode_alias_exist=$(grep -E "alias" $HOME/.bash_profile || echo "")
-if [ -z "$does_parentnode_git_exist" ] || [ -z "$does_parentnode_alias_exist" ];
+if [ -z "$does_parentnode_git_exist" ];
 then
 	sudo cp /srv/tools/conf-client/default_conf_complete /$HOME/.bash_profile
 else
