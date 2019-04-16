@@ -91,7 +91,8 @@ else
 fi
 
 # MYSQL ROOT PASSWORD
-if [ -e "/srv/tools/scripts/password.txt" ];then
+if [ -f "/srv/tools/scripts/password.txt" ];then
+	echo "Removing temp file"
 	sudo rm /srv/tools/scripts/password.txt
 fi
 
