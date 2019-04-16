@@ -90,7 +90,7 @@ guiText "Adding alias" "Comment"
 checkAlias "/home/$install_user/.bash_profile" "/srv/tools/conf-client/dot_bash_profile"
 
 # MYSQL ROOT PASSWORD
-if [ -f "/srv/tools/scripts/password.txt" ];then
+if [ -e "/srv/tools/scripts/password.txt" ] ;then
 	echo "Removing temp file"
 	sudo rm /srv/tools/scripts/password.txt
 fi
