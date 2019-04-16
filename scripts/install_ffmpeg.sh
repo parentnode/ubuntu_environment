@@ -11,8 +11,8 @@ if test "$install_ffmpeg" = "Y"; then
 
 	echo
 
-	sudo -k apt install -y ffmpeg
-
+	#sudo -k apt install -y ffmpeg
+	installedPackage "ffmpeg" "k"
 	# # FFMPEG - FORCE PASSWORD RENEWAL (BUILDING FFMPEG TAKES TIME)
 	# sudo -k apt install -y build-essential checkinstall yasm texi2html libfdk-aac-dev libfaad-dev libmp3lame-dev libopencore-amrnb-dev libopencore-amrwb-dev libtheora-dev libvorbis-dev libvpx-dev libxvidcore-dev zlib1g-dev libx264-dev x264 libsdl1.2-dev
 	#

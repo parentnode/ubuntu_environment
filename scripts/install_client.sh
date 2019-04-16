@@ -31,22 +31,63 @@ echo
 read -p "Install wkhtmlto (Y/n): " install_wkhtml
 export install_wkhtml
 
-
-guiText "Please enter your email for apache installation" "Comment"
-read -p "Your email address: " install_email
-export install_email
+if [ -f "/etc/apache2/sites-enabled/default.conf" ];
+then 
+	guiText "default.conf" "Exist" "server admin mail"
+	install_email=$(grep "ServerAdmin" /etc/apache2/sites-enabled/default.conf | cut -d " " -f2 || echo "")
+	#export server_admin_mail
+	echo "Mail for apache is: $install_email"
+	if [ -z "$install_email" ] || [ "$install_email" = "webmaster@localhost" ];
+	then
+		guiText "Please enter your email for apache installation" "Comment"
+		read -p "Your email address: " install_email
+		export install_email
+	else 
+		guiText "Apache email" "Installed"
+		#install_email = "$install_email"
+		export install_email
+	fi
+else
+	guiText "Please enter your email for apache installation" "Comment"
+	read -p "Your email address: " install_email
+	export install_email
+fi
 
 echo 
 
 if [ -f "$HOME/.bash_profile" ];
 then
-	guiText "You  allready have a .bash_profile" "Comment"
+	guiText ".bash_profile" "Exist"
 	guiText "Pressing n will only add aliases needed for later use, but it might require professional use" "Comment"
 	read -p "Do you wan't to add parentnode configuration to your .bash_profile (Y/n): " use_parentnode_dot_bash_profile
 	export use_parentnode_dot_bash_profile
 else
+	guiText "parentnode terminal" "Install"
+	sudo cp /srv/tools/conf-client/default_conf_complete /$HOME/.bash_profile
+	install_bash_profile=$(grep -E ". $HOME/.bash_profile" /$HOME/.bashrc || echo "")
+	#install_bash_profile=$(grep -E "\$HOME\/\.bash_profile" /home/$install_user/.bashrc || echo "")
+	if [ -z "$install_bash_profile" ]; then
+		guiText ".bash_profile" "Install" ".bashrc"
+		# Add .bash_profile to .bashrc
+
+		echo
+		echo "if [ -f \"$HOME/.bash_profile\" ]; then" >> /$HOME/.bashrc
+		echo " . $HOME/.bash_profile" >> $HOME/.bashrc
+		echo "fi" >> $HOME/.bashrc
+	else
+		guiText ".bash_profile" "Installed"
+	fi
+fi
+
+guiText "Setting up your terminal" "Section"
+
+if test "$use_parentnode_dot_bash_profile" = "Y";
+then
 	guiText "Terminal" "Install"
 	bash /srv/tools/scripts/install_promt.sh
+else 
+	guiText "Adding alias" "Comment"
+	checkAlias "/home/$install_user/.bash_profile" "/srv/tools/conf-client/dot_bash_profile"
 fi
 
 # MYSQL ROOT PASSWORD
@@ -111,8 +152,8 @@ git config --global core.filemode false
 #git config --global user.email "$install_email"
 
 # Checks if git credential are allready set, promts for input if not
-git_configured "name"
-git_configured "email"
+gitConfigured "name"
+gitConfigured "email"
 
 git config --global credential.helper cache
 
@@ -142,18 +183,11 @@ guiText "Software" "Section"
 guiText "Software" "Start"
 # INSTALL SOFTWARE
 . /srv/tools/scripts/install_software.sh
+. /srv/tools/scripts/install_webserver_configuration_client.sh
 
 
-guiText "Setting up your terminal" "Section"
 
-if test $use_parentnode_dot_bash_profile = Y;
-then
-	guiText "Terminal" "Install"
-	bash /srv/tools/scripts/install_promt.sh
-else 
-	guiText "Adding alias" "Comment"
-	checkFileContent "/home/$install_user/.bash_profile" "/srv/tools/conf-client/dot_bash_profile"
-fi
+
 # Change Folder Rights from root to current user
 guiText "Changing folder rights from root to current user" "Comment"
 chown -R $SUDO_USER:$SUDO_USER /srv/sites
@@ -163,7 +197,7 @@ chown -R $SUDO_USER:$SUDO_USER /srv/sites
 echo ""
 echo "parentNode installed in Ubuntu "
 echo ""
-guiText "Ubuntu Webstack" "Link" "https://parentnode.dk/blog/installing-the-web-stack-on-ubuntu" "https://github.com/parentnode/ubuntu_environment"
+guiText "ubuntu" "Link" "ubuntu-client"
 echo "Install complete"
 echo "--------------------------------------------------------------"
 echo ""

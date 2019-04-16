@@ -11,6 +11,7 @@ echo
 install_user=$(who am i | awk '{print $1}')
 export install_user
 
+source /srv/tools/scripts/functions.sh
 
 echo
 echo "Installing system for $install_user"
@@ -129,10 +130,10 @@ fi
 . /srv/tools/scripts/install_htaccess.sh
 
 # INSTALL FFMPEG
-. /srv/tools/scripts/install_ffmpeg.sh
+#. /srv/tools/scripts/install_ffmpeg.sh
 
 # INSTALL WKHTMLTO
-. /srv/tools/scripts/install_wkhtmlto.sh
+#. /srv/tools/scripts/install_wkhtmlto.sh
 
 # INSTALL MAIL
 . /srv/tools/scripts/install_mail.sh
