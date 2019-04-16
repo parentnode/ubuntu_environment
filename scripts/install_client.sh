@@ -94,7 +94,7 @@ fi
 if [ -e "/srv/tools/scripts/password.txt" ];then
 	sudo rm /srv/tools/scripts/password.txt
 fi
-
+sudo touch /srv/tools/scripts/password.txt
 root_password_status=$(sudo mysql --user=root -e exit 2>/srv/tools/scripts/password.txt)
 test_password=$(grep "using password: NO" /srv/tools/scripts/password.txt || echo "")
 
