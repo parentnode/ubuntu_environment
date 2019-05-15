@@ -8,9 +8,8 @@ echo
 
 
 # GET INSTALL USER
-install_user=$SUDO_USER
+install_user=$(who am i | awk '{print $1}')
 export install_user
-#$(whoami | awk '{print $1}')
 
 source /srv/tools/scripts/functions.sh
 
