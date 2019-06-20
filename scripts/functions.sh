@@ -1,4 +1,9 @@
 #!/bin/bash -e
+getUsername(){
+	echo "$SUDO_USER"
+}
+export -f getUsername
+
 guiText(){
 	# Automatic comment format for simple setup as a text based gui
 	# eg. guiText "Redis" "Start"
