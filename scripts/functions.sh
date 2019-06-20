@@ -4,6 +4,11 @@ getUsername(){
 }
 export -f getUsername
 
+enableSuperCow(){
+	sudo ls &>/dev/null
+}
+export -f enableSuperCow
+
 guiText(){
 	# Automatic comment format for simple setup as a text based gui
 	# eg. guiText "Redis" "Start"
