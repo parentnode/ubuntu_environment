@@ -1,13 +1,62 @@
 #!/bin/bash -e
+
+# Get username for current user, display and store for later use
 getUsername(){
 	echo "$SUDO_USER"
 }
 export -f getUsername
 
+# Invoke sudo command
 enableSuperCow(){
 	sudo ls &>/dev/null
 }
 export -f enableSuperCow
+
+# Helper function for text output and format 
+outputHandler(){
+	#$1 - type eg. Comment, Section, Exit
+	#$2 - text for output
+	#$3,4,5 are extra text when needed
+	case $1 in 
+		"Comment")
+			echo
+			echo "$2"
+			if [ -n "$3" ];
+			then
+				echo "$3"
+			fi
+			if [ -n "$4" ];
+			then
+				echo "$4"
+			fi
+			if [ -n "$5" ];
+			then
+				echo "$5"
+			fi
+			echo
+			;;
+		"Section")
+			echo
+			echo 
+			echo "{---$2---}"	
+			echo
+			echo
+			;;
+		"Exit")
+			echo
+			echo "$2 -- Goodbye see you soon"
+			exit 0
+			;;
+		#These following commentary cases are used for installing and configuring setup
+		*)
+			echo 
+			echo "Are you sure you wanted output here can't recognize: ($1)"
+			echo
+			;;
+
+	esac
+}
+export -f outputHandler
 
 guiText(){
 	# Automatic comment format for simple setup as a text based gui
