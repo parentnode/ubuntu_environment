@@ -33,7 +33,7 @@ outputHandler(){
 			then
 				echo "$5"
 			fi
-			if [ -z "$2"];
+			if [ -z "$2" ];
 			then
 				echo "No comments"
 			fi
