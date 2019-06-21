@@ -1,5 +1,7 @@
 #!/bin/bash -e
 source /srv/sites/parentnode/ubuntu_environment/scripts/functions.sh
-echo "Cow power check"
+echo ""
+echo "enableSuperCow test"
+echo ""
+
 enableSuperCow
-echo "Check done"
