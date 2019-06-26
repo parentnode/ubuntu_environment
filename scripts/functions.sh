@@ -62,6 +62,46 @@ outputHandler(){
 }
 export -f outputHandler
 
+# Asking user for input based on type
+ask(){
+	#$1 - output query text for knowing what to ask for.
+	#$2 - array of valid chacters:
+	#$3 - type eg. Password
+	# If type is:  
+	## Password hide prompt input, allow special chars, allow min and max length for the string 
+	## Email: valid characters(restrict to email format (something@somewhere.com))
+	## Username: valid characters(letters and numbers)
+	valid_answers=("$2")
+	
+	
+	if [ "$3" = "Password" ]; then
+		read -s -p "$1: "$'\n' question
+	else 
+		read -p "$1: " question 
+	fi
+	for ((i = 0; i < ${#valid_answers[@]}; i++))
+    do
+        if [[ "$question" =~ ^(${valid_answers[$i]})$ ]];
+        then 
+           	#echo "Valid"
+			echo "$question"
+        else
+			
+			#ask "$1" "${valid_answers[@]}"
+			if [ "$3" = "Password" ];
+			then
+				ask "Invalid $3, try again" "$2" "$3"
+			else
+				ask "Invalid $3, try again" "$2"
+			fi
+        fi
+
+    done
+	
+
+}
+export -f ask
+
 guiText(){
 	# Automatic comment format for simple setup as a text based gui
 	# eg. guiText "Redis" "Start"
