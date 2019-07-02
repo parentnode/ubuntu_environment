@@ -92,7 +92,7 @@ ask(){
 			then
 				ask "Invalid $3, try again" "$2" "$3"
 			else
-				ask "Invalid $3, try again" "$2"
+				ask "Invalid $3, try again" "$2" "$3"
 			fi
         fi
 
