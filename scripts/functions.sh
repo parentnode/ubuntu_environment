@@ -114,6 +114,8 @@ testCommand(){
 		if [ -n "$command_to_test" ]; then
 			echo "$command_to_test" 
 		fi
+		echo "${valid_response[$i]}"
+		echo "$1"
 	done
 
 }
