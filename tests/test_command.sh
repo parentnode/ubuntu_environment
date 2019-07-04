@@ -3,7 +3,7 @@ source /srv/sites/parentnode/ubuntu_environment/scripts/functions.sh
 # Check if program/service are installed
 echo "Testing testCommand"
 echo 
-valid_status=("active" "inactive")
+valid_status=("running" "dead")
 echo "Checking Apache2.4 status: "
 testCommand "service apache2 status" "${valid_status[@]}"
 echo
