@@ -6,7 +6,7 @@
 #sudo /srv/sites/parentnode/ubuntu_environment/tests/get_username.sh
 #sudo /srv/sites/parentnode/ubuntu_environment/tests/output_handler.sh
 #sudo /srv/sites/parentnode/ubuntu_environment/tests/ask.sh
-#sudo /srv/sites/parentnode/ubuntu_environment/tests/test_command.sh
-#sudo /srv/sites/parentnode/ubuntu_environment/tests/test_git_credential.sh
-#sudo /srv/sites/parentnode/ubuntu_environment/tests/test_mariadb_password.sh
+#sudo /srv/sites/parentnode/ubuntu_environment/tests/command.sh
+#sudo /srv/sites/parentnode/ubuntu_environment/tests/git_credential.sh
+#sudo /srv/sites/parentnode/ubuntu_environment/tests/mariadb_password.sh
 sudo /srv/sites/parentnode/ubuntu_environment/tests/copy_file.sh
