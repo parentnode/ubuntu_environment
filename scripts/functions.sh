@@ -171,8 +171,14 @@ copyFile(){
 }
 export -f copyFile
 
-
-
+#Check if a file exists
+fileExists(){
+	#$1 file to check for
+	if [ -f $1 ]; then
+		echo "true"
+	fi
+}
+export -f fileExists
 
 guiText(){
 	# Automatic comment format for simple setup as a text based gui
