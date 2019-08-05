@@ -176,6 +176,8 @@ fileExists(){
 	#$1 file to check for
 	if [ -f $1 ]; then
 		echo "true"
+	else
+		echo "false"
 	fi
 }
 export -f fileExists
