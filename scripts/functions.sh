@@ -182,6 +182,18 @@ fileExists(){
 }
 export -f fileExists
 
+checkFileContent(){
+	echo "Checking $2 for $1"
+	value=$(<$2)
+	check_statement=$(echo "$value" | grep "$1" || echo "")
+	#echo "$check_statement"
+	if [ -n "$check_statement" ]; then
+		echo "true"
+	fi 
+
+}
+export -f checkFileContent
+
 guiText(){
 	# Automatic comment format for simple setup as a text based gui
 	# eg. guiText "Redis" "Start"
