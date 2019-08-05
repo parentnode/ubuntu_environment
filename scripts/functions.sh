@@ -162,6 +162,18 @@ checkMariadbPassword(){
 }
 export -f checkMariadbPassword
 
+
+# Copy file from source to destination
+copyFile(){
+	# $1 is source file you want to copy
+	# $2 destination where you want to copy to
+	cp $1 $2
+}
+export -f copyFile
+
+
+
+
 guiText(){
 	# Automatic comment format for simple setup as a text based gui
 	# eg. guiText "Redis" "Start"
