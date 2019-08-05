@@ -74,7 +74,7 @@ ask(){
 	valid_answers=("$2")
 	
 	
-	if [ "$3" = "Password" ]; then
+	if [ "$3" = "password" ]; then
 		read -s -p "$1: "$'\n' question
 	else 
 		read -p "$1: " question 
@@ -88,7 +88,7 @@ ask(){
         else
 			
 			#ask "$1" "${valid_answers[@]}"
-			if [ "$3" = "Password" ];
+			if [ "$3" = "password" ];
 			then
 				ask "Invalid $3, try again" "$2" "$3"
 			else
@@ -125,6 +125,42 @@ checkGitCredential(){
 
 }
 export -f checkGitCredential
+
+checkMariadbPassword(){
+	# When the service are installed it can either be running or dead
+	# If there is output of this command if it is active or not active then mariadb service is installed
+	mariadb_installed=$(service mariadb status || echo "")
+	#echo "Mariadb installed:  $mariadb_installed"
+	if [ -n "$mariadb_installed" ]; then
+		valid_status=("dead" "running")
+		mariadb_running=$(testCommand "service mariadb status" "${valid_status[@]}" || echo "")
+		#echo "Mariadb Running: $mariadb_running"
+		# if service is running
+		if [ -n "$(echo $mariadb_running | grep -o running)" ]; then
+			# check if we can login without password and do stuff return a line confirming if there are a password or an empty string
+			has_password=$(mysql -u root -E STATUS 2>&1 >/dev/null | grep "using password: NO" || echo "")
+			#echo "Has password: $has_password"
+			# if the line "using password: NO" is a result 
+			if [ -n "$has_password" ]; then
+				# password is set
+				password_is_set="true"
+				echo "$password_is_set"
+			fi
+		#if service is not running
+		else
+			echo "mariadb service not running"
+			# start service
+			echo "Starting mariadb service $(sudo service mariadb start)"
+			#running the function again
+			checkMariadbPassword
+		fi
+	# return wether or not mariadb password exists
+	else
+		password_is_set="false"
+		echo "$password_is_set"
+	fi
+}
+export -f checkMariadbPassword
 
 guiText(){
 	# Automatic comment format for simple setup as a text based gui
