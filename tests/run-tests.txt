@@ -10,4 +10,5 @@
 #sudo /srv/sites/parentnode/ubuntu_environment/tests/git_credential.sh
 #sudo /srv/sites/parentnode/ubuntu_environment/tests/mariadb_password.sh
 #sudo /srv/sites/parentnode/ubuntu_environment/tests/copy_file.sh
-sudo /srv/sites/parentnode/ubuntu_environment/tests/file_exists.sh
+#sudo /srv/sites/parentnode/ubuntu_environment/tests/file_exists.sh
+sudo /srv/sites/parentnode/ubuntu_environment/tests/check_file_content.sh
