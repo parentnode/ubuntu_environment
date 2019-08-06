@@ -18,7 +18,7 @@ outputHandler(){
 	#$2 - text for output
 	#$3,4,5 are extra text when needed
 	case $1 in 
-		"Comment")
+		"comment")
 			echo
 			echo "$2"
 			if [ -n "$3" ];
@@ -39,14 +39,14 @@ outputHandler(){
 			fi
 			echo
 			;;
-		"Section")
+		"section")
 			echo
 			echo 
 			echo "{---$2---}"	
 			echo
 			echo
 			;;
-		"Exit")
+		"exit")
 			echo
 			echo "$2 -- Goodbye see you soon"
 			exit 0
@@ -182,17 +182,19 @@ fileExists(){
 }
 export -f fileExists
 
+# Check if source file have parentnode file content
 checkFileContent(){
-	echo "Checking $2 for $1"
-	value=$(<$2)
-	check_statement=$(echo "$value" | grep "$1" || echo "")
-	#echo "$check_statement"
-	if [ -n "$check_statement" ]; then
+	query=$1
+	source=$(<$2)
+	check_query=$(echo "$source" | grep "$statement" || echo "")
+	if [ -n "$check_query" ]; then
 		echo "true"
 	fi 
-
 }
 export -f checkFileContent
+
+
+
 
 guiText(){
 	# Automatic comment format for simple setup as a text based gui
