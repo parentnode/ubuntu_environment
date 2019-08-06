@@ -186,7 +186,7 @@ export -f fileExists
 checkFileContent(){
 	query=$1
 	source=$(<$2)
-	check_query=$(echo "$source" | grep "$statement" || echo "")
+	check_query=$(echo "$source" | grep "$query" || echo "")
 	if [ -n "$check_query" ]; then
 		echo "true"
 	fi 
