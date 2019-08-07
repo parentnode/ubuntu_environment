@@ -193,8 +193,26 @@ checkFileContent(){
 }
 export -f checkFileContent
 
+syncronizeAlias(){
+    source=$(<$1)
 
+    readarray -t source_key <<< $(echo "$source" | grep "alias" | cut -d \" -f2) 
+    readarray -t source_value <<< $(echo "$source" | grep "alias" | cut -d \" -f3,4,5) 
+    
+    for i in "${!source_key[@]}"
+    do
+        sed -i 's%'"${source_key[$i]}.*"'%'"$(trimString "${source_value[$i]}")"'%g' $2
+        
+    done
+}
+export -f syncronizeAlias
 
+#updateContent(){
+#	source=$(<$1)
+#	destination=$(<$2)
+#	#sed -i 's/old-text/new-text/g'
+#}
+#export -f updateContent
 
 guiText(){
 	# Automatic comment format for simple setup as a text based gui
@@ -362,24 +380,24 @@ checkAlias()
 	
 }
 export -f checkAlias
-#!/bin/bash -e
-updateStatementInFile(){
-    	#check_statement=$1
-	input_file=$2
-	output_file=$3
-	read_input_file=$(<"$input_file")
-	read_output_file=$( < "$output_file")
-	check=$(echo "$read_output_file" | grep -E ^"$1" || echo "")
-	if [ -n "$check" ];
-	then 
-		# deletes existing block of code
-		sed -i "/# $1/,/# end $1/d" "$output_file"
-		# inserts parentnode newest block of code
-		echo "$read_input_file" | sed -n "/# $1/,/# end $1/p" >> "$output_file"
-	fi
-	echo ""	
-}
-export -f updateStatementInFile
+
+#updateStatementInFile(){
+#    	#check_statement=$1
+#	input_file=$2
+#	output_file=$3
+#	read_input_file=$(<"$input_file")
+#	read_output_file=$( < "$output_file")
+#	check=$(echo "$read_output_file" | grep -E ^"$1" || echo "")
+#	if [ -n "$check" ];
+#	then 
+#		# deletes existing block of code
+#		sed -i "/# $1/,/# end $1/d" "$output_file"
+#		# inserts parentnode newest block of code
+#		echo "$read_input_file" | sed -n "/# $1/,/# end $1/p" >> "$output_file"
+#	fi
+#	echo ""	
+#}
+#export -f updateStatementInFile
 
 # Updates all the sections in the .bash_profile file with files in parentnode dot_profile
 copyParentNodePromptToFile(){
