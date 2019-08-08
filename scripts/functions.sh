@@ -71,6 +71,7 @@ ask(){
 	## Password hide prompt input, allow special chars, allow min and max length for the string 
 	## Email: valid characters(restrict to email format (something@somewhere.com))
 	## Username: valid characters(letters and numbers)
+	## Choice yes and no: Y/n
 	valid_answers=("$2")
 	
 	
@@ -207,137 +208,24 @@ syncronizeAlias(){
 }
 export -f syncronizeAlias
 
-#updateContent(){
-#	source=$(<$1)
-#	destination=$(<$2)
-#	#sed -i 's/old-text/new-text/g'
-#}
-#export -f updateContent
-
-guiText(){
-	# Automatic comment format for simple setup as a text based gui
-	# eg. guiText "Redis" "Start"
-	# $1 Name of object to process
-	# $2 Type of process
-	case $2 in 
-		"Link")
-			echo
-			echo
-			echo "More info regarding $1-webstack installer"
-			echo "can be found on https://github.com/parentnode/$1-environment"
-			if [ "$1" = "mac" ];
-			then
-				echo "and https://parentnode.dk/blog/installing-the-web-stack-on-mac-os"
-			fi
-			if [ "$1" = "windows" ];
-			then
-				echo "and https://parentnode.dk/blog/installing-web-stack-on-windows-10"
-			fi
-			if [ "$3" = "ubuntu-client" ];
-			then
-				echo "and https://parentnode.dk/blog/installing-the-web-stack-on-ubuntu"
-			fi
-			if [ "$3" = "ubuntu-server" ];
-			then
-				echo "and https://parentnode.dk/blog/setup-ubuntu-linux-production-server-and-install-the-parentn"
-			fi
-			
-			echo
-			echo
-			;;
-		"Comment")
-			echo
-			echo "$1:"
-			if [ -n "$3" ];
-			then
-				echo "$3"
-			fi
-			echo
-			;;
-		"Section")
-			echo
-			echo 
-			echo "{---$1---}"	
-			echo
-			echo
-			;;
-		#These following commentary cases are used for installing and configuring setup
-		"Start")
-			echo
-			echo
-			echo "Starting installation process for $1"
-			echo
-			echo
-			;;
-		"Download")
-			echo
-			echo "Downloading files for the installation of $1"
-			echo "This could take some time depending on your internet connection"
-			echo "and hardware configuration"
-			echo
-			echo
-			;;
-		"Exist")
-			echo
-			echo "$1 allready exists"
-			if [ -n "$3" ];
-			then
-				echo "checking for $3"
-			fi
-			echo
-			echo
-			;;
-		"Install")
-			echo
-			echo "Configuring installation for $1"
-			if [ -n "$3" ]; then
-				echo "in $3"
-			fi
-			echo
-			;;
-		"Replace")
-			echo
-			echo "Replacing $1 with $3"
-			echo
-			;;
-		"Installed")
-			echo
-			echo "$1 Installed no need for more action at this point"
-			echo
-			;;
-		"Enable")
-			echo
-			echo "Enabling $1"
-			echo
-			;;
-		"Disable")
-			echo
-			echo "Disabling $2"
-			echo
-			;;
-		"Done")
-			echo
-			echo
-			echo "Installation process for $1 are done"
-			echo
-			echo
-			;;
-		"Skip")
-			echo
-			echo
-			echo "Skipping Installation process for $1"
-			echo
-			echo
-			;;
-		*)
-			echo 
-			echo "Are you sure you wanted to use gui text here?"
-			echo
-			;;
-
-	esac
+updateContent(){
+    sed -i "/$1/,/$1/d" "$3" 
+    readdata=$( < $2)
+    echo "$readdata" | sed -n "/$1/,/$1/p" >> "$3"
 }
-export -f guiText
+export -f updateContent
+
+# Check folder exists create if not
+checkFolderExistOrCreate(){
+    if [ ! -e "$1" ]; then
+        echo "Creating folder $1"
+        mkdir "$1" 
+    else 
+        echo "Folder allready exists"
+    fi
+}
+export -f checkFolderExistOrCreate
+
 
 trimString(){
 	trim=$1
