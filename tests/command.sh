@@ -1,19 +1,18 @@
 #!/bin/bash -e
 source /srv/sites/parentnode/ubuntu_environment/scripts/functions.sh
-# Check if program/service are installed
-echo "Testing testCommand"
-echo 
-valid_status=("running" "dead")
-echo "Checking Apache2.4 status: "
-testCommand "service apache2 status" "${valid_status[@]}"
-echo
-echo "Checking Redis status: "
-testCommand "service redis status" "${valid_status[@]}"
-echo
-echo "Checking unzip version: "
-valid_version=("^UnZip ([6\.[0-9])")
-testCommand "unzip -v" "${valid_version[@]}"
 
-# Usage: returns a true if a program or service are located in the installed services or programs
-# P1: kommando
-# P2: array of valid responses
+command(){
+    if [[ $2 == true ]]; then
+        echo "no echo: $1" 
+        cmd=$($1 &>/dev/null)
+    else
+        echo "echo: $1"
+        cmd=$($1)
+    fi
+    echo "$cmd"
+}
+export -f command
+#command "hostname"
+#command "hostname" true
+echo "$(command "hostname")"
+echo "$(command "hostname" true)"
