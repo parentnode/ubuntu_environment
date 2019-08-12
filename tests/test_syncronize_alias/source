@@ -1,5 +1,5 @@
-"alias firstdata" alias firstdata="first data test me"
-"alias seconddata" alias seconddata="second data test me"
+"alias firstdata" alias firstdata="first data test me now"
+"alias seconddata" alias seconddata="second data test me now"
 "alias apache" alias apache="sudo service apache2"
 "alias sites" alias sites="cd /srv/sites"
 "alias enable_site" alias enable_site="/srv/tools/scripts/enable_site.sh"

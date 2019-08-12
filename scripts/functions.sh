@@ -195,14 +195,21 @@ checkFileContent(){
 export -f checkFileContent
 
 syncronizeAlias(){
-    source=$(<$1)
+    
+	# Uncomment this source and destination when testing, comment out when done
+	#source=$(</srv/sites/parentnode/ubuntu_environment/tests/test_syncronize_alias/source)
+	#destination=/srv/sites/parentnode/ubuntu_environment/tests/test_syncronize_alias/destination
+	
+	# Comment out this source and destination when testing, uncomment when done
+	source=$(</srv/tools/conf-client/default_conf_alias)
+	destination=$HOME/.bash_profile
 
-    readarray -t source_key <<< $(echo "$source" | grep "alias" | cut -d \" -f2) 
+	readarray -t source_key <<< $(echo "$source" | grep "alias" | cut -d \" -f2) 
     readarray -t source_value <<< $(echo "$source" | grep "alias" | cut -d \" -f3,4,5) 
     
     for i in "${!source_key[@]}"
     do
-        sed -i 's%'"${source_key[$i]}.*"'%'"$(trimString "${source_value[$i]}")"'%g' $2
+        sed -i 's%'"${source_key[$i]}.*"'%'"$(trimString "${source_value[$i]}")"'%g' $destination
         
     done
 }
@@ -232,6 +239,12 @@ trimString(){
 	echo "${trim}" | sed -e 's/^[ \t]*//'
 }
 export -f trimString
+
+
+
+
+
+
 checkAlias() 
 {
 	#dot_profile
