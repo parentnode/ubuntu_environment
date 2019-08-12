@@ -9,15 +9,20 @@ echo ""
 echo ""
 
 
+source /srv/tools/scripts/functions.sh
 # GET INSTALL USER
-install_user=$SUDO_USER
+enableSuperCow
+
+install_user="$(getUsername)"
 #$(whoami | awk '{print $1}')
 export install_user
 
-
-source /srv/tools/scripts/functions.sh
-guiText "Installing system for $install_user" "Comment"
-guiText "To speed up the process, please select your install options now:" "Section"
+#outputHandler "section" "outputHandler test"
+#outputHandler "comment" "Nothing special to comment on"
+#outputHandler "exit" "I'm leaving for ever"
+outputHandler "comment" "Installing system for $install_user"
+outputHandler "section" "To speed up the process, please select your install options now:"
+exit 0
 
 read -p "Install software (Y/n): " install_software
 export install_software
