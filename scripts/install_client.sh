@@ -26,7 +26,7 @@ outputHandler "section" "To speed up the process, please select your install opt
 username_array=("[A-Za-z0-9[:space:]*]{2,50}")
 username=$(ask "Enter git username" "${username_array[@]}" "gitusername")
 echo "$username"
-install_software_array=("[Yn]]")
+install_software_array=("[Yn]")
 install_software=$(ask "Install software (Y/n):" "${install_software_array[@]}" "installsoftware")
 #export email
 echo "$install_software"
