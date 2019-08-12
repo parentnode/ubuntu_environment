@@ -22,8 +22,15 @@ export install_user
 #outputHandler "exit" "I'm leaving for ever"
 outputHandler "comment" "Installing system for $install_user"
 outputHandler "section" "To speed up the process, please select your install options now:"
-exit 0
 
+username_array=("[A-Za-z0-9[:space:]*]{2,50}")
+username=$(ask "Enter git username" "${username_array[@]}" "gitusername")
+echo "$username"
+install_software_array=("[Y n]]")
+install_software=$(ask "Install software (Y/n):" "${install_software_array[@]}" "installsoftware")
+#export email
+echo "$install_software"
+exit 1
 read -p "Install software (Y/n): " install_software
 export install_software
 echo
