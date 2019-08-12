@@ -233,144 +233,18 @@ checkFolderExistOrCreate(){
 }
 export -f checkFolderExistOrCreate
 
+command(){
+    if [[ $2 == true ]]; then
+        cmd=$($1 1> /dev/null)
+    else
+        cmd=$($1)
+    fi
+    echo "$cmd"
+}
+export -f command
 
 trimString(){
 	trim=$1
 	echo "${trim}" | sed -e 's/^[ \t]*//'
 }
 export -f trimString
-
-
-
-
-
-
-checkAlias() 
-{
-	#dot_profile
-	file=$1
-	#bash_profile.default
-	default=$2
-	echo "Updating $file alias"
-	# Splits output based on new lines
-	IFS=$'\n'
-	# Reads all of default int to an variable
-	default=$( < "$default" )
-
-	# Every key value pair looks like this (taken from bash_profile.default )
-	# "alias mysql_grant" alias mysql_grant="php /srv/tools/scripts/mysql_grant.php"
-	# The key komprises of value between the first and second quotation '"'
-	default_keys=( $( echo "$default" | grep ^\" |cut -d\" -f2))
-	# The value komprises of value between the third, fourth and fifth quotation '"'
-	default_values=( $( echo "$default" | grep ^\" |cut -d\" -f3,4,5))
-	unset IFS
-	
-	for line in "${!default_keys[@]}"
-	do		
-		# do dot_profile contain any of the keys in bash_profile.default
-		check_for_key=$(grep -R "${default_keys[line]}" "$file")
-		# if there are any default keys in dot_profile
-		if [[ -n $check_for_key ]];
-		then
-			# Update the values connected to the key
-			sed -i -e "s,${default_keys[line]}\=.*,$(trimString "${default_values[line]}"),g" "$file"
-			
-		fi
-		
-	done
-	
-}
-export -f checkAlias
-
-#updateStatementInFile(){
-#    	#check_statement=$1
-#	input_file=$2
-#	output_file=$3
-#	read_input_file=$(<"$input_file")
-#	read_output_file=$( < "$output_file")
-#	check=$(echo "$read_output_file" | grep -E ^"$1" || echo "")
-#	if [ -n "$check" ];
-#	then 
-#		# deletes existing block of code
-#		sed -i "/# $1/,/# end $1/d" "$output_file"
-#		# inserts parentnode newest block of code
-#		echo "$read_input_file" | sed -n "/# $1/,/# end $1/p" >> "$output_file"
-#	fi
-#	echo ""	
-#}
-#export -f updateStatementInFile
-
-# Updates all the sections in the .bash_profile file with files in parentnode dot_profile
-copyParentNodePromptToFile(){
-	#updateStatementInFile "admin check" "/mnt/c/srv/tools/conf/dot_profile" "$HOME/.bash_profile"
-	updateStatementInFile "running bash" "/mnt/c/srv/tools/conf/dot_profile" "$HOME/.bash_profile"
-	updateStatementInFile "set path" "/mnt/c/srv/tools/conf/dot_profile" "$HOME/.bash_profile"
-	## Updates the git_prompt function found in .bash_profile 
-	# simpler version instead of copyParentNodeGitPromptToFile. awaiting approval 
-	updateStatementInFile "enable git prompt" "/mnt/c/srv/tools/conf/dot_profile_git_promt" "$HOME/.bash_profile"
-	
-}
-export -f copyParentNodePromptToFile
-
-# Checks string content
-checkStringInFile(){
-	search_string=$(grep -E "$1" $2 || echo "")
-	if [ -z "$search_string" ]; 
-	then
-		echo "Not Found"
-	else
-		echo "Found"
-	fi
-
-}
-export -f checkStringInFile
-
-# Checks if a folder exists if not it will be created
-checkFolderOrCreate(){
-	folderName=$1
-	if [ -e $folderName ];
-	then
-		echo "$folderName already exists"
-	else 
-		echo "Creating directory $folderName"
-    	mkdir -p $folderName;
-	fi
-	echo ""
-}
-export -f checkFolderOrCreate
-
-# Setting Git credentials if needed
-gitConfigured(){
-	git_credential=$1
-	credential_configured=$(git config --global user.$git_credential || echo "")
-	if [ -z "$credential_configured" ];
-	then 
-		echo "No previous git user.$git_credential entered"
-		echo
-		read -p "Enter your new user.$git_credential: " git_new_value
-		git config --global user.$git_credential "$git_new_value"
-		echo
-	else 
-		echo "Git user.$git_credential allready set"
-	fi
-	echo ""
-}
-export -f gitConfigured
-
-installedPackage(){
-	installed_package=$(dpkg --get-selections | grep $1 || echo "")
-	if [ -z "$installed_package" ];
-	then
-		guiText "$1" "Install"
-		sudo apt install -y $1
-		if [ "$1" == "ffmpeg" ]; then
-			sudo -$2 apt install $1 -y
-		fi
-		if [ "$1" == "mariadb-server" ]; then
-			sudo -$2 apt install -$3 $1 -y
-		fi
-	else 
-		guiText "$1" "Installed"
-	fi
-}
-export -f installedPackage
