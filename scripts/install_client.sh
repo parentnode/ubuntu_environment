@@ -63,7 +63,7 @@ else
 fi
 
 createOrModifyBashProfile
-exit 1
+
 #if [ -f "$HOME/.bash_profile" ];
 #then
 #	outputHandler "comment" ".bash_profile Exist"
