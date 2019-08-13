@@ -255,7 +255,7 @@ createOrModifyBashProfile(){
 	then
 		outputHandler "comment" ".bash_profile Exist"
 		bash_profile_modify_array=("[Yn]")
-		bash_profile_modify=$(ask "Do you want to modify existing .bash_profile(Y/n)" "${bash_profile_modify_array[@]}" "bash_profile_modify")
+		bash_profile_modify=$(ask "Do you want to modify existing .bash_profile (Y/n) !this will override existing .bash_profile!" "${bash_profile_modify_array[@]}" "bash_profile_modify")
 		export bash_profile_modify
 	else
 		outputHandler "comment" "Installing .bash_profile"
@@ -279,6 +279,7 @@ createOrModifyBashProfile(){
 		does_parentnode_alias_exist=$(grep -E "alias" $HOME/.bash_profile || echo "")
 		if [ -z "$does_parentnode_git_exist" ] || [ -z "$does_parentnode_alias_exist" ];
 		then
+			sudo rm $HOME/.bash_profile
 			sudo cp /srv/tools/conf-client/default_conf_complete /$HOME/.bash_profile
 		else
 			updateContent "enable_git_prompt" "/srv/tools/conf-client/default_conf_complete" "$HOME/.bash_profile"

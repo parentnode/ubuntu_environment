@@ -105,57 +105,45 @@ exit 1
 #fi
 #exit 1
 
-sudo touch /srv/tools/scripts/password.txt
-root_password_status=$(sudo mysql --user=root -e exit 2>/srv/tools/scripts/password.txt)
-test_password=$(grep "using password: NO" /srv/tools/scripts/password.txt || echo "")
 
 echo
-#set_password="0"
 if test "$install_webserver_conf" = "Y"; then
-	#Check if mariadb are installed and running
-	if [ -e "/lib/systemd/system/mariadb.service" ]; then
-		guiText "MariaDB" "Installed"
-		#Checks if root password are set
-		if [ -z "$test_password" ]; then
-			echo "Root password is not set "
-			echo
-			set_password="1"
-			export set_password
-		else 
-			echo "Root password is set"
-			echo
-			set_password="0"
-			export set_password
-		fi
-	else 
-		echo "Mariadb not previously installed"
-		set_password="1"
-		export set_password
-		echo ""
-	fi
 	
+	#Check if mariadb are installed and running
+	if [ "$(checkMariadbPassword)" = false ];
+		password_array=("[A-Za-z0-9\!\@\$]{8,30}")
+		password1=$( ask "Enter mariadb password" "${password_array[@]}" "password")
+		echo ""
+		password2=$( ask "Enter mariadb password again" "${password_array[@]}" "password")
+		echo ""
+
+		# While loop if not a match
+		if [  "$password1" != "$password2"  ]; then
+		    while [ true ]
+		    do
+		        echo "Password doesn't match"
+		        echo
+		        #password1=$( ask "Enter mariadb password" "${password_array[@]}" "Password")
+		        password1=$( ask "Enter mariadb password" "${password_array[@]}" "password")
+		        echo ""
+		        password2=$( ask "Enter mariadb password again" "${password_array[@]}" "password")
+		        echo "" 
+		        if [ "$password1" == "$password2" ];
+		        then
+		            echo "Password Match"
+		            break
+		        fi
+		        echo
+		    done
+		else
+		    echo "Password Match"
+		fi
+		export password1
+	else
+		outputHandler "comment" "Mariab installed"
+	fi	
 fi
-
-
-if test "$set_password" = "1"; then
-	while [ $set_password ]
-	do
-		guiText "Password's can only start with an letter and contain letters and numbers [0-9]" "Section"
-		read -s -p "Enter new root DB password: " db_root_password
-		echo
-		read -s -p "Verify new root DB password: " db_root_password2    
-		if [ $db_root_password != $db_root_password2 ]; then
-			guiText "Not a match" "Comment"
-		else 
-			guiText "Match" "Comment"
-			export db_root_password
-			break
-		fi	
-	done
-fi
-guiText "Cleaning up temporary files" "Comment"
-sudo rm /srv/tools/scripts/password.txt
-
+exit 1
 # SETTING DEFAULT GIT USER
 guiText "Setting Default GIT USER" "Section"
 git config --global core.filemode false
