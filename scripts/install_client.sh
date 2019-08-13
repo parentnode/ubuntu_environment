@@ -138,6 +138,8 @@ if test "$install_webserver_conf" = "Y"; then
 		    echo "Password Match"
 			export password1
 		fi
+	else 
+		outputHandler "comment" "Mariadb allready set up"
 	fi	
 fi
 exit 1
