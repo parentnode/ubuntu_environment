@@ -106,11 +106,10 @@ createOrModifyBashProfile
 #exit 1
 
 
-echo
 if test "$install_webserver_conf" = "Y"; then
 	
 	#Check if mariadb are installed and running
-	if [ "$(checkMariadbPassword)" = false ];
+	if [ "$(checkMariadbPassword)" = "false" ];
 		password_array=("[A-Za-z0-9\!\@\$]{8,30}")
 		password1=$( ask "Enter mariadb password" "${password_array[@]}" "password")
 		echo ""
