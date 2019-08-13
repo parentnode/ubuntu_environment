@@ -139,9 +139,6 @@ if test "$install_webserver_conf" = "Y"; then
 		    echo "Password Match"
 			export password1
 		fi
-		
-	else
-		outputHandler "comment" "Mariab installed"
 	fi	
 fi
 exit 1
