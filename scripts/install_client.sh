@@ -40,10 +40,11 @@ install_wkhtml=$(ask "Install WKHTMLTOPDF (Y/n)" "${install_webserver_conf_array
 export install_wkhtml
 
 if [ "$(fileExists "/etc/apache2/sites-enabled/default.conf")" = "true" ]; then 
-	outputHandler "comment" "file exists"
+	outputHandler "comment" "defaul.conf Exist"
 	apache_email=$(grep "ServerAdmin" /etc/apache2/sites-enabled/default.conf | cut -d " " -f2 || echo "")
 	#export server_admin_mail
 	#echo "Mail for apache is: $apache_email"
+	
 	if [ -z "$apache_email" ] || [ "$apache_email" = "webmaster@localhost" ];
 	then
 		apache_email_array=("[A-Za-z0-9\.\-]+@[A-Za-z0-9\.\-]+\.[a-z]{2,10}")
@@ -52,7 +53,7 @@ if [ "$(fileExists "/etc/apache2/sites-enabled/default.conf")" = "true" ]; then
 	else 
 		outputHandler "comment" "Apache Email Installed"
 		#install_email = "$install_email"
-		echo "Mail for apache is: $apache_email"
+		#echo "Mail for apache is: $apache_email"
 		export apache_email
 	fi
 else
@@ -61,72 +62,49 @@ else
 	export apache_email
 fi
 
+createOrModifyBashProfile
 exit 1
+#if [ -f "$HOME/.bash_profile" ];
+#then
+#	outputHandler "comment" ".bash_profile Exist"
+#	guiText ".bash_profile" "Exist"
+#	guiText "Pressing n will only add aliases needed for later use, but it might require professional use" "Comment"
+#	read -p "Do you wan't to add parentnode configuration to your .bash_profile (Y/n): " use_parentnode_dot_bash_profile
+#	export use_parentnode_dot_bash_profile
+#else
+#	guiText "parentnode terminal" "Install"
+#	sudo cp /srv/tools/conf-client/default_conf_complete /$HOME/.bash_profile
+#	install_bash_profile=$(grep -E ". $HOME/.bash_profile" /$HOME/.bashrc || echo "")
+#	#install_bash_profile=$(grep -E "\$HOME\/\.bash_profile" /home/$install_user/.bashrc || echo "")
+#	if [ -z "$install_bash_profile" ]; then
+#		guiText ".bash_profile" "Install" ".bashrc"
+#		# Add .bash_profile to .bashrc
+#		echo
+#		echo "if [ -f \"$HOME/.bash_profile\" ]; then" >> /$HOME/.bashrc
+#		echo " . $HOME/.bash_profile" >> $HOME/.bashrc
+#		echo "fi" >> $HOME/.bashrc
+#	else
+#		outputHandler "comment" ".bash_profile Installed"
+#	fi
+#fi
+#
+#guiText "Setting up your terminal" "Section"
 
+#if test "$use_parentnode_dot_bash_profile" = "Y";
+#then
+#	guiText "Terminal" "Install"
+#	bash /srv/tools/scripts/install_promt.sh
+#else 
+#	guiText "Adding alias" "Comment"
+#	checkAlias "/home/$install_user/.bash_profile" "/srv/tools/conf-client/dot_bash_profile"
+#fi
+#
+## MYSQL ROOT PASSWORD
+#if [ -e "/srv/tools/scripts/password.txt" ];then
+#	sudo rm /srv/tools/scripts/password.txt
+#fi
+#exit 1
 
-if [ -f "/etc/apache2/sites-enabled/default.conf" ];
-then 
-	guiText "default.conf" "Exist" "server admin mail"
-	install_email=$(grep "ServerAdmin" /etc/apache2/sites-enabled/default.conf | cut -d " " -f2 || echo "")
-	#export server_admin_mail
-	echo "Mail for apache is: $install_email"
-	if [ -z "$install_email" ] || [ "$install_email" = "webmaster@localhost" ];
-	then
-		guiText "Please enter your email for apache installation" "Comment"
-		read -p "Your email address: " install_email
-		export install_email
-	else 
-		guiText "Apache email" "Installed"
-		#install_email = "$install_email"
-		export install_email
-	fi
-else
-	guiText "Please enter your email for apache installation" "Comment"
-	read -p "Your email address: " install_email
-	export install_email
-fi
-
-echo 
-
-if [ -f "$HOME/.bash_profile" ];
-then
-	guiText ".bash_profile" "Exist"
-	guiText "Pressing n will only add aliases needed for later use, but it might require professional use" "Comment"
-	read -p "Do you wan't to add parentnode configuration to your .bash_profile (Y/n): " use_parentnode_dot_bash_profile
-	export use_parentnode_dot_bash_profile
-else
-	guiText "parentnode terminal" "Install"
-	sudo cp /srv/tools/conf-client/default_conf_complete /$HOME/.bash_profile
-	install_bash_profile=$(grep -E ". $HOME/.bash_profile" /$HOME/.bashrc || echo "")
-	#install_bash_profile=$(grep -E "\$HOME\/\.bash_profile" /home/$install_user/.bashrc || echo "")
-	if [ -z "$install_bash_profile" ]; then
-		guiText ".bash_profile" "Install" ".bashrc"
-		# Add .bash_profile to .bashrc
-
-		echo
-		echo "if [ -f \"$HOME/.bash_profile\" ]; then" >> /$HOME/.bashrc
-		echo " . $HOME/.bash_profile" >> $HOME/.bashrc
-		echo "fi" >> $HOME/.bashrc
-	else
-		guiText ".bash_profile" "Installed"
-	fi
-fi
-
-guiText "Setting up your terminal" "Section"
-
-if test "$use_parentnode_dot_bash_profile" = "Y";
-then
-	guiText "Terminal" "Install"
-	bash /srv/tools/scripts/install_promt.sh
-else 
-	guiText "Adding alias" "Comment"
-	checkAlias "/home/$install_user/.bash_profile" "/srv/tools/conf-client/dot_bash_profile"
-fi
-
-# MYSQL ROOT PASSWORD
-if [ -e "/srv/tools/scripts/password.txt" ];then
-	sudo rm /srv/tools/scripts/password.txt
-fi
 sudo touch /srv/tools/scripts/password.txt
 root_password_status=$(sudo mysql --user=root -e exit 2>/srv/tools/scripts/password.txt)
 test_password=$(grep "using password: NO" /srv/tools/scripts/password.txt || echo "")
