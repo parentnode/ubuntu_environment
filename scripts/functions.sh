@@ -281,8 +281,8 @@ createOrModifyBashProfile(){
 		then
 			sudo cp /srv/tools/conf-client/default_conf_complete /$HOME/.bash_profile
 		else
-			updateStatementInFile "enable_git_prompt" "/srv/tools/conf-client/default_conf_complete" "$HOME/.bash_profile"
-			updateStatementInFile "alias" "/srv/tools/conf-client/default_conf_complete" "$HOME/.bash_profile"
+			updateContent "enable_git_prompt" "/srv/tools/conf-client/default_conf_complete" "$HOME/.bash_profile"
+			updateContent "alias" "/srv/tools/conf-client/default_conf_complete" "$HOME/.bash_profile"
 		fi
 	else
 		syncronizeAlias
