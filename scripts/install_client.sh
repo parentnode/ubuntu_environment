@@ -23,25 +23,23 @@ export install_user
 outputHandler "comment" "Installing system for $install_user"
 outputHandler "section" "To speed up the process, please select your install options now:"
 
-username_array=("[A-Za-z0-9[:space:]*]{2,50}")
-username=$(ask "Enter git username" "${username_array[@]}" "gitusername")
-echo "$username"
 install_software_array=("[Yn]")
-install_software=$(ask "Install software (Y/n):" "${install_software_array[@]}" "installsoftware")
-#export email
-echo "$install_software"
-exit 1
-read -p "Install software (Y/n): " install_software
+install_software=$(ask "Install software (Y/n):" "${install_software_array[@]}" "install_software")
 export install_software
-echo
-read -p "Set up Apache/PHP/MariaDB (Y/n): " install_webserver_conf
+
+install_webserver_conf_array=("[Yn]")
+install_webserver_conf=$(ask "Install Webserver Configuration (Y/n):" "${install_webserver_conf_array[@]}" "install_webserver_conf")
 export install_webserver_conf
-echo
-read -p "Install ffmpeg (Y/n): " install_ffmpeg
+
+install_ffmpeg_array=("[Yn]")
+install_ffmpeg=$(ask "Install FFMPEG (Y/n):" "${install_webserver_conf_array[@]}" "ffmpeg")
 export install_ffmpeg
-echo
-read -p "Install wkhtmlto (Y/n): " install_wkhtml
+
+install_wkhtml_array=("[Yn]")
+install_wkhtml=$(ask "Install WKHTMLTOPDF (Y/n):" "${install_webserver_conf_array[@]}" "wkhtml")
 export install_wkhtml
+
+exit 1
 
 if [ -f "/etc/apache2/sites-enabled/default.conf" ];
 then 
