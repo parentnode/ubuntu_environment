@@ -39,7 +39,30 @@ install_wkhtml_array=("[Yn]")
 install_wkhtml=$(ask "Install WKHTMLTOPDF (Y/n)" "${install_webserver_conf_array[@]}" "wkhtml")
 export install_wkhtml
 
+if [ "$(fileExists "/etc/apache2/sites-enabled/default.conf")" = "true" ]; then 
+	outputHandler "comment" "file exists"
+	apache_email=$(grep "ServerAdmin" /etc/apache2/sites-enabled/default.conf | cut -d " " -f2 || echo "")
+	#export server_admin_mail
+	#echo "Mail for apache is: $apache_email"
+	if [ -z "$apache_email" ] || [ "$apache_email" = "webmaster@localhost" ];
+	then
+		apache_email_array=("[A-Za-z0-9\.\-]+@[A-Za-z0-9\.\-]+\.[a-z]{2,10}")
+		apache_email=$(ask "Enter Apache Email" "${apache_email_array[@]}" "apache_email")
+		export apache_email
+	else 
+		guiText "Apache email" "Installed"
+		#install_email = "$install_email"
+		echo "Mail for apache is: $apache_email"
+		export apache_email
+	fi
+else
+    apache_email_array=("[A-Za-z0-9\.\-]+@[A-Za-z0-9\.\-]+\.[a-z]{2,10}")
+	apache_email=$(ask "Enter Apache Email" "${apache_email_array[@]}" "apache_email")
+	export apache_email
+fi
+
 exit 1
+
 
 if [ -f "/etc/apache2/sites-enabled/default.conf" ];
 then 
