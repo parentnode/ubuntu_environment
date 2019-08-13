@@ -50,7 +50,7 @@ if [ "$(fileExists "/etc/apache2/sites-enabled/default.conf")" = "true" ]; then
 		apache_email=$(ask "Enter Apache Email" "${apache_email_array[@]}" "apache_email")
 		export apache_email
 	else 
-		guiText "Apache email" "Installed"
+		outputHandler "comment" "Apache Email Installed"
 		#install_email = "$install_email"
 		echo "Mail for apache is: $apache_email"
 		export apache_email
