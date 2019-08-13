@@ -24,19 +24,19 @@ outputHandler "comment" "Installing system for $install_user"
 outputHandler "section" "To speed up the process, please select your install options now:"
 
 install_software_array=("[Yn]")
-install_software=$(ask "Install software (Y/n):" "${install_software_array[@]}" "install_software")
+install_software=$(ask "Install Software (Y/n)" "${install_software_array[@]}" "install_software")
 export install_software
 
 install_webserver_conf_array=("[Yn]")
-install_webserver_conf=$(ask "Install Webserver Configuration (Y/n):" "${install_webserver_conf_array[@]}" "install_webserver_conf")
+install_webserver_conf=$(ask "Install Webserver Configuration (Y/n)" "${install_webserver_conf_array[@]}" "install_webserver_conf")
 export install_webserver_conf
 
 install_ffmpeg_array=("[Yn]")
-install_ffmpeg=$(ask "Install FFMPEG (Y/n):" "${install_webserver_conf_array[@]}" "ffmpeg")
+install_ffmpeg=$(ask "Install FFMPEG (Y/n)" "${install_webserver_conf_array[@]}" "ffmpeg")
 export install_ffmpeg
 
 install_wkhtml_array=("[Yn]")
-install_wkhtml=$(ask "Install WKHTMLTOPDF (Y/n):" "${install_webserver_conf_array[@]}" "wkhtml")
+install_wkhtml=$(ask "Install WKHTMLTOPDF (Y/n)" "${install_webserver_conf_array[@]}" "wkhtml")
 export install_wkhtml
 
 exit 1
