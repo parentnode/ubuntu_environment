@@ -183,15 +183,16 @@ then
 else 
 	outputHandler "comment" "Existing time zone values: $look_for_ex_timezone"
 fi
-exit 1
+outputHandler "section" "Setting up parentnode folder structure"
 #create_folder_if_no_exist
 checkFolderExistOrCreate "/srv/sites"
 checkFolderExistOrCreate "/srv/sites/apache"
 checkFolderExistOrCreate "/srv/sites/apache/logs"
 checkFolderExistOrCreate "/srv/sites/parentnode"
 
+exit 1
+outputHandler "comment" "Change Folder rights from root to your curent user"
 # Change Folder Rights from root to current user
-guiText "Change Folder rights from root to your curent user" "Comment"
 chown -R $SUDO_USER:$SUDO_USER /srv/sites
 
 guiText "Software" "Section"
