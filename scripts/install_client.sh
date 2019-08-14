@@ -64,47 +64,6 @@ fi
 
 createOrModifyBashProfile
 
-#if [ -f "$HOME/.bash_profile" ];
-#then
-#	outputHandler "comment" ".bash_profile Exist"
-#	guiText ".bash_profile" "Exist"
-#	guiText "Pressing n will only add aliases needed for later use, but it might require professional use" "Comment"
-#	read -p "Do you wan't to add parentnode configuration to your .bash_profile (Y/n): " use_parentnode_dot_bash_profile
-#	export use_parentnode_dot_bash_profile
-#else
-#	guiText "parentnode terminal" "Install"
-#	sudo cp /srv/tools/conf-client/default_conf_complete /$HOME/.bash_profile
-#	install_bash_profile=$(grep -E ". $HOME/.bash_profile" /$HOME/.bashrc || echo "")
-#	#install_bash_profile=$(grep -E "\$HOME\/\.bash_profile" /home/$install_user/.bashrc || echo "")
-#	if [ -z "$install_bash_profile" ]; then
-#		guiText ".bash_profile" "Install" ".bashrc"
-#		# Add .bash_profile to .bashrc
-#		echo
-#		echo "if [ -f \"$HOME/.bash_profile\" ]; then" >> /$HOME/.bashrc
-#		echo " . $HOME/.bash_profile" >> $HOME/.bashrc
-#		echo "fi" >> $HOME/.bashrc
-#	else
-#		outputHandler "comment" ".bash_profile Installed"
-#	fi
-#fi
-#
-#guiText "Setting up your terminal" "Section"
-
-#if test "$use_parentnode_dot_bash_profile" = "Y";
-#then
-#	guiText "Terminal" "Install"
-#	bash /srv/tools/scripts/install_promt.sh
-#else 
-#	guiText "Adding alias" "Comment"
-#	checkAlias "/home/$install_user/.bash_profile" "/srv/tools/conf-client/dot_bash_profile"
-#fi
-#
-## MYSQL ROOT PASSWORD
-#if [ -e "/srv/tools/scripts/password.txt" ];then
-#	sudo rm /srv/tools/scripts/password.txt
-#fi
-#exit 1
-
 
 if test "$install_webserver_conf" = "Y"; then
 	
@@ -190,10 +149,10 @@ checkFolderExistOrCreate "/srv/sites/apache"
 checkFolderExistOrCreate "/srv/sites/apache/logs"
 checkFolderExistOrCreate "/srv/sites/parentnode"
 
-exit 1
 outputHandler "comment" "Change Folder rights from root to your curent user"
 # Change Folder Rights from root to current user
 chown -R $SUDO_USER:$SUDO_USER /srv/sites
+exit 1
 
 guiText "Software" "Section"
 
