@@ -27,7 +27,7 @@ outputHandler "section" "Checking directories"
 . /srv/tools/scripts/checking_directories.sh
 
 outputHandler "section" "Install software"
-
+exit 1
 # INSTALL SOFTWARE
 . /srv/tools/scripts/install_software.sh
 . /srv/tools/scripts/install_webserver_configuration_client.sh
