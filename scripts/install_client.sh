@@ -143,7 +143,6 @@ if test "$install_webserver_conf" = "Y"; then
 	fi	
 fi
 # SETTING DEFAULT GIT USER
-outputHandler "section" "Setting Default GIT User setting"
 
 # Checks if git credential are allready set, promts for input if not
 if [ -z "$(checkGitCredential "name")" ]; then
@@ -163,29 +162,31 @@ else
 	export git_email
 fi
 
+outputHandler "section" "Setting Default GIT User setting"
 
 git config --global core.filemode false
 git config --global user.name "$git_username"
 git config --global user.email "$git_email"
 
 git config --global credential.helper cache
-exit 1
-guiText "Time zone" "Section"
+
+
+outputHandler "section" "Setting Time zone"
 
 look_for_ex_timezone=$(sudo timedatectl status | grep "Time zone: " | cut -d ':' -f2)
 if [ -z "$look_for_ex_timezone" ];
 then
-	guiText "Setting timezone to: Europe/Copenhagen" "Comment"
+	outputHandler "comment" "Setting Time zone to Europe/Copenhagen"
 	sudo timedatectl set-timezone "Europe/Copenhagen"
 else 
-	guiText "Allready set" "Comment"
+	outputHandler "comment" "Existing time zone values: $look_for_ex_timezone"
 fi
-
+exit 1
 #create_folder_if_no_exist
-checkFolderOrCreate "/srv/sites"
-checkFolderOrCreate "/srv/sites/apache"
-checkFolderOrCreate "/srv/sites/apache/logs"
-checkFolderOrCreate "/srv/sites/parentnode"
+checkFolderExistOrCreate "/srv/sites"
+checkFolderExistOrCreate "/srv/sites/apache"
+checkFolderExistOrCreate "/srv/sites/apache/logs"
+checkFolderExistOrCreate "/srv/sites/parentnode"
 
 # Change Folder Rights from root to current user
 guiText "Change Folder rights from root to your curent user" "Comment"
