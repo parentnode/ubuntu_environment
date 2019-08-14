@@ -142,16 +142,30 @@ if test "$install_webserver_conf" = "Y"; then
 		outputHandler "comment" "Mariadb allready set up"
 	fi	
 fi
-exit 1
 # SETTING DEFAULT GIT USER
-guiText "Setting Default GIT USER" "Section"
-git config --global core.filemode false
-#git config --global user.name "$install_user"
-#git config --global user.email "$install_email"
+outputHandler "section" "Setting Default GIT User setting"
 
 # Checks if git credential are allready set, promts for input if not
-gitConfigured "name"
-gitConfigured "email"
+if [ -z "$(checkGitCredential "name")" ]; then
+	git_username_array=("[A-Za-z0-9[:space:]*]{2,50}")
+	git_username=$(ask "Enter git username" "${git_username_array[@]}" "gitusername")
+	export git_username
+else
+	git_username="$(checkGitCredential "name")"
+	export git_username
+fi
+if [ -z "$(checkGitCredential "email")" ]; then
+	git_email_array=("[A-Za-z0-9\.\-]+@[A-Za-z0-9\.\-]+\.[a-z]{2,10}")
+	git_email=$(ask "Enter git email" "${git_email_array[@]}" "gitemail")
+	export git_email
+else
+	git_email="$(checkGitCredential "email")"
+	export git_email
+fi
+exit 1
+git config --global core.filemode false
+git config --global user.name "$git_username"
+git config --global user.email "$git_email"
 
 git config --global credential.helper cache
 
