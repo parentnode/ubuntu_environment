@@ -113,7 +113,7 @@ testCommand(){
 	do
 		command_to_test=$($1 | grep -E "${valid_response[$i]}" || echo "")
 		if [ -n "$command_to_test" ]; then
-			echo "$command_to_test" 
+			echo "$(trimString "$command_to_test")" 
 		fi
 	done
 
