@@ -146,6 +146,9 @@ checkMariadbPassword(){
 				# password is set
 				password_is_set="true"
 				echo "$password_is_set"
+			else 
+				password_is_set="false"
+				echo "$password_is_set"
 			fi
 		#if service is not running
 		else
