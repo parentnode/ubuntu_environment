@@ -9,6 +9,7 @@ if test "$install_software" = "Y"; then
 	if [ -z "$(testCommand "service apache2 status" "${valid_status[@]}")" ]; then
 		command "sudo apt install -y apache2 apache2-utils ssl-cert"
 	else
+		outputHandler "comment" "Apache Installed"
 		outputHandler "comment" "[Apache status:] $(testCommand "service apache2 status" "${valid_status[@]}")"
 	fi
 	#installedPackage "apache2"
@@ -50,6 +51,7 @@ if test "$install_software" = "Y"; then
 		sudo apt install -y libapache2-mod-php php7.2 php7.2-cli php7.2-common php7.2-curl php7.2-dev php7.2-mbstring php7.2-zip php7.2-mysql php7.2-xmlrpc
 		sudo apt install -y php-redis php-imagick php-igbinary php-msgpack 
 	else 
+		outputHandler "comment" "PHP Installed"
 		outputHandler "comment" "[PHP Version:] $(testCommand "php -v" "${valid_version[@]}")"
 	fi
 	exit 1
