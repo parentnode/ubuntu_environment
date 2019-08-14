@@ -162,7 +162,10 @@ else
 	git_email="$(checkGitCredential "email")"
 	export git_email
 fi
+echo "$git_username"
+echo "$git_email"
 exit 1
+
 git config --global core.filemode false
 git config --global user.name "$git_username"
 git config --global user.email "$git_email"
