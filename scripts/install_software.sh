@@ -46,7 +46,7 @@ if test "$install_software" = "Y"; then
 	#installedPackage "php7.2-mysql"
 	#installedPackage "php7.2-xmlrpc"
 	valid_version=("^PHP ([7\.[0-9])")
-	testCommand "unzip -v" "${valid_version[@]}"
+	echo "$("testCommand "unzip -v" "${valid_version[@]}"")"
 	exit 1
 	#sudo apt install -y php-redis php-imagick php-igbinary php-msgpack 
 	#installedPackage "php-redis"
