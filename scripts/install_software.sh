@@ -1,17 +1,14 @@
 #!/bin/bash -e
 
-echo "-----------------------------------------"
-echo
-echo "               SOFTWARE"
-echo
-echo
-
-
 if test "$install_software" = "Y"; then	
     
 	outputHandler "section" "Installing Apache"
 	exit 1
     #sudo apt install -y apache2 apache2-utils ssl-cert
+	valid_status=("running" "dead")
+	#echo "Checking Apache2.4 status: "
+	testCommand "service apache2 status" "${valid_status[@]}"
+	exit 1
 	installedPackage "apache2"
 	installedPackage "apache2-utils"
 	installedPackage "ssl-cert"
