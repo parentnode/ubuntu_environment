@@ -9,7 +9,8 @@ echo
 
 if test "$install_software" = "Y"; then	
     
-	guiText "Apache2" "Start"
+	outputHandler "section" "Installing Apache"
+	exit 1
     #sudo apt install -y apache2 apache2-utils ssl-cert
 	installedPackage "apache2"
 	installedPackage "apache2-utils"
