@@ -128,6 +128,6 @@ checkFolderExistOrCreate "/srv/sites/apache"
 checkFolderExistOrCreate "/srv/sites/apache/logs"
 checkFolderExistOrCreate "/srv/sites/parentnode"
 
-outputHandler "comment" "Change Folder rights from root to your curent user"
+outputHandler "comment" "Changing Folder rights from root to your curent user"
 # Change Folder Rights from root to current user
 chown -R $SUDO_USER:$SUDO_USER /srv/sites
