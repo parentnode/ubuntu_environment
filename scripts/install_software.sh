@@ -9,7 +9,7 @@ if test "$install_software" = "Y"; then
 	if [ -z "$(testCommand "service apache2 status" "${valid_status[@]}")" ]; then
 		command "sudo apt install -y apache2 apache2-utils ssl-cert"
 	else
-		testCommand "service apache2 status" "${valid_status[@]}"
+		outputHandler "comment" "Apache status: $(testCommand "service apache2 status" "${valid_status[@]}")"
 	fi
 	exit 1
 	installedPackage "apache2"
