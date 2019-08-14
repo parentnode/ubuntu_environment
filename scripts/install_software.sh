@@ -61,7 +61,7 @@ if test "$install_software" = "Y"; then
 	#installedPackage "php-msgpack"
 
 	outputHandler "section" "Installing Redis"
-	valid_version=("^Redis server")
+	valid_version=("^Redis server v=([4\.[0-9])")
 	testCommand "redis-server -v" "${valid_version[@]}"
 	#v=([4\.[0-9]])
 	#if [  ]
