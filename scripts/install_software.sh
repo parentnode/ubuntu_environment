@@ -61,8 +61,9 @@ if test "$install_software" = "Y"; then
 	#installedPackage "php-msgpack"
 
 	outputHandler "section" "Installing Redis"
-	valid_version=("^Redis server v=([4\.[0-9]])")
+	valid_version=("^Redis server")
 	testCommand "redis-server -v" "${valid_version[@]}"
+	#v=([4\.[0-9]])
 	#if [  ]
 	#sudo apt install -y redis
 	exit 1
