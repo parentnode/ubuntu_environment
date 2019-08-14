@@ -9,14 +9,13 @@ if test "$install_software" = "Y"; then
 	if [ -z "$(testCommand "service apache2 status" "${valid_status[@]}")" ]; then
 		command "sudo apt install -y apache2 apache2-utils ssl-cert"
 	else
-		outputHandler "comment" "Apache status: $(testCommand "service apache2 status" "${valid_status[@]}")"
+		outputHandler "comment" "[Apache status:] $(testCommand "service apache2 status" "${valid_status[@]}")"
 	fi
-	exit 1
-	installedPackage "apache2"
-	installedPackage "apache2-utils"
-	installedPackage "ssl-cert"
+	#installedPackage "apache2"
+	#installedPackage "apache2-utils"
+	#installedPackage "ssl-cert"
 
-	guiText "PHP7.2" "Start"
+	outputHandler "section" "Installing PHP7.2"
 
 	# INSTALL PHP5.5
 	#	sudo apt install -y libapache2-mod-php5 php5 php5-cli php5-common php5-curl php5-dev php5-imagick php5-mcrypt php5-memcached php5-mysqlnd php5-xmlrpc memcached
@@ -36,21 +35,24 @@ if test "$install_software" = "Y"; then
 
 	# INSTALL PHP7.2
 	#sudo apt install -y libapache2-mod-php php7.2 php7.2-cli php7.2-common php7.2-curl php7.2-dev php7.2-mbstring php7.2-zip php7.2-mysql php7.2-xmlrpc
-	installedPackage "libapache2-mod-php"
-	installedPackage "php7.2"
-	installedPackage "php7.2-cli"
-	installedPackage "php7.2-common"
-	installedPackage "php7.2-curl"
-	installedPackage "php7.2-dev"
-	installedPackage "php7.2-mbstring"
-	installedPackage "php7.2-zip"
-	installedPackage "php7.2-mysql"
-	installedPackage "php7.2-xmlrpc"
+	#installedPackage "libapache2-mod-php"
+	#installedPackage "php7.2"
+	#installedPackage "php7.2-cli"
+	#installedPackage "php7.2-common"
+	#installedPackage "php7.2-curl"
+	#installedPackage "php7.2-dev"
+	#installedPackage "php7.2-mbstring"
+	#installedPackage "php7.2-zip"
+	#installedPackage "php7.2-mysql"
+	#installedPackage "php7.2-xmlrpc"
+	valid_version=("^PHP ([7\.[0-9])")
+	testCommand "unzip -v" "${valid_version[@]}"
+	exit 1
 	#sudo apt install -y php-redis php-imagick php-igbinary php-msgpack 
-	installedPackage "php-redis"
-	installedPackage "php-imagick"
-	installedPackage "php-igbinary"
-	installedPackage "php-msgpack"
+	#installedPackage "php-redis"
+	#installedPackage "php-imagick"
+	#installedPackage "php-igbinary"
+	#installedPackage "php-msgpack"
 
 	guiText "Redis" "Start"
 	sudo apt install -y redis
