@@ -162,17 +162,13 @@ else
 	git_email="$(checkGitCredential "email")"
 	export git_email
 fi
-#echo "$git_username"
-#echo "$git_email"
+
 
 git config --global core.filemode false
 git config --global user.name "$git_username"
 git config --global user.email "$git_email"
 
 git config --global credential.helper cache
-echo "Git username: $(git config user.name)"
-echo "Git Email: $(git config user.email)"
-
 exit 1
 guiText "Time zone" "Section"
 
