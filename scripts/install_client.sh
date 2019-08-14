@@ -165,7 +165,7 @@ fi
 outputHandler "section" "Setting Default GIT User setting"
 
 git config --global core.filemode false
-outputHandler "comment" "git core.filemode $(git config --global core.filemode)"
+outputHandler "comment" "git core.filemode: $(git config --global core.filemode)"
 git config --global user.name "$git_username"
 outputHandler "comment" "git user.name: $(git config --global user.name)"
 git config --global user.email "$git_email"
