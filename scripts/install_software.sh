@@ -3,7 +3,6 @@
 if test "$install_software" = "Y"; then	
     
 	outputHandler "section" "Installing Apache"
-	exit 1
     #sudo apt install -y apache2 apache2-utils ssl-cert
 	valid_status=("running" "dead")
 	#echo "Checking Apache2.4 status: "
