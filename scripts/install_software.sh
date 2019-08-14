@@ -54,17 +54,19 @@ if test "$install_software" = "Y"; then
 		outputHandler "comment" "PHP Installed"
 		outputHandler "comment" "[PHP Version:] $(testCommand "php -v" "${valid_version[@]}")"
 	fi
-	exit 1
 	#sudo apt install -y php-redis php-imagick php-igbinary php-msgpack 
 	#installedPackage "php-redis"
 	#installedPackage "php-imagick"
 	#installedPackage "php-igbinary"
 	#installedPackage "php-msgpack"
 
-	guiText "Redis" "Start"
-	sudo apt install -y redis
+	outputHandler "section" "Installing Redis"
+	valid_version=("^Redis server v=([4\.[0-9]])")
+	testCommand "redis-server -v" "${valid_version[@]}"
+	#if [  ]
+	#sudo apt install -y redis
+	exit 1
 	#installedPackage "redis"
-	guiText "Redis" "Done"
 
 	guiText "Zip, Log Rotation and Curl" "Start"
 	#sudo apt install -y zip logrotate curl
