@@ -166,9 +166,9 @@ outputHandler "section" "Setting Default GIT User setting"
 
 git config --global core.filemode false
 git config --global user.name "$git_username"
-outputHandler "comment" "$(git config --global user.name)"
+outputHandler "comment" "GIT Username: $(git config --global user.name)"
 git config --global user.email "$git_email"
-outputHandler "comment" "$(git config --global user.email)"
+outputHandler "comment" "GIT Email: $(git config --global user.email)"
 git config --global credential.helper cache
 
 
