@@ -45,13 +45,13 @@ if test "$install_software" = "Y"; then
 	#installedPackage "php7.2-zip"
 	#installedPackage "php7.2-mysql"
 	#installedPackage "php7.2-xmlrpc"
-	valid_version=("^PHP ([7\.[0-9])")
+	valid_version=("^PHP ([7\.[2-9])")
 	if [ -z "$(testCommand "php -v" "${valid_version[@]}")" ]; then
 		sudo apt install -y libapache2-mod-php php7.2 php7.2-cli php7.2-common php7.2-curl php7.2-dev php7.2-mbstring php7.2-zip php7.2-mysql php7.2-xmlrpc
+		sudo apt install -y php-redis php-imagick php-igbinary php-msgpack 
 	else 
 		outputHandler "comment" "[PHP Version:] $(testCommand "php -v" "${valid_version[@]}")"
 	fi
-	
 	exit 1
 	#sudo apt install -y php-redis php-imagick php-igbinary php-msgpack 
 	#installedPackage "php-redis"
