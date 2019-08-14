@@ -22,11 +22,10 @@ outputHandler "comment" "Installing system for $install_user"
 
 outputHandler "section" "Checking Software Prerequisites are met"
 . /srv/tools/scripts/check_software_prerequisites_is_met.sh
+
+outputHandler "section" "Install software"
+
 exit 1
-
-guiText "Software" "Section"
-
-guiText "Software" "Start"
 # INSTALL SOFTWARE
 . /srv/tools/scripts/install_software.sh
 . /srv/tools/scripts/install_webserver_configuration_client.sh
