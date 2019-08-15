@@ -2,7 +2,7 @@
 
 if test "$install_software" = "Y"; then	
     
-	outputHandler "section" "Installing Apache"
+	outputHandler "section" "Installing Apache and extra modules"
     #sudo apt install -y apache2 apache2-utils ssl-cert
 	valid_status=("running" "dead")
 	#echo "Checking Apache2.4 status: "
@@ -15,7 +15,7 @@ if test "$install_software" = "Y"; then
 	#installedPackage "apache2-utils"
 	#installedPackage "ssl-cert"
 
-	outputHandler "section" "Installing PHP7.2"
+	outputHandler "section" "Installing PHP7.2 and extra modules"
 
 	# INSTALL PHP5.5
 	#	sudo apt install -y libapache2-mod-php5 php5 php5-cli php5-common php5-curl php5-dev php5-imagick php5-mcrypt php5-memcached php5-mysqlnd php5-xmlrpc memcached
@@ -47,8 +47,8 @@ if test "$install_software" = "Y"; then
 	#installedPackage "php7.2-xmlrpc"
 	valid_version=("^PHP ([7\.[2-9])")
 	if [ -z "$(testCommand "php -v" "${valid_version[@]}")" ]; then
-		sudo apt install -y libapache2-mod-php php7.2 php7.2-cli php7.2-common php7.2-curl php7.2-dev php7.2-mbstring php7.2-zip php7.2-mysql php7.2-xmlrpc
-		sudo apt install -y php-redis php-imagick php-igbinary php-msgpack 
+		command "sudo apt install -y libapache2-mod-php php7.2 php7.2-cli php7.2-common php7.2-curl php7.2-dev php7.2-mbstring php7.2-zip php7.2-mysql php7.2-xmlrpc"
+		command "sudo apt install -y php-redis php-imagick php-igbinary php-msgpack" 
 	else  
 		outputHandler "comment" "PHP Installed" "[PHP Version:] $(testCommand "php -v" "${valid_version[@]}")"
 	fi
@@ -61,21 +61,26 @@ if test "$install_software" = "Y"; then
 	outputHandler "section" "Installing Redis"
 	valid_version=("^Redis server v=([4\.[0-9])")
 	
-	#v=([4\.[0-9]])
 	if [ -z "$(testCommand "redis-server -v" "${valid_version[@]}")" ]; then
-		sudo apt install -y redis
+		command "sudo apt install -y redis"
 	else
 		outputHandler "comment" "Redis Installed" "[Redis Version:] $(testCommand "redis-server -v" "${valid_version[@]}")"
 	fi
 	
-	exit 1
-	#installedPackage "redis"
 
-	guiText "Zip, Log Rotation and Curl" "Start"
-	#sudo apt install -y zip logrotate curl
-	installedPackage "zip"
-	installedPackage "logrotate"
-	installedPackage "curl"
+	#installedPackage "redis"
+	valid_version="^Zip ([3\.[0-9])"
+	outputHandler "section" "Installing Zip"
+	if [ -z "$(testCommand "zip -v" "${valid_version[@]}")" ]; then 
+		#command "sudo apt install -y zip"
+	else
+		outputHandler "comment" "Zip Installed" "[Zip Version:] $(testCommand "zip -v" "${valid_version[@]}")"
+	fi 
+	exit 1
+	outputHandler "section" "Installing Log Rotation"
+	#command "sudo apt install -y logrotate" 
+	outputHandler "section" "Installing Curl" 
+	#command "sudo apt install -y curl"
 	guiText "Zip, Log Rotation and Curl" "Done"
 
 	guiText "MariaDB" "Start"
