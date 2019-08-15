@@ -69,10 +69,10 @@ if test "$install_software" = "Y"; then
 	
 
 	#installedPackage "redis"
-	valid_version="^Zip ([3\.[0-9])"
 	outputHandler "section" "Installing Zip"
+	valid_version="^Zip ([3\.[0-9])"
 	if [ -z "$(testCommand "zip -v" "${valid_version[@]}")" ]; then 
-		#command "sudo apt install -y zip"
+		command "sudo apt install -y zip"
 	else
 		outputHandler "comment" "Zip Installed" "[Zip Version:] $(testCommand "zip -v" "${valid_version[@]}")"
 	fi 
