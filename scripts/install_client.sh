@@ -30,8 +30,8 @@ outputHandler "section" "Install software"
 
 # INSTALL SOFTWARE
 . /srv/tools/scripts/install_software.sh
-exit 1
 . /srv/tools/scripts/install_webserver_configuration_client.sh
+exit 1
 
 
 
