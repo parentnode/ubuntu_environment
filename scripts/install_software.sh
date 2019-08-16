@@ -78,11 +78,9 @@ if test "$install_software" = "Y"; then
 	fi 
 	outputHandler "section" "Installing Log Rotation"
 	valid_version="logrotate [3\.[1-9]]"
-	if [ -z "$(testCommand "logrotate -v" "${valid_version[@]}")" ]; then 
-		command "sudo apt install -y logrotate" 
-	else
-		outputHandler "comment" "logrotate Installed" "[logrotate Version:] $(testCommand "logrotate -v" "${valid_version[@]}")"
-	fi 
+	if [ -z "$(testCommand "logrotate -v" "${valid_version[@]}")" ]; then
+		echo "to bad"
+	fi
 	exit 1
 	#command "sudo apt install -y logrotate" 
 	outputHandler "section" "Installing Curl" 
