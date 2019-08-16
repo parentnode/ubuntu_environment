@@ -59,47 +59,50 @@ if test "$install_software" = "Y"; then
 	#installedPackage "php-msgpack"
 
 	outputHandler "section" "Installing Redis"
-	valid_version=("^Redis server v=([4\.[0-9])")
+	command "sudo apt install -y redis"
 	
-	if [ -z "$(testCommand "redis-server -v" "${valid_version[@]}")" ]; then
-		command "sudo apt install -y redis"
-	else
-		outputHandler "comment" "Redis Installed" "[Redis Version:] $(testCommand "redis-server -v" "${valid_version[@]}")"
-	fi
-	
+	outputHandler "section" "Installing Zip"
+	command "sudo apt install -y zip" 
 
-	#installedPackage "redis"
-	#outputHandler "section" "Installing Zip"
-	#valid_version="Zip ([3\.[0-9])"
-	#if [ -z "$(testCommand "zip -v" "${valid_version[@]}")" ]; then 
-	#	command "sudo apt install -y zip"
-	#else
-	#	outputHandler "comment" "Zip Installed" "[Zip Version:] $(testCommand "zip -v" "${valid_version[@]}")"
-	#fi 
 	outputHandler "section" "Installing Log Rotation"
-	valid_version="([3\.[1-9])"
-	if [ -z "$(testCommand "command "sudo apt install -y logrotate"" "${valid_version[@]}")" ]; then
-		echo "to bad"
-	fi
-	exit 1
-	#command "sudo apt install -y logrotate" 
+	command "sudo apt install -y logrotate" 
 	outputHandler "section" "Installing Curl" 
-	#command "sudo apt install -y curl"
-	guiText "Zip, Log Rotation and Curl" "Done"
-
-	guiText "MariaDB" "Start"
-	#sudo -E apt install -q -y mariadb-server
+	command "sudo apt install -y curl"
+	outputHandler "comment" "Installing MariaDB Server"
+	sudo -E apt install -q -y mariadb-server
 	
-	installedPackage "mariadb-server" "E" "q"
 	# INSTALL FFMPEG
-	guiText "FFMPEF" "Start"
-	. /srv/tools/scripts/install_ffmpeg.sh
-	guiText "FFMPEG" "Done"
+	outputHandler "comment" "Installing FFMPEG"
+	if test "$install_ffmpeg" = "Y"; then
+		sudo -k apt install -y ffmpeg
+		# # FFMPEG - FORCE PASSWORD RENEWAL (BUILDING FFMPEG TAKES TIME)
+		# sudo -k apt install -y build-essential checkinstall yasm texi2html libfdk-aac-dev libfaad-dev libmp3lame-dev libopencore-amrnb-dev libopencore-amrwb-dev libtheora-dev libvorbis-dev libvpx-dev libxvidcore-dev zlib1g-dev libx264-dev x264 libsdl1.2-dev
+		#
+		# wget http://www.ffmpeg.org/releases/ffmpeg-3.2.1.tar.gz
+		# tar xf ffmpeg-3.2.1.tar.gz
+		# rm ffmpeg-3.2.1.tar.gz
+		# cd ffmpeg-3.2.1 && ./configure --enable-gpl --enable-version3 --enable-nonfree --enable-postproc --enable-pthreads --enable-libfdk-aac --enable-libmp3lame --enable-libtheora --enable-libvorbis --enable-libx264 --enable-libxvid --enable-libvpx && make && make install && make distclean && hash -r
+		# cd ..
+		# rm -R ffmpeg-3.2.1
+	
+	else
+		outputHandler "comment" "Skipping FFMPEG"
+	fi
 
 	# INSTALL WKHTMLTO
-	guiText "WKHTML" "Start"
-	. /srv/tools/scripts/install_wkhtmlto.sh
-	guiText "WKHTML" "Done"
+	outputHandler "comment" "Installing WKHTMLTOPF"
+	if test "$install_wkhtml" = "Y"; then
+
+		# WKHTML - FORCE PASSWORD RENEWAL
+		outputHandler "comment" "Using /srv/tools/bin/wkhtmltopdf"
+		# sudo apt install -y wkhtmltopdf
+		# installedPackage "wkhtmltopdf"
+		# sudo cp /srv/tools/conf/wkhtmltoimage /usr/bin/static_wkhtmltoimage
+		# sudo cp /srv/tools/conf/wkhtmltopdf /usr/bin/static_wkhtmltopdf
+
+	else
+		outputHandler "comment" "Skipping WKHTMLTOPF"
+	fi
 
 	
 	# INSTALL SYS-INFO
