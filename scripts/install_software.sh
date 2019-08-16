@@ -7,10 +7,11 @@ if test "$install_software" = "Y"; then
 	valid_status=("running" "dead")
 	#echo "Checking Apache2.4 status: "
 	if [ -z "$(testCommand "service apache2 status" "${valid_status[@]}")" ]; then
-		command "sudo apt install -y apache2 apache2-utils ssl-cert"
+		command "sudo apt-get install -y apache2 apache2-utils ssl-cert"
 	else
 		outputHandler "comment" "Apache Installed" "[Apache status:] $(testCommand "service apache2 status" "${valid_status[@]}")"
 	fi
+	exit 1
 	#installedPackage "apache2"
 	#installedPackage "apache2-utils"
 	#installedPackage "ssl-cert"
@@ -45,8 +46,8 @@ if test "$install_software" = "Y"; then
 	#installedPackage "php7.2-zip"
 	#installedPackage "php7.2-mysql"
 	#installedPackage "php7.2-xmlrpc"
-	command "sudo apt install -y libapache2-mod-php php7.2 php7.2-cli php7.2-common php7.2-curl php7.2-dev php7.2-mbstring php7.2-zip php7.2-mysql php7.2-xmlrpc"
-	command "sudo apt install -y php-redis php-imagick php-igbinary php-msgpack" 
+	command "sudo apt-get install -y libapache2-mod-php php7.2 php7.2-cli php7.2-common php7.2-curl php7.2-dev php7.2-mbstring php7.2-zip php7.2-mysql php7.2-xmlrpc"
+	command "sudo apt-get install -y php-redis php-imagick php-igbinary php-msgpack" 
 	#sudo apt install -y php-redis php-imagick php-igbinary php-msgpack 
 	#installedPackage "php-redis"
 	#installedPackage "php-imagick"
@@ -54,22 +55,22 @@ if test "$install_software" = "Y"; then
 	#installedPackage "php-msgpack"
 
 	outputHandler "section" "Installing Redis"
-	command "sudo apt install -y redis"
+	command "sudo apt-get install -y redis"
 	
 	outputHandler "section" "Installing Zip"
-	command "sudo apt install -y zip" 
+	command "sudo apt-get install -y zip" 
 
 	outputHandler "section" "Installing Log Rotation"
-	command "sudo apt install -y logrotate" 
+	command "sudo apt-get install -y logrotate" 
 	outputHandler "section" "Installing Curl" 
-	command "sudo apt install -y curl"
+	command "sudo apt-get install -y curl"
 	outputHandler "section" "Installing MariaDB Server"
 	sudo -E apt install -q -y mariadb-server
 	
 	# INSTALL FFMPEG
 	outputHandler "section" "Installing FFMPEG"
 	if test "$install_ffmpeg" = "Y"; then
-		sudo -k apt install -y ffmpeg
+		sudo -k apt-get install -y ffmpeg
 		# # FFMPEG - FORCE PASSWORD RENEWAL (BUILDING FFMPEG TAKES TIME)
 		# sudo -k apt install -y build-essential checkinstall yasm texi2html libfdk-aac-dev libfaad-dev libmp3lame-dev libopencore-amrnb-dev libopencore-amrwb-dev libtheora-dev libvorbis-dev libvpx-dev libxvidcore-dev zlib1g-dev libx264-dev x264 libsdl1.2-dev
 		#
