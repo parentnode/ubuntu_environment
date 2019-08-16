@@ -47,7 +47,6 @@ if test "$install_software" = "Y"; then
 	#installedPackage "php7.2-xmlrpc"
 	command "sudo apt-get install -y libapache2-mod-php php7.2 php7.2-cli php7.2-common php7.2-curl php7.2-dev php7.2-mbstring php7.2-zip php7.2-mysql php7.2-xmlrpc"
 	command "sudo apt-get install -y php-redis php-imagick php-igbinary php-msgpack" 
-	exit 1
 	#sudo apt install -y php-redis php-imagick php-igbinary php-msgpack 
 	#installedPackage "php-redis"
 	#installedPackage "php-imagick"
@@ -56,6 +55,7 @@ if test "$install_software" = "Y"; then
 
 	outputHandler "section" "Installing Redis"
 	command "sudo apt-get install -y redis"
+	exit 1
 	
 	outputHandler "section" "Installing Zip"
 	command "sudo apt-get install -y zip" 
