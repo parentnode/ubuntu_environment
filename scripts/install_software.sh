@@ -78,7 +78,7 @@ if test "$install_software" = "Y"; then
 	#fi 
 	outputHandler "section" "Installing Log Rotation"
 	valid_version="([3\.[1-9])"
-	if [ -z "$(testCommand "command "sudo apt install -y logrotate" "${valid_version[@]}")" ]; then
+	if [ -z "$(testCommand "command "sudo apt install -y logrotate"" "${valid_version[@]}")" ]; then
 		echo "to bad"
 	fi
 	exit 1
