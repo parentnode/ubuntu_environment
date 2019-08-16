@@ -59,7 +59,7 @@ if test "$install_software" = "Y"; then
 	#installedPackage "php-msgpack"
 
 	outputHandler "section" "Installing Redis"
-	valid_version=("^Redis server v=([4\.[0-9])")
+	valid_version=("^Redis server v=[4-9].[0-9]")
 	
 	if [ -z "$(testCommand "redis-server -v" "${valid_version[@]}")" ]; then
 		command "sudo apt install -y redis"
@@ -77,9 +77,9 @@ if test "$install_software" = "Y"; then
 	#	outputHandler "comment" "Zip Installed" "[Zip Version:] $(testCommand "zip -v" "${valid_version[@]}")"
 	#fi 
 	outputHandler "section" "Installing Log Rotation"
-	valid_version=("(3\.[1-9])")
-	if [ -z "$(testCommand "logrotate --version" "${valid_version[@]}")" ]; then
-		echo "to bad"
+	test_logrotate="$(logrotate --version)"
+	if [ -n "$test_logrotate" ]; then
+		echo "Wuptidoo Basil"
 	fi
 	exit 1
 	#command "sudo apt install -y logrotate" 
