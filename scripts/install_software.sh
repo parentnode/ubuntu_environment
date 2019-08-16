@@ -58,10 +58,10 @@ if test "$install_software" = "Y"; then
 	
 	outputHandler "section" "Installing Zip"
 	command "sudo apt-get install -y zip" 
-	exit 1
 
 	outputHandler "section" "Installing Log Rotation"
 	command "sudo apt-get install -y logrotate" 
+	exit 1
 	outputHandler "section" "Installing Curl" 
 	command "sudo apt-get install -y curl"
 	outputHandler "section" "Installing MariaDB Server"
