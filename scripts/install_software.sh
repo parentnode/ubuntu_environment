@@ -77,7 +77,7 @@ if test "$install_software" = "Y"; then
 	#	outputHandler "comment" "Zip Installed" "[Zip Version:] $(testCommand "zip -v" "${valid_version[@]}")"
 	#fi 
 	outputHandler "section" "Installing Log Rotation"
-	valid_version="logrotate ([3\.[1-9]) "
+	valid_version="logrotate"
 	if [ -z "$(testCommand "logrotate --version 2>&1 >/dev/null" "${valid_version[@]}")" ]; then
 		echo "to bad"
 	fi
