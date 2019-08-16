@@ -78,10 +78,10 @@ if test "$install_software" = "Y"; then
 	fi 
 	outputHandler "section" "Installing Log Rotation"
 	valid_version="logrotate [3\.[1-9]]"
-	if [ -z "$(testCommand "logrotate --version" "${valid_version[@]}")" ]; then 
+	if [ -z "$(testCommand "logrotate -v" "${valid_version[@]}")" ]; then 
 		command "sudo apt install -y logrotate" 
 	else
-		outputHandler "comment" "logrotate Installed" "[logrotate Version:] $(testCommand "logrotate --version" "${valid_version[@]}")"
+		outputHandler "comment" "logrotate Installed" "[logrotate Version:] $(testCommand "logrotate -v" "${valid_version[@]}")"
 	fi 
 	exit 1
 	#command "sudo apt install -y logrotate" 
