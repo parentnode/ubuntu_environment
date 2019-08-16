@@ -106,5 +106,5 @@ if test "$install_software" = "Y"; then
 	# aptitude install landscape-client landscape-common
 
 else
-	guiText "Software" "Skip"
+	outputHandler "comment" "Skipping software"
 fi
