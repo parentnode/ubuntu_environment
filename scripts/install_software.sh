@@ -63,11 +63,11 @@ if test "$install_software" = "Y"; then
 	command "sudo apt install -y logrotate" 
 	outputHandler "section" "Installing Curl" 
 	command "sudo apt install -y curl"
-	outputHandler "comment" "Installing MariaDB Server"
+	outputHandler "section" "Installing MariaDB Server"
 	sudo -E apt install -q -y mariadb-server
 	
 	# INSTALL FFMPEG
-	outputHandler "comment" "Installing FFMPEG"
+	outputHandler "section" "Installing FFMPEG"
 	if test "$install_ffmpeg" = "Y"; then
 		sudo -k apt install -y ffmpeg
 		# # FFMPEG - FORCE PASSWORD RENEWAL (BUILDING FFMPEG TAKES TIME)
@@ -85,7 +85,7 @@ if test "$install_software" = "Y"; then
 	fi
 
 	# INSTALL WKHTMLTO
-	outputHandler "comment" "Installing WKHTMLTOPF"
+	outputHandler "section" "Installing WKHTMLTOPF"
 	if test "$install_wkhtml" = "Y"; then
 
 		# WKHTML - FORCE PASSWORD RENEWAL
