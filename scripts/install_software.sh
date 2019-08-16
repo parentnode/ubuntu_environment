@@ -84,7 +84,6 @@ if test "$install_software" = "Y"; then
 		outputHandler "comment" "Skipping FFMPEG"
 	fi
 
-	exit 1
 	# INSTALL WKHTMLTO
 	outputHandler "section" "Installing WKHTMLTOPF"
 	if test "$install_wkhtml" = "Y"; then
@@ -100,6 +99,7 @@ if test "$install_software" = "Y"; then
 		outputHandler "comment" "Skipping WKHTMLTOPF"
 	fi
 
+	exit 1
 	
 	# INSTALL SYS-INFO
 	# aptitude install landscape-client landscape-common
