@@ -61,11 +61,11 @@ if test "$install_software" = "Y"; then
 
 	outputHandler "section" "Installing Log Rotation"
 	command "sudo apt-get install -y logrotate" 
-	exit 1
 	outputHandler "section" "Installing Curl" 
 	command "sudo apt-get install -y curl"
 	outputHandler "section" "Installing MariaDB Server"
-	sudo -E apt install -q -y mariadb-server
+	command "sudo -E apt-get install -q -y mariadb-server"
+	exit 1
 	
 	# INSTALL FFMPEG
 	outputHandler "section" "Installing FFMPEG"
