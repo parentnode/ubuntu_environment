@@ -55,10 +55,10 @@ if test "$install_software" = "Y"; then
 
 	outputHandler "section" "Installing Redis"
 	command "sudo apt-get install -y redis"
-	exit 1
 	
 	outputHandler "section" "Installing Zip"
 	command "sudo apt-get install -y zip" 
+	exit 1
 
 	outputHandler "section" "Installing Log Rotation"
 	command "sudo apt-get install -y logrotate" 
