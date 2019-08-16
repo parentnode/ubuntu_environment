@@ -98,8 +98,6 @@ if test "$install_software" = "Y"; then
 	else
 		outputHandler "comment" "Skipping WKHTMLTOPF"
 	fi
-
-	exit 1
 	
 	# INSTALL SYS-INFO
 	# aptitude install landscape-client landscape-common
