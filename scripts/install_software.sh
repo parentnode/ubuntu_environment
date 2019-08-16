@@ -78,7 +78,7 @@ if test "$install_software" = "Y"; then
 	#fi 
 	outputHandler "section" "Installing Log Rotation"
 	valid_version="logrotate"
-	if [ -z "$(testCommand "logrotate -v" "${valid_version[@]}")" ]; then
+	if [ -z "$(testCommand "logrotate --version" "${valid_version[@]}")" ]; then
 		echo "to bad"
 	fi
 	exit 1
