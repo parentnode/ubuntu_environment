@@ -77,8 +77,8 @@ if test "$install_software" = "Y"; then
 	#	outputHandler "comment" "Zip Installed" "[Zip Version:] $(testCommand "zip -v" "${valid_version[@]}")"
 	#fi 
 	outputHandler "section" "Installing Log Rotation"
-	valid_version="logrotate"
-	if [ -z "$(testCommand "logrotate --version 2>&1 >/dev/null" "${valid_version[@]}")" ]; then
+	valid_version="([3\.[1-9])"
+	if [ -z "$(testCommand "command "sudo apt install -y logrotate" "${valid_version[@]}")" ]; then
 		echo "to bad"
 	fi
 	exit 1
