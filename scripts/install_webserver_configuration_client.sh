@@ -51,7 +51,7 @@ if test "$install_webserver_conf" = "Y"; then
     apache_email=$(grep "ServerAdmin" /etc/apache2/sites-enabled/default.conf | cut -d ' ' -f2 || echo "")
     if [ -z "$apache_email" ]; then
         echo "trying to set mail"
-        sed -i "s/$apache_email/$install_email/" /etc/apache2/sites-available/default.conf
+        sed -i "s/^$apache_email$/$install_email/" /etc/apache2/sites-available/default.conf
     fi
 	sed -i "s/webmaster@localhost/$install_email/" /etc/apache2/sites-available/default.conf
 	
