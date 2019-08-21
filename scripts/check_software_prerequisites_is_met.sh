@@ -20,7 +20,8 @@ export install_wkhtml
 outputHandler "section" "Apache email configuration"
 if [ "$(fileExists "/etc/apache2/sites-enabled/default.conf")" = "true" ]; then 
 	outputHandler "comment" "defaul.conf Exist"
-	apache_email=$(grep "ServerAdmin" /etc/apache2/sites-enabled/default.conf | cut -d " " -f2 || echo "")
+	grep_apache_email=$(trimString "$(grep "ServerAdmin" /etc/apache2/sites-available/default.conf)")
+    apache_email=$(echo "$grep_apache_email" | cut -d' ' -f2)
 	#export server_admin_mail
 	#echo "Mail for apache is: $apache_email"
 	
