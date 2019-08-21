@@ -49,13 +49,14 @@ if test "$install_webserver_conf" = "Y"; then
 	outputHandler "comment" "replace default mail with mail you entered earlier"
 	# REPLACE EMAIL WITH PREVIOUSLY STATED EMAIL
     grep_apache_email=$(trimString "$(grep "ServerAdmin" /etc/apache2/sites-available/default.conf)")
-    apache_email=$(echo "$grep_apache_email" | cut -d' ' -f2)
-    if [ -z "$apache_email" ]; then
-        echo "trying to set mail"
+    is_there_apache_email=$(echo "$grep_apache_email" | cut -d' ' -f2)
+    if [ -z "$is_there_apache_email" ]; then
         sed -i "s/ServerAdmin\ /ServerAdmin $install_email/" /etc/apache2/sites-available/default.conf
 
     fi
-	sed -i "s/webmaster@localhost/$install_email/" /etc/apache2/sites-available/default.conf
+    if [ "$is_there_apache_email" = "webmaster@localhost" ]; then
+        sed -i "s/webmaster@localhost/$install_email/" /etc/apache2/sites-available/default.conf
+    fi
 	
 
 	# ADD APACHE MODULES
