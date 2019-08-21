@@ -1,6 +1,6 @@
 #!/bin/bash -e
-# bash <(curl -s file:///srv/sites/parentnode/ubuntu_environment/tests/run-tests.txt)
-
+# run tests: bash <(curl -s file:///srv/sites/parentnode/ubuntu_environment/tests/run-tests.txt)
+# testing script locally: bash <(curl -s file:///srv/sites/parentnode/parentnode_dk/theme/www/installers/install-ubuntu-stack.txt)
 ##tests
 #/srv/sites/parentnode/ubuntu_environment/tests/enable_super_cow.sh
 #sudo /srv/sites/parentnode/ubuntu_environment/tests/get_username.sh
