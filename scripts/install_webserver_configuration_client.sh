@@ -48,10 +48,12 @@ if test "$install_webserver_conf" = "Y"; then
 	
 	outputHandler "comment" "replace default mail with mail you entered earlier"
 	# REPLACE EMAIL WITH PREVIOUSLY STATED EMAIL
-    apache_email=$(grep "ServerAdmin" /etc/apache2/sites-enabled/default.conf | cut -d ' ' -f2 || echo "")
+    grep_apache_email=$(trimString "$(grep "ServerAdmin" /srv/sites/parentnode/ubuntu_environment/tests/test_replace_default_mail/email_file)")
+    apache_email=$(echo "$grep_apache_email" | cut -d' ' -f2)
     if [ -z "$apache_email" ]; then
         echo "trying to set mail"
-        sed -i "s/^$apache_email$/$install_email/" /etc/apache2/sites-available/default.conf
+        sed -i "s/ServerAdmin\ /ServerAdmin $install_email/" /etc/apache2/sites-available/default.conf
+
     fi
 	sed -i "s/webmaster@localhost/$install_email/" /etc/apache2/sites-available/default.conf
 	
