@@ -24,7 +24,6 @@ if [ "$(fileExists "/etc/apache2/sites-available/default.conf")" = "true" ]; the
     is_there_apache_email=$(echo "$grep_apache_email" | cut -d' ' -f2)
 	
 	if [ -z "$is_there_apache_email" ]; then 
-	then
 		echo "No apache email present"
 		install_email_array=("[A-Za-z0-9\.\-]+@[A-Za-z0-9\.\-]+\.[a-z]{2,10}")
 		install_email=$(ask "Enter Apache email" "${install_email_array[@]}" "apache_email")
