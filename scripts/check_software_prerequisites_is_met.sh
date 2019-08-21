@@ -25,12 +25,14 @@ if [ "$(fileExists "/etc/apache2/sites-enabled/default.conf")" = "true" ]; then
 	
 	if [ -z "$is_there_apache_email" ]; then 
 	then
+		echo "No apache email present"
 		install_email_array=("[A-Za-z0-9\.\-]+@[A-Za-z0-9\.\-]+\.[a-z]{2,10}")
 		install_email=$(ask "Enter Apache email" "${install_email_array[@]}" "apache_email")
 		export install_email
 	fi
 
 	if [ "$is_there_apache_email" = "webmaster@localhost" ]; then
+		echo "apache email is webmaster@localhost"
 		install_email_array=("[A-Za-z0-9\.\-]+@[A-Za-z0-9\.\-]+\.[a-z]{2,10}")
 		install_email=$(ask "Enter Apache email" "${install_email_array[@]}" "apache_email")
 		export install_email
