@@ -21,26 +21,20 @@ outputHandler "section" "Apache email configuration"
 if [ "$(fileExists "/etc/apache2/sites-enabled/default.conf")" = "true" ]; then 
 	outputHandler "comment" "defaul.conf Exist"
 	grep_apache_email=$(trimString "$(grep "ServerAdmin" /etc/apache2/sites-available/default.conf)")
-    apache_email=$(echo "$grep_apache_email" | cut -d' ' -f2)
-	#export server_admin_mail
-	#echo "Mail for apache is: $apache_email"
+    is_there_apache_email=$(echo "$grep_apache_email" | cut -d' ' -f2)
 	
-	if [ -z "$apache_email" ] || [ "$apache_email" = "webmaster@localhost" ];
+	if [ -z "$is_there_apache_email" ]; then 
 	then
-		apache_email_array=("[A-Za-z0-9\.\-]+@[A-Za-z0-9\.\-]+\.[a-z]{2,10}")
-		apache_email=$(ask "Enter Apache email" "${apache_email_array[@]}" "apache_email")
-		export apache_email
-	else 
-		outputHandler "comment" "Apache email Installed"
-		#install_email = "$install_email"
-		#echo "Mail for apache is: $apache_email"
-		export apache_email
+		install_email_array=("[A-Za-z0-9\.\-]+@[A-Za-z0-9\.\-]+\.[a-z]{2,10}")
+		install_email=$(ask "Enter Apache email" "${install_email_array[@]}" "apache_email")
+		export install_email
 	fi
-else
-    apache_email_array=("[A-Za-z0-9\.\-]+@[A-Za-z0-9\.\-]+\.[a-z]{2,10}")
-	apache_email=$(ask "Enter Apache email" "${apache_email_array[@]}" "apache_email")
-	export apache_email
-fi
+
+	if [ "$is_there_apache_email" = "webmaster@localhost" ]; then
+		install_email_array=("[A-Za-z0-9\.\-]+@[A-Za-z0-9\.\-]+\.[a-z]{2,10}")
+		install_email=$(ask "Enter Apache email" "${install_email_array[@]}" "apache_email")
+		export install_email
+	fi
 
 createOrModifyBashProfile
 
