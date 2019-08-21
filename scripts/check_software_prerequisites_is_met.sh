@@ -36,7 +36,7 @@ if [ "$(fileExists "/etc/apache2/sites-available/default.conf")" = "true" ]; the
 		install_email=$(ask "Enter Apache email" "${install_email_array[@]}" "apache_email")
 		export install_email
 	fi
-
+fi
 createOrModifyBashProfile
 
 outputHandler "section" "MariaDB password"
@@ -111,8 +111,7 @@ outputHandler "comment" "git credential.helper: $(git config --global credential
 outputHandler "section" "Setting Time zone"
 
 look_for_ex_timezone=$(sudo timedatectl status | grep "Time zone: " | cut -d ':' -f2)
-if [ -z "$look_for_ex_timezone" ];
-then
+if [ -z "$look_for_ex_timezone" ]; then
 	outputHandler "comment" "Setting Time zone to Europe/Copenhagen"
 	sudo timedatectl set-timezone "Europe/Copenhagen"
 else 
