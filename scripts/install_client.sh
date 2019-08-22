@@ -37,7 +37,7 @@ outputHandler "section" "Install software"
 
 # Change Folder Rights from root to current user
 outputHandler "comment" "Changing folder rights from root to current user"
-chown -R $SUDO_USER:$SUDO_USER /srv/sites
+chown -R $install_user:$install_user /srv/sites
 
 
 echo ""
