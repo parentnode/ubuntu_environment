@@ -40,6 +40,10 @@ if [ "$(fileExists "/etc/apache2/sites-available/default.conf")" = "true" ]; the
 		install_email=$(ask "Enter Apache email" "${install_email_array[@]}" "apache_email")
 		export install_email
 	fi
+else 
+	install_email_array=("[A-Za-z0-9\.\-]+@[A-Za-z0-9\.\-]+\.[a-z]{2,10}")
+	install_email=$(ask "Enter Apache email" "${install_email_array[@]}" "apache_email")
+	export install_email
 fi
 createOrModifyBashProfile
 
