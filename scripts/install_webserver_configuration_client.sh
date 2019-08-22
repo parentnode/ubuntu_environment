@@ -1,7 +1,8 @@
 #!/bin/bash -e
 
 if test "$install_webserver_conf" = "Y"; then
-    outputHandler "section" "Setting up Apache2"
+    outputHandler "section" "Setting up configuration files for the webserver"
+    outputHandler "comment" "Setting up Apache2"
     # Check for server name
 	install_apache_servername=$(grep -E "^ServerName" /etc/apache2/apache2.conf || echo "")
 	# If no results
@@ -60,7 +61,6 @@ if test "$install_webserver_conf" = "Y"; then
 	
 
 	# ADD APACHE MODULES
-    outputHandler "section" "enable apache modules"
 	outputHandler "comment" "enable SSL"
 	a2enmod ssl
 	outputHandler "comment" "enable rewrite"
@@ -69,7 +69,6 @@ if test "$install_webserver_conf" = "Y"; then
 	a2enmod headers
 
 	# ENABLE DEFAULT SITE
-    outputHandler "section" "enable/disable site configuration"
     outputHandler "comment" "enable default site"
     a2ensite default
 
@@ -79,7 +78,7 @@ if test "$install_webserver_conf" = "Y"; then
 
     #bash /srv/tools/scripts/install_apache.sh
 
-    outputHandler "section" "setting up PHP"
+    outputHandler "comment" "setting up PHP"
     # UPDATE PHP CONF
     # PHP 5
     #cat /srv/tools/conf-client/php-apache2.ini > /etc/php5/apache2/php.ini
@@ -107,7 +106,7 @@ if test "$install_webserver_conf" = "Y"; then
     # RESTARTING APACHE ARE IMPORTANT FOR REST OF THE SCRIPT!!
     service apache2 restart
 
-    outputHandler "section" "setting up MariaDB"
+    outputHandler "comment" "setting up MariaDB"
     # Do we have root password
     if [ -n "$db_root_password" ]; then
 
