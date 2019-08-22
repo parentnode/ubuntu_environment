@@ -117,7 +117,7 @@ if test "$install_webserver_conf" = "Y"; then
         #dbstatus=$(sudo mysql --user=root --password=temp -e exit 2>/dev/null || echo 1)
 
         # Login was successful - it means that DB was not set up yet
-        if [ -z "$dbstatus" ]; then
+        if [  "$(checkMariadbPassword)" = "false" ]; then
 
             # set login mode (mysql_native_password) and password for root account
             #echo "UPDATE mysql.user SET plugin = '', password = PASSWORD('$db_root_password') WHERE user = 'root'; FLUSH PRIVILEGES;" | sudo mysql -u root -ptemp
