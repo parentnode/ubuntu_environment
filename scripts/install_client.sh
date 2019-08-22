@@ -39,8 +39,6 @@ outputHandler "section" "Install software"
 outputHandler "comment" "Changing folder rights from root to current user"
 chown -R $SUDO_USER:$SUDO_USER /srv/sites
 
-exit 1
-
 
 echo ""
 echo "parentNode installed in Ubuntu "
