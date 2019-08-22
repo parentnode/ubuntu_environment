@@ -1,6 +1,6 @@
 <VirtualHost *:80>
         DocumentRoot /srv/sites
-        ServerAdmin jessen-it@outlook.com
+        ServerAdmin 
         ErrorLog /srv/sites/apache/logs/error.log
         CustomLog /srv/sites/apache/logs/access.log combined
 
