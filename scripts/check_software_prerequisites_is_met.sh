@@ -53,32 +53,32 @@ if test "$install_webserver_conf" = "Y"; then
 	#Check if mariadb are installed and running
 	if [ "$(checkMariadbPassword)" = "false" ]; then
 		password_array=("[A-Za-z0-9\!\@\$]{8,30}")
-		password1=$( ask "Enter mariadb password" "${password_array[@]}" "password")
+		db_root_password1=$( ask "Enter mariadb password" "${password_array[@]}" "password")
 		echo ""
-		password2=$( ask "Enter mariadb password again" "${password_array[@]}" "password")
+		db_root_password2=$( ask "Enter mariadb password again" "${password_array[@]}" "password")
 		echo ""
 
 		# While loop if not a match
-		if [  "$password1" != "$password2"  ]; then
+		if [  "$db_root_password1" != "$db_root_password2"  ]; then
 		    while [ true ]
 		    do
 		        echo "Password doesn't match"
 		        echo
 		        #password1=$( ask "Enter mariadb password" "${password_array[@]}" "Password")
-		        password1=$( ask "Enter mariadb password" "${password_array[@]}" "password")
+		        db_root_password1=$( ask "Enter mariadb password" "${password_array[@]}" "password")
 		        echo ""
-		        password2=$( ask "Enter mariadb password again" "${password_array[@]}" "password")
+		        db_root_password2=$( ask "Enter mariadb password again" "${password_array[@]}" "password")
 		        echo "" 
-		        if [ "$password1" == "$password2" ];
+		        if [ "$db_root_password1" == "$db_root_password2" ];
 		        then
 		            echo "Password Match"
 		            break
 		        fi
-		        export password1
+		        export db_root_password1
 		    done
 		else
 		    echo "Password Match"
-			export password1
+			export db_root_password1
 		fi
 	else 
 		outputHandler "comment" "Mariadb password allready set up"
