@@ -16,4 +16,4 @@
 #sudo /srv/sites/parentnode/ubuntu_environment/tests/update_content.sh
 #sudo /srv/sites/parentnode/ubuntu_environment/tests/check_folder_exist_or_create.sh
 #sudo /srv/sites/parentnode/ubuntu_environment/tests/command.sh
-sudo /srv/sites/parentnode/ubuntu_environment/tests/replace_apache_default_mail.sh
+#sudo /srv/sites/parentnode/ubuntu_environment/tests/replace_apache_default_mail.sh
