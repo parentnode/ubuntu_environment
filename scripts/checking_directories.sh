@@ -1,5 +1,5 @@
 #!/bin/bash -e
-
+outputHandler "section" "Checking directories"
 #create_folder_if_no_exist
 checkFolderExistOrCreate "/srv/sites"
 checkFolderExistOrCreate "/srv/sites/apache"

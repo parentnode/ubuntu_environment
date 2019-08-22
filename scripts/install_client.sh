@@ -20,16 +20,16 @@ install_user="$(getUsername)"
 export install_user
 outputHandler "comment" "Installing system for $install_user"
 
-outputHandler "section" "Checking Software Prerequisites are met"
+# Check software prerequisites is met
 . /srv/tools/scripts/check_software_prerequisites_is_met.sh
 
-outputHandler "section" "Checking directories"
+# Checking directories
 . /srv/tools/scripts/checking_directories.sh
-
-outputHandler "section" "Install software"
 
 # INSTALL SOFTWARE
 . /srv/tools/scripts/install_software.sh
+
+# Setting up configuration files for the webserver
 . /srv/tools/scripts/install_webserver_configuration_client.sh
 
 

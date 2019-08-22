@@ -1,8 +1,8 @@
 #!/bin/bash -e
 
 if test "$install_software" = "Y"; then	
-    
-	outputHandler "section" "Installing Apache and extra modules"
+    outputHandler "section" "Install software"
+	outputHandler "comment" "Installing Apache and extra modules"
     #sudo apt install -y apache2 apache2-utils ssl-cert
 	valid_status=("running" "dead")
 	#echo "Checking Apache2.4 status: "
@@ -15,7 +15,7 @@ if test "$install_software" = "Y"; then
 	#installedPackage "apache2-utils"
 	#installedPackage "ssl-cert"
 
-	outputHandler "section" "Installing PHP7.2 and extra modules"
+	outputHandler "comment" "Installing PHP7.2 and extra modules"
 
 	# INSTALL PHP5.5
 	#	sudo apt install -y libapache2-mod-php5 php5 php5-cli php5-common php5-curl php5-dev php5-imagick php5-mcrypt php5-memcached php5-mysqlnd php5-xmlrpc memcached
@@ -53,21 +53,21 @@ if test "$install_software" = "Y"; then
 	#installedPackage "php-igbinary"
 	#installedPackage "php-msgpack"
 
-	outputHandler "section" "Installing Redis"
+	outputHandler "comment" "Installing Redis"
 	command "sudo apt-get install -y redis"
 	
-	outputHandler "section" "Installing Zip"
+	outputHandler "comment" "Installing Zip"
 	command "sudo apt-get install -y zip" 
 
-	outputHandler "section" "Installing Log Rotation"
+	outputHandler "comment" "Installing Log Rotation"
 	command "sudo apt-get install -y logrotate" 
-	outputHandler "section" "Installing Curl" 
+	outputHandler "comment" "Installing Curl" 
 	command "sudo apt-get install -y curl"
-	outputHandler "section" "Installing MariaDB Server"
+	outputHandler "comment" "Installing MariaDB Server"
 	command "sudo -E apt-get install -q -y mariadb-server"
 	
 	# INSTALL FFMPEG
-	outputHandler "section" "Installing FFMPEG"
+	outputHandler "comment" "Installing FFMPEG"
 	if test "$install_ffmpeg" = "Y"; then
 		command "sudo -k apt-get install -y ffmpeg"
 		# # FFMPEG - FORCE PASSWORD RENEWAL (BUILDING FFMPEG TAKES TIME)
@@ -85,7 +85,7 @@ if test "$install_software" = "Y"; then
 	fi
 
 	# INSTALL WKHTMLTO
-	outputHandler "section" "Installing WKHTMLTOPF"
+	outputHandler "comment" "Installing WKHTMLTOPF"
 	if test "$install_wkhtml" = "Y"; then
 
 		# WKHTML - FORCE PASSWORD RENEWAL

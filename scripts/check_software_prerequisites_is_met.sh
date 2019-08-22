@@ -1,5 +1,6 @@
 #!/bin/bash -e
-outputHandler "section" "To speed up the process, please select your install options now:"
+outputHandler "section" "Checking Software Prerequisites are met"
+outputHandler "comment" "To speed up the process, please select your install options now:"
 install_software_array=("[Yn]")
 install_software=$(ask "Install Software (Y/n)" "${install_software_array[@]}" "install_software")
 export install_software
@@ -17,7 +18,7 @@ install_wkhtml=$(ask "Install WKHTMLTOPDF (Y/n)" "${install_webserver_conf_array
 export install_wkhtml
 
 # Uncomment when done testing
-outputHandler "section" "Apache email configuration"
+outputHandler "comment" "Apache email configuration"
 if [ "$(fileExists "/etc/apache2/sites-available/default.conf")" = "true" ]; then 
 	outputHandler "comment" "defaul.conf Exist"
 	grep_apache_email=$(trimString "$(grep "ServerAdmin" /etc/apache2/sites-available/default.conf)")
@@ -42,7 +43,7 @@ if [ "$(fileExists "/etc/apache2/sites-available/default.conf")" = "true" ]; the
 fi
 createOrModifyBashProfile
 
-outputHandler "section" "MariaDB password"
+outputHandler "comment" "MariaDB password"
 if test "$install_webserver_conf" = "Y"; then
 	
 	#Check if mariadb are installed and running
@@ -81,7 +82,7 @@ if test "$install_webserver_conf" = "Y"; then
 fi
 
 
-outputHandler "section" "Setting Default GIT User setting"
+outputHandler "comment" "Setting Default GIT User setting"
 # SETTING DEFAULT GIT USER
 
 # Checks if git credential are allready set, promts for input if not
@@ -111,7 +112,7 @@ outputHandler "comment" "git user.email: $(git config --global user.email)"
 git config --global credential.helper cache
 outputHandler "comment" "git credential.helper: $(git config --global credential.helper)"
 
-outputHandler "section" "Setting Time zone"
+outputHandler "comment" "Setting Time zone"
 
 look_for_ex_timezone=$(sudo timedatectl status | grep "Time zone: " | cut -d ':' -f2)
 if [ -z "$look_for_ex_timezone" ]; then
