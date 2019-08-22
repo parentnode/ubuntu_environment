@@ -98,8 +98,6 @@ if test "$install_webserver_conf" = "Y"; then
 
     #bash /srv/tools/scripts/install_php.sh
 
-    
-    # MAKE LOGS FOLDER
     if [ ! -e "/srv/sites/apache/apache.conf" ]; then
         # Add Default apache conf
         cat /srv/tools/conf-client/apache.conf > /srv/sites/apache/apache.conf
