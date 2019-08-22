@@ -31,15 +31,15 @@ outputHandler "section" "Install software"
 # INSTALL SOFTWARE
 . /srv/tools/scripts/install_software.sh
 . /srv/tools/scripts/install_webserver_configuration_client.sh
-exit 1
 
 
 
 
 # Change Folder Rights from root to current user
-guiText "Changing folder rights from root to current user" "Comment"
+outputHandler "comment" "Changing folder rights from root to current user"
 chown -R $SUDO_USER:$SUDO_USER /srv/sites
 
+exit 1
 
 
 echo ""
