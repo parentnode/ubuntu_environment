@@ -24,7 +24,8 @@ if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 	document_root=$(grep -E "DocumentRoot" "$PWD/apache/httpd-vhosts.conf" | sed -e "s/	DocumentRoot \"//; s/\"//")
 
 	# Parse ServerName from httpd-vhosts.conf
-	server_name=$(grep -E "ServerName" "$PWD/apache/httpd-vhosts.conf" | sed "s/	ServerName //")
+	#server_name=$(grep -E "ServerName" "$PWD/apache/httpd-vhosts.conf" | sed "s/	ServerName //")
+	server_name=($(grep -E "ServerName" "$PWD/apache/httpd-vhosts.conf" | sed "s/	ServerName //"))
 
 	# Parse ServerAlias from httpd-vhosts.conf
 	server_alias=$(grep -E "ServerAlias" "$PWD/apache/httpd-vhosts.conf" | sed "s/	ServerAlias //")
@@ -82,12 +83,14 @@ if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 
 			# Make hosts file writable
 			sudo chmod 777 "$host_file_path"
-
-			# Add hosts file entry
-			echo "" >> "$host_file_path"
-			echo "" >> "$host_file_path"
-			echo "127.0.0.1	$server_name" >> "$host_file_path"
-
+			for ((i = 0; i < ${#server_name[@]}; i++))
+			do
+				echo "Adding $server_name to $host_file_path"
+				# Add hosts file entry
+				echo "" >> "$host_file_path"
+				echo "" >> "$host_file_path"
+				echo "127.0.0.1	$server_name" >> "$host_file_path"
+			done
 			# Set correct hosts file permissions again
 			sudo chmod 644 "$host_file_path"
 
