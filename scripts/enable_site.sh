@@ -22,7 +22,7 @@ if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 
 	# Parse DocumentRoot from httpd-vhosts.conf
 	#document_root=$(grep -E "DocumentRoot" "$PWD/apache/httpd-vhosts.conf" | sed -e "s/	DocumentRoot \"//; s/\"//")
-	document_root=$(grep -E "DocumentRoot" "$PWD/apache/httpd-vhosts.conf" | sed -e "s/	DocumentRoot \"//; s/\"//")
+	document_root=($(grep -E "DocumentRoot" "$PWD/apache/httpd-vhosts.conf" | sed -e "s/	DocumentRoot \"//; s/\"//"))
 
 	# Parse ServerName from httpd-vhosts.conf
 	#server_name=$(grep -E "ServerName" "$PWD/apache/httpd-vhosts.conf" | sed "s/	ServerName //")
@@ -33,12 +33,12 @@ if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 
 
 	# Seemingly valid config data
-	if [ ! -z "$document_root" ] && [ ! -z "$server_name" ]; then
+	if [ ! -z "${document_root[0]}" ] && [ ! -z "${server_name[0]}" ]; then
 
 		# Show collected data
-		echo "DocumentRoot:	$document_root"
+		echo "DocumentRoot:	${document_root[0]}"
 		echo ""
-		echo "ServerName: 	$server_name"
+		echo "ServerName: 	${server_name[0]}"
 
 		# ServerAlias not always present - only print if it is there
 		if [ ! -z "$server_alias" ]; then
@@ -49,27 +49,29 @@ if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 
 
 		# Updating apache.conf
+		for ((i = 0; i < ${#document_root[@]}; i++))
+		do
+			# Get proper projects path (/srv/sites instead of /Users/username/Sites)
+			parentnode_project_path=$(echo "${document_root[i]}" | sed -e "s/\\/src\\/www//; s/\\/theme\\/www//")
 
-		# Get proper projects path (/srv/sites instead of /Users/username/Sites)
-		parentnode_project_path=$(echo "$document_root" | sed -e "s/\\/src\\/www//; s/\\/theme\\/www//")
+			# Don't enable sites which are already enabled
+			# Check if include path already exists in apache.conf
+			apache_entry_exists=$(grep -E "^Include [\"]?$parentnode_project_path\/apache\/httpd-vhosts.conf[\"]?" "$apache_file_path" || echo "")
+			if [ -z "$apache_entry_exists" ]; then
 
-		# Don't enable sites which are already enabled
-		# Check if include path already exists in apache.conf
-		apache_entry_exists=$(grep -E "^Include [\"]?$parentnode_project_path\/apache\/httpd-vhosts.conf[\"]?" "$apache_file_path" || echo "")
-		if [ -z "$apache_entry_exists" ]; then
+				echo "Adding $parentnode_project_path/apache/httpd-vhosts.conf to apache.conf"
 
-			echo "Adding $parentnode_project_path/apache/httpd-vhosts.conf to apache.conf"
+				# Include project cont in apache.conf
+				echo ""	>> "$apache_file_path"
+				echo "Include \"$parentnode_project_path/apache/httpd-vhosts.conf\"" >> "$apache_file_path"
 
-			# Include project cont in apache.conf
-			echo ""	>> "$apache_file_path"
-			echo "Include \"$parentnode_project_path/apache/httpd-vhosts.conf\"" >> "$apache_file_path"
+			# project already exists in apache.conf
+			else
 
-		# project already exists in apache.conf
-		else
+				echo "Project already enabled in $apache_file_path"
 
-			echo "Project already enabled in $apache_file_path"
-
-		fi
+			fi
+		done
 
 
 		# Updating hosts
