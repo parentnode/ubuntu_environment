@@ -74,22 +74,22 @@ if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 		# Updating hosts
 
 		# Check hosts configuration
-		hosts_entry_exists=$(grep -E "[\t ]$server_name" "$host_file_path" || echo "")
 		for ((i = 0; i < ${#server_name[@]}; i++))
 		do
 
+			hosts_entry_exists=$(grep -E "[\t ]${server_name[$i]}" "$host_file_path" || echo "")
 			if [ -z "$hosts_entry_exists" ]; then
 
 				echo ""
-				echo "Adding $server_name to $host_file_path"
+				echo "Adding ${server_name[$i]} to $host_file_path"
 
 				# Make hosts file writable
 				sudo chmod 777 "$host_file_path"
-					echo "Adding $server_name to $host_file_path"
+					echo "Adding ${server_name[$i]} to $host_file_path"
 					# Add hosts file entry
 					echo "" >> "$host_file_path"
 					echo "" >> "$host_file_path"
-					echo "127.0.0.1	$server_name" >> "$host_file_path"
+					echo "127.0.0.1	${server_name[$i]}" >> "$host_file_path"
 				# Set correct hosts file permissions again
 				sudo chmod 644 "$host_file_path"
 
