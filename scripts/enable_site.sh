@@ -21,6 +21,7 @@ echo ""
 if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 
 	# Parse DocumentRoot from httpd-vhosts.conf
+	#document_root=$(grep -E "DocumentRoot" "$PWD/apache/httpd-vhosts.conf" | sed -e "s/	DocumentRoot \"//; s/\"//")
 	document_root=$(grep -E "DocumentRoot" "$PWD/apache/httpd-vhosts.conf" | sed -e "s/	DocumentRoot \"//; s/\"//")
 
 	# Parse ServerName from httpd-vhosts.conf
