@@ -75,34 +75,34 @@ if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 
 		# Check hosts configuration
 		hosts_entry_exists=$(grep -E "[\t ]$server_name" "$host_file_path" || echo "")
+		for ((i = 0; i < ${#server_name[@]}; i++))
+		do
 
-		if [ -z "$hosts_entry_exists" ]; then
+			if [ -z "$hosts_entry_exists" ]; then
 
-			echo ""
-			echo "Adding $server_name to $host_file_path"
-
-			# Make hosts file writable
-			sudo chmod 777 "$host_file_path"
-			for ((i = 0; i < ${#server_name[@]}; i++))
-			do
+				echo ""
 				echo "Adding $server_name to $host_file_path"
-				# Add hosts file entry
-				echo "" >> "$host_file_path"
-				echo "" >> "$host_file_path"
-				echo "127.0.0.1	$server_name" >> "$host_file_path"
-			done
-			# Set correct hosts file permissions again
-			sudo chmod 644 "$host_file_path"
 
-			echo ""
+				# Make hosts file writable
+				sudo chmod 777 "$host_file_path"
+					echo "Adding $server_name to $host_file_path"
+					# Add hosts file entry
+					echo "" >> "$host_file_path"
+					echo "" >> "$host_file_path"
+					echo "127.0.0.1	$server_name" >> "$host_file_path"
+				# Set correct hosts file permissions again
+				sudo chmod 644 "$host_file_path"
+
+				echo ""
 
 
-		# Hosts entry already exists for current domain
-		else
+			# Hosts entry already exists for current domain
+			else
 
-			echo "Project already enabled in $host_file_path"
+				echo "Project already enabled in $host_file_path"
 
-		fi
+			fi
+		done
 		# Restart apache after modification
 		echo ""
 		echo "Restarting Apache"
