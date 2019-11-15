@@ -5,6 +5,7 @@ checkFolderExistOrCreate "/srv/sites"
 checkFolderExistOrCreate "/srv/sites/apache"
 checkFolderExistOrCreate "/srv/sites/apache/logs"
 checkFolderExistOrCreate "/srv/sites/parentnode"
+checkFolderExistOrCreate "/srv/sites/apache/ssl"
 
 outputHandler "comment" "Changing Folder rights from root to your curent user"
 # Change Folder Rights from root to current user
