@@ -102,6 +102,8 @@ if test "$install_webserver_conf" = "Y"; then
         cat /srv/tools/conf-client/apache.conf > /srv/sites/apache/apache.conf
     fi
 
+    cp "/srv/tools/conf/ssl/star_local.crt" "/srv/sites/apache/ssl/star_local.crt"
+    cp "/srv/tools/conf/ssl/star_local.key" "/srv/sites/apache/ssl/star_local.key"
     outputHandler "comment" "Restarting Apache"
     # RESTARTING APACHE ARE IMPORTANT FOR REST OF THE SCRIPT!!
     service apache2 restart
