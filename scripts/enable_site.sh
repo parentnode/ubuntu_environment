@@ -80,7 +80,7 @@ if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 		for ((i = 0; i < ${#server_name[@]}; i++))
 		do
 
-			hosts_entry_exists=$(grep -E "127.0.0.1[\t ]${server_name[$i]}" "$host_file_path" || echo "")
+			hosts_entry_exists=$(grep -E "^127.0.0.1[\t ] ${server_name[$i]}" "$host_file_path" || echo "")
 			if [ -z "$hosts_entry_exists" ]; then
 
 				echo ""
