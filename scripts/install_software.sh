@@ -6,7 +6,7 @@ if test "$install_software" = "Y"; then
     #sudo apt install -y apache2 apache2-utils ssl-cert
 	valid_status=("running" "dead")
 	#echo "Checking Apache2.4 status: "
-	apache_installed=$(testCommand "service apache2 status 2>&1 > /dev/null" "${valid_status[@]}" || echo "")
+	apache_installed=$(testCommand "service apache2 status" "${valid_status[@]}" 2>&1 > /dev/null || echo "")
 	if [ -z "$apache_installed" ]; then
 		command "sudo apt-get install -y apache2 apache2-utils ssl-cert"
 	else
