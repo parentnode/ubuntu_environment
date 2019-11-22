@@ -267,7 +267,7 @@ createOrModifyBashProfile(){
 	then
 		outputHandler "comment" ".bash_profile Exist"
 		bash_profile_modify_array=("[Yn]")
-		bash_profile_modify=$(ask "Do you want to modify existing .bash_profile (Y/n) !this will override existing .bash_profile!" "${bash_profile_modify_array[@]}" "bash_profile_modify")
+		bash_profile_modify=$(ask "Do you want to modify existing .bash_profile (Y/n) !this will override existing .bash_profile!" "${bash_profile_modify_array[@]}" "option bash profile")
 		export bash_profile_modify
 	else
 		outputHandler "comment" "Installing .bash_profile"

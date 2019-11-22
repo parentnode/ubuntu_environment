@@ -2,19 +2,19 @@
 outputHandler "section" "Checking Software Prerequisites are met"
 outputHandler "comment" "To speed up the process, please select your install options now:"
 install_software_array=("[Yn]")
-install_software=$(ask "Install Software (Y/n)" "${install_software_array[@]}" "install software")
+install_software=$(ask "Install Software (Y/n)" "${install_software_array[@]}" "option software")
 export install_software
 
 install_webserver_conf_array=("[Yn]")
-install_webserver_conf=$(ask "Install Webserver Configuration (Y/n)" "${install_webserver_conf_array[@]}" "install webserver conf")
+install_webserver_conf=$(ask "Install Webserver Configuration (Y/n)" "${install_webserver_conf_array[@]}" "option webserver conf")
 export install_webserver_conf
 
 install_ffmpeg_array=("[Yn]")
-install_ffmpeg=$(ask "Install FFMPEG (Y/n)" "${install_webserver_conf_array[@]}" "ffmpeg")
+install_ffmpeg=$(ask "Install FFMPEG (Y/n)" "${install_webserver_conf_array[@]}" "option ffmpeg")
 export install_ffmpeg
 
 install_wkhtml_array=("[Yn]")
-install_wkhtml=$(ask "Install WKHTMLTOPDF (Y/n)" "${install_webserver_conf_array[@]}" "wkhtml")
+install_wkhtml=$(ask "Install WKHTMLTOPDF (Y/n)" "${install_webserver_conf_array[@]}" "option wkhtml")
 export install_wkhtml
 
 # Uncomment when done testing
@@ -27,7 +27,7 @@ if [ "$(fileExists "/etc/apache2/sites-available/default.conf")" = "true" ]; the
 	if [ -z "$is_there_apache_email" ]; then 
 		echo "No apache email present"
 		install_email_array=("[A-Za-z0-9\.\-]+@[A-Za-z0-9\.\-]+\.[a-z]{2,10}")
-		install_email=$(ask "Enter Apache email" "${install_email_array[@]}" "apache_email")
+		install_email=$(ask "Enter Apache email" "${install_email_array[@]}" "apache email")
 		export install_email
 	else
 		install_email=$is_there_apache_email
@@ -37,12 +37,12 @@ if [ "$(fileExists "/etc/apache2/sites-available/default.conf")" = "true" ]; the
 	if [ "$is_there_apache_email" = "webmaster@localhost" ]; then
 		echo "apache email is webmaster@localhost"
 		install_email_array=("[A-Za-z0-9\.\-]+@[A-Za-z0-9\.\-]+\.[a-z]{2,10}")
-		install_email=$(ask "Enter Apache email" "${install_email_array[@]}" "apache_email")
+		install_email=$(ask "Enter Apache email" "${install_email_array[@]}" "apache email")
 		export install_email
 	fi
 else 
 	install_email_array=("[A-Za-z0-9\.\-]+@[A-Za-z0-9\.\-]+\.[a-z]{2,10}")
-	install_email=$(ask "Enter Apache email" "${install_email_array[@]}" "apache_email")
+	install_email=$(ask "Enter Apache email" "${install_email_array[@]}" "apache email")
 	export install_email
 fi
 createOrModifyBashProfile
@@ -92,7 +92,7 @@ outputHandler "comment" "Setting Default GIT User setting"
 # Checks if git credential are allready set, promts for input if not
 if [ -z "$(checkGitCredential "name")" ]; then
 	git_username_array=("[A-Za-z0-9[:space:]*]{2,50}")
-	git_username=$(ask "Enter git username" "${git_username_array[@]}" "gitusername")
+	git_username=$(ask "Enter git username" "${git_username_array[@]}" "git username")
 	export git_username
 else
 	git_username="$(checkGitCredential "name")"
@@ -100,7 +100,7 @@ else
 fi
 if [ -z "$(checkGitCredential "email")" ]; then
 	git_email_array=("[A-Za-z0-9\.\-]+@[A-Za-z0-9\.\-]+\.[a-z]{2,10}")
-	git_email=$(ask "Enter git email" "${git_email_array[@]}" "gitemail")
+	git_email=$(ask "Enter git email" "${git_email_array[@]}" "git email")
 	export git_email
 else
 	git_email="$(checkGitCredential "email")"
