@@ -134,7 +134,7 @@ checkMariadbPassword(){
 	#echo
 	#output_t=$(echo "$tester" | grep ^"Unit")
 	#echo "$output_t"
-	if [ "$mariadb_status" = "Unit apache2.service could not be found." ]; then
+	if [ "$mariadb_status" = "Unit mariadb.service could not be found." ]; then
 		echo "false"
 	else
 		mariadb_installed=$(service mariadb status || echo "")
