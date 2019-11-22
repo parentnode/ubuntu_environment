@@ -4,14 +4,26 @@ if test "$install_software" = "Y"; then
     outputHandler "section" "Install software"
 	outputHandler "comment" "Installing Apache and extra modules"
     #sudo apt install -y apache2 apache2-utils ssl-cert
-	valid_status=("running" "dead")
-	#echo "Checking Apache2.4 status: "
-	apache_installed=$(testCommand "service apache2 status" "${valid_status[@]}" || echo "")  2>&1 > /dev/null
-	if [ -z "$apache_installed" ]; then
+	
+	#echo "Test output"
+	tester="$(service apache2 status 2>&1 > /dev/null)"
+	#echo
+	output_t=$(echo "$tester" | grep ^"Unit")
+	#echo "$output_t"
+	if [ "$output_t" = "Unit*found\." ]; then 
 		command "sudo apt-get install -y apache2 apache2-utils ssl-cert"
 	else
-		outputHandler "comment" "Apache Installed" "[Apache status:] $(testCommand "service apache2 status" "${valid_status[@]}")"
+		valid_status=("running" "dead")
+		#echo "Checking Apache2.4 status: "
+		apache_installed=$(testCommand "service apache2 status" "${valid_status[@]}" || echo "")
+		if [ -z "$apache_installed" ]; then
+			command "sudo apt-get install -y apache2 apache2-utils ssl-cert"
+		else
+			outputHandler "comment" "Apache Installed" "[Apache status:] $(testCommand "service apache2 status" "${valid_status[@]}")"
+		fi
 	fi
+	
+	
 	#installedPackage "apache2"
 	#installedPackage "apache2-utils"
 	#installedPackage "ssl-cert"
