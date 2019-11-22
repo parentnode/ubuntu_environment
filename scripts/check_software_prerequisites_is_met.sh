@@ -2,11 +2,11 @@
 outputHandler "section" "Checking Software Prerequisites are met"
 outputHandler "comment" "To speed up the process, please select your install options now:"
 install_software_array=("[Yn]")
-install_software=$(ask "Install Software (Y/n)" "${install_software_array[@]}" "install_software")
+install_software=$(ask "Install Software (Y/n)" "${install_software_array[@]}" "install software")
 export install_software
 
 install_webserver_conf_array=("[Yn]")
-install_webserver_conf=$(ask "Install Webserver Configuration (Y/n)" "${install_webserver_conf_array[@]}" "install_webserver_conf")
+install_webserver_conf=$(ask "Install Webserver Configuration (Y/n)" "${install_webserver_conf_array[@]}" "install webserver conf")
 export install_webserver_conf
 
 install_ffmpeg_array=("[Yn]")
