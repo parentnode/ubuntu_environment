@@ -6,11 +6,11 @@ if test "$install_software" = "Y"; then
     #sudo apt install -y apache2 apache2-utils ssl-cert
 	
 	#echo "Test output"
-	tester="$(service apache2 status 2>&1 > /dev/null)"
+	apache_status="$(service apache2 status 2>&1 > /dev/null)"
 	#echo
-	output_t=$(echo "$tester" | grep ^"Unit")
+	#output_t=$(echo "$tester" | grep ^"Unit")
 	#echo "$output_t"
-	if [ "$output_t" = "Unit*found\." ]; then 
+	if [ "$apache_status" = "Unit apache2.service could not be found." ]; then 
 		command "sudo apt-get install -y apache2 apache2-utils ssl-cert"
 	else
 		valid_status=("running" "dead")
