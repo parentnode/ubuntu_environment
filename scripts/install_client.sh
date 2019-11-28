@@ -21,7 +21,7 @@ export install_user
 outputHandler "comment" "Installing system for $install_user"
 
 # Check software prerequisites is met
-. /srv/tools/scripts/check_software_prerequisites_is_met.sh
+. /srv/tools/scripts/check_software_prerequisites_is_met_client.sh
 
 # Checking directories
 . /srv/tools/scripts/checking_directories.sh
