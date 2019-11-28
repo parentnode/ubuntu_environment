@@ -107,6 +107,9 @@ outputHandler "comment" "Installing system for $install_user"
 #echo
 #sudo timedatectl set-timezone "Europe/Copenhagen"
 #
+. /srv/tools/scripts/check_software_prerequisites_is_met_server.sh
+
+
 ## MAKE SITES FOLDER
 #if [ ! -d "/srv/sites" ]; then
 #	mkdir /srv/sites
@@ -162,7 +165,7 @@ outputHandler "comment" "Installing system for $install_user"
 #
 #echo
 echo
-echo "Login command:"
+#echo "Login command:"
 echo
 #echo "ssh -p $port_number $install_user@$ip_address"
 echo 

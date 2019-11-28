@@ -109,9 +109,9 @@ fi
 git config --global core.filemode false
 outputHandler "comment" "git core.filemode: $(git config --global core.filemode)"
 git config --global user.name "$git_username"
-outputHandler "comment" "git user.name: $(git config --global user.name)"
+outputHandler "comment" "git user name: $(git config --global user.name)"
 git config --global user.email "$git_email"
-outputHandler "comment" "git user.email: $(git config --global user.email)"
+outputHandler "comment" "git user email: $(git config --global user.email)"
 git config --global credential.helper cache
 outputHandler "comment" "git credential.helper: $(git config --global credential.helper)"
 
