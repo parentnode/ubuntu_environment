@@ -14,7 +14,7 @@ read -p "Set up Apache/PHP/MariaDB (Y/n): " install_webserver_conf
 export install_webserver_conf
 
 install_htpassword_array=("[Yn]")
-install_htpassword_for_user=$(ask "Install .htaccess for user (Y/n)" "${install_ffmpeg_array[@]}" "option htaccess")
+install_htpassword_for_user=$(ask "Install .htaccess for user (Y/n)" "${install_htpassword_array[@]}" "option htaccess")
 export install_htpassword_for_user
 
 install_ffmpeg_array=("[Yn]")
