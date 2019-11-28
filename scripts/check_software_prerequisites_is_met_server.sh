@@ -19,8 +19,10 @@ export install_htpassword_for_user
 read -p "Install ffmpeg (Y/n): " install_ffmpeg
 export install_ffmpeg
 
+#read -p "Install wkhtmlto (Y/n): " install_wkhtml
+#export install_wkhtml
 install_wkhtml_array=("[Yn]")
-install_wkhtml=$(ask "Install WKHTMLTOPDF (Y/n)" "${install_webserver_conf_array[@]}" "option wkhtml")
+install_wkhtml=$(ask "Install WKHTMLTOPDF (Y/n)" "${install_wkhtml_array[@]}" "option wkhtml")
 export install_wkhtml
 
 #read -p "Install mail (Y/n): " install_mail
