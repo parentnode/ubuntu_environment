@@ -10,11 +10,11 @@ install_webserver_conf=$(ask "Install Webserver Configuration (Y/n)" "${install_
 export install_webserver_conf
 
 install_ffmpeg_array=("[Yn]")
-install_ffmpeg=$(ask "Install FFMPEG (Y/n)" "${install_webserver_conf_array[@]}" "option ffmpeg")
+install_ffmpeg=$(ask "Install FFMPEG (Y/n)" "${install_ffmpeg_array[@]}" "option ffmpeg")
 export install_ffmpeg
 
 install_wkhtml_array=("[Yn]")
-install_wkhtml=$(ask "Install WKHTMLTOPDF (Y/n)" "${install_webserver_conf_array[@]}" "option wkhtml")
+install_wkhtml=$(ask "Install WKHTMLTOPDF (Y/n)" "${install_wkhtml_array[@]}" "option wkhtml")
 export install_wkhtml
 
 outputHandler "comment" "Apache email configuration"
