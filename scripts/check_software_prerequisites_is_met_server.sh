@@ -13,10 +13,12 @@ export install_software
 read -p "Set up Apache/PHP/MariaDB (Y/n): " install_webserver_conf
 export install_webserver_conf
 
-read -p "Install .htaccess (Y/n): " install_htpassword_for_user
+install_htpassword_array=("[Yn]")
+install_htpassword_for_user=$(ask "Install .htaccess for user (Y/n)" "${install_ffmpeg_array[@]}" "option htaccess")
 export install_htpassword_for_user
 
-read -p "Install ffmpeg (Y/n): " install_ffmpeg
+install_ffmpeg_array=("[Yn]")
+install_ffmpeg=$(ask "Install FFMPEG (Y/n)" "${install_ffmpeg_array[@]}" "option ffmpeg")
 export install_ffmpeg
 
 #read -p "Install wkhtmlto (Y/n): " install_wkhtml
@@ -32,7 +34,7 @@ export install_wkhtml
 #export install_letsencrypt
 
 read -p "Your email address: " install_email
-export install_email
+#export install_email
 
 # HTACCESS PASSWORD
 if test "$install_htpassword_for_user" = "Y"; then
