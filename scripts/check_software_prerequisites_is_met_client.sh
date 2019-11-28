@@ -17,7 +17,6 @@ install_wkhtml_array=("[Yn]")
 install_wkhtml=$(ask "Install WKHTMLTOPDF (Y/n)" "${install_webserver_conf_array[@]}" "option wkhtml")
 export install_wkhtml
 
-# Uncomment when done testing
 outputHandler "comment" "Apache email configuration"
 if [ "$(fileExists "/etc/apache2/sites-available/default.conf")" = "true" ]; then 
 	outputHandler "comment" "defaul.conf Exist"
