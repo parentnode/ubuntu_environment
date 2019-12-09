@@ -13,11 +13,11 @@ source /srv/tools/scripts/functions.sh
 enableSuperCow
 install_user="$(getUsername)"
 export install_user
-exit
 
 
 echo
 outputHandler "comment" "Installing system for $install_user"
+exit
 #echo
 #echo "To speed up the process, please select your install options now:"
 #echo
