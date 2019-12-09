@@ -11,9 +11,9 @@ echo
 #install_user=$(who am i | awk '{print $1}')
 source /srv/tools/scripts/functions.sh
 enableSuperCow
-exit
 install_user="$(getUsername)"
 export install_user
+exit
 
 
 echo
