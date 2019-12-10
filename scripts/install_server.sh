@@ -14,10 +14,7 @@ enableSuperCow
 install_user="$(getUsername)"
 export install_user
 
-
-echo
 outputHandler "comment" "Installing system for $install_user"
-exit
 #echo
 #echo "To speed up the process, please select your install options now:"
 #echo
@@ -109,6 +106,7 @@ exit
 #sudo timedatectl set-timezone "Europe/Copenhagen"
 #
 . /srv/tools/scripts/check_software_prerequisites_is_met_server.sh
+exit
 
 
 ## MAKE SITES FOLDER
