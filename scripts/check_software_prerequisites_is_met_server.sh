@@ -81,16 +81,21 @@ fi
 if test "$install_security" = "Y"; then
 
 	# GET CURRENT PORT NUMBER
-	port_number=$(grep -E "^Port\ ([0-9]+)$" /etc/ssh/sshd_config | sed "s/Port //;")
+	#port_number=$(grep -E "^Port\ ([0-9]+)$" /etc/ssh/sshd_config | sed "s/Port //;")
+	port_number="22"
 	#read -p "Specify SSH port (leave empty to keep $port_number): " install_port
-	port_array=("[0-9]{2,6}" || "")
-	if [ -n "$port_number" ]; then
+	port_array=("[0-9]{2,6}")
+	if [ -z "$port_number" ]; then
 		install_port=$(ask "Specify SSH port" "${port_array[@]}" "port")
 	else
-		install_port=$(ask "Specify SSH port (leave empty to keep $port_number)" "${port_array[@]}" "port")
-	fi
-	if [ -z "$install_port" ]; then
-		install_port=$port_number
+		outputHandler "comment" "Existing ssh port: $port_number"
+		override_array=("[Yn]")
+		override=$(ask "Override Existing ssh port (Y/n)" "${override_array[@]}" "option for override")
+		if [ "$override" = "Y" ]; then 
+			install_port=$(ask "Specify new SSH port" "${port_array[@]}" "port")
+		else
+			install_port=$port_number
+		fi
 	fi
 	export install_port
 fi
