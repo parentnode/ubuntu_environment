@@ -67,19 +67,17 @@ else
 	export install_email
 fi
 echo "$install_email"
-exit
 
 # HTACCESS PASSWORD
 if test "$install_htpassword_for_user" = "Y"; then
 
-	read -s -p "HTACCESS password for $install_user: " install_htaccess_password
-
+	#read -s -p "HTACCESS password for $install_user: " install_htaccess_password
+	password_array=("[A-Za-z0-9\!\@\$]{8,30}")
+	install_htaccess_password=$( ask "HTACCESS password for $install_user" "${password_array[@]}" "password")
 	export install_htaccess_password
-	echo
-	echo
-
 fi
-
+echo "$install_htaccess_password"
+exit
 # SSH PORT
 if test "$install_security" = "Y"; then
 
