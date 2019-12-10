@@ -4,17 +4,21 @@ echo
 echo "To speed up the process, please select your install options now:"
 echo
 
-read -p "Secure the server (Y/n): " install_security
+install_security_array=("[Yn]")
+install_security=$(ask "Secure the server (Y/n): " "${install_security_array[@]}" "option secure the server")
 export install_security
 
-read -p "Install software (Y/n): " install_software
+install_software_array=("[Yn]")
+install_software=$(ask "Install Software (Y/n)" "${install_software_array[@]}" "option software")
 export install_software
 
-read -p "Set up Apache/PHP/MariaDB (Y/n): " install_webserver_conf
+
+install_webserver_conf_array=("[Yn]")
+install_webserver_conf=$(ask "Set up Apache/PHP/MariaDB for user (Y/n)" "${install_webserver_conf_array[@]}" "option apache\/php\/mariadb")
 export install_webserver_conf
 
 install_htpassword_array=("[Yn]")
-install_htpassword_for_user=$(ask "Install .htaccess for user (Y/n)" "${install_htpassword_array[@]}" "option htaccess")
+install_htpassword_for_user=$(ask "Set up .htaccess for user (Y/n)" "${install_htpassword_array[@]}" "option htaccess")
 export install_htpassword_for_user
 
 install_ffmpeg_array=("[Yn]")
@@ -26,7 +30,7 @@ export install_ffmpeg
 install_wkhtml_array=("[Yn]")
 install_wkhtml=$(ask "Install WKHTMLTOPDF (Y/n)" "${install_wkhtml_array[@]}" "option wkhtml")
 export install_wkhtml
-
+exit
 #read -p "Install mail (Y/n): " install_mail
 #export install_mail
 
