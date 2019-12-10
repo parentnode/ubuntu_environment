@@ -100,7 +100,7 @@ if test "$install_security" = "Y"; then
 	export install_port
 fi
 echo "$install_port"
-createOrModifyBashProfile
+createOrModifyBashProfile "server"
 exit
 
 # MYSQL ROOT PASSWORD
