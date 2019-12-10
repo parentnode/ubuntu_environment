@@ -87,7 +87,7 @@ if test "$install_security" = "Y"; then
 	if [ -n "$port_number" ]; then
 		install_port=$(ask "Specify SSH port" "${port_array[@]}" "port")
 	else
-		install_port=$(ask "Specify SSH port (leave empty to keep $port_number)" "${port_array[@]}" "port") || echo ""
+		install_port=$(ask "Specify SSH port (leave empty to keep $port_number)" "${port_array[@]}" "port")
 	fi
 	if [ -z "$install_port" ]; then
 		install_port=$port_number
