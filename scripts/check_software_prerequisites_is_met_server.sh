@@ -5,30 +5,30 @@ echo "To speed up the process, please select your install options now:"
 echo
 
 install_security_array=("[Yn]")
-install_security=$(ask "Secure the server (Y/n): " "${install_security_array[@]}" "option secure the server")
+install_security=$(ask "Secure the server (Y/n)" "${install_security_array[@]}" "input secure the server")
 export install_security
 
 install_software_array=("[Yn]")
-install_software=$(ask "Install Software (Y/n)" "${install_software_array[@]}" "option software")
+install_software=$(ask "Install Software (Y/n)" "${install_software_array[@]}" "input software")
 export install_software
 
 
 install_webserver_conf_array=("[Yn]")
-install_webserver_conf=$(ask "Set up Apache/PHP/MariaDB for user (Y/n)" "${install_webserver_conf_array[@]}" "option apache\/php\/mariadb")
+install_webserver_conf=$(ask "Set up Apache/PHP/MariaDB for user (Y/n)" "${install_webserver_conf_array[@]}" "input apache/php/mariadb")
 export install_webserver_conf
 
 install_htpassword_array=("[Yn]")
-install_htpassword_for_user=$(ask "Set up .htaccess for user (Y/n)" "${install_htpassword_array[@]}" "option htaccess")
+install_htpassword_for_user=$(ask "Set up .htaccess for user (Y/n)" "${install_htpassword_array[@]}" "input htaccess")
 export install_htpassword_for_user
 
 install_ffmpeg_array=("[Yn]")
-install_ffmpeg=$(ask "Install FFMPEG (Y/n)" "${install_ffmpeg_array[@]}" "option ffmpeg")
+install_ffmpeg=$(ask "Install FFMPEG (Y/n)" "${install_ffmpeg_array[@]}" "input ffmpeg")
 export install_ffmpeg
 
 #read -p "Install wkhtmlto (Y/n): " install_wkhtml
 #export install_wkhtml
 install_wkhtml_array=("[Yn]")
-install_wkhtml=$(ask "Install WKHTMLTOPDF (Y/n)" "${install_wkhtml_array[@]}" "option wkhtml")
+install_wkhtml=$(ask "Install WKHTMLTOPDF (Y/n)" "${install_wkhtml_array[@]}" "input wkhtml")
 export install_wkhtml
 exit
 #read -p "Install mail (Y/n): " install_mail
