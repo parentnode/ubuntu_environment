@@ -66,7 +66,7 @@ else
 	install_email=$(ask "Enter Apache email" "${install_email_array[@]}" "apache email")
 	export install_email
 fi
-echo "$install_email"
+
 
 # HTACCESS PASSWORD
 if test "$install_htpassword_for_user" = "Y"; then
@@ -76,20 +76,21 @@ if test "$install_htpassword_for_user" = "Y"; then
 	install_htaccess_password=$( ask "HTACCESS password for $install_user" "${password_array[@]}" "password")
 	export install_htaccess_password
 fi
-echo "$install_htaccess_password"
-exit
+
 # SSH PORT
 if test "$install_security" = "Y"; then
 
 	# GET CURRENT PORT NUMBER
 	port_number=$(grep -E "^Port\ ([0-9]+)$" /etc/ssh/sshd_config | sed "s/Port //;")
 
-	read -p "Specify SSH port (leave empty to keep $port_number): " install_port
+	#read -p "Specify SSH port (leave empty to keep $port_number): " install_port
+	install_port=$(ask "Specify SSH port (leave empty to keep $port_number)")
 	export install_port
 	echo
 
 fi
-
+echo "$install_port"
+exit
 outputHandler "comment" "Apache email configuration"
 if [ "$(fileExists "/etc/apache2/sites-available/default.conf")" = "true" ]; then 
 	outputHandler "comment" "defaul.conf Exist"
