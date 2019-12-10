@@ -87,9 +87,9 @@ if test "$install_security" = "Y"; then
 	if [ -z "$port_number" ]; then
 		install_port=$(ask "Specify SSH port" "${port_array[@]}" "port")
 		#if [ $install_port > 65535 ]; then
-		while [ "$install_port" -ge "65534" ]
+		while [ "$install_port" -ge "65535" ]
 		do
-			echo "sorry to high"
+			outputHandler "comment" "Portnumber range to high (limit is 65535)"
 			install_port=$(ask "Specify SSH port" "${port_array[@]}" "port")
 		done
 	else
@@ -104,7 +104,6 @@ if test "$install_security" = "Y"; then
 	fi
 	export install_port
 fi
-echo "$install_port"
 createOrModifyBashProfile "server"
 exit
 
