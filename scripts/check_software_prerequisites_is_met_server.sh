@@ -81,8 +81,7 @@ fi
 if test "$install_security" = "Y"; then
 
 	# GET CURRENT PORT NUMBER
-	#port_number=$(grep -E "^Port\ ([0-9]+)$" /etc/ssh/sshd_config | sed "s/Port //;")
-	port_number="22"
+	port_number=$(grep -E "^Port\ ([0-9]+)$" /etc/ssh/sshd_config | sed "s/Port //;")
 	#read -p "Specify SSH port (leave empty to keep $port_number): " install_port
 	port_array=("" "[0-9]{2,6}")
 	install_port=$(ask "Specify SSH port (leave empty to keep $port_number)" "${port_array[@]}" "port")
@@ -90,39 +89,10 @@ if test "$install_security" = "Y"; then
 		install_port=$port_number
 	fi
 	export install_port
-	echo
-
 fi
 echo "$install_port"
-exit
-outputHandler "comment" "Apache email configuration"
-if [ "$(fileExists "/etc/apache2/sites-available/default.conf")" = "true" ]; then 
-	outputHandler "comment" "defaul.conf Exist"
-	grep_apache_email=$(trimString "$(grep "ServerAdmin" /etc/apache2/sites-available/default.conf)")
-    is_there_apache_email=$(echo "$grep_apache_email" | cut -d' ' -f2)
-	
-	if [ -z "$is_there_apache_email" ]; then 
-		echo "No apache email present"
-		install_email_array=("[A-Za-z0-9\.\-]+@[A-Za-z0-9\.\-]+\.[a-z]{2,10}")
-		install_email=$(ask "Enter Apache email" "${install_email_array[@]}" "apache email")
-		export install_email
-	else
-		install_email=$is_there_apache_email
-		export install_email
-	fi
-
-	if [ "$is_there_apache_email" = "webmaster@localhost" ]; then
-		echo "apache email is webmaster@localhost"
-		install_email_array=("[A-Za-z0-9\.\-]+@[A-Za-z0-9\.\-]+\.[a-z]{2,10}")
-		install_email=$(ask "Enter Apache email" "${install_email_array[@]}" "apache email")
-		export install_email
-	fi
-else 
-	install_email_array=("[A-Za-z0-9\.\-]+@[A-Za-z0-9\.\-]+\.[a-z]{2,10}")
-	install_email=$(ask "Enter Apache email" "${install_email_array[@]}" "apache email")
-	export install_email
-fi
 createOrModifyBashProfile
+exit
 
 # MYSQL ROOT PASSWORD
 outputHandler "comment" "MariaDB password"
