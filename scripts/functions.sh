@@ -268,7 +268,7 @@ createOrModifyBashProfile(){
 	fi
 	if [ "$1" = "client" ]; then
 		conf="/srv/tools/conf-client/default_conf_complete"
-		shell="$HOME/.bash_rc"
+		shell="$HOME/.bashrc"
 	fi
 	if [ "$(fileExists "$HOME/.bash_profile")" = true ];
 	then
