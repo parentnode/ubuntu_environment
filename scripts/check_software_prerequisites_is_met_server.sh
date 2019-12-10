@@ -86,9 +86,12 @@ if test "$install_security" = "Y"; then
 	port_array=("[0-9]{2,6}")
 	if [ -z "$port_number" ]; then
 		install_port=$(ask "Specify SSH port" "${port_array[@]}" "port")
-		if [ $install_port > 65535 ]; then
+		#if [ $install_port > 65535 ]; then
+		while [ $install_port > 65534 ]
+		do
 			echo "sorry to high"
-		fi
+			install_port=$(ask "Specify SSH port" "${port_array[@]}" "port")
+		done
 	else
 		outputHandler "comment" "Existing ssh port: $port_number"
 		override_array=("[Yn]")
