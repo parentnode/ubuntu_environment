@@ -87,7 +87,7 @@ if test "$install_security" = "Y"; then
 	if [ -z "$port_number" ]; then
 		install_port=$(ask "Specify SSH port" "${port_array[@]}" "port")
 		#if [ $install_port > 65535 ]; then
-		while [ "$install_port" >= "65534" ]
+		while [ "$install_port" -ge "65534" ]
 		do
 			echo "sorry to high"
 			install_port=$(ask "Specify SSH port" "${port_array[@]}" "port")
