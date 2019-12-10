@@ -83,11 +83,11 @@ if test "$install_security" = "Y"; then
 	# GET CURRENT PORT NUMBER
 	port_number=$(grep -E "^Port\ ([0-9]+)$" /etc/ssh/sshd_config | sed "s/Port //;")
 	#read -p "Specify SSH port (leave empty to keep $port_number): " install_port
-	port_array=("[0-9]{6}")
+	port_array=("[0-9]{2,6}")
 	if [ -z "$port_number" ]; then
 		install_port=$(ask "Specify SSH port" "${port_array[@]}" "port")
 	else
-		install_port=$(ask "Specify SSH port (leave empty to keep $port_number)" "${port_array[@]}" "port")
+		install_port=$(ask "Specify SSH port (leave empty to keep $port_number)" "${port_array[@]}" "port") | echo ""
 	fi
 	if [ -z "$install_port" ]; then
 		install_port=$port_number
