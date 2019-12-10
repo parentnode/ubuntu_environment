@@ -30,15 +30,44 @@ export install_ffmpeg
 install_wkhtml_array=("[Yn]")
 install_wkhtml=$(ask "Install WKHTMLTOPDF (Y/n)" "${install_wkhtml_array[@]}" "input wkhtml")
 export install_wkhtml
-exit
 #read -p "Install mail (Y/n): " install_mail
 #export install_mail
 
 #read -p "Install Let's encrypt (Y/n): " install_letsencrypt
 #export install_letsencrypt
 
-read -p "Your email address: " install_email
+#read -p "Your email address: " install_email
 #export install_email
+
+outputHandler "comment" "Apache email configuration"
+if [ "$(fileExists "/etc/apache2/sites-available/default.conf")" = "true" ]; then 
+	outputHandler "comment" "defaul.conf Exist"
+	grep_apache_email=$(trimString "$(grep "ServerAdmin" /etc/apache2/sites-available/default.conf)")
+    is_there_apache_email=$(echo "$grep_apache_email" | cut -d' ' -f2)
+	
+	if [ -z "$is_there_apache_email" ]; then 
+		echo "No apache email present"
+		install_email_array=("[A-Za-z0-9\.\-]+@[A-Za-z0-9\.\-]+\.[a-z]{2,10}")
+		install_email=$(ask "Enter Apache email" "${install_email_array[@]}" "apache email")
+		export install_email
+	else
+		install_email=$is_there_apache_email
+		export install_email
+	fi
+
+	if [ "$is_there_apache_email" = "webmaster@localhost" ]; then
+		echo "apache email is webmaster@localhost"
+		install_email_array=("[A-Za-z0-9\.\-]+@[A-Za-z0-9\.\-]+\.[a-z]{2,10}")
+		install_email=$(ask "Enter Apache email" "${install_email_array[@]}" "apache email")
+		export install_email
+	fi
+else 
+	install_email_array=("[A-Za-z0-9\.\-]+@[A-Za-z0-9\.\-]+\.[a-z]{2,10}")
+	install_email=$(ask "Enter Apache email" "${install_email_array[@]}" "apache email")
+	export install_email
+fi
+echo "$install_email"
+exit
 
 # HTACCESS PASSWORD
 if test "$install_htpassword_for_user" = "Y"; then
