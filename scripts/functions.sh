@@ -262,7 +262,12 @@ trimString(){
 export -f trimString
 
 createOrModifyBashProfile(){
-
+	if [ "$1" = "server" ]; then
+		conf="/srv/tools/conf-server/dot_profile"
+	fi
+	if [ "$1" = "client" ]; then
+		conf="/srv/tools/conf-client/default_conf_complete"
+	fi
 	if [ "$(fileExists "$HOME/.bash_profile")" = true ];
 	then
 		outputHandler "comment" ".bash_profile Exist"
@@ -271,7 +276,7 @@ createOrModifyBashProfile(){
 		export bash_profile_modify
 	else
 		outputHandler "comment" "Installing .bash_profile"
-		sudo cp /srv/tools/conf-client/default_conf_complete /$HOME/.bash_profile
+		sudo cp $conf /$HOME/.bash_profile
 		install_bash_profile=$(grep -E ". $HOME/.bash_profile" /$HOME/.bashrc || echo "")
 		#install_bash_profile=$(grep -E "\$HOME\/\.bash_profile" /home/$install_user/.bashrc || echo "")
 		if [ -z "$install_bash_profile" ]; then
@@ -292,10 +297,10 @@ createOrModifyBashProfile(){
 		if [ -z "$does_parentnode_git_exist" ] || [ -z "$does_parentnode_alias_exist" ];
 		then
 			sudo rm $HOME/.bash_profile
-			sudo cp /srv/tools/conf-client/default_conf_complete /$HOME/.bash_profile
+			sudo cp $conf /$HOME/.bash_profile
 		else
-			updateContent "# enable_git_prompt" "/srv/tools/conf-client/default_conf_complete" "$HOME/.bash_profile"
-			updateContent "# alias" "/srv/tools/conf-client/default_conf_complete" "$HOME/.bash_profile"
+			updateContent "# enable parentnode git prompt" "$conf" "$HOME/.bash_profile"
+			updateContent "# parentnode alias" "$conf" "$HOME/.bash_profile"
 		fi
 	else
 		syncronizeAlias
