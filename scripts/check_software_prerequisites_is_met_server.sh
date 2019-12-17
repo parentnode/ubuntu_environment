@@ -37,7 +37,6 @@ export install_wkhtml
 #read -p "Your email address: " install_email
 #export install_email
 
-outputHandler "section" "Apache email configuration"
 if [ "$(fileExists "/etc/apache2/sites-available/default.conf")" = "true" ]; then 
 	outputHandler "comment" "defaul.conf Exist"
 	grep_apache_email=$(trimString "$(grep "ServerAdmin" /etc/apache2/sites-available/default.conf)")
