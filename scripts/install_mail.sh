@@ -11,8 +11,8 @@ outputHandler "section" "MAIL"
 if test "$install_mail" = "Y"; then
 
 	echo
-	outputHandler "comment" "This is only for sending system notification mails from this server." \ 
-	"It does not use a valid email-address for sending and cannot be used for regular emailing." \
+	outputHandler "comment" "This is only for sending system notification mails from this server."\
+	"It does not use a valid email-address for sending and cannot be used for regular emailing."\
 	"Install should autofill values, but choose \"Internet Site\" if prompted for setup type."
 	exit
 
