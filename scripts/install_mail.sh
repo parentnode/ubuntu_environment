@@ -5,16 +5,16 @@ echo
 echo "                  MAIL"
 echo
 echo
+outputHandler "section" "MAIL"
 
 # MAIL
 if test "$install_mail" = "Y"; then
 
 	echo
-	echo "This is only for sending system notification mails from this server."
-	echo "It does not use a valid email-address for sending and cannot be used for regular emailing."
-	echo
-	echo "Install should autofill values, but choose \"Internet Site\" if prompted for setup type."
-	echo
+	outputHandler "comment" "This is only for sending system notification mails from this server." \ 
+	"It does not use a valid email-address for sending and cannot be used for regular emailing." \
+	"Install should autofill values, but choose \"Internet Site\" if prompted for setup type."
+	exit
 
 	# INSTALL MAIL (for data protection plan)
 	debconf-set-selections <<< "postfix postfix/mailname string $HOSTNAME"
