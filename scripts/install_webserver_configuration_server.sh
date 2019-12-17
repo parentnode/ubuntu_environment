@@ -113,7 +113,7 @@ if test "$install_webserver_conf" = "Y"; then
 	#	fi
 #
 	#fi
-	outputHandler "comment" "setting up MariaDB"
+	outputHandler "section" "setting up MariaDB"
     # Do we have root password
     if [  "$(checkMariadbPassword)" = "false" ]; then
 
