@@ -121,49 +121,42 @@ outputHandler "comment" "Installing system for $install_user"
 # INSTALL HTACCESS PASSWORD
 . /srv/tools/scripts/install_htaccess.sh
 #
-## INSTALL FFMPEG
+# INSTALL FFMPEG
 . /srv/tools/scripts/install_ffmpeg.sh
 #
-exit
-## INSTALL WKHTMLTO
+# INSTALL WKHTMLTO
 . /srv/tools/scripts/install_wkhtmlto.sh
-#
-## INSTALL MAIL
-#. /srv/tools/scripts/install_mail.sh
-#
-## INSTALL LET'S ENCRYPT
-##. /srv/tools/scripts/install_letsencrypt.sh
-#
-#
-#
+
+# INSTALL MAIL
+. /srv/tools/scripts/install_mail.sh
+
+# INSTALL LET'S ENCRYPT
+#. /srv/tools/scripts/install_letsencrypt.sh
+
+
+
 #echo
 #echo
 #echo "Copying terminal configuration"
 #echo
 ## ADD COMMANDS ALIAS'
 #cat /srv/tools/conf-server/dot_profile > /home/$install_user/.profile
-#
-#
-## GET CURRENT PORT NUMBER AND IP ADDRESS
-#port_number=$(grep -E "^Port\ ([0-9]+)$" /etc/ssh/sshd_config | sed "s/Port //;")
-#ip_address=$(dig +short myip.opendns.com @resolver1.opendns.com)
-## The "dig" way of getting IP does not work with Linode images
-## Consider replacing with:
-## curl -s http://whatismyip.akamai.com/
-#
+
+
+# GET CURRENT PORT NUMBER AND IP ADDRESS
+port_number=$(grep -E "^Port\ ([0-9]+)$" /etc/ssh/sshd_config | sed "s/Port //;")
+ip_address=$(dig +short myip.opendns.com @resolver1.opendns.com)
+# The "dig" way of getting IP does not work with Linode images
+# Consider replacing with:
+# curl -s http://whatismyip.akamai.com/
+
 #echo
 echo
 #echo "Login command:"
 echo
-#echo "ssh -p $port_number $install_user@$ip_address"
-echo 
-echo
-echo "You are done!"
-echo
-echo "Reboot the server (sudo reboot)"
-#echo "and log in again (ssh -p $port_number $install_user@$ip_address)"
-echo
-echo
-echo "See you in a bit "
-echo
+#outputHandler "comment" "ssh -p $port_number $install_user@$ip_address"
+outputHandler "comment" "You are done!"
 
+outputHandler "comment" "Reboot the server (sudo reboot)" "and log in again using:" "ssh -p $port_number $install_user@$ip_address"
+
+outputHandler "section" "See you in a bit "
