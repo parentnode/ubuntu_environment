@@ -7,7 +7,7 @@ if test "$install_software" = "Y"; then
 	
 	#echo "Test output"
 	#apache_status="$(service apache2 status)"
-	apache_status="$(service apache2 status > /dev/null 2>&1)"
+	apache_status="$(service apache2 status > /dev/null &>)"
 
 	echo "Test $apache_status"
 	#echo
