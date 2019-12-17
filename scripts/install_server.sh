@@ -121,10 +121,10 @@ outputHandler "comment" "Installing system for $install_user"
 # INSTALL HTACCESS PASSWORD
 . /srv/tools/scripts/install_htaccess.sh
 #
-exit
 ## INSTALL FFMPEG
-##. /srv/tools/scripts/install_ffmpeg.sh
+. /srv/tools/scripts/install_ffmpeg.sh
 #
+exit
 ## INSTALL WKHTMLTO
 . /srv/tools/scripts/install_wkhtmlto.sh
 #
