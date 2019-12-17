@@ -1,8 +1,9 @@
 #!/bin/bash -e
+outputHandler "section" "Setting up configuration files for the webserver"
+
 
 if test "$install_webserver_conf" = "Y"; then
-    outputHandler "section" "Setting up configuration files for the webserver"
-    outputHandler "comment" "Setting up Apache2"
+    outputHandler "section" "Setting up Apache2"
     # Check for server name
 	install_apache_servername=$(grep -E "^ServerName" /etc/apache2/apache2.conf || echo "")
 	# If no results
@@ -10,12 +11,11 @@ if test "$install_webserver_conf" = "Y"; then
 		outputHandler "comment" "Setting up localhost as servername"
         # SET SERVERNAME
 		echo "ServerName $HOSTNAME" >> /etc/apache2/apache2.conf
-        echo
+        echo "" >> /etc/apache2/apache2.conf
 	else
 		# Replace existing servername with hostname
         outputHandler "comment" "Replacing ServerName with your computers name"
 		sed -i "s/^ServerName\ [a-zA-Z0-9\.\_-]\+/ServerName\ $HOSTNAME/;" /etc/apache2/apache2.conf
-        echo
 	fi
 
 	# remove path (slashes) from output to avoid problem with testing string
@@ -24,7 +24,7 @@ if test "$install_webserver_conf" = "Y"; then
 		# ADD GIT CONF SETUP
         outputHandler "comment" "including apache conf into main apache folder"
 		echo "IncludeOptional /srv/sites/apache/*.conf" >> /etc/apache2/apache2.conf
-		echo
+		echo "" >> /etc/apache2/apache2.conf
 	fi
 
 	install_apache_access_for_srv_sites=$(grep -E "^<Directory /srv/sites>" /etc/apache2/apache2.conf || echo "")
