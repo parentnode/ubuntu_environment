@@ -4,7 +4,7 @@ outputHandler "section" "SET UP APACHE/PHP/MARIADB"
 
 if test "$install_webserver_conf" = "Y"; then
 
-	outputHandler "section" "Configuring Apache and PHP"
+	outputHandler "comment" "Configuring Apache and PHP"
 
 
 	install_apache_servername=$(grep -E "^ServerName" /etc/apache2/apache2.conf || echo "")
@@ -113,7 +113,7 @@ if test "$install_webserver_conf" = "Y"; then
 	#	fi
 #
 	#fi
-	outputHandler "section" "setting up MariaDB"
+	outputHandler "comment" "setting up MariaDB"
     # Do we have root password
     if [  "$(checkMariadbPassword)" = "false" ]; then
 
@@ -141,7 +141,7 @@ if test "$install_webserver_conf" = "Y"; then
         fi
 
     else
-		outputHandler "section" "Mariadb password allready set up"
+		outputHandler "comment" "Mariadb password allready set up"
 	fi
 
 else
