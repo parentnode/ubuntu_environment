@@ -109,14 +109,11 @@ outputHandler "comment" "Installing system for $install_user"
 
 outputHandler "section" "Checking directories"
 ## MAKE SITES FOLDER
-if [ ! -d "/srv/sites" ]; then
-	mkdir /srv/sites
-fi
+checkFolderExistOrCreate "/srv/sites"
+checkFolderExistOrCreate "/srv/conf"
 
 # MAKE CONF FOLDER
-if [ ! -d "/srv/conf" ]; then
-	mkdir /srv/conf
-fi
+
 exit
 #
 #
