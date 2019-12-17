@@ -82,11 +82,6 @@ if test "$install_webserver_conf" = "Y"; then
 
     outputHandler "comment" "setting up php-cli.ini"
     cat /srv/tools/conf-client/php-cli.ini > /etc/php/7.2/cli/php.ini
-	
-	if [ ! -e "/srv/sites/apache/apache.conf" ]; then
-    	# Add Default apache conf
-        cat /srv/tools/conf-client/apache.conf > /srv/sites/apache/apache.conf
-    fi
 
 	outputHandler "comment" "Restarting Apache"
 	# RESTART APACHE
