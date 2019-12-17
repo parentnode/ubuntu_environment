@@ -10,7 +10,7 @@ echo
 if test "$install_htpassword_for_user" = "Y"; then
 
 	echo
-	
+	echo "test htaccess"
 
 	if [ ! -e "/srv/auth-file" ]; then
 
