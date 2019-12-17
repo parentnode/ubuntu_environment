@@ -157,6 +157,8 @@ echo
 #outputHandler "comment" "ssh -p $port_number $install_user@$ip_address"
 outputHandler "comment" "You are done!"
 
-outputHandler "comment" "Reboot the server (sudo reboot)" "and log in again using:" "ssh -p $port_number $install_user@$ip_address"
+outputHandler "comment" "Reboot the server (sudo reboot)"\
+"and log in again using:"\
+"ssh -p $port_number $install_user@$ip_address"
 
 outputHandler "section" "See you in a bit "

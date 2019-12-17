@@ -1,10 +1,5 @@
 #!/bin/bash -e
 
-echo "-----------------------------------------"
-echo
-echo "                  MAIL"
-echo
-echo
 outputHandler "section" "MAIL"
 
 # MAIL
@@ -14,7 +9,6 @@ if test "$install_mail" = "Y"; then
 	outputHandler "comment" "This is only for sending system notification mails from this server."\
 	"It does not use a valid email-address for sending and cannot be used for regular emailing."\
 	"Install should autofill values, but choose \"Internet Site\" if prompted for setup type."
-	exit
 
 	# INSTALL MAIL (for data protection plan)
 	debconf-set-selections <<< "postfix postfix/mailname string $HOSTNAME"
@@ -32,8 +26,7 @@ if test "$install_mail" = "Y"; then
 		if [ -e "/etc/aliases" ]; then
 
 			# update aliases
-			echo "Updating aliases"
-			echo
+			outputHandler "comment" "Updating aliases"
 
 			sudo chmod 777 -R /etc/aliases
 
@@ -60,20 +53,13 @@ if test "$install_mail" = "Y"; then
 		echo
 
 	else
-
-		echo "Setting up mail tools failed!"
-		echo
-		echo
+		outputHandler "section" "Setting up mail tools failed!"
 
 	fi
 
 
 else
-
-	echo
-	echo "Skipping MAIL"
-	echo
-	echo
+	outputHandler "section" "Skipping MAIL" 
 
 fi
 
