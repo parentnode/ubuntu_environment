@@ -117,6 +117,7 @@ fi
 if [ ! -d "/srv/conf" ]; then
 	mkdir /srv/conf
 fi
+exit
 #
 #
 #
