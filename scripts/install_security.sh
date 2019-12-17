@@ -1,11 +1,6 @@
 #!/bin/bash -e
 
-echo "-----------------------------------------"
-echo
-echo "               SECURITY"
-echo
-echo
-
+outputHandler "section" "SECURITY"
 
 if [ "$install_security" = "Y" ]; then
 
@@ -14,9 +9,7 @@ if [ "$install_security" = "Y" ]; then
 	install_deploy=$(grep -E "^deploy:" /etc/group || echo "")
 	if [ -z "$install_deploy" ]; then
 
-		echo "Creating deploy user"
-		echo
-
+		outputHandler "comment" "Creating deploy user"
 		# CREATE GROUP
 		groupadd deploy
 		# ADD DEPLOY USER TO GROUP
@@ -29,9 +22,7 @@ if [ "$install_security" = "Y" ]; then
 	# ADD CURRENT USER TO DEPLOY GROUP
 	install_deploy_user=$(grep -E "^deploy:.+$install_user" /etc/group || echo "")
 	if [ -z "$install_deploy_user" ]; then
-
-		echo "Adding $install_user to deploy group"
-		echo
+		outputHandler "comment" "Adding $install_user to deploy group"
 		usermod -a -G deploy $install_user
 	fi
 
@@ -45,8 +36,7 @@ if [ "$install_security" = "Y" ]; then
 	# IS TEMP KEY AVAILABLE
 	if [ -e "/home/$install_user/.key" ]; then
 
-		echo "Installing key"
-		echo
+		outputHandler "comment" "Installing key"
 		mv /home/$install_user/.key /home/$install_user/.ssh/authorized_keys
 	fi
 
@@ -60,8 +50,7 @@ if [ "$install_security" = "Y" ]; then
 	# UPDATE SSH PORT
 	if test -n "$install_port"; then
 
-		echo
-		echo "Updating port to: $install_port"
+		outputHandler "comment" "Updating port to: $install_port"
 		# SSH CONFIG
 		sed -i "s/[#]\?Port\ [0-9]\+/Port\ $install_port/;" /etc/ssh/sshd_config
 
@@ -80,8 +69,7 @@ if [ "$install_security" = "Y" ]; then
 	# ADD ALLOWUSERS STATMENT
 	install_ssh_allowed_users=$(grep -E "^AllowUsers" /etc/ssh/sshd_config || echo "")
 	if test -z "$install_ssh_allowed_users"; then
-		echo
-		echo "Adding AllowUsers and $install_user to sshd_config"
+		outputHandler "comment" "Adding AllowUsers and $install_user to sshd_config"
 		echo "AllowUsers "$install_user >> /etc/ssh/sshd_config
 
 	# USERS ARE ALLOWED
@@ -90,8 +78,7 @@ if [ "$install_security" = "Y" ]; then
 		# IS CURRENT USER ALLOWED
 		install_ssh_user=$(grep -E "^AllowUsers.*[\ ]$install_user(\ |$)" /etc/ssh/sshd_config || echo "")
 		if test -z "$install_ssh_user"; then
-			echo
-			echo "Adding $install_user to AllowUsers"
+			outputHandler "comment" "Adding $install_user to AllowUsers"
 			echo "$install_ssh_allowed_users $install_user" >> /etc/ssh/sshd_config
 		fi
 
@@ -101,9 +88,7 @@ if [ "$install_security" = "Y" ]; then
 
 	if [ ! -e "/etc/iptables.up.rules" ]; then
 
-
-		echo
-		echo "Copying default rules for IP TABLES"
+		outputHandler "comment" "Copying default rules for IP TABLES"
 
 		cp /srv/tools/conf/iptables.rules /etc/iptables.up.rules
 
@@ -113,16 +98,13 @@ if [ "$install_security" = "Y" ]; then
 
 	if test -n "$install_port"; then
 
-		echo
-		echo "Updating SSH port access"
+		outputHandler "comment" "Updating SSH port access"
 		sed -i "s/NEW\ -m\ tcp\ --dport\ [0-9]\+/NEW\ -m\ tcp\ --dport\ $install_port/;" /etc/iptables.up.rules
 
 	fi
 
 
-	echo
-	echo "Checking IP TABLES"
-	echo
+	outputHandler "section" "Checking IP TABLES"
 
 	# RESTORE IPTABLES
 	iptables-restore < /etc/iptables.up.rules
@@ -136,8 +118,7 @@ if [ "$install_security" = "Y" ]; then
 
 	if [ ! -e "/etc/network/if-pre-up.d/iptables" ]; then
 
-		echo "Enable IP TABLE on boot"
-		echo
+		outputHandler "comment" "Enable IP TABLE on boot"
 
 		# LOAD ON BOOT
 		echo "#!/bin/sh" >> /etc/network/if-pre-up.d/iptables
@@ -146,21 +127,13 @@ if [ "$install_security" = "Y" ]; then
 
 	fi
 
-
-	echo
-	echo "Restarting SSH service"
-	echo
-	echo
+	outputHandler "section" "Restarting SSH service"
 
 	#
 	# RESTART SSH
 	service ssh restart
 
 else
-
-	echo
-	echo "Skipping security"
-	echo
-	echo
+	outputHandler "section" "Skipping security"
 
 fi
