@@ -14,6 +14,6 @@ if test "$install_ffmpeg" = "Y"; then
     # rm -R ffmpeg-3.2.1
 
 else
-    outputHandler "comment" "Skipping FFMPEG"
+    outputHandler "section" "Skipping FFMPEG"
 fi
 
