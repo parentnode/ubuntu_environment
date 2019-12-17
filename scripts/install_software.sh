@@ -6,8 +6,8 @@ if test "$install_software" = "Y"; then
     #sudo apt install -y apache2 apache2-utils ssl-cert
 	
 	#echo "Test output"
-	apache_status="$(service apache2 status)"
-	#apache_status="$(service apache2 status 2>&1 > /dev/null)"
+	#apache_status="$(service apache2 status)"
+	apache_status="$(service apache2 status > /dev/null 2>&1)"
 
 	echo "Test $apache_status"
 	#echo
