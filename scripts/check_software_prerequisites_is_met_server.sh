@@ -185,4 +185,3 @@ if [ -z "$look_for_ex_timezone" ]; then
 else 
 	outputHandler "comment" "Existing time zone values: $look_for_ex_timezone"
 fi
-exit

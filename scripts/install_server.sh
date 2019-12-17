@@ -106,18 +106,17 @@ outputHandler "comment" "Installing system for $install_user"
 #sudo timedatectl set-timezone "Europe/Copenhagen"
 #
 . /srv/tools/scripts/check_software_prerequisites_is_met_server.sh
-exit
 
-
+outputHandler "section" "Checking directories"
 ## MAKE SITES FOLDER
-#if [ ! -d "/srv/sites" ]; then
-#	mkdir /srv/sites
-#fi
-#
-## MAKE CONF FOLDER
-#if [ ! -d "/srv/conf" ]; then
-#	mkdir /srv/conf
-#fi
+if [ ! -d "/srv/sites" ]; then
+	mkdir /srv/sites
+fi
+
+# MAKE CONF FOLDER
+if [ ! -d "/srv/conf" ]; then
+	mkdir /srv/conf
+fi
 #
 #
 #
