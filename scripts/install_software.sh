@@ -1,7 +1,7 @@
 #!/bin/bash -e
-
+outputHandler "section" "SOFTWARE"
 if test "$install_software" = "Y"; then	
-    outputHandler "section" "Install software"
+    outputHandler "comment" "Installing Software packages"
 	outputHandler "comment" "Installing Apache and extra modules"
     #sudo apt install -y apache2 apache2-utils ssl-cert
 	
@@ -78,39 +78,7 @@ if test "$install_software" = "Y"; then
 	command "sudo apt-get install -y curl"
 	outputHandler "comment" "Installing MariaDB Server"
 	command "sudo -E apt-get install -q -y mariadb-server"
-	
-	# INSTALL FFMPEG
-	outputHandler "comment" "Installing FFMPEG"
-	if test "$install_ffmpeg" = "Y"; then
-		command "sudo -k apt-get install -y ffmpeg"
-		# # FFMPEG - FORCE PASSWORD RENEWAL (BUILDING FFMPEG TAKES TIME)
-		# sudo -k apt install -y build-essential checkinstall yasm texi2html libfdk-aac-dev libfaad-dev libmp3lame-dev libopencore-amrnb-dev libopencore-amrwb-dev libtheora-dev libvorbis-dev libvpx-dev libxvidcore-dev zlib1g-dev libx264-dev x264 libsdl1.2-dev
-		#
-		# wget http://www.ffmpeg.org/releases/ffmpeg-3.2.1.tar.gz
-		# tar xf ffmpeg-3.2.1.tar.gz
-		# rm ffmpeg-3.2.1.tar.gz
-		# cd ffmpeg-3.2.1 && ./configure --enable-gpl --enable-version3 --enable-nonfree --enable-postproc --enable-pthreads --enable-libfdk-aac --enable-libmp3lame --enable-libtheora --enable-libvorbis --enable-libx264 --enable-libxvid --enable-libvpx && make && make install && make distclean && hash -r
-		# cd ..
-		# rm -R ffmpeg-3.2.1
-	
-	else
-		outputHandler "comment" "Skipping FFMPEG"
-	fi
 
-	# INSTALL WKHTMLTO
-	outputHandler "comment" "Installing WKHTMLTOPF"
-	if test "$install_wkhtml" = "Y"; then
-
-		# WKHTML - FORCE PASSWORD RENEWAL
-		outputHandler "comment" "Using /srv/tools/bin/wkhtmltopdf"
-		# sudo apt install -y wkhtmltopdf
-		# installedPackage "wkhtmltopdf"
-		# sudo cp /srv/tools/conf/wkhtmltoimage /usr/bin/static_wkhtmltoimage
-		# sudo cp /srv/tools/conf/wkhtmltopdf /usr/bin/static_wkhtmltopdf
-
-	else
-		outputHandler "comment" "Skipping WKHTMLTOPF"
-	fi
 	
 	# INSTALL SYS-INFO
 	# aptitude install landscape-client landscape-common

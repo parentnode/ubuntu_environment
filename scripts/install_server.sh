@@ -111,11 +111,11 @@ outputHandler "comment" "Installing system for $install_user"
 . /srv/tools/scripts/checking_directories_server.sh
 ## INSTALL SECURITY
 . /srv/tools/scripts/install_security.sh
-exit
 #
 ## INSTALL SOFTWARE
-#. /srv/tools/scripts/install_software.sh
+. /srv/tools/scripts/install_software.sh
 #
+exit
 ## INSTALL WEBSERVER CONFIGURATION
 #. /srv/tools/scripts/install_webserver_configuration-server.sh
 #
@@ -126,7 +126,7 @@ exit
 ##. /srv/tools/scripts/install_ffmpeg.sh
 #
 ## INSTALL WKHTMLTO
-##. /srv/tools/scripts/install_wkhtmlto.sh
+. /srv/tools/scripts/install_wkhtmlto.sh
 #
 ## INSTALL MAIL
 #. /srv/tools/scripts/install_mail.sh
