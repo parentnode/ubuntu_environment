@@ -7,13 +7,13 @@ if test "$install_software" = "Y"; then
 	
 	#echo "Test output"
 	#apache_status="$(service apache2 status)"
-	apache_status="$(service apache2 status 1> /dev/null &)"
+	apache_status="$(service apache2 status)"
 
 	echo "Test $apache_status"
 	#echo
 	#output_t=$(echo "$tester" | grep ^"Unit")
 	#echo "$output_t"
-	if [ "$apache_status" = "Unit apache2.service could not be found." ]; then 
+	if [ -z "$apache_status" ]; then 
 		outputHandler "comment" "Installing apache2"
 		command "sudo apt-get install -y apache2 apache2-utils ssl-cert"
 	else
@@ -28,7 +28,7 @@ if test "$install_software" = "Y"; then
 		fi
 	fi
 	
-	
+	exit
 	#installedPackage "apache2"
 	#installedPackage "apache2-utils"
 	#installedPackage "ssl-cert"
