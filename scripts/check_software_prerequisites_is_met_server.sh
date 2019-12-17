@@ -105,7 +105,6 @@ if test "$install_security" = "Y"; then
 	export install_port
 fi
 createOrModifyBashProfile "server"
-exit
 
 # MYSQL ROOT PASSWORD
 outputHandler "comment" "MariaDB password"
@@ -150,6 +149,7 @@ fi
 # SETTING DEFAULT GIT USER
 outputHandler "comment" "Setting Default GIT User setting"
 # SETTING DEFAULT GIT USER
+exit
 
 # Checks if git credential are allready set, promts for input if not
 if [ -z "$(checkGitCredential "name")" ]; then
