@@ -80,7 +80,6 @@ if test "$install_software" = "Y"; then
 	command "sudo apt-get install -y curl"
 	outputHandler "comment" "Installing MariaDB Server"
 	command "sudo -E apt-get install -q -y mariadb-server"
-	exit
 
 	
 	# INSTALL SYS-INFO
