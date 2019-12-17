@@ -107,19 +107,11 @@ outputHandler "comment" "Installing system for $install_user"
 #
 . /srv/tools/scripts/check_software_prerequisites_is_met_server.sh
 
-outputHandler "section" "Checking directories"
-## MAKE SITES FOLDER
-checkFolderExistOrCreate "/srv/sites"
-checkFolderExistOrCreate "/srv/conf"
-
-# MAKE CONF FOLDER
-
-exit
-#
-#
-#
+# Checking directories
+. /srv/tools/scripts/checking_directories_server.sh
 ## INSTALL SECURITY
 #. /srv/tools/scripts/install_security.sh
+exit
 #
 ## INSTALL SOFTWARE
 #. /srv/tools/scripts/install_software.sh
