@@ -176,7 +176,7 @@ outputHandler "comment" "git user email: $(git config --global user.email)"
 git config --global credential.helper cache
 outputHandler "comment" "git credential.helper: $(git config --global credential.helper)"
 
-outputHandler "comment" "Setting Time zone"
+outputHandler "section" "Time zone"
 
 look_for_ex_timezone=$(sudo timedatectl status | grep "Time zone: " | cut -d ':' -f2)
 if [ -z "$look_for_ex_timezone" ]; then
