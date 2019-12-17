@@ -104,7 +104,7 @@ if [ "$install_security" = "Y" ]; then
 	fi
 
 
-	outputHandler "section" "Checking IP TABLES"
+	outputHandler "comment" "Checking IP TABLES"
 
 	# RESTORE IPTABLES
 	iptables-restore < /etc/iptables.up.rules
@@ -127,7 +127,7 @@ if [ "$install_security" = "Y" ]; then
 
 	fi
 
-	outputHandler "section" "Restarting SSH service"
+	outputHandler "comment" "Restarting SSH service"
 
 	#
 	# RESTART SSH

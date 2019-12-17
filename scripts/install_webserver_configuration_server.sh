@@ -140,7 +140,9 @@ if test "$install_webserver_conf" = "Y"; then
 
         fi
 
-    fi
+    else
+		outputHandler "section" "Mariadb password allready set up"
+	fi
 
 else
 

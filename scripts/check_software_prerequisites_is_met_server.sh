@@ -75,6 +75,7 @@ if test "$install_htpassword_for_user" = "Y"; then
 	export install_htaccess_password
 fi
 
+outputHandler "section" "Provide SSH Port"
 # SSH PORT
 if test "$install_security" = "Y"; then
 
