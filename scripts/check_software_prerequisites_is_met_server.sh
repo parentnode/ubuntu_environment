@@ -175,7 +175,6 @@ git config --global user.email "$git_email"
 outputHandler "comment" "git user email: $(git config --global user.email)"
 git config --global credential.helper cache
 outputHandler "comment" "git credential.helper: $(git config --global credential.helper)"
-exit
 
 outputHandler "comment" "Setting Time zone"
 
@@ -186,3 +185,4 @@ if [ -z "$look_for_ex_timezone" ]; then
 else 
 	outputHandler "comment" "Existing time zone values: $look_for_ex_timezone"
 fi
+exit
