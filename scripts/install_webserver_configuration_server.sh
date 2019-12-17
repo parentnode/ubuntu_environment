@@ -144,9 +144,5 @@ if test "$install_webserver_conf" = "Y"; then
 
 else
 
-	echo
-	echo "Skipping Webserver configuration"
-	echo
-	echo
-
+	outputHandler "section" "Skipping Webserver configuration"
 fi

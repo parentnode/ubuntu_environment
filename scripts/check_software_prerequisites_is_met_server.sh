@@ -37,7 +37,7 @@ export install_wkhtml
 #read -p "Your email address: " install_email
 #export install_email
 
-outputHandler "comment" "Apache email configuration"
+outputHandler "section" "Apache email configuration"
 if [ "$(fileExists "/etc/apache2/sites-available/default.conf")" = "true" ]; then 
 	outputHandler "comment" "defaul.conf Exist"
 	grep_apache_email=$(trimString "$(grep "ServerAdmin" /etc/apache2/sites-available/default.conf)")
@@ -102,10 +102,11 @@ if test "$install_security" = "Y"; then
 	fi
 	export install_port
 fi
+outputHandler "section" ".bash_profile"
 createOrModifyBashProfile "server"
 
 # MYSQL ROOT PASSWORD
-outputHandler "comment" "MariaDB password"
+outputHandler "section" "Provide MariaDB password "
 if test "$install_webserver_conf" = "Y"; then
 	
 	#Check if mariadb are installed and running
@@ -120,7 +121,7 @@ if test "$install_webserver_conf" = "Y"; then
 		if [  "$db_root_password1" != "$db_root_password2"  ]; then
 		    while [ true ]
 		    do
-		        echo "Password doesn't match"
+		        outputHandler "comment" "Password Doesn't Match"
 		        echo
 		        #password1=$( ask "Enter mariadb password" "${password_array[@]}" "Password")
 		        db_root_password1=$( ask "Enter mariadb password" "${password_array[@]}" "password")
@@ -129,23 +130,23 @@ if test "$install_webserver_conf" = "Y"; then
 		        echo "" 
 		        if [ "$db_root_password1" == "$db_root_password2" ];
 		        then
-		            echo "Password Match"
+		            outputHandler "comment" "Password Match"
 		            break
 		        fi
 		        export db_root_password1
 		    done
 		else
-		    echo "Password Match"
+		    outputHandler "comment" "Password Match"
 			export db_root_password1
 		fi
 	else 
-		outputHandler "comment" "Mariadb password allready set up"
+		outputHandler "section" "Mariadb password allready set up"
 	fi	
 fi
 
 
 # SETTING DEFAULT GIT USER
-outputHandler "comment" "Setting Default GIT User setting"
+outputHandler "section" "Setting Default GIT User setting"
 # SETTING DEFAULT GIT USER
 
 # Checks if git credential are allready set, promts for input if not
