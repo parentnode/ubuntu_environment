@@ -149,7 +149,6 @@ fi
 # SETTING DEFAULT GIT USER
 outputHandler "comment" "Setting Default GIT User setting"
 # SETTING DEFAULT GIT USER
-exit
 
 # Checks if git credential are allready set, promts for input if not
 if [ -z "$(checkGitCredential "name")" ]; then
@@ -176,6 +175,7 @@ git config --global user.email "$git_email"
 outputHandler "comment" "git user email: $(git config --global user.email)"
 git config --global credential.helper cache
 outputHandler "comment" "git credential.helper: $(git config --global credential.helper)"
+exit
 
 outputHandler "comment" "Setting Time zone"
 
