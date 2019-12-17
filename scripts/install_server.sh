@@ -115,13 +115,13 @@ outputHandler "comment" "Installing system for $install_user"
 ## INSTALL SOFTWARE
 . /srv/tools/scripts/install_software.sh
 #
-## INSTALL WEBSERVER CONFIGURATION
-#. /srv/tools/scripts/install_webserver_configuration-server.sh
+# INSTALL WEBSERVER CONFIGURATION
+. /srv/tools/scripts/install_webserver_configuration-server.sh
+
+# INSTALL HTACCESS PASSWORD
+. /srv/tools/scripts/install_htaccess.sh
+#
 exit
-#
-## INSTALL HTACCESS PASSWORD
-#. /srv/tools/scripts/install_htaccess.sh
-#
 ## INSTALL FFMPEG
 ##. /srv/tools/scripts/install_ffmpeg.sh
 #
