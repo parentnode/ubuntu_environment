@@ -8,8 +8,6 @@ if test "$install_software" = "Y"; then
 	#echo "Test output"
 	#apache_status="$(service apache2 status)"
 	apache_status="$(service apache2 status)"
-
-	echo "Test $apache_status"
 	#echo
 	#output_t=$(echo "$tester" | grep ^"Unit")
 	#echo "$output_t"
