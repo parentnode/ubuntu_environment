@@ -1,16 +1,10 @@
 #!/bin/bash -e
 
-echo "-----------------------------------------"
-echo
-echo "               HTACCESS"
-echo
-echo
-
+outputHandler "section" "HTACCESS"
 
 if test "$install_htpassword_for_user" = "Y"; then
 
-	echo
-	echo "test htaccess"
+	
 
 	if [ ! -e "/srv/auth-file" ]; then
 
@@ -22,13 +16,7 @@ if test "$install_htpassword_for_user" = "Y"; then
 
 	fi
 
-	echo
-	echo
-
 else
-
-	echo
-	echo "Skipping HTACCESS"
-	echo
+	outputHandler "section" "Skipping HTACCESS"
 
 fi
