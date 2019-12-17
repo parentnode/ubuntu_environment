@@ -11,12 +11,14 @@ if test "$install_software" = "Y"; then
 	#output_t=$(echo "$tester" | grep ^"Unit")
 	#echo "$output_t"
 	if [ "$apache_status" = "Unit apache2.service could not be found." ]; then 
+		outputHandler "comment" "Installing apache2"
 		command "sudo apt-get install -y apache2 apache2-utils ssl-cert"
 	else
 		valid_status=("running" "dead")
 		#echo "Checking Apache2.4 status: "
 		apache_installed=$(testCommand "service apache2 status" "${valid_status[@]}" || echo "")
 		if [ -z "$apache_installed" ]; then
+			outputHandler "comment" "Installing apache2"
 			command "sudo apt-get install -y apache2 apache2-utils ssl-cert"
 		else
 			outputHandler "comment" "Apache Installed" "[Apache status:] $(testCommand "service apache2 status" "${valid_status[@]}")"
