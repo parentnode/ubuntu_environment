@@ -1,8 +1,6 @@
 #!/bin/bash -e
 
-echo
-echo "To speed up the process, please select your install options now:"
-echo
+outputHandler "section" "To speed up the process, please select your install options now:"
 
 install_security_array=("[Yn]")
 install_security=$(ask "Secure the server (Y/n)" "${install_security_array[@]}" "input secure the server")
