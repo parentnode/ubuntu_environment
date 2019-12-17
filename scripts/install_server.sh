@@ -116,7 +116,7 @@ outputHandler "comment" "Installing system for $install_user"
 . /srv/tools/scripts/install_software.sh
 #
 # INSTALL WEBSERVER CONFIGURATION
-. /srv/tools/scripts/install_webserver_configuration-server.sh
+. /srv/tools/scripts/install_webserver_configuration_server.sh
 exit
 
 # INSTALL HTACCESS PASSWORD
