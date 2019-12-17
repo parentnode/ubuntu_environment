@@ -30,6 +30,10 @@ install_wkhtml=$(ask "Install WKHTMLTOPDF (Y/n)" "${install_wkhtml_array[@]}" "i
 export install_wkhtml
 #read -p "Install mail (Y/n): " install_mail
 #export install_mail
+# Setting up server to send system notifications
+install_mail_array=("[Yn]")
+install_mail=$(ask "Install MAIL (Y/n)" "${install_mail_array[@]}" "input mail")
+export install_mail
 
 #read -p "Install Let's encrypt (Y/n): " install_letsencrypt
 #export install_letsencrypt
@@ -37,6 +41,7 @@ export install_wkhtml
 #read -p "Your email address: " install_email
 #export install_email
 
+# Setting mail address for use with system notification mail
 if [ "$(fileExists "/etc/apache2/sites-available/default.conf")" = "true" ]; then 
 	outputHandler "comment" "defaul.conf Exist"
 	grep_apache_email=$(trimString "$(grep "ServerAdmin" /etc/apache2/sites-available/default.conf)")
