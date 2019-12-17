@@ -110,7 +110,7 @@ outputHandler "comment" "Installing system for $install_user"
 # Checking directories
 . /srv/tools/scripts/checking_directories_server.sh
 ## INSTALL SECURITY
-#. /srv/tools/scripts/install_security.sh
+. /srv/tools/scripts/install_security.sh
 exit
 #
 ## INSTALL SOFTWARE
