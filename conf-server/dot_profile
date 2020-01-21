@@ -50,7 +50,7 @@ alias update_conf="/srv/tools/scripts/update_conf.sh"
 alias update_server="/srv/tools/scripts/update_server.sh"
 alias update_wkhtml="/srv/tools/scripts/update_wkhtml.sh"
 alias update_tools="/srv/tools/scripts/update_tools.sh"
-
+alias sites="cd /srv/sites"
 
 #alias update_env="sh /srv/tools/scripts/update_env.sh"
 #alias update_awstats="sudo php /srv/tools/scripts/update_awstats.php"
