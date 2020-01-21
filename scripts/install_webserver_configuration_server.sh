@@ -78,10 +78,10 @@ if test "$install_webserver_conf" = "Y"; then
 	#cat /srv/tools/conf-server/php-cli.ini > /etc/php/7.1/cli/php.ini
 	outputHandler "comment" "setting up apache2.ini"
     # PHP 7.2
-    cat /srv/tools/conf-client/php-apache2.ini > /etc/php/7.2/apache2/php.ini
+    cat /srv/tools/conf-server/php-apache2.ini > /etc/php/7.2/apache2/php.ini
 
     outputHandler "comment" "setting up php-cli.ini"
-    cat /srv/tools/conf-client/php-cli.ini > /etc/php/7.2/cli/php.ini
+    cat /srv/tools/conf-server/php-cli.ini > /etc/php/7.2/cli/php.ini
 
 	outputHandler "comment" "Restarting Apache"
 	# RESTART APACHE
