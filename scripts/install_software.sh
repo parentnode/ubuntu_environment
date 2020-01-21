@@ -7,25 +7,12 @@ if test "$install_software" = "Y"; then
 	
 	#echo "Test output"
 	#apache_status="$(service apache2 status)"
-	apache_status="$(service apache2 status || echo "")"
+	#apache_status="$(service apache2 status || echo "")"
 	#echo
 	#output_t=$(echo "$tester" | grep ^"Unit")
 	#echo "$output_t"
-	if [ -z "$apache_status" ]; then 
-		outputHandler "comment" "Installing apache2"
-		command "sudo apt-get install -y apache2 apache2-utils ssl-cert"
-	else
-		valid_status=("running" "dead")
-		#echo "Checking Apache2.4 status: "
-		apache_installed=$(testCommand "service apache2 status" "${valid_status[@]}" || echo "")
-		if [ -z "$apache_installed" ]; then
-			outputHandler "comment" "Installing apache2"
-			command "sudo apt-get install -y apache2 apache2-utils ssl-cert"
-		else
-			outputHandler "comment" "Apache Installed" "[Apache status:] $(testCommand "service apache2 status" "${valid_status[@]}")"
-		fi
-	fi
-	
+	outputHandler "comment" "Installing apache2"
+	command "sudo apt-get install -y apache2 apache2-utils ssl-cert"
 	#installedPackage "apache2"
 	#installedPackage "apache2-utils"
 	#installedPackage "ssl-cert"
