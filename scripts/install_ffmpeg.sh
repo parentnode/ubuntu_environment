@@ -3,6 +3,7 @@ outputHandler "section" "FFMPEG"
 if test "$install_ffmpeg" = "Y"; then
     outputHandler "section" "Installing FFMPEG"
     command "sudo -k apt-get install -y ffmpeg"
+    #command "sudo -k apt install -y ffmpeg"
     # # FFMPEG - FORCE PASSWORD RENEWAL (BUILDING FFMPEG TAKES TIME)
     # sudo -k apt install -y build-essential checkinstall yasm texi2html libfdk-aac-dev libfaad-dev libmp3lame-dev libopencore-amrnb-dev libopencore-amrwb-dev libtheora-dev libvorbis-dev libvpx-dev libxvidcore-dev zlib1g-dev libx264-dev x264 libsdl1.2-dev
     #
