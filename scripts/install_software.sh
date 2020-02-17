@@ -67,6 +67,9 @@ if test "$install_software" = "Y"; then
 	command "sudo apt-get install -y curl"
 	outputHandler "comment" "Installing MariaDB Server"
 	command "sudo -E apt-get install -q -y mariadb-server"
+	. /srv/tools/scripts/install_ffmpeg.sh
+	. /srv/tools/scripts/install_wkhtml.sh
+
 
 	
 	# INSTALL SYS-INFO
