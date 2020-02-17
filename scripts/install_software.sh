@@ -68,7 +68,7 @@ if test "$install_software" = "Y"; then
 	outputHandler "comment" "Installing MariaDB Server"
 	command "sudo -E apt-get install -q -y mariadb-server"
 	. /srv/tools/scripts/install_ffmpeg.sh
-	. /srv/tools/scripts/install_wkhtml.sh
+	. /srv/tools/scripts/install_wkhtmlto.sh
 
 
 	
