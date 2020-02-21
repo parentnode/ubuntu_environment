@@ -11,9 +11,7 @@ echo ""
 
 source /srv/tools/scripts/functions.sh
 enableSuperCow
-#outputHandler "section" "outputHandler test"
-#outputHandler "comment" "Nothing special to comment on"
-#outputHandler "exit" "I'm leaving for ever"
+
 # GET INSTALL USER
 install_user="$(getUsername)"
 #$(whoami | awk '{print $1}')

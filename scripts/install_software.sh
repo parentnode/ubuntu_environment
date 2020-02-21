@@ -3,20 +3,9 @@ outputHandler "section" "SOFTWARE"
 if test "$install_software" = "Y"; then	
     outputHandler "comment" "Installing Software packages"
 	outputHandler "comment" "Installing Apache and extra modules"
-    #sudo apt install -y apache2 apache2-utils ssl-cert
-	
-	#echo "Test output"
-	#apache_status="$(service apache2 status)"
-	#apache_status="$(service apache2 status || echo "")"
-	#echo
-	#output_t=$(echo "$tester" | grep ^"Unit")
-	#echo "$output_t"
-	outputHandler "comment" "Installing apache2"
+    outputHandler "comment" "Installing apache2"
 	command "sudo apt-get install -y apache2 apache2-utils ssl-cert"
-	#installedPackage "apache2"
-	#installedPackage "apache2-utils"
-	#installedPackage "ssl-cert"
-
+	
 	outputHandler "comment" "Installing PHP7.2 and extra modules"
 
 	# INSTALL PHP5.5
@@ -37,24 +26,9 @@ if test "$install_software" = "Y"; then
 
 	# INSTALL PHP7.2
 	#sudo apt install -y libapache2-mod-php php7.2 php7.2-cli php7.2-common php7.2-curl php7.2-dev php7.2-mbstring php7.2-zip php7.2-mysql php7.2-xmlrpc
-	#installedPackage "libapache2-mod-php"
-	#installedPackage "php7.2"
-	#installedPackage "php7.2-cli"
-	#installedPackage "php7.2-common"
-	#installedPackage "php7.2-curl"
-	#installedPackage "php7.2-dev"
-	#installedPackage "php7.2-mbstring"
-	#installedPackage "php7.2-zip"
-	#installedPackage "php7.2-mysql"
-	#installedPackage "php7.2-xmlrpc"
 	command "sudo apt-get install -y libapache2-mod-php php7.2 php7.2-cli php7.2-common php7.2-curl php7.2-dev php7.2-mbstring php7.2-zip php7.2-mysql php7.2-xmlrpc"
 	command "sudo apt-get install -y php-redis php-imagick php-igbinary php-msgpack" 
-	#sudo apt install -y php-redis php-imagick php-igbinary php-msgpack 
-	#installedPackage "php-redis"
-	#installedPackage "php-imagick"
-	#installedPackage "php-igbinary"
-	#installedPackage "php-msgpack"
-
+	
 	outputHandler "comment" "Installing Redis"
 	command "sudo apt-get install -y redis"
 	
@@ -67,7 +41,10 @@ if test "$install_software" = "Y"; then
 	command "sudo apt-get install -y curl"
 	outputHandler "comment" "Installing MariaDB Server"
 	command "sudo -E apt-get install -q -y mariadb-server"
+	
+	# Executes the install ffmpeg script
 	. /srv/tools/scripts/install_ffmpeg.sh
+	# Executes the install wkhtmltopdf script
 	. /srv/tools/scripts/install_wkhtmlto.sh
 
 
