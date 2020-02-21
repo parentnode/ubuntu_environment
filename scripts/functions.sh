@@ -17,6 +17,7 @@ outputHandler(){
 	#$1 - type eg. Comment, Section, Exit
 	#$2 - text for output
 	#$3,4,5 are extra text when needed
+	
 	case $1 in 
 		"comment")
 			echo
@@ -80,9 +81,9 @@ ask(){
 	else 
 		read -p "$1: " question 
 	fi
-	for ((i = 0; i < ${#valid_answers[@]}; i++))
+	for ((answer = 0; answer < ${#valid_answers[@]}; answer++))
     do
-        if [[ "$question" =~ ^(${valid_answers[$i]})$ ]];
+        if [[ "$question" =~ ^(${valid_answers[$answer]})$ ]];
         then 
            	#echo "Valid"
 			echo "$question"
@@ -104,22 +105,23 @@ ask(){
 export -f ask
 
 # Check if program/service are installed
-testCommand(){
-# Usage: returns a true if a program or service are located in 
+testResponse(){
+# Usage: returns the response of a command e.g if a service or a program are installed and running or stopped/dead
 # P1: kommando
 # P2: array of valid responses
-	valid_response=("$@")
-	for ((i = 0; i < ${#valid_response[@]}; i++))
+	valid_responses=("$@")
+	for ((response = 0; response < ${#valid_responses[@]}; response++))
 	do
-		command_to_test=$($1 | grep -E "${valid_response[$i]}" || echo "")
+		command_to_test=$($1 | grep -E "${valid_responses[$response]}" || echo "")
 		if [ -n "$command_to_test" ]; then
 			echo "$(trimString "$command_to_test")" 
 		fi
 	done
 
 }
-export -f testCommand
+export -f testResponse
 
+# Check if git credential are set e.g username
 checkGitCredential(){
 	value=$(git config --global user.$1)
 	echo "$value"
@@ -141,7 +143,7 @@ checkMariadbPassword(){
 		#echo "Mariadb installed:  $mariadb_installed"
 		if [ -n "$mariadb_installed" ]; then
 			valid_status=("dead" "running")
-			mariadb_running=$(testCommand "service mariadb status" "${valid_status[@]}" || echo "")
+			mariadb_running=$(testResponse "service mariadb status" "${valid_status[@]}" || echo "")
 			#echo "Mariadb Running: $mariadb_running"
 			# if service is running
 			if [ -n "$(echo $mariadb_running | grep -o running)" ]; then
