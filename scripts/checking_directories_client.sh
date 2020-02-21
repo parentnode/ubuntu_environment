@@ -1,7 +1,11 @@
 #!/bin/bash -e
 outputHandler "section" "Checking directories"
 #create_folder_if_no_exist
-checkFolderExistOrCreate "/srv/sites"
+
+checkFolderExistOrCreate "/home/$install_user/Sites"
+if [ ! -e "/srv/sites" ]; then 
+    ln -s /home/$install_user/Sites /srv/sites
+fi
 checkFolderExistOrCreate "/srv/sites/apache"
 checkFolderExistOrCreate "/srv/sites/apache/logs"
 checkFolderExistOrCreate "/srv/sites/parentnode"
