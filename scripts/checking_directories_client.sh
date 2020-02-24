@@ -13,4 +13,4 @@ checkFolderExistOrCreate "/srv/sites/apache/ssl"
 
 outputHandler "comment" "Changing Folder rights from root to your curent user"
 # Change Folder Rights from root to current user
-chown -R $SUDO_USER:$SUDO_USER /srv/sites
+chown -R $install_user:$install_user /srv/sites
