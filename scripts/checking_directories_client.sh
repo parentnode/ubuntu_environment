@@ -7,7 +7,7 @@ checkFolderExistOrCreate "/home/$install_user/Sites"
 if [ ! -e "/srv/sites" ]; then 
     ln -s /home/$install_user/Sites /srv/sites
 else
-    outputHandler "Symlink exists"
+    outputHandler "comment" "Symlink"
     sites_symlink_exists=$(ls -Fla /srv | grep /home/ | cut -d \/ -f3)
     if [ "$sites_symlink_exists" = "$install_user"  ]; then
         outputHandler "comment" "Symlink belongs to $install_user" "No need for creating a symlink"
