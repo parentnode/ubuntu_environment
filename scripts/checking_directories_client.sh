@@ -28,4 +28,4 @@ checkFolderExistOrCreate "/srv/sites/apache/ssl"
 
 outputHandler "comment" "Changing Folder rights from root to your curent user"
 # Change Folder Rights from root to current user
-sudo chown -R $install_user:$install_user /home/$install_user/Sites/parentnode
+sudo chown -R $install_user:$install_user /srv/sites
