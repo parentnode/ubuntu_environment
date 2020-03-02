@@ -35,7 +35,7 @@ if [ "$sites_symlink_exists" = "$(logname)"  ]; then
 	echo "Symlink belongs to $(logname), no need for creating a new symlink"
 else
 	echo "Creating a new symlink for $(logname)"
-	rm /srv/sites
-	ln -s /home/$(logname)/Sites /srv/sites
+	sudo rm /srv/sites
+	sudo ln -s /home/$(logname)/Sites /srv/sites
 fi
 # multi user
