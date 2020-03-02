@@ -30,13 +30,13 @@ alias enable_site="/srv/tools/scripts/enable_site.sh"
 # parentnode alias
 
 # multi user
-sites_symlink_exists=$(ls -Fla /srv | grep /home/ | cut -d \/ -f3)
+sites_symlink_exists=$(ls -Fla /srv/sites | grep /home/ | cut -d \/ -f3)
 if [ "$sites_symlink_exists" = "$(logname)"  ]; then
 	echo "Symlink belongs to $(logname), no need for creating a new symlink"
 else
 	echo "Creating a new symlink for $(logname)"
-	sudo rm /srv/sites
-	sudo ln -s /home/$(logname)/Sites /srv/sites
-	sudo chown -R $(logname):$(logname) /home/$(logname)/Sites
+	sudo rm /srv/sites/parentnode
+	sudo ln -s /home/$(logname)/Sites/parentnode /srv/sites/parentnode
+	sudo chown -R $(logname):$(logname) /home/$(logname)/Sites/parentnode
 fi
 # multi user
