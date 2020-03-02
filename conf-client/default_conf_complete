@@ -37,6 +37,6 @@ else
 	echo "Creating a new symlink for $(logname)"
 	sudo rm /srv/sites/parentnode
 	sudo ln -s /home/$(logname)/Sites/parentnode /srv/sites/parentnode
-	sudo chown -R $(logname):$(logname) /home/$(logname)/Sites/parentnode
+	sudo chown -R $(logname):$(logname) /srv/sites
 fi
 # multi user
