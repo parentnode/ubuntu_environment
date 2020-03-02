@@ -56,14 +56,16 @@ if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 
 			# Don't enable sites which are already enabled
 			# Check if include path already exists in apache.conf
-			apache_entry_exists=$(grep -E "^Include [\"]?$parentnode_project_path\/apache\/httpd-vhosts.conf[\"]?" "$apache_file_path" || echo "")
+			apache_entry_exists=$(grep -E "^IncludeOptional [\"]?$parentnode_project_path\/apache\/httpd-vhosts.conf[\"]?" "$apache_file_path" || echo "")
 			if [ -z "$apache_entry_exists" ]; then
 
 				echo "Adding $parentnode_project_path/apache/httpd-vhosts.conf to apache.conf"
 
 				# Include project cont in apache.conf
 				echo ""	>> "$apache_file_path"
-				echo "Include \"$parentnode_project_path/apache/httpd-vhosts.conf\"" >> "$apache_file_path"
+				#echo "Include \"$parentnode_project_path/apache/httpd-vhosts.conf\"" >> "$apache_file_path"
+				echo "IncludeOptional \"$parentnode_project_path/apache/httpd-vhosts.conf\"" >> "$apache_file_path"
+
 
 			# project already exists in apache.conf
 			else
