@@ -5,6 +5,7 @@ outputHandler "section" "Checking directories"
 
 checkFolderExistOrCreate "/home/$install_user/Sites"
 checkFolderExistOrCreate "/home/$install_user/Sites/parentnode"
+checkFolderExistOrCreate "/home/$install_user/Sites"
 sites_symlink_exists=$(ls -Fla /srv/sites | grep /home/ | cut -d \/ -f3)
 
 if [ ! -e "/srv/sites/parentnode" ]; then 
