@@ -19,7 +19,14 @@ checkFolderExistOrCreate "/home/$install_user/Sites"
 #fi
 if [ ! -e /srv/sites ]; then
      ln -s /home/$install_user/Sites /srv/sites
+else
+    sites_symlink_exists=$(ls -Fla /srv | grep /home/ | cut -d \/ -f3)
+    if [ "$sites_symlink_exists" != "$install_user"  ]; then
+        sudo rm /srv/sites
+        sudo ln -s /home/$install_user/Sites /srv/sites
+    fi
 fi
+
 checkFolderExistOrCreate "/srv/sites/apache"
 checkFolderExistOrCreate "/srv/sites/apache/logs"
 checkFolderExistOrCreate "/srv/sites/parentnode"
