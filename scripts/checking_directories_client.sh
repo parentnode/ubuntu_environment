@@ -23,7 +23,7 @@ checkFolderExistOrCreate "/home/$install_user/Sites"
 #
 #fi
 if [ ! -e /srv/sites ]; then
-     ln -s /home/$install_user/Sites/parentnode /srv/sites
+     ln -s /home/$install_user/Sites /srv/sites
 fi
 checkFolderExistOrCreate "/srv/sites/apache"
 checkFolderExistOrCreate "/srv/sites/apache/logs"
