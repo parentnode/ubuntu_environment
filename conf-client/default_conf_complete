@@ -35,7 +35,9 @@ if [ -e "/srv/sites" ]; then
     if [ "$sites_symlink_exists" != "$(logname)"  ]; then
         sudo rm /srv/sites
         sudo ln -s /home/$(logname)/Sites /srv/sites
+		sudo chown -R $(logname):$(logname) /home/$(logname)/Sites
+		sudo service apache2 restart
     fi
 fi
-sudo chown -R $(logname):$(logname) /home/$(logname)/Sites
+
 # multi user
