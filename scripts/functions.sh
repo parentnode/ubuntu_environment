@@ -305,10 +305,10 @@ createOrModifyBashProfile(){
 		else
 			updateContent "# enable parentnode git prompt" "$conf" "$HOME/.bash_profile"
 			updateContent "# parentnode alias" "$conf" "$HOME/.bash_profile"
-			#if [ "$1" = "client" ];
-			#then
-			#	updateContent "# multi user" "$conf" "$HOME/.bash_profile"
-			#fi
+			if [ "$1" = "client" ];
+			then
+				updateContent "# multi user" "$conf" "$HOME/.bash_profile"
+			fi
 		fi
 	else
 		syncronizeAlias
