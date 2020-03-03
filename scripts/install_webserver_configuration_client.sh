@@ -100,6 +100,7 @@ if test "$install_webserver_conf" = "Y"; then
     if [ ! -e "/srv/sites/apache/apache.conf" ]; then
         # Add Default apache conf
         cat /srv/tools/conf-client/apache.conf > /srv/sites/apache/apache.conf
+        chown $install_user:$install_user /srv/sites/apache/apache.conf
     fi
 
     cp "/srv/tools/conf/ssl/star_local.crt" "/srv/sites/apache/ssl/star_local.crt"
