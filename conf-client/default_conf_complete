@@ -33,7 +33,8 @@ alias enable_site="/srv/tools/scripts/enable_site.sh"
 if [ -e "/srv/sites" ]; then 
     sites_symlink_exists=$(ls -Fla /srv | grep /home/ | cut -d \/ -f3)
     if [ "$sites_symlink_exists" != "$(logname)"  ]; then
-        sudo rm /srv/sites
+        echo "Creating Symlink"
+		sudo rm /srv/sites
         sudo ln -s /home/$(logname)/Sites /srv/sites
 		sudo chown -R $(logname):$(logname) /home/$(logname)/Sites
 		sudo service apache2 restart
