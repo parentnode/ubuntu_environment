@@ -32,10 +32,10 @@ alias enable_site="/srv/tools/scripts/enable_site.sh"
 # multi user
 if [ -e "/srv/sites" ]; then 
     sites_symlink_exists=$(ls -Fla /srv | grep /home/ | cut -d \/ -f3)
-    if [ "$sites_symlink_exists" != "$install_user"  ]; then
+    if [ "$sites_symlink_exists" != "$(logname)"  ]; then
         sudo rm /srv/sites
-        sudo ln -s /home/$install_user/Sites /srv/sites
+        sudo ln -s /home/$(logname)/Sites /srv/sites
     fi
 fi
-sudo chown -R $install_user:$install_user /home/$install_user/Sites
+sudo chown -R $(logname):$(logname) /home/$(logname)/Sites
 # multi user
