@@ -37,4 +37,5 @@ if [ -e "/srv/sites" ]; then
         ln -s /home/$install_user/Sites /srv/sites
     fi
 fi
+sudo chown -R $install_user:$install_user /home/$install_user/Sites
 # multi user
