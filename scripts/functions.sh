@@ -303,11 +303,11 @@ createOrModifyBashProfile(){
 			sudo rm $HOME/.bash_profile
 			sudo cp $conf /$HOME/.bash_profile
 		else
-			updateContent "# enable parentnode git prompt" "$conf" "$HOME/.bash_profile"
-			updateContent "# parentnode alias" "$conf" "$HOME/.bash_profile"
+			updateContent "# parentnode_git_prompt" "$conf" "$HOME/.bash_profile"
+			updateContent "# parentnode_alias" "$conf" "$HOME/.bash_profile"
 			if [ "$1" = "client" ];
 			then
-				updateContent "# multi user" "$conf" "$HOME/.bash_profile"
+				updateContent "# parentnode_multi_user" "$conf" "$HOME/.bash_profile"
 			fi
 		fi
 	else
