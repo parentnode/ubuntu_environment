@@ -40,5 +40,4 @@ if [ -e "/srv/sites" ]; then
 		sudo service apache2 restart
     fi
 fi
-
 # parentnode_multi_user
