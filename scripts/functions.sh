@@ -281,7 +281,7 @@ createOrModifyBashProfile(){
 		export bash_profile_modify
 	else
 		outputHandler "comment" "Installing .bash_profile"
-		sudo cp $conf /$HOME/.bash_profile
+		sudo cp $conf $HOME/.bash_profile
 		install_bash_profile=$(grep -E ". $HOME/.bash_profile" $shell || echo "")
 		#install_bash_profile=$(grep -E "\$HOME\/\.bash_profile" /home/$install_user/.bashrc || echo "")
 		if [ -z "$install_bash_profile" ]; then
