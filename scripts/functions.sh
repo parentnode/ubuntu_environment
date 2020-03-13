@@ -296,20 +296,6 @@ createOrModifyBashProfile(){
 	fi
 	if [ "$bash_profile_modify" = "Y" ]; then 
 		outputHandler "comment" "Modifying existing .bash_profile"
-		#does_parentnode_git_exist=$(grep -E "git_prompt ()" $HOME/.bash_profile || echo "")
-		#does_parentnode_alias_exist=$(grep -E "alias" $HOME/.bash_profile || echo "")
-		#if [ -z "$does_parentnode_git_exist" ] || [ -z "$does_parentnode_alias_exist" ];
-		#then
-		#	sudo rm $HOME/.bash_profile
-		#	sudo cp $conf /$HOME/.bash_profile
-		#else
-		#	updateContent "# parentnode_git_prompt" "$conf" "$HOME/.bash_profile"
-		#	updateContent "# parentnode_alias" "$conf" "$HOME/.bash_profile"
-		#	if [ "$1" = "client" ];
-		#	then
-		#		updateContent "# parentnode_multi_user" "$conf" "$HOME/.bash_profile"
-		#	fi
-		#fi
 		case "true" in 
 			"$(checkFileContent "git_prompt ()" "$HOME/.bash_profile")" \
 			| "$(checkFileContent "alias" "$HOME/.bash_profile")" \
@@ -319,7 +305,6 @@ createOrModifyBashProfile(){
 				updateContent "# parentnode_alias" "$conf" "$HOME/.bash_profile"
 				updateContent "# parentnode_multi_user" "$conf" "$HOME/.bash_profile"
 				;;
-			#These following commentary cases are used for installing and configuring setup
 			*)
 				sudo rm $HOME/.bash_profile
 				sudo cp $conf /$HOME/.bash_profile
