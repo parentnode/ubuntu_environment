@@ -311,16 +311,12 @@ createOrModifyBashProfile(){
 		#	fi
 		#fi
 		case "true" in 
-			"$(checkFileContent "# parentnode_git_prompt" "$HOME/.bash_profile")")
+			"$(checkFileContent "git_prompt ()" "$HOME/.bash_profile")" \
+			| "$(checkFileContent "alias" "$HOME/.bash_profile")" \
+			| "$(checkFileContent "# parentnode_multi_user" "$HOME/.bash_profile")")
 				echo "Updating parentnode git prompt"
 				updateContent "# parentnode_git_prompt" "$conf" "$HOME/.bash_profile"
-				;;
-			"$(checkFileContent "# parentnode_alias" "$HOME/.bash_profile")")
-				echo "Updating parentnode aliasses"
 				updateContent "# parentnode_alias" "$conf" "$HOME/.bash_profile"
-				;;
-			"$(checkFileContent "# parentnode_multi_user" "$HOME/.bash_profile")")
-				echo "Updating parentnode multi user settings"
 				updateContent "# parentnode_multi_user" "$conf" "$HOME/.bash_profile"
 				;;
 			#These following commentary cases are used for installing and configuring setup
