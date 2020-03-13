@@ -46,7 +46,7 @@ else
 fi
 
 echo ".bash_profile"
-createOrModifyBashProfile "client"
+$(createOrModifyBashProfile "client")
 
 outputHandler "comment" "MariaDB password"
 if test "$install_webserver_conf" = "Y"; then
