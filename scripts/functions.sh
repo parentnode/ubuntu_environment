@@ -325,8 +325,8 @@ createOrModifyBashProfile(){
 				sudo cp $conf /$HOME/.bash_profile
 				;;
 		esac
-#	else
-#		syncronizeAlias
+	else
+		syncronizeAlias
 	fi
 	
 }
