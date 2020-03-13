@@ -299,12 +299,12 @@ createOrModifyBashProfile(){
 		case "true" in 
 			$(checkFileContent "git_prompt ()" "$HOME/.bash_profile") | $(checkFileContent "alias" "$HOME/.bash_profile"))
 				# if git prompt definition is provided by parentnode
-				if [ checkFileContent "# parentnode_git_prompt" "$HOME/.bash_profile" = "true" ]; then
+				if [ "$(checkFileContent "# parentnode_git_prompt" "$HOME/.bash_profile")" = "true" ]; then
 					# update existing git prompt definition section
 					updateContent "# parentnode_git_prompt" "$conf" "$HOME/.bash_profile"
 				fi
 				# if alias is provided by parentnode
-				if [ checkFileContent "# parentnode_alias" "$HOME/.bash_profile" = "true" ]; then
+				if [ "$(checkFileContent "# parentnode_alias" "$HOME/.bash_profile")" = "true" ]; then
 					# update existing alias section
 					updateContent "# parentnode_alias" "$conf" "$HOME/.bash_profile"
 				else
