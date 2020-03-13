@@ -263,6 +263,7 @@ trimString(){
 }
 export -f trimString
 
+# Making sure a new parentnode webstack-user having access to shorthand alias and a unified terminal experience 
 createOrModifyBashProfile(){
 	if [ "$1" = "server" ]; then
 		conf="/srv/tools/conf-server/dot_profile"
@@ -296,21 +297,34 @@ createOrModifyBashProfile(){
 	fi
 	if [ "$bash_profile_modify" = "Y" ]; then 
 		outputHandler "comment" "Modifying existing .bash_profile"
+		# Switch case checking for either a git prompt definition is present or alias is present allready
 		case "true" in 
 			"$(checkFileContent "git_prompt ()" "$HOME/.bash_profile")" \
-			| "$(checkFileContent "alias" "$HOME/.bash_profile")" \
-			| "$(checkFileContent "# parentnode_multi_user" "$HOME/.bash_profile")")
-				echo "Updating parentnode git prompt"
-				updateContent "# parentnode_git_prompt" "$conf" "$HOME/.bash_profile"
-				updateContent "# parentnode_alias" "$conf" "$HOME/.bash_profile"
+			| "$(checkFileContent "alias" "$HOME/.bash_profile")")
+				# if git prompt definition is provided by parentnode
+				if [ checkFileContent "# parentnode_git_prompt" "$HOME/.bash_profile") = "true" ]; then
+					# update existing git prompt definition section
+					updateContent "# parentnode_git_prompt" "$conf" "$HOME/.bash_profile"
+				fi
+				# if alias is provided by parentnode
+				if [ checkFileContent "# parentnode_alias" "$HOME/.bash_profile") = "true" ]; then
+					# update existing alias section
+					updateContent "# parentnode_alias" "$conf" "$HOME/.bash_profile"
+				else
+					# if alias is not parentnode alias add them  
+					syncronizeAlias
+				fi	
+				# if more than one user is present at the system (client only) add the multiuser section
 				updateContent "# parentnode_multi_user" "$conf" "$HOME/.bash_profile"
 				;;
+			# if .bash_profile is not listing any of the above, we must asume .bash_profile is broken.
 			*)
 				sudo rm $HOME/.bash_profile
 				sudo cp $conf /$HOME/.bash_profile
 				;;
 		esac
 	else
+		# parentnode aliasses is necessary for a parentnode environment
 		syncronizeAlias
 	fi
 	
