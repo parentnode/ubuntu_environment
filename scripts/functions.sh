@@ -304,7 +304,7 @@ createOrModifyBashProfile(){
 					updateContent "# parentnode_git_prompt" "$conf" "$HOME/.bash_profile"
 				fi
 				# if alias is provided by parentnode
-				if [ checkFileContent "# parentnode_alias" "$HOME/.bash_profile") = "true" ]; then
+				if [ checkFileContent "# parentnode_alias" "$HOME/.bash_profile" = "true" ]; then
 					# update existing alias section
 					updateContent "# parentnode_alias" "$conf" "$HOME/.bash_profile"
 				else
