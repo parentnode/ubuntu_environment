@@ -297,7 +297,7 @@ createOrModifyBashProfile(){
 		outputHandler "comment" "Modifying existing .bash_profile"
 		# Switch case checking for either a git prompt definition is present or alias is present allready
 		case "true" in 
-			"$(checkFileContent "git_prompt ()" "$HOME/.bash_profile")" | "$(checkFileContent "alias" "$HOME/.bash_profile")")
+			$(checkFileContent "git_prompt ()" "$HOME/.bash_profile") | $(checkFileContent "alias" "$HOME/.bash_profile"))
 				# if git prompt definition is provided by parentnode
 				if [ checkFileContent "# parentnode_git_prompt" "$HOME/.bash_profile") = "true" ]; then
 					# update existing git prompt definition section
