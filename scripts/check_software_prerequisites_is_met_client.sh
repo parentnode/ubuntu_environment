@@ -44,6 +44,7 @@ else
 	install_email=$(ask "Enter Apache email" "${install_email_array[@]}" "apache email")
 	export install_email
 fi
+
 createOrModifyBashProfile "client"
 
 outputHandler "comment" "MariaDB password"
