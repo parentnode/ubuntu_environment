@@ -265,6 +265,7 @@ export -f trimString
 
 # Making sure a new parentnode webstack-user having access to shorthand alias and a unified terminal experience 
 createOrModifyBashProfile(){
+	echo "testing .bash_profile"
 	if [ "$1" = "server" ]; then
 		conf="/srv/tools/conf-server/dot_profile"
 		shell="$HOME/.profile"
