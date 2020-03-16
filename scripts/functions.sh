@@ -133,9 +133,6 @@ checkMariadbPassword(){
 	# When the service are installed it can either be running or dead
 	# If there is output of this command if it is active or not active then mariadb service is installed
 	mariadb_status="$(service mariadb status 2>&1 > /dev/null)"
-	#echo
-	#output_t=$(echo "$tester" | grep ^"Unit")
-	#echo "$output_t"
 	if [ "$mariadb_status" = "Unit mariadb.service could not be found." ]; then
 		echo "false"
 	else
