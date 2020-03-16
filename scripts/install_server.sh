@@ -145,7 +145,7 @@ outputHandler "comment" "Installing system for $install_user"
 
 # GET CURRENT PORT NUMBER AND IP ADDRESS
 port_number=$(grep -E "^Port\ ([0-9]+)$" /etc/ssh/sshd_config | sed "s/Port //;")
-ip_address=$(hostname -i | cut -d ' ' -f2)
+ip_address=$(hostname -I | cut -d ' ' -f1)
 # The "dig" way of getting IP does not work with Linode images
 # Consider replacing with:
 # curl -s http://whatismyip.akamai.com/

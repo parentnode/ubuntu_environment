@@ -45,7 +45,6 @@ else
 	export install_email
 fi
 
-echo ".bash_profile"
 createOrModifyBashProfile "client"
 
 outputHandler "comment" "MariaDB password"
