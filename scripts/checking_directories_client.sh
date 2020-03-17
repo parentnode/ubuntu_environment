@@ -1,22 +1,7 @@
 #!/bin/bash -e
 outputHandler "section" "Checking directories"
-#create_folder_if_no_exist
-
-
 checkFolderExistOrCreate "/home/$install_user/Sites"
-#checkFolderExistOrCreate "/home/$install_user/Sites/parentnode"
-#checkFolderExistOrCreate "/srv"
-#checkFolderExistOrCreate "/srv/sites"
-#sites_symlink_exists=$(ls -Fla /srv/sites | grep /home/ | cut -d \/ -f3)
-#
-#if [ -e "/srv/sites" ]; then 
-#    sites_symlink_exists=$(ls -Fla /srv | grep /home/ | cut -d \/ -f3)
-#    if [ "$sites_symlink_exists" != "$install_user"  ]; then
-#        rm /srv/sites/parentnode
-#        ln -s /home/$install_user/Sites/parentnode /srv/sites/parentnode
-#    fi
-#
-#fi
+
 if [ ! -e /srv/sites ]; then
      ln -s /home/$install_user/Sites /srv/sites
 else

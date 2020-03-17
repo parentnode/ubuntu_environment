@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-outputHandler "section" "MAIL"
+outputHandler "comment" "Installing mail"
 
 # MAIL
 if test "$install_mail" = "Y"; then
@@ -53,13 +53,13 @@ if test "$install_mail" = "Y"; then
 		echo
 
 	else
-		outputHandler "section" "Setting up mail tools failed!"
+		outputHandler "comment" "Setting up mail tools failed!"
 
 	fi
 
 
 else
-	outputHandler "section" "Skipping MAIL" 
+	outputHandler "comment" "Skipping MAIL" 
 
 fi
 
