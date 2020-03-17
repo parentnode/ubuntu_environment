@@ -1,54 +1,30 @@
 #!/bin/bash -e
-
-outputHandler "section" "To speed up the process, please select your install options now:"
-
-install_security_array=("[Yn]")
-install_security=$(ask "Secure the server (Y/n)" "${install_security_array[@]}" "input secure the server")
-export install_security
-
+outputHandler "section" "Checking Software Prerequisites are met"
+outputHandler "comment" "To speed up the process, please select your install options now:"
 install_software_array=("[Yn]")
-install_software=$(ask "Install Software (Y/n)" "${install_software_array[@]}" "input software")
+install_software=$(ask "Install Software (Y/n)" "${install_software_array[@]}" "option software")
 export install_software
 
-
 install_webserver_conf_array=("[Yn]")
-install_webserver_conf=$(ask "Set up Apache/PHP/MariaDB for user (Y/n)" "${install_webserver_conf_array[@]}" "input apache/php/mariadb")
+install_webserver_conf=$(ask "Install Webserver Configuration (Y/n)" "${install_webserver_conf_array[@]}" "option webserver conf")
 export install_webserver_conf
 
-install_htpassword_array=("[Yn]")
-install_htpassword_for_user=$(ask "Set up .htaccess for user (Y/n)" "${install_htpassword_array[@]}" "input htaccess")
-export install_htpassword_for_user
-
 install_ffmpeg_array=("[Yn]")
-install_ffmpeg=$(ask "Install FFMPEG (Y/n)" "${install_ffmpeg_array[@]}" "input ffmpeg")
+install_ffmpeg=$(ask "Install FFMPEG (Y/n)" "${install_ffmpeg_array[@]}" "option ffmpeg")
 export install_ffmpeg
 
-#read -p "Install wkhtmlto (Y/n): " install_wkhtml
-#export install_wkhtml
 install_wkhtml_array=("[Yn]")
-install_wkhtml=$(ask "Install WKHTMLTOPDF (Y/n)" "${install_wkhtml_array[@]}" "input wkhtml")
+install_wkhtml=$(ask "Install WKHTMLTOPDF (Y/n)" "${install_wkhtml_array[@]}" "option wkhtml")
 export install_wkhtml
-#read -p "Install mail (Y/n): " install_mail
-#export install_mail
-# Setting up server to send system notifications
-install_mail_array=("[Yn]")
-install_mail=$(ask "Install MAIL (Y/n)" "${install_mail_array[@]}" "input mail")
-export install_mail
 
-#read -p "Install Let's encrypt (Y/n): " install_letsencrypt
-#export install_letsencrypt
-
-#read -p "Your email address: " install_email
-#export install_email
-
-# Setting mail address for use with system notification mail
+outputHandler "comment" "Apache email configuration"
 if [ "$(fileExists "/etc/apache2/sites-available/default.conf")" = "true" ]; then 
 	outputHandler "comment" "defaul.conf Exist"
 	grep_apache_email=$(trimString "$(grep "ServerAdmin" /etc/apache2/sites-available/default.conf)")
     is_there_apache_email=$(echo "$grep_apache_email" | cut -d' ' -f2)
 	
 	if [ -z "$is_there_apache_email" ]; then 
-		echo "No apache email present"
+		outputHandler "comment" "No apache email present"
 		install_email_array=("[A-Za-z0-9\.\-]+@[A-Za-z0-9\.\-]+\.[a-z]{2,10}")
 		install_email=$(ask "Enter Apache email" "${install_email_array[@]}" "apache email")
 		export install_email
@@ -58,7 +34,7 @@ if [ "$(fileExists "/etc/apache2/sites-available/default.conf")" = "true" ]; the
 	fi
 
 	if [ "$is_there_apache_email" = "webmaster@localhost" ]; then
-		echo "apache email is webmaster@localhost"
+		outputHandler "comment" "apache email is webmaster@localhost"
 		install_email_array=("[A-Za-z0-9\.\-]+@[A-Za-z0-9\.\-]+\.[a-z]{2,10}")
 		install_email=$(ask "Enter Apache email" "${install_email_array[@]}" "apache email")
 		export install_email
@@ -69,49 +45,9 @@ else
 	export install_email
 fi
 
+createOrModifyBashProfile "client"
 
-# HTACCESS PASSWORD
-if test "$install_htpassword_for_user" = "Y"; then
-
-	#read -s -p "HTACCESS password for $install_user: " install_htaccess_password
-	password_array=("[A-Za-z0-9\!\@\$]{8,30}")
-	install_htaccess_password=$( ask "HTACCESS password for $install_user" "${password_array[@]}" "password")
-	export install_htaccess_password
-fi
-
-outputHandler "section" "Provide SSH Port"
-# SSH PORT
-if test "$install_security" = "Y"; then
-
-	# GET CURRENT PORT NUMBER
-	port_number=$(grep -E "^Port\ ([0-9]+)$" /etc/ssh/sshd_config | sed "s/Port //;")
-	#read -p "Specify SSH port (leave empty to keep $port_number): " install_port
-	port_array=("[0-9]{2,6}")
-	if [ -z "$port_number" ]; then
-		install_port=$(ask "Specify SSH port" "${port_array[@]}" "port")
-		#if [ $install_port > 65535 ]; then
-		while [ "$install_port" -ge "65535" ]
-		do
-			outputHandler "comment" "Portnumber range to high (limit is 65535)"
-			install_port=$(ask "Specify SSH port" "${port_array[@]}" "port")
-		done
-	else
-		outputHandler "comment" "Existing ssh port: $port_number"
-		override_array=("[Yn]")
-		override=$(ask "Override Existing ssh port (Y/n)" "${override_array[@]}" "option for override")
-		if [ "$override" = "Y" ]; then 
-			install_port=$(ask "Specify new SSH port" "${port_array[@]}" "port")
-		else
-			install_port=$port_number
-		fi
-	fi
-	export install_port
-fi
-outputHandler "section" ".bash_profile"
-createOrModifyBashProfile "server"
-
-# MYSQL ROOT PASSWORD
-outputHandler "section" "Provide MariaDB password "
+outputHandler "comment" "MariaDB password"
 if test "$install_webserver_conf" = "Y"; then
 	
 	#Check if mariadb are installed and running
@@ -126,7 +62,7 @@ if test "$install_webserver_conf" = "Y"; then
 		if [  "$db_root_password1" != "$db_root_password2"  ]; then
 		    while [ true ]
 		    do
-		        outputHandler "comment" "Password Doesn't Match"
+		        echo "Password doesn't match"
 		        echo
 		        #password1=$( ask "Enter mariadb password" "${password_array[@]}" "Password")
 		        db_root_password1=$( ask "Enter mariadb password" "${password_array[@]}" "password")
@@ -135,23 +71,22 @@ if test "$install_webserver_conf" = "Y"; then
 		        echo "" 
 		        if [ "$db_root_password1" == "$db_root_password2" ];
 		        then
-		            outputHandler "comment" "Password Match"
+		            echo "Password Match"
 		            break
 		        fi
 		        export db_root_password1
 		    done
 		else
-		    outputHandler "comment" "Password Match"
+		    echo "Password Match"
 			export db_root_password1
 		fi
 	else 
-		outputHandler "section" "Mariadb password allready set up"
+		outputHandler "comment" "Mariadb password allready set up"
 	fi	
 fi
 
 
-# SETTING DEFAULT GIT USER
-outputHandler "section" "Setting Default GIT User setting"
+outputHandler "comment" "Setting Default GIT User setting"
 # SETTING DEFAULT GIT USER
 
 # Checks if git credential are allready set, promts for input if not
@@ -171,6 +106,7 @@ else
 	git_email="$(checkGitCredential "email")"
 	export git_email
 fi
+
 git config --global core.filemode false
 outputHandler "comment" "git core.filemode: $(git config --global core.filemode)"
 git config --global user.name "$git_username"
@@ -180,7 +116,7 @@ outputHandler "comment" "git user email: $(git config --global user.email)"
 git config --global credential.helper cache
 outputHandler "comment" "git credential.helper: $(git config --global credential.helper)"
 
-outputHandler "section" "Time zone"
+outputHandler "comment" "Setting Time zone"
 
 look_for_ex_timezone=$(sudo timedatectl status | grep "Time zone: " | cut -d ':' -f2)
 if [ -z "$look_for_ex_timezone" ]; then
