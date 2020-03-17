@@ -1,7 +1,7 @@
 #!/bin/bash -e
 outputHandler "comment" "FFMPEG"
 if test "$install_ffmpeg" = "Y"; then
-    outputHandler "section" "Installing FFMPEG"
+    outputHandler "comment" "Installing FFMPEG"
     #command "sudo -k apt-get install -y ffmpeg"
     command "sudo -k apt install -y ffmpeg"
     # # FFMPEG - FORCE PASSWORD RENEWAL (BUILDING FFMPEG TAKES TIME)
