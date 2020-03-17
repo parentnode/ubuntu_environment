@@ -225,12 +225,12 @@ syncronizeAlias(){
 }
 export -f syncronizeAlias
 
-updateContent(){
+deleteAndAppendSection(){
     sed -i "/$1/,/$1/d" "$3" 
     readdata=$( < $2)
     echo "$readdata" | sed -n "/$1/,/$1/p" >> "$3"
 }
-export -f updateContent
+export -f deleteAndAppendSection
 
 # Check folder exists create if not
 checkFolderExistOrCreate(){
@@ -297,18 +297,18 @@ createOrModifyBashProfile(){
 				# if git prompt definition is provided by parentnode
 				if [ "$(checkFileContent "# parentnode_git_prompt" "$HOME/.bash_profile")" = "true" ]; then
 					# update existing git prompt definition section
-					updateContent "# parentnode_git_prompt" "$conf" "$HOME/.bash_profile"
+					deleteAndAppendSection "# parentnode_git_prompt" "$conf" "$HOME/.bash_profile"
 				fi
 				# if alias is provided by parentnode
 				if [ "$(checkFileContent "# parentnode_alias" "$HOME/.bash_profile")" = "true" ]; then
 					# update existing alias section
-					updateContent "# parentnode_alias" "$conf" "$HOME/.bash_profile"
+					deleteAndAppendSection "# parentnode_alias" "$conf" "$HOME/.bash_profile"
 				else
 					# if alias is not parentnode alias add them  
 					syncronizeAlias
 				fi	
 				# if more than one user is present at the system (client only) add the multiuser section
-				updateContent "# parentnode_multi_user" "$conf" "$HOME/.bash_profile"
+				deleteAndAppendSection "# parentnode_multi_user" "$conf" "$HOME/.bash_profile"
 				;;
 			# if .bash_profile is not listing any of the above, we must asume .bash_profile is broken.
 			*)
