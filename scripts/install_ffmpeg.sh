@@ -1,5 +1,5 @@
 #!/bin/bash -e
-outputHandler "section" "FFMPEG"
+outputHandler "comment" "FFMPEG"
 if test "$install_ffmpeg" = "Y"; then
     outputHandler "section" "Installing FFMPEG"
     #command "sudo -k apt-get install -y ffmpeg"
@@ -15,6 +15,6 @@ if test "$install_ffmpeg" = "Y"; then
     # rm -R ffmpeg-3.2.1
 
 else
-    outputHandler "section" "Skipping FFMPEG"
+    outputHandler "comment" "Skipping FFMPEG"
 fi
 

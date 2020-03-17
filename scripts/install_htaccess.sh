@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-outputHandler "section" "HTACCESS"
+outputHandler "comment" "HTACCESS"
 
 if test "$install_htpassword_for_user" = "Y"; then
 
@@ -17,6 +17,6 @@ if test "$install_htpassword_for_user" = "Y"; then
 	fi
 
 else
-	outputHandler "section" "Skipping HTACCESS"
+	outputHandler "comment" "Skipping HTACCESS"
 
 fi

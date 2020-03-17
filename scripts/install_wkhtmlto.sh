@@ -1,5 +1,5 @@
 #!/bin/bash -e
-outputHandler "section" "WKHTML"
+outputHandler "comment" "WKHTML"
 outputHandler "comment" "http://wkhtmltopdf.org - LGPLv3"
 
 if test "$install_wkhtml" = "Y"; then
@@ -21,6 +21,6 @@ if test "$install_wkhtml" = "Y"; then
 	#sudo cp /usr/local/bin/wkhtmltopdf /srv/tools/bin/wkhtmltopdf
 
 else
-	outputHandler "section" "skipping WKHTML"
+	outputHandler "comment" "skipping WKHTML"
 fi
 

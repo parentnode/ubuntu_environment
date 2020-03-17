@@ -17,7 +17,6 @@ outputHandler(){
 	#$1 - type eg. Comment, Section, Exit
 	#$2 - text for output
 	#$3,4,5 are extra text when needed
-	
 	case $1 in 
 		"comment")
 			echo
@@ -105,7 +104,7 @@ ask(){
 export -f ask
 
 # Check if program/service are installed
-testResponse(){
+testCommandResponse(){
 # Usage: returns the response of a command e.g if a service or a program are installed and running or stopped/dead
 # P1: kommando
 # P2: array of valid responses
@@ -119,7 +118,7 @@ testResponse(){
 	done
 
 }
-export -f testResponse
+export -f testCommandResponse
 
 # Check if git credential are set e.g username
 checkGitCredential(){
@@ -140,7 +139,7 @@ checkMariadbPassword(){
 		#echo "Mariadb installed:  $mariadb_installed"
 		if [ -n "$mariadb_installed" ]; then
 			valid_status=("dead" "running")
-			mariadb_running=$(testResponse "service mariadb status" "${valid_status[@]}" || echo "")
+			mariadb_running=$(testCommandResponse "service mariadb status" "${valid_status[@]}" || echo "")
 			#echo "Mariadb Running: $mariadb_running"
 			# if service is running
 			if [ -n "$(echo $mariadb_running | grep -o running)" ]; then
