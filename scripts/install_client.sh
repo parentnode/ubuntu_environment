@@ -19,7 +19,7 @@ export install_user
 outputHandler "comment" "Installing system for $install_user"
 
 # Check software prerequisites is met
-. /srv/tools/scripts/check_software_prerequisites_is_met_client.sh
+. /srv/tools/scripts/pre_install_check_client.sh
 
 # Checking directories
 . /srv/tools/scripts/checking_directories_client.sh
@@ -28,7 +28,7 @@ outputHandler "comment" "Installing system for $install_user"
 . /srv/tools/scripts/install_software.sh
 
 # Setting up configuration files for the webserver
-. /srv/tools/scripts/install_webserver_configuration_client.sh
+. /srv/tools/scripts/post_install_setup_client.sh
 
 
 

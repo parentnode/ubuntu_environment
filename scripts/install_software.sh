@@ -41,14 +41,10 @@ if test "$install_software" = "Y"; then
 	command "sudo apt-get install -y curl"
 	outputHandler "comment" "Installing MariaDB Server"
 	command "sudo -E apt-get install -q -y mariadb-server"
-	
-	# Executes the install ffmpeg script
+	# INSTALL FFMPEG
 	. /srv/tools/scripts/install_ffmpeg.sh
-	# Executes the install wkhtmltopdf script
+	# INSTALL WKHTMLTO
 	. /srv/tools/scripts/install_wkhtmlto.sh
-
-
-	
 	# INSTALL SYS-INFO
 	# aptitude install landscape-client landscape-common
 

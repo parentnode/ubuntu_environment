@@ -105,7 +105,7 @@ outputHandler "comment" "Installing system for $install_user"
 #echo
 #sudo timedatectl set-timezone "Europe/Copenhagen"
 #
-. /srv/tools/scripts/check_software_prerequisites_is_met_server.sh
+. /srv/tools/scripts/pre_install_check_server.sh
 
 # Checking directories
 . /srv/tools/scripts/checking_directories_server.sh
@@ -115,23 +115,19 @@ outputHandler "comment" "Installing system for $install_user"
 ## INSTALL SOFTWARE
 . /srv/tools/scripts/install_software.sh
 #
-# INSTALL WEBSERVER CONFIGURATION
-. /srv/tools/scripts/install_webserver_configuration_server.sh
-
 # INSTALL HTACCESS PASSWORD
 . /srv/tools/scripts/install_htaccess.sh
-#
-# INSTALL FFMPEG
-. /srv/tools/scripts/install_ffmpeg.sh
-#
-# INSTALL WKHTMLTO
-. /srv/tools/scripts/install_wkhtmlto.sh
 
 # INSTALL MAIL
 . /srv/tools/scripts/install_mail.sh
 
 # INSTALL LET'S ENCRYPT
 #. /srv/tools/scripts/install_letsencrypt.sh
+
+# INSTALL WEBSERVER CONFIGURATION
+. /srv/tools/scripts/post_install_setup_server.sh
+
+
 
 
 
