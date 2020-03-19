@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-outputHandler "section" "SECURITY"
+outputHandler "comment" "SECURITY"
 
 if [ "$install_security" = "Y" ]; then
 
@@ -134,6 +134,6 @@ if [ "$install_security" = "Y" ]; then
 	service ssh restart
 
 else
-	outputHandler "section" "Skipping security"
+	outputHandler "comment" "Skipping security"
 
 fi
