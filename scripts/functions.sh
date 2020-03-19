@@ -260,13 +260,14 @@ trimString(){
 export -f trimString
 
 createOrModifyBashProfile(){
-	if [ "$1" = "server" ]; then
-		conf="/srv/tools/conf-server/dot_profile"
-		shell="$HOME/.profile"
-	fi
-	if [ "$1" = "client" ]; then
+	# if $shell_interactive have value, the computer is accessed with an login prompt normally a server
+	shell_interactive=$(shopt login_shell | grep "on")
+	if [ -z $shell_interactive ]; then
 		conf="/srv/tools/conf-client/default_conf_complete"
-		shell="$HOME/.bashrc"
+		#shell="$HOME/.profile"
+	else
+		conf="/srv/tools/conf-server/dot_profile"
+		#shell="$HOME/.bashrc"
 	fi
 	if [ "$(fileExists "$HOME/.bash_profile")" = true ];then
 		outputHandler "comment" ".bash_profile Exist"
@@ -274,20 +275,25 @@ createOrModifyBashProfile(){
 		bash_profile_modify=$(ask "Do you want to modify existing .bash_profile (Y/n) !this will override existing .bash_profile!" "${bash_profile_modify_array[@]}" "option bash profile")
 		export bash_profile_modify
 	else
-		#outputHandler "comment" "Installing \.bash_profile"
+		#outputHandler "comment" "Installing \.bash_profile"´
 		sudo cp $conf $HOME/.bash_profile
-		install_bash_profile=$(grep -E ". $HOME/.bash_profile" $shell || echo "")
-		#install_bash_profile=$(grep -E "\$HOME\/\.bash_profile" /home/$install_user/.bashrc || echo "")
-		#if [ -z "$install_bash_profile" ]; then
-		#	outputHandler "comment" "Setting .bash_profile up with .bash_profile"
-		#	# Add .bash_profile to .bashrc
-		#	echo
-		#	echo "if [ -f \"$HOME/.bash_profile\" ]; then" >> $shell
-		#	echo " . $HOME/.bash_profile" >> $shell
-		#	echo "fi" >> $shell
-		#else
-		#	outputHandler "comment" ".bash_profile Installed"
-		#fi
+		if [ -z $shell_interactive ];then
+			install_bash_profile=$(grep -E ". $HOME/.bash_profile" $shell || echo "")
+			#install_bash_profile=$(grep -E "\$HOME\/\.bash_profile" /home/$install_user/.bashrc || echo "")
+			if [ -z "$install_bash_profile" ]; then
+				outputHandler "comment" "Setting up .bash_profile"
+				# Add .bash_profile to .bashrc
+				echo "" >> $HOME/.bashrc
+				echo "if [ -f \"$HOME/.bash_profile\" ]; then" >> $HOME/.bashrc
+				echo " . $HOME/.bash_profile" >> $HOME/.bashrc
+				echo "fi" >> $HOME/.bashrc
+			else
+				outputHandler "comment" ".bash_profile Installed"
+			fi
+		
+		else
+			outputHandler "comment" ".bash_profile Installed"
+		fi
 	fi
 	if [ "$bash_profile_modify" = "Y" ]; then 
 		outputHandler "comment" "Modifying existing .bash_profile"
