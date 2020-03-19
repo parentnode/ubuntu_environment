@@ -1,6 +1,6 @@
 #!/bin/bash -e
-
-outputHandler "section" "To speed up the process, please select your install options now:"
+outputHandler "section" "Checking Software Prerequisites are met"
+outputHandler "comment" "To speed up the process, please select your install options now:"
 
 install_security_array=("[Yn]")
 install_security=$(ask "Secure the server (Y/n)" "${install_security_array[@]}" "input secure the server")
@@ -48,9 +48,9 @@ if [ "$(fileExists "/etc/apache2/sites-available/default.conf")" = "true" ]; the
     is_there_apache_email=$(echo "$grep_apache_email" | cut -d' ' -f2)
 	
 	if [ -z "$is_there_apache_email" ]; then 
-		outputHandler "comment" "No apache email present"
+		outputHandler "comment" "No apache email address present"
 		install_email_array=("[A-Za-z0-9\.\-]+@[A-Za-z0-9\.\-]+\.[a-z]{2,10}")
-		install_email=$(ask "Enter Apache email" "${install_email_array[@]}" "apache email")
+		install_email=$(ask "Enter Apache email address" "${install_email_array[@]}" "apache email address")
 		export install_email
 	else
 		install_email=$is_there_apache_email
@@ -60,12 +60,12 @@ if [ "$(fileExists "/etc/apache2/sites-available/default.conf")" = "true" ]; the
 	if [ "$is_there_apache_email" = "webmaster@localhost" ]; then
 		outputHandler "comment" "apache email is webmaster@localhost"
 		install_email_array=("[A-Za-z0-9\.\-]+@[A-Za-z0-9\.\-]+\.[a-z]{2,10}")
-		install_email=$(ask "Enter Apache email" "${install_email_array[@]}" "apache email")
+		install_email=$(ask "Enter Apache email address" "${install_email_array[@]}" "apache email address")
 		export install_email
 	fi
 else 
 	install_email_array=("[A-Za-z0-9\.\-]+@[A-Za-z0-9\.\-]+\.[a-z]{2,10}")
-	install_email=$(ask "Enter Apache email" "${install_email_array[@]}" "apache email")
+	install_email=$(ask "Enter Apache email address" "${install_email_array[@]}" "apache email address")
 	export install_email
 fi
 
@@ -79,7 +79,7 @@ if test "$install_htpassword_for_user" = "Y"; then
 	export install_htaccess_password
 fi
 
-outputHandler "section" "Provide SSH Port"
+outputHandler "comment" "Provide SSH Port"
 # SSH PORT
 if test "$install_security" = "Y"; then
 
@@ -111,15 +111,18 @@ fi
 createOrModifyBashProfile "server"
 
 # MYSQL ROOT PASSWORD
-outputHandler "section" "Provide MariaDB password "
+outputHandler "comment" "Provide MariaDB database password "
 if test "$install_webserver_conf" = "Y"; then
 	
 	#Check if mariadb are installed and running
 	if [ "$(checkMariadbPassword)" = "false" ]; then
 		password_array=("[A-Za-z0-9\!\@\$]{8,30}")
+		echo "For security measures the terminal will not display how many characters you input"
+		echo ""
+		echo "Password format: between 8 and 30 characters, non casesensitive letters, numbers and  # ! @ \$ special characters "
 		db_root_password1=$( ask "Enter mariadb password" "${password_array[@]}" "password")
 		echo ""
-		db_root_password2=$( ask "Enter mariadb password again" "${password_array[@]}" "password")
+		db_root_password2=$( ask "Confirm mariadb password" "${password_array[@]}" "password")
 		echo ""
 
 		# While loop if not a match
@@ -129,9 +132,9 @@ if test "$install_webserver_conf" = "Y"; then
 		        outputHandler "comment" "Password Doesn't Match"
 		        echo
 		        #password1=$( ask "Enter mariadb password" "${password_array[@]}" "Password")
-		        db_root_password1=$( ask "Enter mariadb password" "${password_array[@]}" "password")
+		        db_root_password1=$( ask "Enter mariadb password anew" "${password_array[@]}" "password")
 		        echo ""
-		        db_root_password2=$( ask "Enter mariadb password again" "${password_array[@]}" "password")
+		        db_root_password2=$( ask "Confirm mariadb password" "${password_array[@]}" "password")
 		        echo "" 
 		        if [ "$db_root_password1" == "$db_root_password2" ];
 		        then
@@ -145,13 +148,13 @@ if test "$install_webserver_conf" = "Y"; then
 			export db_root_password1
 		fi
 	else 
-		outputHandler "section" "Mariadb password allready set up"
+		outputHandler "comment" "Mariadb password allready set up"
 	fi	
 fi
 
 
 # SETTING DEFAULT GIT USER
-outputHandler "section" "Setting Default GIT User setting"
+outputHandler "comment" "Setting Default GIT User setting"
 # SETTING DEFAULT GIT USER
 
 # Checks if git credential are allready set, promts for input if not
@@ -180,7 +183,7 @@ outputHandler "comment" "git user email: $(git config --global user.email)"
 git config --global credential.helper cache
 outputHandler "comment" "git credential.helper: $(git config --global credential.helper)"
 
-outputHandler "section" "Time zone"
+outputHandler "comment" "Time zone"
 
 look_for_ex_timezone=$(sudo timedatectl status | grep "Time zone: " | cut -d ':' -f2)
 if [ -z "$look_for_ex_timezone" ]; then
