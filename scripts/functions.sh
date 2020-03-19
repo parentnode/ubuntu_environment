@@ -262,7 +262,7 @@ export -f trimString
 createOrModifyBashProfile(){
 	if [ "$1" = "server" ]; then
 		conf="/srv/tools/conf-server/dot_profile"
-		#shell="$HOME/.profile"
+		shell="$HOME/.profile"
 	fi
 	if [ "$1" = "client" ]; then
 		conf="/srv/tools/conf-client/default_conf_complete"
