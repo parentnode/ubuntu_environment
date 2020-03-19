@@ -3,7 +3,7 @@ outputHandler "section" "Setting up configuration files for the webserver"
 
 
 if test "$install_webserver_conf" = "Y"; then
-    outputHandler "section" "Setting up Apache2"
+    outputHandler "comment" "Setting up Apache2"
     # Check for server name
 	install_apache_servername=$(grep -E "^ServerName" /etc/apache2/apache2.conf || echo "")
 	# If no results

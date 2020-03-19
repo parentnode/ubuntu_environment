@@ -26,7 +26,7 @@ if [ "$(fileExists "/etc/apache2/sites-available/default.conf")" = "true" ]; the
 	if [ -z "$is_there_apache_email" ]; then 
 		outputHandler "comment" "No apache email present"
 		install_email_array=("[A-Za-z0-9\.\-]+@[A-Za-z0-9\.\-]+\.[a-z]{2,10}")
-		install_email=$(ask "Enter Apache email" "${install_email_array[@]}" "apache email")
+		install_email=$(ask "Enter Apache email address" "${install_email_array[@]}" "apache email address")
 		export install_email
 	else
 		install_email=$is_there_apache_email
@@ -36,26 +36,29 @@ if [ "$(fileExists "/etc/apache2/sites-available/default.conf")" = "true" ]; the
 	if [ "$is_there_apache_email" = "webmaster@localhost" ]; then
 		outputHandler "comment" "apache email is webmaster@localhost"
 		install_email_array=("[A-Za-z0-9\.\-]+@[A-Za-z0-9\.\-]+\.[a-z]{2,10}")
-		install_email=$(ask "Enter Apache email" "${install_email_array[@]}" "apache email")
+		install_email=$(ask "Enter Apache email address" "${install_email_array[@]}" "apache email address")
 		export install_email
 	fi
 else 
 	install_email_array=("[A-Za-z0-9\.\-]+@[A-Za-z0-9\.\-]+\.[a-z]{2,10}")
-	install_email=$(ask "Enter Apache email" "${install_email_array[@]}" "apache email")
+	install_email=$(ask "Enter Apache email address" "${install_email_array[@]}" "apache email address")
 	export install_email
 fi
 
 createOrModifyBashProfile "client"
 
-outputHandler "comment" "MariaDB password"
+outputHandler "comment" "MariaDB database password"
 if test "$install_webserver_conf" = "Y"; then
 	
 	#Check if mariadb are installed and running
 	if [ "$(checkMariadbPassword)" = "false" ]; then
-		password_array=("[A-Za-z0-9\!\@\$]{8,30}")
+		password_array=("[A-Za-z0-9\!\@\$\#]{8,30}")
+		echo "For security measures the terminal will not display how many characters you input"
+		echo ""
+		echo "Password format: between 8 and 30 characters, non casesensitive letters, numbers and  # ! @ \$ special characters "
 		db_root_password1=$( ask "Enter mariadb password" "${password_array[@]}" "password")
 		echo ""
-		db_root_password2=$( ask "Enter mariadb password again" "${password_array[@]}" "password")
+		db_root_password2=$( ask "Confirm mariadb password" "${password_array[@]}" "password")
 		echo ""
 
 		# While loop if not a match
@@ -65,9 +68,9 @@ if test "$install_webserver_conf" = "Y"; then
 		        echo "Password doesn't match"
 		        echo
 		        #password1=$( ask "Enter mariadb password" "${password_array[@]}" "Password")
-		        db_root_password1=$( ask "Enter mariadb password" "${password_array[@]}" "password")
+		        db_root_password1=$( ask "Enter mariadb password anew" "${password_array[@]}" "password")
 		        echo ""
-		        db_root_password2=$( ask "Enter mariadb password again" "${password_array[@]}" "password")
+		        db_root_password2=$( ask "Confirm mariadb password" "${password_array[@]}" "password")
 		        echo "" 
 		        if [ "$db_root_password1" == "$db_root_password2" ];
 		        then
