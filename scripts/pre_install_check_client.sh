@@ -45,7 +45,7 @@ else
 	export install_email
 fi
 
-createOrModifyBashProfile "client"
+createOrModifyBashProfile
 
 outputHandler "comment" "MariaDB database password"
 if test "$install_webserver_conf" = "Y"; then
