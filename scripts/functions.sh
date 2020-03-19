@@ -262,7 +262,7 @@ export -f trimString
 createOrModifyBashProfile(){
 	if [ "$1" = "server" ]; then
 		conf="/srv/tools/conf-server/dot_profile"
-		shell="$HOME/.profile"
+		#shell="$HOME/.profile"
 	fi
 	if [ "$1" = "client" ]; then
 		conf="/srv/tools/conf-client/default_conf_complete"
@@ -278,16 +278,16 @@ createOrModifyBashProfile(){
 		sudo cp $conf $HOME/.bash_profile
 		install_bash_profile=$(grep -E ". $HOME/.bash_profile" $shell || echo "")
 		#install_bash_profile=$(grep -E "\$HOME\/\.bash_profile" /home/$install_user/.bashrc || echo "")
-		if [ -z "$install_bash_profile" ]; then
-			outputHandler "comment" "Setting .bash_profile up with .bash_profile"
-			# Add .bash_profile to .bashrc
-			echo
-			echo "if [ -f \"$HOME/.bash_profile\" ]; then" >> $shell
-			echo " . $HOME/.bash_profile" >> $shell
-			echo "fi" >> $shell
-		else
-			outputHandler "comment" ".bash_profile Installed"
-		fi
+		#if [ -z "$install_bash_profile" ]; then
+		#	outputHandler "comment" "Setting .bash_profile up with .bash_profile"
+		#	# Add .bash_profile to .bashrc
+		#	echo
+		#	echo "if [ -f \"$HOME/.bash_profile\" ]; then" >> $shell
+		#	echo " . $HOME/.bash_profile" >> $shell
+		#	echo "fi" >> $shell
+		#else
+		#	outputHandler "comment" ".bash_profile Installed"
+		#fi
 	fi
 	if [ "$bash_profile_modify" = "Y" ]; then 
 		outputHandler "comment" "Modifying existing .bash_profile"
