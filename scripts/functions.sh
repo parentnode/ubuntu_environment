@@ -261,7 +261,7 @@ export -f trimString
 
 createOrModifyBashProfile(){
 	# if $shell_interactive have value, the computer is accessed with an login prompt normally a server
-	shell_interactive=$(shopt login_shell | grep on)
+	shell_interactive="$(shopt login_shell | grep on)"
 	if [ -z $shell_interactive ]; then
 		echo "client conf"
 		conf="/srv/tools/conf-client/default_conf_complete"
@@ -279,8 +279,8 @@ createOrModifyBashProfile(){
 	else
 		#outputHandler "comment" "Installing \.bash_profile"´
 		sudo cp $conf $HOME/.bash_profile
-		if [ -z $shell_interactive ];then
-			install_bash_profile=$(grep -E ". $HOME/.bash_profile" $shell || echo "")
+		if [ -z "$shell_interactive" ];then
+			install_bash_profile=$(grep -E ". $HOME/.bash_profile" $HOME/.bashrc || echo "")
 			#install_bash_profile=$(grep -E "\$HOME\/\.bash_profile" /home/$install_user/.bashrc || echo "")
 			if [ -z "$install_bash_profile" ]; then
 				outputHandler "comment" "Setting up .bash_profile"
