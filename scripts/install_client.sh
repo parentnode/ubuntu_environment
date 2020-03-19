@@ -42,7 +42,7 @@ echo ""
 echo "parentNode installed in Ubuntu "
 echo ""
 outputHandler "comment" "Link to information regarding this script" "https://parentnode.dk/blog/installing-the-web-stack-on-an-ubuntu-client"
-echo "Install complete"
+outputHandler "section" "Install complete"
 echo "--------------------------------------------------------------"
 echo ""
 
