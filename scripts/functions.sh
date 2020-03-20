@@ -264,14 +264,12 @@ createOrModifyBashProfile(){
 	#shell_command=
 	shell_interactive=$(echo $(shopt | grep login_shell | cut -f2))
 	echo "$shell_interactive"
-	if [ "$shell_interactive" == "off" ]; then
-		echo "client conf"
-		conf="/srv/tools/conf-client/default_conf_complete"
-		#shell="$HOME/.profile"
-	else
+	if [ "$shell_interactive" == "on" ]; then
 		echo "server conf"
 		conf="/srv/tools/conf-server/dot_profile"
-		#shell="$HOME/.bashrc"
+	else
+		echo "client conf"
+		conf="/srv/tools/conf-client/default_conf_complete"
 	fi
 	if [ "$(fileExists "$HOME/.bash_profile")" = true ]; then
 		outputHandler "comment" ".bash_profile Exist"
