@@ -262,9 +262,9 @@ export -f trimString
 createOrModifyBashProfile(){
 	# if $shell_interactive have value, the computer is accessed with an login prompt normally a server
 	#shell_command=
-	shell_interactive=$(echo $(shopt | grep login_shell | cut -f2))
+	shell_interactive=$(shopt | grep login_shell)
 	echo "$shell_interactive"
-	if [ "$shell_interactive" == "on" ]; then
+	if [ "$shell_interactive" == "login_shell on" ]; then
 		echo "server conf"
 		conf="/srv/tools/conf-server/dot_profile"
 	else
