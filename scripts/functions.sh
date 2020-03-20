@@ -261,11 +261,8 @@ export -f trimString
 
 createOrModifyBashProfile(){
 	# if $shell_interactive have value, the computer is accessed with an login prompt normally a server
-	server=$(dpkg -l ubuntu-server 2>&1 > /dev/null | grep server || echo "")
-	if [ -n "$server" ]; then
-		echo "server conf"
-		conf="/srv/tools/conf-server/dot_profile"
-	else
+	server=$(dpkg -l ubuntu-server 2>&1 > /dev/null)
+	if [ "$server" == "dpkg-query: no packages found matching ubuntu-server" ]; then
 		echo "client conf"
 		conf="/srv/tools/conf-client/default_conf_complete"
 		install_bash_profile=$(grep -E ". $HOME/.bash_profile" $HOME/.bashrc || echo "")
@@ -280,6 +277,10 @@ createOrModifyBashProfile(){
 		else
 			outputHandler "comment" ".bash_profile Installed"
 		fi
+	else
+		echo "server conf"
+		conf="/srv/tools/conf-server/dot_profile"
+	
 	fi
 	if [ "$(fileExists "$HOME/.bash_profile")" = true ]; then
 		outputHandler "comment" ".bash_profile Exist"
