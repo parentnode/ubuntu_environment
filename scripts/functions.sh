@@ -272,7 +272,7 @@ createOrModifyBashProfile(){
 		conf="/srv/tools/conf-server/dot_profile"
 		#shell="$HOME/.bashrc"
 	fi
-	if [ "$(fileExists "$HOME/.bash_profile")" = true ];then
+	if [ "$(fileExists "$HOME/.bash_profile")" = true ]; then
 		outputHandler "comment" ".bash_profile Exist"
 		bash_profile_modify_array=("[Yn]")
 		bash_profile_modify=$(ask "Do you want to modify existing .bash_profile (Y/n) !this will override existing .bash_profile!" "${bash_profile_modify_array[@]}" "option bash profile")
@@ -280,10 +280,10 @@ createOrModifyBashProfile(){
 	else
 		#outputHandler "comment" "Installing \.bash_profile"´
 		sudo cp $conf $HOME/.bash_profile
-		if [ -z "$shell_interactive" ];then
+		if [ "$shell_interactive" == "off" ];then
 			install_bash_profile=$(grep -E ". $HOME/.bash_profile" $HOME/.bashrc || echo "")
 			#install_bash_profile=$(grep -E "\$HOME\/\.bash_profile" /home/$install_user/.bashrc || echo "")
-			if [ "$install_bash_profile" == "off" ]; then
+			if [ -z "$install_bash_profile" ]; then
 				outputHandler "comment" "Setting up .bash_profile"
 				# Add .bash_profile to .bashrc
 				#echo "" >> $HOME/.bashrc
