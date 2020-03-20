@@ -262,7 +262,7 @@ export -f trimString
 createOrModifyBashProfile(){
 	# if $shell_interactive have value, the computer is accessed with an login prompt normally a server
 	#shell_command=
-	shell_interactive=$(command "shopt login_shell")
+	shell_interactive=$(shopt login_shell)
 	echo "$shell_interactive"
 	if [ "$shell_interactive" == "login_shell on" ]; then
 		echo "server conf"
