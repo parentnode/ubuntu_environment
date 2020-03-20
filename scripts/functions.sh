@@ -263,6 +263,7 @@ createOrModifyBashProfile(){
 	# if $shell_interactive have value, the computer is accessed with an login prompt normally a server
 	#shell_command=
 	shell_interactive=$(echo $(shopt | grep login_shell | cut -f2))
+	echo "$shell_interactive"
 	if [ "$shell_interactive" == "off" ]; then
 		echo "client conf"
 		conf="/srv/tools/conf-client/default_conf_complete"
