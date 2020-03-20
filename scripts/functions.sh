@@ -261,7 +261,8 @@ export -f trimString
 
 createOrModifyBashProfile(){
 	# if $shell_interactive have value, the computer is accessed with an login prompt normally a server
-	shell_interactive=$( command "shopt login_shell | grep on" )
+	shell_command="shopt login_shell"
+	shell_interactive=$($shell_command | grep on)
 	if [ -z "$shell_interactive" ]; then
 		echo "client conf"
 		conf="/srv/tools/conf-client/default_conf_complete"
