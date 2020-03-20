@@ -262,8 +262,8 @@ export -f trimString
 createOrModifyBashProfile(){
 	# if $shell_interactive have value, the computer is accessed with an login prompt normally a server
 	#shell_command=
-	shell_interactive=$(echo "" || echo "")
-	if [ -z $(shopt login_shell | grep on) ]; then
+	shell_interactive=$(shopt | grep login_shell | cut -f2)
+	if [ "$shell_interactive" == "off" ]; then
 		echo "client conf"
 		conf="/srv/tools/conf-client/default_conf_complete"
 		#shell="$HOME/.profile"
@@ -283,7 +283,7 @@ createOrModifyBashProfile(){
 		if [ -z "$shell_interactive" ];then
 			install_bash_profile=$(grep -E ". $HOME/.bash_profile" $HOME/.bashrc || echo "")
 			#install_bash_profile=$(grep -E "\$HOME\/\.bash_profile" /home/$install_user/.bashrc || echo "")
-			if [ -z "$install_bash_profile" ]; then
+			if [ "$install_bash_profile" == "off" ]; then
 				outputHandler "comment" "Setting up .bash_profile"
 				# Add .bash_profile to .bashrc
 				#echo "" >> $HOME/.bashrc
