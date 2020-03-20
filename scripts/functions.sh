@@ -262,14 +262,24 @@ export -f trimString
 createOrModifyBashProfile(){
 	# if $shell_interactive have value, the computer is accessed with an login prompt normally a server
 	#shell_command=
-	shell_interactive=$(command "shopt login_shell")
-	echo "$shell_interactive"
-	if [ "$shell_interactive" == "login_shell on" ]; then
+	if [ $- == *i* ]; then
 		echo "server conf"
 		conf="/srv/tools/conf-server/dot_profile"
 	else
 		echo "client conf"
 		conf="/srv/tools/conf-client/default_conf_complete"
+		install_bash_profile=$(grep -E ". $HOME/.bash_profile" $HOME/.bashrc || echo "")
+		#install_bash_profile=$(grep -E "\$HOME\/\.bash_profile" /home/$install_user/.bashrc || echo "")
+		if [ -z "$install_bash_profile" ]; then
+			outputHandler "comment" "Setting up .bash_profile"
+			# Add .bash_profile to .bashrc
+			#echo "" >> $HOME/.bashrc
+			echo "if [ -f \"$HOME/.bash_profile\" ]; then" >> $HOME/.bashrc
+			echo " . $HOME/.bash_profile" >> $HOME/.bashrc
+			echo "fi" >> $HOME/.bashrc
+		else
+			outputHandler "comment" ".bash_profile Installed"
+		fi
 	fi
 	if [ "$(fileExists "$HOME/.bash_profile")" = true ]; then
 		outputHandler "comment" ".bash_profile Exist"
@@ -279,23 +289,6 @@ createOrModifyBashProfile(){
 	else
 		#outputHandler "comment" "Installing \.bash_profile"´
 		sudo cp $conf $HOME/.bash_profile
-		if [ "$shell_interactive" == "off" ];then
-			install_bash_profile=$(grep -E ". $HOME/.bash_profile" $HOME/.bashrc || echo "")
-			#install_bash_profile=$(grep -E "\$HOME\/\.bash_profile" /home/$install_user/.bashrc || echo "")
-			if [ -z "$install_bash_profile" ]; then
-				outputHandler "comment" "Setting up .bash_profile"
-				# Add .bash_profile to .bashrc
-				#echo "" >> $HOME/.bashrc
-				echo "if [ -f \"$HOME/.bash_profile\" ]; then" >> $HOME/.bashrc
-				echo " . $HOME/.bash_profile" >> $HOME/.bashrc
-				echo "fi" >> $HOME/.bashrc
-			else
-				outputHandler "comment" ".bash_profile Installed"
-			fi
-		
-		else
-			outputHandler "comment" ".bash_profile Installed"
-		fi
 	fi
 	if [ "$bash_profile_modify" = "Y" ]; then 
 		outputHandler "comment" "Modifying existing .bash_profile"
