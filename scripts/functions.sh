@@ -261,8 +261,8 @@ export -f trimString
 
 createOrModifyBashProfile(){
 	# if $shell_interactive have value, the computer is accessed with an login prompt normally a server
-	#shell_command=
-	if [[ "$-" == *i* ]]; then
+	server=$(dpkg -l *ubuntu-server | grep server || echo "")
+	if [ -n $server  ]; then
 		echo "server conf"
 		conf="/srv/tools/conf-server/dot_profile"
 	else
