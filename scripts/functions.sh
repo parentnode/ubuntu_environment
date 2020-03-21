@@ -270,10 +270,10 @@ createOrModifyBashProfile(){
 		if [ -z "$install_bash_profile" ]; then
 			outputHandler "comment" "Setting up .bash_profile"
 			# Add .bash_profile to .bashrc
-			#echo "" >> $HOME/.bashrc
-			#echo "if [ -f \"$HOME/.bash_profile\" ]; then" >> $HOME/.bashrc
-			#echo " . $HOME/.bash_profile" >> $HOME/.bashrc
-			#echo "fi" >> $HOME/.bashrc
+			echo "" >> $HOME/.bashrc
+			echo "if [ -f \"$HOME/.bash_profile\" ]; then" >> $HOME/.bashrc
+			echo " . $HOME/.bash_profile" >> $HOME/.bashrc
+			echo "fi" >> $HOME/.bashrc
 		else
 			outputHandler "comment" ".bash_profile Installed"
 		fi
