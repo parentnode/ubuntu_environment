@@ -1,4 +1,11 @@
 # parentnode_git_prompt
+# if running bash
+if [ -n "$BASH_VERSION" ]; then
+    # include .bashrc if it exists
+    if [ -f "$HOME/.bashrc" ]; then
+        . "$HOME/.bashrc"
+    fi
+fi
 git_prompt () {
 	if ! git rev-parse --git-dir > /dev/null 2>&1; then
 	  return 0
@@ -30,11 +37,11 @@ alias enable_site="/srv/tools/scripts/enable_site.sh"
 # parentnode_multi_user
 if [ -e "/srv/sites" ]; then 
     sites_symlink_exists=$(ls -Fla /srv | grep /home/ | cut -d \/ -f3)
-    if [ "$sites_symlink_exists" != "$(logname)"  ]; then
+    if [ "$sites_symlink_exists" != "$(echo $USER)"  ]; then
 		echo "Creating Symlink"
 		sudo rm /srv/sites
-		sudo ln -s /home/$(logname)/Sites /srv/sites
-		sudo chown -R $(logname):$(logname) /home/$(logname)/Sites
+		sudo ln -s /home/$(echo $USER)/Sites /srv/sites
+		sudo chown -R $(echo $USER):$(echo $USER) /home/$(echo $USER)/Sites
 		sudo service apache2 restart
     fi
 fi
