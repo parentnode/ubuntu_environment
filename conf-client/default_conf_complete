@@ -37,11 +37,11 @@ alias enable_site="/srv/tools/scripts/enable_site.sh"
 # parentnode_multi_user
 if [ -e "/srv/sites" ]; then 
     sites_symlink_exists=$(ls -Fla /srv | grep /home/ | cut -d \/ -f3)
-    if [ "$sites_symlink_exists" != "$($USER)"  ]; then
+    if [ "$sites_symlink_exists" != "$(echo $USER)"  ]; then
 		echo "Creating Symlink"
 		sudo rm /srv/sites
-		sudo ln -s /home/$($USER)/Sites /srv/sites
-		sudo chown -R $(echo $USER):$($USER) /home/$($USER)/Sites
+		sudo ln -s /home/$(echo $USER)/Sites /srv/sites
+		sudo chown -R $(echo $USER):$(echo $USER) /home/$(echo $USER)/Sites
 		sudo service apache2 restart
     fi
 fi
