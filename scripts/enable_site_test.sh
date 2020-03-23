@@ -32,15 +32,15 @@ if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 
     for ((doc_root = 0; doc_root < ${#document_root[@]}; doc_root++))
     do
-        echo "$doc_root"
+        echo "${#document_root[doc_root]}"
     done
     for ((s_alias = 0; s_alias < ${#server_alias[@]}; s_alias++))
     do
-        echo "$s_alias"
+        echo "${#server_alias[s_alias]}"
     done
     for ((sname = 0; sname < ${#server_name[@]}; sname++))
     do
-        echo "$sname"
+        echo "${#server_name[sname]}"
     done
 
 	## Seemingly valid config data
