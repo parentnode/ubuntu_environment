@@ -15,7 +15,7 @@ apache_file_path="/srv/sites/apache/apache.conf"
 # Request sudo action before continuing to force password prompt (if needed) before script really starts
 sudo ls &>/dev/null
 echo ""
-somethingFishy(){
+getSiteInfo(){
 	site_array=("$@")
 	if [ "${site_array[0]}" = "${site_array[1]}" ]; then 
         echo "${site_array[0]}"
@@ -26,21 +26,21 @@ somethingFishy(){
         done
     fi
 }
-export -f somethingFishy
+export -f getSiteInfo
 # Does current location seem to fullfil requirements (is httpd-vhosts.conf found where it is expected to be found)
 if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 
 	# Parse DocumentRoot from httpd-vhosts.conf
 	#document_root=$(grep -E "DocumentRoot" "$PWD/apache/httpd-vhosts.conf" | sed -e "s/	DocumentRoot \"//; s/\"//")
 	document_root=($(grep -E "DocumentRoot" "$PWD/apache/httpd-vhosts.conf" | sed -e "s/	DocumentRoot \"//; s/\"//"))
-	echo "$(somethingFishy "${document_root[@]}")"
+	echo "$(getSiteInfo "${document_root[@]}")"
 	# Parse ServerName from httpd-vhosts.conf
 	#server_name=$(grep -E "ServerName" "$PWD/apache/httpd-vhosts.conf" | sed "s/	ServerName //")
 	server_name=($(grep -E "ServerName" "$PWD/apache/httpd-vhosts.conf" | sed "s/	ServerName //"))
-	echo "$(somethingFishy "${server_name[@]}")"
+	echo "$(getSiteInfo "${server_name[@]}")"
 	# Parse ServerAlias from httpd-vhosts.conf
 	server_alias=($(grep -E "ServerAlias" "$PWD/apache/httpd-vhosts.conf" | sed "s/	ServerAlias //"))
-    
+    echo "$(getSiteInfo "${server_alias[@]}")"
 #    if [ "${document_root[0]}" = "${document_root[1]}" ]; then 
 #        doc_root=$(echo "${document_root[0]}")
 #        export doc_root
