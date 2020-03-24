@@ -71,21 +71,22 @@ if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 			echo "Virtual Host allready enabled in $apache_file_path"
 		fi
 	fi
-	host_exist=$(grep -E 127.0.0.1$'\t'"$(getSiteInfo "${server_name[@]}")" "$host_file_path" || echo "")
-	if [ -z "$host_exist" ]; then 
-		sudo chmod 777 "$host_file_path"		
-		#echo "Adding hostname to $host_file_path"
-		# Add hosts file entry
-		for server in $(getSiteInfo "${server_name[@]}")
-		do
+	for server in $(getSiteInfo "${server_name[@]}")
+	do
+		host_exist=$(grep -E 127.0.0.1$'\t'"$site" "$host_file_path" || echo "")
+		if [ -z "$host_exist" ]; then 
+			sudo chmod 777 "$host_file_path"		
+			#echo "Adding hostname to $host_file_path"
+			# Add hosts file entry
 			echo "127.0.0.1		$server" >> "$host_file_path"
-		done
-		#echo "127.0.0.1$'\t'"$(getSiteInfo "${server_name[@]}")"" >> "$host_file_path"
-		# Set correct hosts file permissions again
-		sudo chmod 644 "$host_file_path"
-	else 
-		echo "host exists"	
-	fi
+			#echo "127.0.0.1$'\t'"$(getSiteInfo "${server_name[@]}")"" >> "$host_file_path"
+			# Set correct hosts file permissions again
+			sudo chmod 644 "$host_file_path"
+		else 
+			echo "host exists"	
+		fi
+	done
+	
 	## Seemingly valid config data
 	#if [ ! -z "${document_root[0]}" ] && [ ! -z "${server_name[0]}" ]; then
 #
