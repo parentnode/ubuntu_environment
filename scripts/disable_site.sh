@@ -36,7 +36,7 @@ disablingApacheSite(){
 	else
 		echo "disabling conf in $apache_file_path"
 		#echo "$include" >> "$apache_file_path"
-		sed -i "/$include/d" "$apache_file_path"
+		sed -i "s,$include,," "$apache_file_path"
 	fi
 }
 setHost(){
