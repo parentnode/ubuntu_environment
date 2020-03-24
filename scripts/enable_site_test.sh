@@ -43,7 +43,7 @@ if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 	#server_name=$(grep -E "ServerName" "$PWD/apache/httpd-vhosts.conf" | sed "s/	ServerName //")
 	server_name=($(grep -E "ServerName" "$PWD/apache/httpd-vhosts.conf" | sed "s/	ServerName //"))
 	export server_name
-	echo "ServerName: $(getSiteInfo "${server_name[@]}")"
+	echo "$(getSiteInfo "${server_name[@]}")"
 	# Parse ServerAlias from httpd-vhosts.conf
 	server_alias=($(grep -E "ServerAlias" "$PWD/apache/httpd-vhosts.conf" | sed "s/	ServerAlias //"))
     export server_alias
@@ -64,7 +64,7 @@ if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 		echo "$include"
 		#echo "Apache Entry: $apache_entry_exists"
 		if [ -z "$apache_entry_exists" ]; then
-			echo "$include" >> "$apache_file_path"
+			echo "$include" >> $apache_file_path
 		else
 			echo "Virtual Host allready exists in apache.conf"
 		fi
