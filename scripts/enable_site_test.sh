@@ -60,7 +60,7 @@ if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 		echo "$(getSiteInfo "${server_alias[@]}")"
 
 		include=$(echo "Include \"$(getSiteInfo "${document_root[@]}" | sed s,/theme/www,/apache/httpd-vhosts.conf, )\"")
-		#apache_entry_exists=$(grep "$include" "$apache_file_path")
+		apache_entry_exists=$(grep "$include" "$apache_file_path" || echo "")
 		echo "$include"
 		#echo "Apache Entry: $apache_entry_exists"
 		#if [ -z "$apache_entry_exists" ]; then
