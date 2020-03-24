@@ -66,7 +66,7 @@ if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 			#echo "$include"
 			#echo "Apache Entry: $apache_entry_exists"
 			if [ -z "$apache_entry_exists" ]; then
-				echo "enabling $include in $apache_file_path"
+				echo "enabling $doc in $apache_file_path"
 				#echo "$include" >> "$apache_file_path"
 			else
 				echo "Virtual Host allready enabled in $apache_file_path"
