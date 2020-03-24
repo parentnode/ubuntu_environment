@@ -26,6 +26,18 @@ getSiteInfo(){
 		echo "${site_array[0]}"
 	fi
 }
+someThing(){
+	include=$(echo "Include \"$(getSiteInfo "$1" | sed s,/theme/www,/apache/httpd-vhosts.conf, )\"")
+	apache_entry_exists=$(grep "$include" "$apache_file_path" || echo "")
+	#echo "$include"
+	#echo "Apache Entry: $apache_entry_exists"
+	if [ -z "$apache_entry_exists" ]; then
+		echo "enabling $include in $apache_file_path"
+		echo "$include" >> "$apache_file_path"
+	else
+		echo "Virtual Host allready enabled in $apache_file_path"
+	fi
+}
 setHost(){
 	sudo chmod 777 "$host_file_path"		
 	#echo "Adding hostname to $host_file_path"
@@ -73,16 +85,21 @@ if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 			echo "$alias"
 		done
 		# Updating apache.conf
-		include=$(echo "Include \"$(getSiteInfo "${document_root[@]}" | sed s,/theme/www,/apache/httpd-vhosts.conf, )\"")
-		apache_entry_exists=$(grep "$include" "$apache_file_path" || echo "")
-		#echo "$include"
-		#echo "Apache Entry: $apache_entry_exists"
-		if [ -z "$apache_entry_exists" ]; then
-			echo "enabling $include in $apache_file_path"
-			#echo "$include" >> "$apache_file_path"
-		else
-			echo "Virtual Host allready enabled in $apache_file_path"
-		fi
+
+		for doc in $(getSiteInfo "${document_root[@]}")
+		do
+			someThing "$doc"
+		done
+		#include=$(echo "Include \"$(getSiteInfo "${document_root[@]}" | sed s,/theme/www,/apache/httpd-vhosts.conf, )\"")
+		#apache_entry_exists=$(grep "$include" "$apache_file_path" || echo "")
+		##echo "$include"
+		##echo "Apache Entry: $apache_entry_exists"
+		#if [ -z "$apache_entry_exists" ]; then
+		#	echo "enabling $include in $apache_file_path"
+		#	echo "$include" >> "$apache_file_path"
+		#else
+		#	echo "Virtual Host allready enabled in $apache_file_path"
+		#fi
 	fi
 
 	# Updating hosts
