@@ -61,7 +61,7 @@ if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 
 		include=$(echo "Include \"$(getSiteInfo "${document_root[@]}" | sed s,"/theme/www","/apache/httpd-vhost.conf", )\"")
 		echo "Line to look for: $include"
-		apache_entry_exists=$(grep -E "$include" $apache_file_path)
+		grep -E "$include" "$apache_file_path"
 		echo "Apache Entry: $apache_entry_exists"
 		#if [ -z "$check_for_existing_setup" ]; then
 		#	echo "Include \"$parentnode_project_path/apache/httpd-vhosts.conf\"" >> "$apache_file_path"
