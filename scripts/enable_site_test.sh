@@ -44,7 +44,7 @@ setHost(){
 	# Add hosts file entry
 	#echo "127.0.0.1		$server" >> "$host_file_path"
 	# Set correct hosts file permissions again
-	host_exist=$(grep -E 127.0.0.1$'\t'"$1" "$host_file_path" || echo "")
+	host_exist=$(grep 127.0.0.1$'\t'"$1" "$host_file_path" || echo "")
 	#echo $host_exist
 	if [ -z "$host_exist" ]; then 
 		#setHost "$1"
