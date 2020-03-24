@@ -71,11 +71,15 @@ if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 	fi
 	host_exist=$(grep -E 127.0.0.1$'\t'"$(getSiteInfo "${server_name[@]}")" "$host_file_path" || echo "")
 	if [ -z "$host_exist" ]; then 
-		sudo chmod 777 "$host_file_path"
-		echo "Adding ${server_name[$i]} to $host_file_path"
+		sudo chmod 777 "$host_file_path"		
+		echo "Adding hostname to $host_file_path"
 		# Add hosts file entry
-		echo "" >> "$host_file_path"
-		echo "127.0.0.1$'\t'"$(getSiteInfo "${server_name[@]}")"" >> "$host_file_path"
+		for ((host = 0; host < ${#server_name[@]}; host++))
+		do
+			echo ""
+			echo "127.0.0.1		"${server_name[host]}"" >> "$host_file_path"
+		done
+		#echo "127.0.0.1$'\t'"$(getSiteInfo "${server_name[@]}")"" >> "$host_file_path"
 		# Set correct hosts file permissions again
 		sudo chmod 644 "$host_file_path"
 	else 
