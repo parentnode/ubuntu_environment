@@ -58,7 +58,7 @@ removeHost(){
 		echo "$1 exists"
 	else 
 		echo "Setting up $1 host"
-		sed -i "s,127.0.0.1\\t$1,," "$host_file_path"	
+		sed -i "s,$server,," "$host_file_path"	
 	fi
 	sudo chmod 644 "$host_file_path"
 }
