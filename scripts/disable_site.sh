@@ -39,7 +39,7 @@ disablingApacheSite(){
 		sed -i "s,$include,," "$apache_file_path"
 	fi
 }
-setHost(){
+removeHost(){
 	#echo "Adding hostname to $host_file_path"
 	# Add hosts file entry
 	#echo "127.0.0.1		$server" >> "$host_file_path"
@@ -110,10 +110,10 @@ if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 	fi
 
 	# Updating hosts
-	#for server in $(getSiteInfo "${server_name[@]}")
-	#do
-	#	setHost "$server"
-	#done
+	for server in $(getSiteInfo "${server_name[@]}")
+	do
+		removeHost "$server"
+	done
 	
 	sudo service apache2 restart
 else
