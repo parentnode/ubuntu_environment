@@ -97,7 +97,15 @@ if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 		removeHost "$server"
 	done
 	
+	# Restart apache after modification
+	echo ""
+	echo "Restarting Apache"
 	sudo service apache2 restart
+
+
+	echo ""
+	echo "Site disabled: OK"
+	echo ""
 else
 
 	echo "Apache configuration not found."
