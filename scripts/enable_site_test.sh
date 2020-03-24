@@ -50,8 +50,7 @@ setHost(){
 	if [ -z "$host_exist" ]; then 
 		#setHost "$1"
 		echo "Setting up $1 host"
-		echo -e "127.0.0.1\\t$1"
-		# >> "$host_file_path"
+		echo -e "127.0.0.1\\t$1" >> "$host_file_path"
 	else 
 		echo "$1 exists"	
 	fi
