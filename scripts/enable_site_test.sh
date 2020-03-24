@@ -73,6 +73,7 @@ if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 	for server in $(getSiteInfo "${server_name[@]}")
 	do
 		host_exist=$(grep -E 127.0.0.1$'\t'"$site" "$host_file_path" || echo "")
+		echo $host_exist
 		if [ -z "$host_exist" ]; then 
 			sudo chmod 777 "$host_file_path"		
 			#echo "Adding hostname to $host_file_path"
