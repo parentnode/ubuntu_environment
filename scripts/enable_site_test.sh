@@ -19,12 +19,9 @@ getSiteInfo(){
 	if [ -n "${site_array[1]}" ]; then
 		if [ "${site_array[0]}" = "${site_array[1]}" ]; then 
 			echo "${site_array[0]}"
-		else
-			for ((site = 0; site < ${#site_array[@]}; site++))
-    	    do
-    	        echo "${site_array[site]}"
-    	    done
-    	fi
+    	else
+			echo "${site_array[@]}"
+		fi
 	else
 		echo "${site_array[0]}"
 	fi
