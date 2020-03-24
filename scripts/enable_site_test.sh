@@ -69,7 +69,7 @@ if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 			echo "Virtual Host allready enabled in $apache_file_path"
 		fi
 	fi
-	host_exist=$(grep "$(getSiteInfo "${server_name[@]}")" "$host_file_path" || echo "")
+	host_exist=$(grep -E 127.0.0.1$'\t'"$(getSiteInfo "${server_name[@]}")" "$host_file_path" || echo "")
 	if [ -z "$host_exist" ]; then 
 		echo "No hosts"
 	else 
