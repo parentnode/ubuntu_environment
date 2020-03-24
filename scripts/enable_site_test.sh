@@ -51,7 +51,7 @@ setHost(){
 	host_exist=$(cat "$host_file_path" | grep "$test" || echo "")
 	#echo $'hello\tworld'
 	#echo $host_exist
-	echo "$host_exist"
+	#echo "$host_exist"
 	if [ -z "$host_exist" ]; then 
 		#setHost "$1"
 		echo "Setting up $server host"
