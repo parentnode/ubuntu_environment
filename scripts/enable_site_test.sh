@@ -59,7 +59,7 @@ if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 		
 		echo "ServerAlias: $(getSiteInfo "${server_alias[@]}")"
 
-		include=$(echo "Include \"$(getSiteInfo "${document_root[@]}" | sed s,/theme/www,/apache/httpd-vhost.conf, )\"")
+		include=$(echo "Include \"$(getSiteInfo "${document_root[@]}" | sed s,/theme/www,/apache/httpd-vhosts.conf, )\"")
 		echo "Line to look for: $include"
 		grep -E "$include" "/srv/sites/apache/apache.conf"
 		echo "Apache Entry: $apache_entry_exists"
