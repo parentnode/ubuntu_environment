@@ -59,22 +59,16 @@ if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 		do
 			echo "$alias"
 		done
-		
-		for doc in $(getSiteInfo "${document_root[@]}")
-		do
-			include=$(echo "Include \"${document_root[doc]} | sed s,/theme/www,/apache/httpd-vhosts.conf, )\"")
-			apache_entry_exists=$(grep "$include" "$apache_file_path" || echo "")
-			echo "$include"
-			#echo "Apache Entry: $apache_entry_exists"
-			if [ -z "$apache_entry_exists" ]; then
-				echo "enabling $include in $apache_file_path"
-				#echo "$include" >> "$apache_file_path"
-			else
-				echo "Virtual Host allready enabled in $apache_file_path"
-			fi
-		done
-
-		
+		include=$(echo "Include \"$(getSiteInfo "${document_root[@]}" | sed s,/theme/www,/apache/httpd-vhosts.conf, )\"")
+		apache_entry_exists=$(grep "$include" "$apache_file_path" || echo "")
+		#echo "$include"
+		#echo "Apache Entry: $apache_entry_exists"
+		if [ -z "$apache_entry_exists" ]; then
+			echo "enabling $include in $apache_file_path"
+			#echo "$include" >> "$apache_file_path"
+		else
+			echo "Virtual Host allready enabled in $apache_file_path"
+		fi
 	fi
 	for server in $(getSiteInfo "${server_name[@]}")
 	do
