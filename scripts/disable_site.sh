@@ -32,7 +32,7 @@ disablingApacheSite(){
 	#echo "$include"
 	#echo "Apache Entry: $apache_entry_exists"
 	if [ -z "$apache_entry_exists" ]; then
-		echo "Virtual Host allready enabled in $apache_file_path"
+		echo "Virtual Host not found in $apache_file_path"
 	else
 		echo "disabling conf in $apache_file_path"
 		#echo "$include" >> "$apache_file_path"
@@ -55,10 +55,10 @@ setHost(){
 	#echo "$host_exist"
 	if [ -z "$host_exist" ]; then 
 		#setHost "$1"
-		echo "Setting up $1 host"
-		echo -e "127.0.0.1\\t$1" >> "$host_file_path"
+		echo "$1 exists"
 	else 
-		echo "$1 exists"	
+		echo "Setting up $1 host"
+		sed -i "s,127.0.0.1\\t$1,," >> "$host_file_path"	
 	fi
 	sudo chmod 644 "$host_file_path"
 }
