@@ -39,21 +39,11 @@ enablingApacheSite(){
 	fi
 }
 setHost(){
-	#echo "Adding hostname to $host_file_path"
-	# Add hosts file entry
-	#echo "127.0.0.1		$server" >> "$host_file_path"
-	# Set correct hosts file permissions again
-	#server="$1"
-	#test=$(echo -e "127.0.0.1\\t$server")
 	server=$(echo -e "127.0.0.1\\t$1")
-	#echo "$test"
+	
 	sudo chmod 777 "$host_file_path"		
 	host_exist=$(cat "$host_file_path" | grep "$server" || echo "")
-	#echo $'hello\tworld'
-	#echo $host_exist
-	#echo "$host_exist"
 	if [ -z "$host_exist" ]; then 
-		#setHost "$1"
 		echo "Setting up $1 host"
 		echo -e "127.0.0.1\\t$1" >> "$host_file_path"
 	else 
@@ -75,7 +65,6 @@ if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 	# Parse ServerAlias from httpd-vhosts.conf
 	server_alias=($(grep -E "ServerAlias" "$PWD/apache/httpd-vhosts.conf" | sed "s/	ServerAlias //"))
     export server_alias
-	#echo "$(getSiteInfo "${server_alias[@]}")"
 
 	# Could not find DocumentRoot or ServerName
     if [ -z "$(getSiteInfo "${document_root[@]}")" ] && [ -z "$(getSiteInfo "${server_name[@]}")" ]; then
@@ -96,16 +85,6 @@ if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 		do
 			enablingApacheSite "$doc"
 		done
-		#include=$(echo "Include \"$(getSiteInfo "${document_root[@]}" | sed s,/theme/www,/apache/httpd-vhosts.conf, )\"")
-		#apache_entry_exists=$(grep "$include" "$apache_file_path" || echo "")
-		##echo "$include"
-		##echo "Apache Entry: $apache_entry_exists"
-		#if [ -z "$apache_entry_exists" ]; then
-		#	echo "enabling $include in $apache_file_path"
-		#	echo "$include" >> "$apache_file_path"
-		#else
-		#	echo "Virtual Host allready enabled in $apache_file_path"
-		#fi
 	fi
 
 	# Updating hosts
