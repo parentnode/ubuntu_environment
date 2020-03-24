@@ -64,7 +64,7 @@ if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 		echo "$include"
 		#echo "Apache Entry: $apache_entry_exists"
 		if [ -z "$apache_entry_exists" ]; then
-			echo "Include \"$parentnode_project_path/apache/httpd-vhosts.conf\"" >> "$apache_file_path"
+			echo "$include" >> "$apache_file_path"
 		else
 			echo "Virtual Host allready exists in apache.conf"
 		fi
