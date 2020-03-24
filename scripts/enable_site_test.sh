@@ -47,12 +47,12 @@ setHost(){
 	host_exist=$(grep $'127.0.0.1\t$1' "$host_file_path")
 	echo $'hello\tworld'
 	#echo $host_exist
-	if [ "$host_exist" != "$1" ]; then 
+	if [ "$host_exist" = "$1" ]; then 
 		#setHost "$1"
-		echo "Setting up $1 host"
+		echo "$1 exists"	
 		#echo "127.0.0.1$\'t'$1" >> "$host_file_path"
 	else 
-		echo "$1 exists"	
+		echo "Setting up $1 host"
 	fi
 	sudo chmod 644 "$host_file_path"
 }
