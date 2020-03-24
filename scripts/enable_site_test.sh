@@ -72,6 +72,8 @@ if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 	host_exist=$(grep "$(getSiteInfo "${server_name[@]}")" "$host_file_path" || echo "")
 	if [ -z "$host_exist" ]; then 
 		echo "No hosts"
+	else 
+		echo "host exists"	
 	fi
 	## Seemingly valid config data
 	#if [ ! -z "${document_root[0]}" ] && [ ! -z "${server_name[0]}" ]; then
