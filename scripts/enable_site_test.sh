@@ -44,6 +44,7 @@ setHost(){
 	#echo "127.0.0.1		$server" >> "$host_file_path"
 	# Set correct hosts file permissions again
 	server="$1"
+	echo "$server"
 	sudo chmod 777 "$host_file_path"		
 	host_exist=$(grep -E 127.0.0.1\t$server "$host_file_path")
 	#echo $'hello\tworld'
@@ -107,7 +108,6 @@ if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 	# Updating hosts
 	for server in $(getSiteInfo "${server_name[@]}")
 	do
-		echo "$server"
 		setHost "$server"
 	done
 	
