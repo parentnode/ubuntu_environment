@@ -43,7 +43,7 @@ setHost(){
 	# Add hosts file entry
 	#echo "127.0.0.1		$server" >> "$host_file_path"
 	# Set correct hosts file permissions again
-	server="getSiteInfo "${server_name[$1]}""
+	server="$(getSiteInfo "${server_name[$1]}")"
 	#test=$(echo -e "127.0.0.1\\t$server")
 	test=$(echo -e "127.0.0.1\\t$server")
 	echo "$test"
