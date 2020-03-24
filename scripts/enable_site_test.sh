@@ -38,12 +38,12 @@ if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 	#document_root=$(grep -E "DocumentRoot" "$PWD/apache/httpd-vhosts.conf" | sed -e "s/	DocumentRoot \"//; s/\"//")
 	document_root=($(grep -E "DocumentRoot" "$PWD/apache/httpd-vhosts.conf" | sed -e "s/	DocumentRoot \"//; s/\"//"))
 	export document_root
-	echo "$(getSiteInfo "${document_root[@]}")"
+	echo "DocumentRoot: $(getSiteInfo "${document_root[@]}")"
 	# Parse ServerName from httpd-vhosts.conf
 	#server_name=$(grep -E "ServerName" "$PWD/apache/httpd-vhosts.conf" | sed "s/	ServerName //")
 	server_name=($(grep -E "ServerName" "$PWD/apache/httpd-vhosts.conf" | sed "s/	ServerName //"))
 	export server_name
-	echo "$(getSiteInfo "${server_name[@]}")"
+	echo "ServerName: $(getSiteInfo "${server_name[@]}")"
 	# Parse ServerAlias from httpd-vhosts.conf
 	server_alias=($(grep -E "ServerAlias" "$PWD/apache/httpd-vhosts.conf" | sed "s/	ServerAlias //"))
     export server_alias
@@ -56,9 +56,14 @@ if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 		echo ""
 	else
 		echo "Setting up site"
-		#check_for_existing_setup=$(grep $(getSiteInfo "${document_root[@]}") $apache_file_path || echo "")
-		#if [ -z "" ]; then
-		#fi
+		
+		echo "ServerAlias: $(getSiteInfo "${server_alias[@]}")"
+
+		check_for_existing_setup=$(echo "$(getSiteInfo "${document_root[@]}" | sed s,"/theme/www","/apache/httpd-vhost.conf",)"
+		echo "$check_for_existing_setup"
+#		if [ -z "$check_for_existing_setup" ]; then
+#
+#		fi
 	fi
 	## Seemingly valid config data
 	#if [ ! -z "${document_root[0]}" ] && [ ! -z "${server_name[0]}" ]; then
