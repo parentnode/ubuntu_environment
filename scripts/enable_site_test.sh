@@ -47,7 +47,7 @@ if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 	# Parse ServerAlias from httpd-vhosts.conf
 	server_alias=($(grep -E "ServerAlias" "$PWD/apache/httpd-vhosts.conf" | sed "s/	ServerAlias //"))
     export server_alias
-	echo "$(getSiteInfo "${server_alias[@]}")"
+	echo "Alias: $(getSiteInfo "${server_alias[@]}")"
 
     if [ -z "$(getSiteInfo "${document_root[@]}")" ] && [ -z "$(getSiteInfo "${server_name[@]}")" ]; then
 		echo ""
@@ -59,7 +59,7 @@ if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 		
 		echo "ServerAlias: $(getSiteInfo "${server_alias[@]}")"
 
-		check_for_existing_setup=$(echo "$(getSiteInfo "${document_root[@]}" | sed s,"/theme/www","/apache/httpd-vhost.conf", )")
+		check_for_existing_setup=$(echo "Include \"$(getSiteInfo "${document_root[@]}" | sed s,"/theme/www","/apache/httpd-vhost.conf", )\"")
 		echo "$check_for_existing_setup"
 #		if [ -z "$check_for_existing_setup" ]; then
 #
