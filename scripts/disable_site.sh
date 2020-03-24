@@ -48,7 +48,7 @@ removeHost(){
 	#test=$(echo -e "127.0.0.1\\t$server")
 	server=$(echo -e "127.0.0.1\\t$1")
 	#echo "$test"
-	sudo chmod 777 "$host_file_path"		
+	#sudo chmod 777 "$host_file_path"		
 	host_exist=$(cat "$host_file_path" | grep "$server" || echo "")
 	#echo $'hello\tworld'
 	#echo $host_exist
@@ -57,10 +57,10 @@ removeHost(){
 		#setHost "$1"
 		echo "$1 exists"
 	else 
-		echo "Setting up $1 host"
+		echo "Removing $1 host"
 		sed -i "s,$server,," "$host_file_path"	
 	fi
-	sudo chmod 644 "$host_file_path"
+	#sudo chmod 644 "$host_file_path"
 }
 # Does current location seem to fullfil requirements (is httpd-vhosts.conf found where it is expected to be found)
 if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
