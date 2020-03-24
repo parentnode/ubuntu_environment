@@ -59,11 +59,12 @@ if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 		
 		echo "ServerAlias: $(getSiteInfo "${server_alias[@]}")"
 
-		check_for_existing_setup=$(echo "Include \"$(getSiteInfo "${document_root[@]}" | sed s,"/theme/www","/apache/httpd-vhost.conf", )\"")
-		echo "$check_for_existing_setup"
-#		if [ -z "$check_for_existing_setup" ]; then
-#
-#		fi
+		include=$(echo "Include \"$(getSiteInfo "${document_root[@]}" | sed s,"/theme/www","/apache/httpd-vhost.conf", )\"")
+		apache_entry_exists=$(grep -E "^$include" "$apache_file_path" || echo "")
+		echo "$apache_entry_exists"
+		#if [ -z "$check_for_existing_setup" ]; then
+		#	echo "Include \"$parentnode_project_path/apache/httpd-vhosts.conf\"" >> "$apache_file_path"
+		#fi
 	fi
 	## Seemingly valid config data
 	#if [ ! -z "${document_root[0]}" ] && [ ! -z "${server_name[0]}" ]; then
