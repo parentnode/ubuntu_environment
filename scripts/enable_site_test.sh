@@ -63,10 +63,10 @@ if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 		do
 			include=$(echo "Include \"$doc | sed s,/theme/www,/apache/httpd-vhosts.conf, )\"")
 			apache_entry_exists=$(grep "$include" "$apache_file_path" || echo "")
-			#echo "$include"
+			echo "$include"
 			#echo "Apache Entry: $apache_entry_exists"
 			if [ -z "$apache_entry_exists" ]; then
-				echo "enabling $doc in $apache_file_path"
+				echo "enabling $include in $apache_file_path"
 				#echo "$include" >> "$apache_file_path"
 			else
 				echo "Virtual Host allready enabled in $apache_file_path"
