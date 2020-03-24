@@ -43,10 +43,10 @@ setHost(){
 	# Add hosts file entry
 	#echo "127.0.0.1		$server" >> "$host_file_path"
 	# Set correct hosts file permissions again
+	sudo chmod 777 "$host_file_path"		
 	host_exist=$(grep -E 127.0.0.1\t$(echo $1) "$host_file_path")
 	#echo $'hello\tworld'
 	#echo $host_exist
-	sudo chmod 777 "$host_file_path"		
 	if [ -z "$host_exist" ]; then 
 		#setHost "$1"
 		echo "Setting up $1 host"
