@@ -40,10 +40,7 @@ if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 	server_name=($(grep -E "ServerName" "$PWD/apache/httpd-vhosts.conf" | sed "s/	ServerName //"))
 	export server_name
 	#echo "$(getSiteInfo "${server_name[@]}")"
-	for site in $(getSiteInfo "${server_name[@]}")
-	do
-		echo "$site"
-	done
+	
 	# Parse ServerAlias from httpd-vhosts.conf
 	server_alias=($(grep -E "ServerAlias" "$PWD/apache/httpd-vhosts.conf" | sed "s/	ServerAlias //"))
     export server_alias
@@ -57,7 +54,11 @@ if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 	else
 		echo "Setting up site"
 		
-		echo "$(getSiteInfo "${server_alias[@]}")"
+		#echo "$(getSiteInfo "${server_alias[@]}")"
+		for alias in $(getSiteInfo "${server_alias[@]}")
+		do
+			echo "$alias"
+		done
 
 		include=$(echo "Include \"$(getSiteInfo "${document_root[@]}" | sed s,/theme/www,/apache/httpd-vhosts.conf, )\"")
 		apache_entry_exists=$(grep "$include" "$apache_file_path" || echo "")
@@ -75,10 +76,9 @@ if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 		sudo chmod 777 "$host_file_path"		
 		#echo "Adding hostname to $host_file_path"
 		# Add hosts file entry
-		for ((host = 0; host < ${#server_name[@]}; host++))
+		for server in $(getSiteInfo "${server_name[@]}")
 		do
-			echo ""
-			#echo "127.0.0.1		"${server_name[host]}"" >> "$host_file_path"
+			echo "127.0.0.1		$server" >> "$host_file_path"
 		done
 		#echo "127.0.0.1$'\t'"$(getSiteInfo "${server_name[@]}")"" >> "$host_file_path"
 		# Set correct hosts file permissions again
