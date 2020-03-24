@@ -111,7 +111,7 @@ if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 	# Updating hosts
 	for server in $(getSiteInfo "${server_name[@]}")
 	do
-		setHost "$server"
+		setHost "${server_name[server]}"
 	done
 	
 	sudo service apache2 restart
