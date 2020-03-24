@@ -26,7 +26,7 @@ getSiteInfo(){
 		echo "${site_array[0]}"
 	fi
 }
-someThing(){
+enablingApacheSite(){
 	include=$(echo "Include \"$(getSiteInfo "$1" | sed s,/theme/www,/apache/httpd-vhosts.conf, )\"")
 	apache_entry_exists=$(grep "$include" "$apache_file_path" || echo "")
 	#echo "$include"
@@ -43,21 +43,21 @@ setHost(){
 	# Add hosts file entry
 	#echo "127.0.0.1		$server" >> "$host_file_path"
 	# Set correct hosts file permissions again
-	server="$1"
+	#server="$1"
 	#test=$(echo -e "127.0.0.1\\t$server")
-	test=$(echo -e "127.0.0.1\\t$server")
+	server=$(echo -e "127.0.0.1\\t$1")
 	#echo "$test"
 	sudo chmod 777 "$host_file_path"		
-	host_exist=$(cat "$host_file_path" | grep "$test" || echo "")
+	host_exist=$(cat "$host_file_path" | grep "$server" || echo "")
 	#echo $'hello\tworld'
 	#echo $host_exist
 	#echo "$host_exist"
 	if [ -z "$host_exist" ]; then 
 		#setHost "$1"
-		echo "Setting up $server host"
-		echo -e "127.0.0.1\\t$server" >> "$host_file_path"
+		echo "Setting up $1 host"
+		echo -e "127.0.0.1\\t$1" >> "$host_file_path"
 	else 
-		echo "$server exists"	
+		echo "$1 exists"	
 	fi
 	sudo chmod 644 "$host_file_path"
 }
@@ -94,7 +94,7 @@ if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 
 		for doc in $(getSiteInfo "${document_root[@]}")
 		do
-			someThing "$doc"
+			enablingApacheSite "$doc"
 		done
 		#include=$(echo "Include \"$(getSiteInfo "${document_root[@]}" | sed s,/theme/www,/apache/httpd-vhosts.conf, )\"")
 		#apache_entry_exists=$(grep "$include" "$apache_file_path" || echo "")
