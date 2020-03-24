@@ -39,7 +39,11 @@ if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 	#server_name=$(grep -E "ServerName" "$PWD/apache/httpd-vhosts.conf" | sed "s/	ServerName //")
 	server_name=($(grep -E "ServerName" "$PWD/apache/httpd-vhosts.conf" | sed "s/	ServerName //"))
 	export server_name
-	echo "$(getSiteInfo "${server_name[@]}")"
+	#echo "$(getSiteInfo "${server_name[@]}")"
+	for site in $(getSiteInfo "${server_name[@]}")
+	do
+		echo "$site"
+	done
 	# Parse ServerAlias from httpd-vhosts.conf
 	server_alias=($(grep -E "ServerAlias" "$PWD/apache/httpd-vhosts.conf" | sed "s/	ServerAlias //"))
     export server_alias
@@ -69,7 +73,7 @@ if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 	host_exist=$(grep -E 127.0.0.1$'\t'"$(getSiteInfo "${server_name[@]}")" "$host_file_path" || echo "")
 	if [ -z "$host_exist" ]; then 
 		sudo chmod 777 "$host_file_path"		
-		echo "Adding hostname to $host_file_path"
+		#echo "Adding hostname to $host_file_path"
 		# Add hosts file entry
 		for ((host = 0; host < ${#server_name[@]}; host++))
 		do
