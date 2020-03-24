@@ -17,7 +17,7 @@ sudo ls &>/dev/null
 echo ""
 getSiteInfo(){
 	site_array=("$@")
-	if [ -n "${site_array[1]}" ]; then
+	if [ -n "$( echo "${site_array[1]}")" ]; then
 		if [ "${site_array[0]}" = "${site_array[1]}" ]; then 
 			echo "${site_array[0]}"
 		else
