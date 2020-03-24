@@ -23,7 +23,7 @@ getSiteInfo(){
 		else
 			for ((site = 0; site < ${#site_array[@]}; site++))
     	    do
-    	        echo "${site_array[site]}"
+    	        echo "${site_array[site]} "
     	    done
     	fi
 	else
