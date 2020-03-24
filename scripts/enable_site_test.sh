@@ -43,7 +43,7 @@ setHost(){
 	# Add hosts file entry
 	#echo "127.0.0.1		$server" >> "$host_file_path"
 	# Set correct hosts file permissions again
-	server="$1"
+	server="getSiteInfo "${server_name[$1]}""
 	#test=$(echo -e "127.0.0.1\\t$server")
 	test=$(echo -e "127.0.0.1\\t$server")
 	echo "$test"
@@ -111,7 +111,7 @@ if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 	# Updating hosts
 	for server in $(getSiteInfo "${server_name[@]}")
 	do
-		setHost "${server_name[server]}"
+		setHost "$server"
 	done
 	
 	sudo service apache2 restart
