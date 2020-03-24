@@ -44,13 +44,13 @@ setHost(){
 	#echo "127.0.0.1		$server" >> "$host_file_path"
 	# Set correct hosts file permissions again
 	host_exist=$(grep $'127.0.0.1\t$1' "$host_file_path" || echo "")
-	echo $'hello\tworld'
+	#echo $'hello\tworld'
 	#echo $host_exist
 	sudo chmod 777 "$host_file_path"		
 	if [ -z "$host_exist" ]; then 
 		#setHost "$1"
-		#echo "127.0.0.1$\'t'$1" >> "$host_file_path"
 		echo "Setting up $1 host"
+		echo $'127.0.0.1\t$1' >> "$host_file_path"
 	else 
 		echo "$1 exists"	
 	fi
