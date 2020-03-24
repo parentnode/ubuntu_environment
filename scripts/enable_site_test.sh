@@ -25,7 +25,7 @@ getSiteInfo(){
 		if [ "${site_array[0]}" = "${site_array[1]}" ]; then 
 			echo "${site_array[0]}"
 		else
-			for ((site = 0; site < ${#site_array[@]}; doc_root++))
+			for ((site = 0; site < ${#site_array[@]}; site++))
     	    do
     	        echo "${site_array[site]}"
     	    done
