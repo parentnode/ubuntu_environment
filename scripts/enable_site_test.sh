@@ -9,9 +9,8 @@ echo ""
 
 
 host_file_path="/etc/hosts"
-apache_file_path="/srv/sites/apache/apache.conf"
-export apache_file_path
 
+apache_file_path="/srv/sites/apache/apache.conf"
 # Request sudo action before continuing to force password prompt (if needed) before script really starts
 sudo ls &>/dev/null
 echo ""
@@ -61,13 +60,18 @@ if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 
 		include=$(echo "Include \"$(getSiteInfo "${document_root[@]}" | sed s,/theme/www,/apache/httpd-vhosts.conf, )\"")
 		apache_entry_exists=$(grep "$include" "$apache_file_path" || echo "")
-		echo "$include"
-		echo "Apache Entry: $apache_entry_exists"
+		#echo "$include"
+		#echo "Apache Entry: $apache_entry_exists"
 		if [ -z "$apache_entry_exists" ]; then
+			echo "enabling $include in $apache_file_path"
 			echo "$include" >> "$apache_file_path"
 		else
-			echo "Virtual Host allready exists in $apache_file_path"
+			echo "Virtual Host allready enabled in $apache_file_path"
 		fi
+	fi
+	host_exist=$(grep "$(getSiteInfo "${server_name[@]}")" "$host_file_path" || echo "")
+	if [ -z "$host_exist" ]; then 
+		echo "No hosts"
 	fi
 	## Seemingly valid config data
 	#if [ ! -z "${document_root[0]}" ] && [ ! -z "${server_name[0]}" ]; then
