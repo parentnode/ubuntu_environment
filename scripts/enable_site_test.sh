@@ -17,13 +17,14 @@ sudo ls &>/dev/null
 echo ""
 getSiteInfo(){
 	site_array=("$@")
-	if [ "${site_array[0]}" = "${site_array[1]}" ]; then 
-        echo "${site_array[0]}"
-   	else
-        for ((doc_root = 0; doc_root < ${#document_root[@]}; doc_root++))
+	if [ "${site_array[0]}" != "${site_array[1]}" ]; then 
+		for ((doc_root = 0; doc_root < ${#document_root[@]}; doc_root++))
         do
             echo "${document_root[doc_root]}"
         done
+	else
+        echo "${site_array[0]}"
+        
     fi
 }
 export -f getSiteInfo
