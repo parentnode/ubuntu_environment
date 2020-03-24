@@ -32,16 +32,17 @@ setHost(){
 	#echo "Adding hostname to $host_file_path"
 	# Add hosts file entry
 	#echo "127.0.0.1		$server" >> "$host_file_path"
-	echo "127.0.0.1$'\t'"$1"" >> "$host_file_path"
 	# Set correct hosts file permissions again
-	sudo chmod 644 "$host_file_path"
-	host_exist=$(grep -E 127.0.0.1$'\t'"$site" "$host_file_path" || echo "")
+	host_exist=$(grep -E 127.0.0.1$'\t'"$1" "$host_file_path" || echo "")
 	echo $host_exist
 	if [ -z "$host_exist" ]; then 
-		setHost "$1"
+		#setHost "$1"
+		echo "Setting up $1 host"
+		echo "127.0.0.1$'\t'"$1"" >> "$host_file_path"
 	else 
 		echo "$1 exists"	
 	fi
+	sudo chmod 644 "$host_file_path"
 }
 # Does current location seem to fullfil requirements (is httpd-vhosts.conf found where it is expected to be found)
 if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
