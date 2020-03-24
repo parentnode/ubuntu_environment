@@ -17,11 +17,7 @@ sudo ls &>/dev/null
 echo ""
 getSiteInfo(){
 	site_array=("$@")
-	#for ((doc_root = 0; doc_root < ${#document_root[@]}; doc_root++))
-	#do
-	#	echo "${document_root[doc_root]}"
-	#done
-	if [ -n "$( echo "${site_array[1]}")" ]; then
+	if [ -n "${site_array[1]}" ]; then
 		if [ "${site_array[0]}" = "${site_array[1]}" ]; then 
 			echo "${site_array[0]}"
 		else
@@ -49,33 +45,7 @@ if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 	# Parse ServerAlias from httpd-vhosts.conf
 	server_alias=($(grep -E "ServerAlias" "$PWD/apache/httpd-vhosts.conf" | sed "s/	ServerAlias //"))
     echo "$(getSiteInfo "${server_alias[@]}")"
-#    if [ "${document_root[0]}" = "${document_root[1]}" ]; then 
-#        doc_root=$(echo "${document_root[0]}")
-#        export doc_root
-#    else
-#        for ((doc_root = 0; doc_root < ${#document_root[@]}; doc_root++))
-#        do
-#            echo "${document_root[doc_root]}"
-#        done
-#    fi
-#    if [ "${server_alias[0]}" = "${server_alias[1]}" ]; then
-#        serv_alias=$(echo "${server_alias[0]}")
-#        export serv_alias
-#    else
-#        for ((s_alias = 0; s_alias < ${#server_alias[@]}; s_alias++))
-#        do
-#            echo "${server_alias[s_alias]}"
-#        done
-#    fi
-#    
-#    if [ "${server_name[0]}" = "${server_name[1]}" ]; then
-#    
-#    else
-#        for ((sname = 0; sname < ${#server_name[@]}; sname++))
-#        do
-#            echo "${server_name[sname]}"
-#        done
-#    fi
+
     
 	## Seemingly valid config data
 	#if [ ! -z "${document_root[0]}" ] && [ ! -z "${server_name[0]}" ]; then
