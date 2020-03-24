@@ -32,7 +32,7 @@ someThing(){
 	#echo "$include"
 	#echo "Apache Entry: $apache_entry_exists"
 	if [ -z "$apache_entry_exists" ]; then
-		echo "enabling $include in $apache_file_path"
+		echo "enabling conf in $apache_file_path"
 		echo "$include" >> "$apache_file_path"
 	else
 		echo "Virtual Host allready enabled in $apache_file_path"
