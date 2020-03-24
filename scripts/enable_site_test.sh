@@ -60,7 +60,7 @@ if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 		echo "ServerAlias: $(getSiteInfo "${server_alias[@]}")"
 
 		include=$(echo "Include \"$(getSiteInfo "${document_root[@]}" | sed s,"/theme/www","/apache/httpd-vhost.conf", )\"")
-		apache_entry_exists=$(cat "$apache_file_path" | grep -E "$include" || echo "")
+		apache_entry_exists=$(cat "$apache_file_path" | grep "$include" || echo "")
 		echo "$apache_entry_exists"
 		#if [ -z "$check_for_existing_setup" ]; then
 		#	echo "Include \"$parentnode_project_path/apache/httpd-vhosts.conf\"" >> "$apache_file_path"
