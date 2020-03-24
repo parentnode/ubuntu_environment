@@ -26,7 +26,6 @@ getSiteInfo(){
 		echo "${site_array[0]}"
 	fi
 }
-export -f getSiteInfo
 setHost(){
 	sudo chmod 777 "$host_file_path"		
 	#echo "Adding hostname to $host_file_path"
@@ -48,21 +47,19 @@ setHost(){
 if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 
 	# Parse DocumentRoot from httpd-vhosts.conf
-	#document_root=$(grep -E "DocumentRoot" "$PWD/apache/httpd-vhosts.conf" | sed -e "s/	DocumentRoot \"//; s/\"//")
 	document_root=($(grep -E "DocumentRoot" "$PWD/apache/httpd-vhosts.conf" | sed -e "s/	DocumentRoot \"//; s/\"//"))
 	export document_root
-	echo "DocumentRoot: $(getSiteInfo "${document_root[@]}")"
+	
 	# Parse ServerName from httpd-vhosts.conf
-	#server_name=$(grep -E "ServerName" "$PWD/apache/httpd-vhosts.conf" | sed "s/	ServerName //")
 	server_name=($(grep -E "ServerName" "$PWD/apache/httpd-vhosts.conf" | sed "s/	ServerName //"))
 	export server_name
-	#echo "$(getSiteInfo "${server_name[@]}")"
 	
 	# Parse ServerAlias from httpd-vhosts.conf
 	server_alias=($(grep -E "ServerAlias" "$PWD/apache/httpd-vhosts.conf" | sed "s/	ServerAlias //"))
     export server_alias
 	echo "$(getSiteInfo "${server_alias[@]}")"
 
+	# Could not find DocumentRoot or ServerName
     if [ -z "$(getSiteInfo "${document_root[@]}")" ] && [ -z "$(getSiteInfo "${server_name[@]}")" ]; then
 		echo ""
 		echo "Apache configuration seems to be broken."
@@ -71,11 +68,11 @@ if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 	else
 		echo "Setting up site"
 		
-		#echo "$(getSiteInfo "${server_alias[@]}")"
 		for alias in $(getSiteInfo "${server_alias[@]}")
 		do
 			echo "$alias"
 		done
+		# Updating apache.conf
 		include=$(echo "Include \"$(getSiteInfo "${document_root[@]}" | sed s,/theme/www,/apache/httpd-vhosts.conf, )\"")
 		apache_entry_exists=$(grep "$include" "$apache_file_path" || echo "")
 		#echo "$include"
@@ -87,109 +84,14 @@ if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 			echo "Virtual Host allready enabled in $apache_file_path"
 		fi
 	fi
+
+	# Updating hosts
 	for server in $(getSiteInfo "${server_name[@]}")
 	do
 		setHost "$server"
 	done
 	
-	## Seemingly valid config data
-	#if [ ! -z "${document_root[0]}" ] && [ ! -z "${server_name[0]}" ]; then
-#
-	#	# Show collected data
-	#	echo "DocumentRoot:	${document_root[0]}"
-	#	echo ""
-	#	echo "ServerName: 	${server_name[0]}"
-#
-	#	# ServerAlias not always present - only print if it is there
-	#	if [ ! -z "$server_alias" ]; then
-	#		echo "ServerAlias:	$server_alias"
-	#	fi
-#
-	#	echo ""
-#
-#
-	#	# Updating apache.conf
-	#	for ((i = 0; i < ${#document_root[@]}; i++))
-	#	do
-	#		# Get proper projects path (/srv/sites instead of /Users/username/Sites)
-	#		parentnode_project_path=$(echo "${document_root[i]}" | sed -e "s/\\/src\\/www//; s/\\/theme\\/www//")
-#
-	#		# Don't enable sites which are already enabled
-	#		# Check if include path already exists in apache.conf
-	#		apache_entry_exists=$(grep -E "^Include [\"]?$parentnode_project_path\/apache\/httpd-vhosts.conf[\"]?" "$apache_file_path" || echo "")
-	#		if [ -z "$apache_entry_exists" ]; then
-#
-	#			echo "Adding $parentnode_project_path/apache/httpd-vhosts.conf to apache.conf"
-#
-	#			# Include project cont in apache.conf
-	#			echo ""	>> "$apache_file_path"
-	#			#echo "Include \"$parentnode_project_path/apache/httpd-vhosts.conf\"" >> "$apache_file_path"
-	#			echo "Include \"$parentnode_project_path/apache/httpd-vhosts.conf\"" >> "$apache_file_path"
-#
-#
-	#		# project already exists in apache.conf
-	#		else
-#
-	#			echo "Project already enabled in $apache_file_path"
-#
-	#		fi
-	#	done
-#
-#
-	#	# Updating hosts
-#
-	#	# Check hosts configuration
-	#	for ((i = 0; i < ${#server_name[@]}; i++))
-	#	do
-#
-	#		hosts_entry_exists=$(grep -E 127.0.0.1$'\t'${server_name[$i]} "$host_file_path" || echo "")
-	#		if [ -z "$hosts_entry_exists" ]; then
-#
-	#			echo ""
-	#			echo "Adding ${server_name[$i]} to $host_file_path"
-#
-	#			# Make hosts file writable
-	#			sudo chmod 777 "$host_file_path"
-	#				echo "Adding ${server_name[$i]} to $host_file_path"
-	#				# Add hosts file entry
-	#				echo "" >> "$host_file_path"
-	#				echo "" >> "$host_file_path"
-	#				echo "127.0.0.1	${server_name[$i]}" >> "$host_file_path"
-	#			# Set correct hosts file permissions again
-	#			sudo chmod 644 "$host_file_path"
-#
-	#			echo ""
-#
-#
-	#		# Hosts entry already exists for current domain
-	#		else
-#
-	#			echo "Project already enabled in $host_file_path"
-#
-	#		fi
-	#	done
-	#	# Restart apache after modification
-	#	echo ""
-	#	echo "Restarting Apache"
-	#	sudo service apache2 restart
-#
-#
-	#	echo ""
-	#	echo "Site enabled: OK"
-	#	echo ""
-#
-#
-	## Could not find DocumentRoot or ServerName
-	#else
-#
-	#	echo ""
-	#	echo "Apache configuration seems to be broken."
-	#	echo "Please revert any changes you have made to the https-vhosts.conf file."
-	#	echo ""
-#
-	#fi
-
-# Could not find httpd-vhosts.conf
+	sudo service apache2 restart
 else
 
 	echo "Apache configuration not found."
