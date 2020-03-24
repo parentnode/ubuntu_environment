@@ -36,18 +36,18 @@ if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 
 	# Parse DocumentRoot from httpd-vhosts.conf
 	#document_root=$(grep -E "DocumentRoot" "$PWD/apache/httpd-vhosts.conf" | sed -e "s/	DocumentRoot \"//; s/\"//")
-	document_root=("$(grep -E "DocumentRoot" "$PWD/apache/httpd-vhosts.conf" | sed -e "s/	DocumentRoot \"//; s/\"//")")
+	document_root=($(grep -E "DocumentRoot" "$PWD/apache/httpd-vhosts.conf" | sed -e "s/	DocumentRoot \"//; s/\"//"))
 	export document_root
 	echo "DocumentRoot: $(getSiteInfo "${document_root[@]}")"
 	# Parse ServerName from httpd-vhosts.conf
 	#server_name=$(grep -E "ServerName" "$PWD/apache/httpd-vhosts.conf" | sed "s/	ServerName //")
-	server_name=("$(grep -E "ServerName" "$PWD/apache/httpd-vhosts.conf" | sed "s/	ServerName //")")
+	server_name=($(grep -E "ServerName" "$PWD/apache/httpd-vhosts.conf" | sed "s/	ServerName //"))
 	export server_name
 	echo "ServerName: $(getSiteInfo "${server_name[@]}")"
 	# Parse ServerAlias from httpd-vhosts.conf
-	server_alias=("$(grep -E "ServerAlias" "$PWD/apache/httpd-vhosts.conf" | sed "s/	ServerAlias //")")
+	server_alias=($(grep -E "ServerAlias" "$PWD/apache/httpd-vhosts.conf" | sed "s/	ServerAlias //"))
     export server_alias
-	echo "Alias: $(getSiteInfo "${server_alias[@]}")"
+	echo "$(getSiteInfo "${server_alias[@]}")"
 
     if [ -z "$(getSiteInfo "${document_root[@]}")" ] && [ -z "$(getSiteInfo "${server_name[@]}")" ]; then
 		echo ""
@@ -57,7 +57,7 @@ if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 	else
 		echo "Setting up site"
 		
-		echo "ServerAlias: $(getSiteInfo "${server_alias[@]}")"
+		echo "$(getSiteInfo "${server_alias[@]}")"
 
 		include=$(echo "Include \"$(getSiteInfo "${document_root[@]}" | sed s,/theme/www,/apache/httpd-vhosts.conf, )\"")
 		apache_entry_exists=$(grep "$include" "$apache_file_path")
