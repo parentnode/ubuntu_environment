@@ -10,7 +10,7 @@ echo ""
 
 host_file_path="/etc/hosts"
 apache_file_path="/srv/sites/apache/apache.conf"
-
+export apache_file_path
 
 # Request sudo action before continuing to force password prompt (if needed) before script really starts
 sudo ls &>/dev/null
