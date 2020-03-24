@@ -15,34 +15,60 @@ apache_file_path="/srv/sites/apache/apache.conf"
 # Request sudo action before continuing to force password prompt (if needed) before script really starts
 sudo ls &>/dev/null
 echo ""
-
+somethingFishy(){
+	site_array=("$@")
+	if [ "${site_array[0]}" = "${site_array[1]}" ]; then 
+        echo "${site_array[0]}"
+   	else
+        for ((doc_root = 0; doc_root < ${#document_root[@]}; doc_root++))
+        do
+            echo "${document_root[doc_root]}"
+        done
+    fi
+}
+export -f somethingFishy
 # Does current location seem to fullfil requirements (is httpd-vhosts.conf found where it is expected to be found)
 if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 
 	# Parse DocumentRoot from httpd-vhosts.conf
 	#document_root=$(grep -E "DocumentRoot" "$PWD/apache/httpd-vhosts.conf" | sed -e "s/	DocumentRoot \"//; s/\"//")
 	document_root=($(grep -E "DocumentRoot" "$PWD/apache/httpd-vhosts.conf" | sed -e "s/	DocumentRoot \"//; s/\"//"))
-
+	echo "$(somethingFishy "${document_root[@]}")"
 	# Parse ServerName from httpd-vhosts.conf
 	#server_name=$(grep -E "ServerName" "$PWD/apache/httpd-vhosts.conf" | sed "s/	ServerName //")
 	server_name=($(grep -E "ServerName" "$PWD/apache/httpd-vhosts.conf" | sed "s/	ServerName //"))
 
 	# Parse ServerAlias from httpd-vhosts.conf
-	server_alias=$(grep -E "ServerAlias" "$PWD/apache/httpd-vhosts.conf" | sed "s/	ServerAlias //")
-
-    for ((doc_root = 0; doc_root < ${#document_root[@]}; doc_root++))
-    do
-        echo "${document_root[doc_root]}"
-    done
-    for ((s_alias = 0; s_alias < ${#server_alias[@]}; s_alias++))
-    do
-        echo "${server_alias[s_alias]}"
-    done
-    for ((sname = 0; sname < ${#server_name[@]}; sname++))
-    do
-        echo "${server_name[sname]}"
-    done
-
+	server_alias=($(grep -E "ServerAlias" "$PWD/apache/httpd-vhosts.conf" | sed "s/	ServerAlias //"))
+    
+#    if [ "${document_root[0]}" = "${document_root[1]}" ]; then 
+#        doc_root=$(echo "${document_root[0]}")
+#        export doc_root
+#    else
+#        for ((doc_root = 0; doc_root < ${#document_root[@]}; doc_root++))
+#        do
+#            echo "${document_root[doc_root]}"
+#        done
+#    fi
+#    if [ "${server_alias[0]}" = "${server_alias[1]}" ]; then
+#        serv_alias=$(echo "${server_alias[0]}")
+#        export serv_alias
+#    else
+#        for ((s_alias = 0; s_alias < ${#server_alias[@]}; s_alias++))
+#        do
+#            echo "${server_alias[s_alias]}"
+#        done
+#    fi
+#    
+#    if [ "${server_name[0]}" = "${server_name[1]}" ]; then
+#    
+#    else
+#        for ((sname = 0; sname < ${#server_name[@]}; sname++))
+#        do
+#            echo "${server_name[sname]}"
+#        done
+#    fi
+    
 	## Seemingly valid config data
 	#if [ ! -z "${document_root[0]}" ] && [ ! -z "${server_name[0]}" ]; then
 #
