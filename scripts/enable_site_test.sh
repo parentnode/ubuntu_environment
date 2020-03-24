@@ -89,7 +89,7 @@ if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 	fi
 	for server in $(getSiteInfo "${server_name[@]}")
 	do
-		setHost "$site"
+		setHost "$server"
 	done
 	
 	## Seemingly valid config data
