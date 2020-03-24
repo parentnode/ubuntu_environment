@@ -39,20 +39,20 @@ someThing(){
 	fi
 }
 setHost(){
-	sudo chmod 777 "$host_file_path"		
 	#echo "Adding hostname to $host_file_path"
 	# Add hosts file entry
 	#echo "127.0.0.1		$server" >> "$host_file_path"
 	# Set correct hosts file permissions again
-	host_exist=$(grep $'127.0.0.1\t$1' "$host_file_path")
+	host_exist=$(grep $'127.0.0.1\t$1' "$host_file_path" || echo "")
 	echo $'hello\tworld'
 	#echo $host_exist
-	if [ "$host_exist" = "$1" ]; then 
+	sudo chmod 777 "$host_file_path"		
+	if [ -z "$host_exist" ]; then 
 		#setHost "$1"
-		echo "$1 exists"	
 		#echo "127.0.0.1$\'t'$1" >> "$host_file_path"
-	else 
 		echo "Setting up $1 host"
+	else 
+		echo "$1 exists"	
 	fi
 	sudo chmod 644 "$host_file_path"
 }
