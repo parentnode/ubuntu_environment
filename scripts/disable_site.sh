@@ -85,7 +85,7 @@ if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 		echo "Please revert any changes you have made to the https-vhosts.conf file."
 		echo ""
 	else
-		echo "Setting up site"
+		echo "Removing site"
 		
 		for alias in $(getSiteInfo "${server_alias[@]}")
 		do
@@ -119,6 +119,6 @@ if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 else
 
 	echo "Apache configuration not found."
-	echo "You can only enable a site, if you run this command from the project root folder"
+	echo "You can only disable a site, if you run this command from the project root folder"
 
 fi
