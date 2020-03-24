@@ -83,7 +83,7 @@ if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 			# Set correct hosts file permissions again
 			sudo chmod 644 "$host_file_path"
 		else 
-			echo "$site exists"	
+			echo "$server exists"	
 		fi
 	done
 	
