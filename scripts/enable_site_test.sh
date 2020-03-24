@@ -59,7 +59,7 @@ if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 		
 		echo "ServerAlias: $(getSiteInfo "${server_alias[@]}")"
 
-		check_for_existing_setup=$(echo "$(getSiteInfo "${document_root[@]}" | sed s,"/theme/www","/apache/httpd-vhost.conf",)"
+		check_for_existing_setup=$(echo "$(getSiteInfo "${document_root[@]}" | sed s,"/theme/www","/apache/httpd-vhost.conf", )"
 		echo "$check_for_existing_setup"
 #		if [ -z "$check_for_existing_setup" ]; then
 #
