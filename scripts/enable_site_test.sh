@@ -106,6 +106,7 @@ if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 	# Updating hosts
 	for server in $(getSiteInfo "${server_name[@]}")
 	do
+		echo "$server"
 		setHost "$server"
 	done
 	
