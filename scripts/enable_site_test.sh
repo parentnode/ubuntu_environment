@@ -62,12 +62,12 @@ if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 		include=$(echo "Include \"$(getSiteInfo "${document_root[@]}" | sed s,/theme/www,/apache/httpd-vhosts.conf, )\"")
 		apache_entry_exists=$(grep "$include" "$apache_file_path" || echo "")
 		echo "$include"
-		#echo "Apache Entry: $apache_entry_exists"
-		#if [ -z "$apache_entry_exists" ]; then
-		#	echo "$include" >> "/srv/sites/apache/apache.conf"
-		#else
-		#	echo "Virtual Host allready exists in apache.conf"
-		#fi
+		echo "Apache Entry: $apache_entry_exists"
+		if [ -z "$apache_entry_exists" ]; then
+			echo "$include" >> "$apache_file_path"
+		else
+			echo "Virtual Host allready exists in $apache_file_path"
+		fi
 	fi
 	## Seemingly valid config data
 	#if [ ! -z "${document_root[0]}" ] && [ ! -z "${server_name[0]}" ]; then
