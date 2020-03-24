@@ -61,7 +61,7 @@ if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 		#echo "Apache Entry: $apache_entry_exists"
 		if [ -z "$apache_entry_exists" ]; then
 			echo "enabling $include in $apache_file_path"
-			echo "$include" >> "$apache_file_path"
+			#echo "$include" >> "$apache_file_path"
 		else
 			echo "Virtual Host allready enabled in $apache_file_path"
 		fi
@@ -74,7 +74,7 @@ if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 		for ((host = 0; host < ${#server_name[@]}; host++))
 		do
 			echo ""
-			echo "127.0.0.1		"${server_name[host]}"" >> "$host_file_path"
+			#echo "127.0.0.1		"${server_name[host]}"" >> "$host_file_path"
 		done
 		#echo "127.0.0.1$'\t'"$(getSiteInfo "${server_name[@]}")"" >> "$host_file_path"
 		# Set correct hosts file permissions again
