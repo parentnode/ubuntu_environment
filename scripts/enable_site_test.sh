@@ -49,7 +49,7 @@ setHost(){
 	if [ -z "$host_exist" ]; then 
 		#setHost "$1"
 		echo "Setting up $1 host"
-		echo "127.0.0.1		"$1"" >> "$host_file_path"
+		echo "127.0.0.1 "$1"" >> "$host_file_path"
 	else 
 		echo "$1 exists"	
 	fi
@@ -69,7 +69,7 @@ if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 	# Parse ServerAlias from httpd-vhosts.conf
 	server_alias=($(grep -E "ServerAlias" "$PWD/apache/httpd-vhosts.conf" | sed "s/	ServerAlias //"))
     export server_alias
-	echo "$(getSiteInfo "${server_alias[@]}")"
+	#echo "$(getSiteInfo "${server_alias[@]}")"
 
 	# Could not find DocumentRoot or ServerName
     if [ -z "$(getSiteInfo "${document_root[@]}")" ] && [ -z "$(getSiteInfo "${server_name[@]}")" ]; then
