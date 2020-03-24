@@ -47,7 +47,7 @@ setHost(){
 	test=$(echo -e "127.0.0.1\\t$server")
 	echo "$test"
 	sudo chmod 777 "$host_file_path"		
-	host_exist=$(grep "$test" "$host_file_path")
+	host_exist=$(cat "$host_file_path" | grep "$test")
 	#echo $'hello\tworld'
 	#echo $host_exist
 	if [ -z "$host_exist" ]; then 
