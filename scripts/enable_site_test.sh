@@ -37,16 +37,29 @@ if [ -e "$PWD/apache/httpd-vhosts.conf" ] ; then
 	# Parse DocumentRoot from httpd-vhosts.conf
 	#document_root=$(grep -E "DocumentRoot" "$PWD/apache/httpd-vhosts.conf" | sed -e "s/	DocumentRoot \"//; s/\"//")
 	document_root=($(grep -E "DocumentRoot" "$PWD/apache/httpd-vhosts.conf" | sed -e "s/	DocumentRoot \"//; s/\"//"))
+	export document_root
 	echo "$(getSiteInfo "${document_root[@]}")"
 	# Parse ServerName from httpd-vhosts.conf
 	#server_name=$(grep -E "ServerName" "$PWD/apache/httpd-vhosts.conf" | sed "s/	ServerName //")
 	server_name=($(grep -E "ServerName" "$PWD/apache/httpd-vhosts.conf" | sed "s/	ServerName //"))
+	export server_name
 	echo "$(getSiteInfo "${server_name[@]}")"
 	# Parse ServerAlias from httpd-vhosts.conf
 	server_alias=($(grep -E "ServerAlias" "$PWD/apache/httpd-vhosts.conf" | sed "s/	ServerAlias //"))
-    echo "$(getSiteInfo "${server_alias[@]}")"
+    export server_alias
+	echo "$(getSiteInfo "${server_alias[@]}")"
 
-    
+    if [ -z "$(getSiteInfo "${document_root[@]}")" ] && [ -z "$(getSiteInfo "${server_name[@]}")" ]; then
+		echo ""
+		echo "Apache configuration seems to be broken."
+		echo "Please revert any changes you have made to the https-vhosts.conf file."
+		echo ""
+	else
+		echo "Setting up site"
+		#check_for_existing_setup=$(grep $(getSiteInfo "${document_root[@]}") $apache_file_path || echo "")
+		#if [ -z "" ]; then
+		#fi
+	fi
 	## Seemingly valid config data
 	#if [ ! -z "${document_root[0]}" ] && [ ! -z "${server_name[0]}" ]; then
 #
