@@ -211,11 +211,11 @@ syncronizeAlias(){
 	#destination=/srv/sites/parentnode/ubuntu_environment/tests/test_syncronize_alias/destination
 	
 	# Comment out this source and destination when testing, uncomment when done
-	source=$(</srv/tools/conf-client/default_conf_alias)
-	destination=$HOME/.bash_profile
+	source=$(<$2)
+	destination=$3
 
-	readarray -t source_key <<< $(echo "$source" | grep "alias" | cut -d \" -f2) 
-    readarray -t source_value <<< $(echo "$source" | grep "alias" | cut -d \" -f3,4,5) 
+	readarray -t source_key <<< $(echo "$source" | grep "$1" | cut -d \" -f2) 
+    readarray -t source_value <<< $(echo "$source" | grep "$1" | cut -d \" -f3,4,5) 
     
     for i in "${!source_key[@]}"
     do
@@ -264,7 +264,8 @@ createOrModifyBashProfile(){
 	server=$(dpkg -l ubuntu-server 2>&1 > /dev/null)
 	if [ "$server" == "dpkg-query: no packages found matching ubuntu-server" ]; then
 		echo "client conf"
-		conf="/srv/tools/conf-client/default_conf_complete"
+		conf="/srv/tools/conf-client/dot_profile"
+		conf_alias="/srv/tools/conf-client/dot_profile_alias"
 		install_bash_profile=$(grep -E ". $HOME/.bash_profile" $HOME/.bashrc || echo "")
 		#install_bash_profile=$(grep -E "\$HOME\/\.bash_profile" /home/$install_user/.bashrc || echo "")
 		if [ -z "$install_bash_profile" ]; then
@@ -280,6 +281,7 @@ createOrModifyBashProfile(){
 	else
 		echo "server conf"
 		conf="/srv/tools/conf-server/dot_profile"
+		conf_alias="/srv/tools/conf-server/dot_profile_alias"
 	
 	fi
 	if [ "$(fileExists "$HOME/.bash_profile")" = true ]; then
@@ -315,12 +317,12 @@ createOrModifyBashProfile(){
 			# if .bash_profile is not listing any of the above, we must asume .bash_profile is broken.
 			*)
 				sudo rm $HOME/.bash_profile
-				sudo cp $conf /$HOME/.bash_profile
+				sudo cp $conf $HOME/.bash_profile
 				;;
 		esac
 	else
 		# parentnode alias is necessary for a parentnode environment
-		syncronizeAlias
+		syncronizeAlias "alias" "$conf_alias" "$HOME/.bash_profile"
 	fi
 	
 }
