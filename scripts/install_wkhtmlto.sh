@@ -10,13 +10,11 @@ if test "$install_wkhtml" = "Y"; then
 		outputHandler "comment" "Installing wkhtmltopdf"
 		tar -xzvf /srv/tools/bin/wkhtml.tar.gz /srv/tools/bin/wkhtmltopdf
 		rm /srv/tools/bin/wkhtml.tar.gz
-		. /srv/tools/bin/wkhtmltopdf --version
 	else
 		if [ ! -e "/srv/tools/bin/wkhtmltopdf" ]; then
 			outputHandler "comment" "Something is wrong with this wkhtmltopdf scenario"
 		else 
 			outputHandler "comment" "wkhtmltopdf are installed"
-			. /srv/tools/bin/wkhtmltopdf --version
 		fi
 	fi
 	#sudo apt install -y wkhtmltopdf
