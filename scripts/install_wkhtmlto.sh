@@ -6,7 +6,7 @@ if test "$install_wkhtml" = "Y"; then
 
 	# WKHTML - FORCE PASSWORD RENEWAL
 	outputHandler "comment" "Using /srv/tools/bin/wkhtmltopdf"
-	if [ -e "/srv/tools/bin/wkhtml.tar.gz" ]; then
+	if [ $(fileExists "/srv/tools/bin/wkhtml.tar.gz") = true ]; then
 		outputHandler "comment" "Installing wkhtmltopdf"
 		command "tar -xzvf wkhtml.tar.gz /srv/tools/bin/wkhtmltopdf"
 		command "sudo rm /srv/tools/bin/wkhtml.tar.gz"
