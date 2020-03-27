@@ -11,7 +11,7 @@ if test "$install_wkhtml" = "Y"; then
 		tar -xzvf /srv/tools/bin/wkhtml.tar.gz wkhtmltopdf
 		cp wkhtmltopdf /srv/tools/bin/
 		rm /srv/tools/bin/wkhtml.tar.gz
-		. /srv/tools/bin/wkhtmltopdf --version
+		/srv/tools/bin/wkhtmltopdf --version
 	else
 		if [ ! -e "/srv/tools/bin/wkhtmltopdf" ]; then
 			outputHandler "comment" "Something is wrong with this wkhtmltopdf scenario"
