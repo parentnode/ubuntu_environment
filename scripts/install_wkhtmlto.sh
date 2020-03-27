@@ -8,8 +8,8 @@ if test "$install_wkhtml" = "Y"; then
 	outputHandler "comment" "Using /srv/tools/bin/wkhtmltopdf"
 	if [ $(fileExists "/srv/tools/bin/wkhtml.tar.gz") = true ]; then
 		outputHandler "comment" "Installing wkhtmltopdf"
-		command "tar -xzvf /srv/tools/bin/wkhtml.tar.gz /srv/tools/bin/wkhtmltopdf"
-		command "sudo rm /srv/tools/bin/wkhtml.tar.gz"
+		tar -xzvf /srv/tools/bin/wkhtml.tar.gz /srv/tools/bin/wkhtmltopdf
+		sudo rm /srv/tools/bin/wkhtml.tar.gz
 		. /srv/tools/bin/wkhtmltopdf --version
 	else
 		if [ ! -e "/srv/tools/bin/wkhtmltopdf" ]; then
