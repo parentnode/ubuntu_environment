@@ -1,260 +1,329 @@
 #!/bin/bash -e
-guiText(){
-	# Automatic comment format for simple setup as a text based gui
-	# eg. guiText "Redis" "Start"
-	# $1 Name of object to process
-	# $2 Type of process
-	case $2 in 
-		"Link")
+
+# Get username for current user, display and store for later use
+getUsername(){
+	echo "$SUDO_USER"
+}
+export -f getUsername
+
+# Invoke sudo command
+enableSuperCow(){
+	sudo ls &>/dev/null
+}
+export -f enableSuperCow
+
+# Helper function for text output and format 
+outputHandler(){
+	#$1 - type eg. Comment, Section, Exit
+	#$2 - text for output
+	#$3,4,5 are extra text when needed
+	case $1 in 
+		"comment")
 			echo
-			echo
-			echo "More info regarding $1-webstack installer"
-			echo "can be found on https://github.com/parentnode/$1-environment"
-			if [ "$1" = "mac" ];
-			then
-				echo "and https://parentnode.dk/blog/installing-the-web-stack-on-mac-os"
-			fi
-			if [ "$1" = "windows" ];
-			then
-				echo "and https://parentnode.dk/blog/installing-web-stack-on-windows-10"
-			fi
-			if [ "$3" = "ubuntu-client" ];
-			then
-				echo "and https://parentnode.dk/blog/installing-the-web-stack-on-ubuntu"
-			fi
-			if [ "$3" = "ubuntu-server" ];
-			then
-				echo "and https://parentnode.dk/blog/setup-ubuntu-linux-production-server-and-install-the-parentn"
-			fi
-			
-			echo
-			echo
-			;;
-		"Comment")
-			echo
-			echo "$1:"
+			echo "$2"
 			if [ -n "$3" ];
 			then
 				echo "$3"
 			fi
+			if [ -n "$4" ];
+			then
+				echo "$4"
+			fi
+			if [ -n "$5" ];
+			then
+				echo "$5"
+			fi
+			if [ -z "$2" ];
+			then
+				echo "No comments"
+			fi
 			echo
 			;;
-		"Section")
+		"section")
 			echo
 			echo 
-			echo "{---$1---}"	
+			echo "{---$2---}"	
 			echo
 			echo
+			;;
+		"exit")
+			echo
+			echo "$2 -- Goodbye see you soon"
+			exit 0
 			;;
 		#These following commentary cases are used for installing and configuring setup
-		"Start")
-			echo
-			echo
-			echo "Starting installation process for $1"
-			echo
-			echo
-			;;
-		"Download")
-			echo
-			echo "Downloading files for the installation of $1"
-			echo "This could take some time depending on your internet connection"
-			echo "and hardware configuration"
-			echo
-			echo
-			;;
-		"Exist")
-			echo
-			echo "$1 allready exists"
-			if [ -n "$3" ];
-			then
-				echo "checking for $3"
-			fi
-			echo
-			echo
-			;;
-		"Install")
-			echo
-			echo "Configuring installation for $1"
-			if [ -n "$3" ]; then
-				echo "in $3"
-			fi
-			echo
-			;;
-		"Replace")
-			echo
-			echo "Replacing $1 with $3"
-			echo
-			;;
-		"Installed")
-			echo
-			echo "$1 Installed no need for more action at this point"
-			echo
-			;;
-		"Enable")
-			echo
-			echo "Enabling $1"
-			echo
-			;;
-		"Disable")
-			echo
-			echo "Disabling $2"
-			echo
-			;;
-		"Done")
-			echo
-			echo
-			echo "Installation process for $1 are done"
-			echo
-			echo
-			;;
-		"Skip")
-			echo
-			echo
-			echo "Skipping Installation process for $1"
-			echo
-			echo
-			;;
 		*)
 			echo 
-			echo "Are you sure you wanted to use gui text here?"
+			echo "Are you sure you wanted output here can't recognize: ($1)"
 			echo
 			;;
 
 	esac
 }
-export -f guiText
+export -f outputHandler
+
+# Asking user for input based on type
+ask(){
+	#$1 - output query text for knowing what to ask for.
+	#$2 - array of valid chacters:
+	#$3 - type eg. Password
+	# If type is:  
+	## Password hide prompt input, allow special chars, allow min and max length for the string 
+	## Email: valid characters(restrict to email format (something@somewhere.com))
+	## Username: valid characters(letters and numbers)
+	## Choice yes and no: Y/n
+	valid_answers=("$2")
+	
+	
+	if [ "$3" = "password" ]; then
+		read -s -p "$1: "$'\n' question
+	else 
+		read -p "$1: " question 
+	fi
+	for ((answer = 0; answer < ${#valid_answers[@]}; answer++))
+    do
+        if [[ "$question" =~ ^(${valid_answers[$answer]})$ ]];
+        then 
+           	#echo "Valid"
+			echo "$question"
+        else
+			
+			#ask "$1" "${valid_answers[@]}"
+			if [ "$3" = "password" ];
+			then
+				ask "Invalid $3, try with specified password format" "$2" "$3"
+			else
+				ask "Invalid $3, try again" "$2" "$3"
+			fi
+        fi
+
+    done
+	
+
+}
+export -f ask
+
+# Check if program/service are installed
+testCommandResponse(){
+# Usage: returns the response of a command e.g if a service or a program are installed and running or stopped/dead
+# P1: kommando
+# P2: array of valid responses
+	valid_responses=("$@")
+	for ((response = 0; response < ${#valid_responses[@]}; response++))
+	do
+		command_to_test=$($1 | grep -E "${valid_responses[$response]}" || echo "")
+		if [ -n "$command_to_test" ]; then
+			echo "$(trimString "$command_to_test")" 
+		fi
+	done
+
+}
+export -f testCommandResponse
+
+# Check if git credential are set e.g username
+checkGitCredential(){
+	value=$(git config --global user.$1)
+	echo "$value"
+
+}
+export -f checkGitCredential
+
+checkMariadbPassword(){
+	# When the service are installed it can either be running or dead
+	# If there is output of this command if it is active or not active then mariadb service is installed
+	mariadb_status="$(service mariadb status 2>&1 > /dev/null)"
+	if [ "$mariadb_status" = "Unit mariadb.service could not be found." ]; then
+		echo "false"
+	else
+		mariadb_installed=$(service mariadb status || echo "")
+		#echo "Mariadb installed:  $mariadb_installed"
+		if [ -n "$mariadb_installed" ]; then
+			valid_status=("dead" "running")
+			mariadb_running=$(testCommandResponse "service mariadb status" "${valid_status[@]}" || echo "")
+			#echo "Mariadb Running: $mariadb_running"
+			# if service is running
+			if [ -n "$(echo $mariadb_running | grep -o running)" ]; then
+				# check if we can login without password and do stuff return a line confirming if there are a password or an empty string
+				has_password=$(mysql -u root -E STATUS 2>&1 >/dev/null | grep "using password: NO" || echo "")
+				#echo "Has password: $has_password"
+				# if the line "using password: NO" is a result 
+				if [ -n "$has_password" ]; then
+					# password is set
+					password_is_set="true"
+					echo "$password_is_set"
+				else 
+					password_is_set="false"
+					echo "$password_is_set"
+				fi
+			#if service is not running
+			else
+				echo "mariadb service not running"
+				# start service
+				echo "Starting mariadb service $(sudo service mariadb start)"
+				#running the function again
+				checkMariadbPassword
+			fi
+		# return wether or not mariadb password exists
+		else
+			password_is_set="false"
+			echo "$password_is_set"
+		fi
+	fi 
+	
+}
+export -f checkMariadbPassword
+
+
+# Copy file from source to destination
+copyFile(){
+	# $1 is source file you want to copy
+	# $2 destination where you want to copy to
+	cp $1 $2
+}
+export -f copyFile
+
+#Check if a file exists
+fileExists(){
+	#$1 file to check for
+	if [ -f $1 ]; then
+		echo "true"
+	else
+		echo "false"
+	fi
+}
+export -f fileExists
+
+# Check if source file have parentnode file content
+checkFileContent(){
+	query=$1
+	source=$(<$2)
+	check_query=$(echo "$source" | grep "$query" || echo "")
+	if [ -n "$check_query" ]; then
+		echo "true"
+	fi 
+}
+export -f checkFileContent
+
+syncronizeAlias(){
+    
+	# Uncomment this source and destination when testing, comment out when done
+	#source=$(</srv/sites/parentnode/ubuntu_environment/tests/test_syncronize_alias/source)
+	#destination=/srv/sites/parentnode/ubuntu_environment/tests/test_syncronize_alias/destination
+	
+	# Comment out this source and destination when testing, uncomment when done
+	source=$(<$2)
+	destination=$3
+
+	readarray -t source_key <<< $(echo "$source" | grep "$1" | cut -d \" -f2) 
+    readarray -t source_value <<< $(echo "$source" | grep "$1" | cut -d \" -f3,4,5) 
+    
+    for i in "${!source_key[@]}"
+    do
+        sed -i 's%'"${source_key[$i]}.*"'%'"$(trimString "${source_value[$i]}")"'%g' $destination
+        
+    done
+}
+export -f syncronizeAlias
+
+deleteAndAppendSection(){
+    sed -i "/$1/,/$1/d" "$3" 
+    readdata=$( < $2)
+    echo "$readdata" | sed -n "/$1/,/$1/p" >> "$3"
+}
+export -f deleteAndAppendSection
+
+# Check folder exists create if not
+checkFolderExistOrCreate(){
+    if [ ! -e "$1" ]; then
+        echo "Creating folder $1"
+        mkdir "$1" 
+    else 
+        echo "Folder allready exists"
+    fi
+}
+export -f checkFolderExistOrCreate
+
+command(){
+    if [[ $2 == true ]]; then
+        cmd=$($1 1> /dev/null)
+    else
+        cmd=$($1)
+    fi
+    echo "$cmd"
+}
+export -f command
 
 trimString(){
 	trim=$1
 	echo "${trim}" | sed -e 's/^[ \t]*//'
 }
 export -f trimString
-checkAlias() 
-{
-	#dot_profile
-	file=$1
-	#bash_profile.default
-	default=$2
-	echo "Updating $file alias"
-	# Splits output based on new lines
-	IFS=$'\n'
-	# Reads all of default int to an variable
-	default=$( < "$default" )
 
-	# Every key value pair looks like this (taken from bash_profile.default )
-	# "alias mysql_grant" alias mysql_grant="php /srv/tools/scripts/mysql_grant.php"
-	# The key komprises of value between the first and second quotation '"'
-	default_keys=( $( echo "$default" | grep ^\" |cut -d\" -f2))
-	# The value komprises of value between the third, fourth and fifth quotation '"'
-	default_values=( $( echo "$default" | grep ^\" |cut -d\" -f3,4,5))
-	unset IFS
-	
-	for line in "${!default_keys[@]}"
-	do		
-		# do dot_profile contain any of the keys in bash_profile.default
-		check_for_key=$(grep -R "${default_keys[line]}" "$file")
-		# if there are any default keys in dot_profile
-		if [[ -n $check_for_key ]];
-		then
-			# Update the values connected to the key
-			sed -i -e "s,${default_keys[line]}\=.*,$(trimString "${default_values[line]}"),g" "$file"
-			
+createOrModifyBashProfile(){
+	# if $shell_interactive have value, the computer is accessed with an login prompt normally a server
+	server=$(dpkg -l ubuntu-server 2>&1 > /dev/null)
+	if [ "$server" == "dpkg-query: no packages found matching ubuntu-server" ]; then
+		echo "client conf"
+		conf="/srv/tools/conf-client/dot_profile"
+		conf_alias="/srv/tools/conf-client/dot_profile_alias"
+		install_bash_profile=$(grep -E ". $HOME/.bash_profile" $HOME/.bashrc || echo "")
+		#install_bash_profile=$(grep -E "\$HOME\/\.bash_profile" /home/$install_user/.bashrc || echo "")
+		if [ -z "$install_bash_profile" ]; then
+			outputHandler "comment" "Setting up .bash_profile"
+			# Add .bash_profile to .bashrc
+			echo "" >> $HOME/.bashrc
+			echo "if [ -f \"$HOME/.bash_profile\" ]; then" >> $HOME/.bashrc
+			echo " . $HOME/.bash_profile" >> $HOME/.bashrc
+			echo "fi" >> $HOME/.bashrc
+		else
+			outputHandler "comment" ".bash_profile Installed"
 		fi
-		
-	done
-	
-}
-export -f checkAlias
-#!/bin/bash -e
-updateStatementInFile(){
-    	#check_statement=$1
-	input_file=$2
-	output_file=$3
-	read_input_file=$(<"$input_file")
-	read_output_file=$( < "$output_file")
-	check=$(echo "$read_output_file" | grep -E ^"$1" || echo "")
-	if [ -n "$check" ];
-	then 
-		# deletes existing block of code
-		sed -i "/# $1/,/# end $1/d" "$output_file"
-		# inserts parentnode newest block of code
-		echo "$read_input_file" | sed -n "/# $1/,/# end $1/p" >> "$output_file"
-	fi
-	echo ""	
-}
-export -f updateStatementInFile
-
-# Updates all the sections in the .bash_profile file with files in parentnode dot_profile
-copyParentNodePromptToFile(){
-	#updateStatementInFile "admin check" "/mnt/c/srv/tools/conf/dot_profile" "$HOME/.bash_profile"
-	updateStatementInFile "running bash" "/mnt/c/srv/tools/conf/dot_profile" "$HOME/.bash_profile"
-	updateStatementInFile "set path" "/mnt/c/srv/tools/conf/dot_profile" "$HOME/.bash_profile"
-	## Updates the git_prompt function found in .bash_profile 
-	# simpler version instead of copyParentNodeGitPromptToFile. awaiting approval 
-	updateStatementInFile "enable git prompt" "/mnt/c/srv/tools/conf/dot_profile_git_promt" "$HOME/.bash_profile"
-	
-}
-export -f copyParentNodePromptToFile
-
-# Checks string content
-checkStringInFile(){
-	search_string=$(grep -E "$1" $2 || echo "")
-	if [ -z "$search_string" ]; 
-	then
-		echo "Not Found"
 	else
-		echo "Found"
+		echo "server conf"
+		conf="/srv/tools/conf-server/dot_profile"
+		conf_alias="/srv/tools/conf-server/dot_profile_alias"
+	
 	fi
-
-}
-export -f checkStringInFile
-
-# Checks if a folder exists if not it will be created
-checkFolderOrCreate(){
-	folderName=$1
-	if [ -e $folderName ];
-	then
-		echo "$folderName already exists"
-	else 
-		echo "Creating directory $folderName"
-    	mkdir -p $folderName;
+	if [ "$(fileExists "$HOME/.bash_profile")" = true ]; then
+		outputHandler "comment" ".bash_profile Exist"
+		bash_profile_modify_array=("[Yn]")
+		bash_profile_modify=$(ask "Do you want to modify existing .bash_profile (Y/n) !this will override existing .bash_profile!" "${bash_profile_modify_array[@]}" "option bash profile")
+		export bash_profile_modify
+	else
+		#outputHandler "comment" "Installing \.bash_profile"´
+		sudo cp $conf $HOME/.bash_profile
 	fi
-	echo ""
-}
-export -f checkFolderOrCreate
-
-# Setting Git credentials if needed
-gitConfigured(){
-	git_credential=$1
-	credential_configured=$(git config --global user.$git_credential || echo "")
-	if [ -z "$credential_configured" ];
-	then 
-		echo "No previous git user.$git_credential entered"
-		echo
-		read -p "Enter your new user.$git_credential: " git_new_value
-		git config --global user.$git_credential "$git_new_value"
-		echo
-	else 
-		echo "Git user.$git_credential allready set"
+	if [ "$bash_profile_modify" = "Y" ]; then 
+		outputHandler "comment" "Modifying existing .bash_profile"
+		# Switch case checking for either a git prompt definition is present or alias is present allready
+		case "true" in 
+			$(checkFileContent "git_prompt ()" "$HOME/.bash_profile") | $(checkFileContent "alias" "$HOME/.bash_profile"))
+				# if git prompt definition is provided by parentnode
+				if [ "$(checkFileContent "# parentnode_git_prompt" "$HOME/.bash_profile")" = "true" ]; then
+					# update existing git prompt definition section
+					deleteAndAppendSection "# parentnode_git_prompt" "$conf" "$HOME/.bash_profile"
+				fi
+				# if alias is provided by parentnode
+				if [ "$(checkFileContent "# parentnode_alias" "$HOME/.bash_profile")" = "true" ]; then
+					# update existing alias section
+					deleteAndAppendSection "# parentnode_alias" "$conf" "$HOME/.bash_profile"
+				else
+					# if alias is not parentnode alias add them  
+					syncronizeAlias
+				fi	
+				# if more than one user is present at the system (client only) add the multiuser section
+				deleteAndAppendSection "# parentnode_multi_user" "$conf" "$HOME/.bash_profile"
+				;;
+			# if .bash_profile is not listing any of the above, we must asume .bash_profile is broken.
+			*)
+				sudo rm $HOME/.bash_profile
+				sudo cp $conf $HOME/.bash_profile
+				;;
+		esac
+	else
+		# parentnode alias is necessary for a parentnode environment
+		syncronizeAlias "alias" "$conf_alias" "$HOME/.bash_profile"
 	fi
-	echo ""
+	
 }
-export -f gitConfigured
-
-installedPackage(){
-	installed_package=$(dpkg --get-selections | grep $1 || echo "")
-	if [ -z "$installed_package" ];
-	then
-		guiText "$1" "Install"
-		sudo apt install -y $1
-		if [ "$1" == "ffmpeg" ]; then
-			sudo -$2 apt install $1 -y
-		fi
-		if [ "$1" == "mariadb-server" ]; then
-			sudo -$2 apt install -$3 $1 -y
-		fi
-	else 
-		guiText "$1" "Installed"
-	fi
-}
-export -f installedPackage
+export -f createOrModifyBashProfile

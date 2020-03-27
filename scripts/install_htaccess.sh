@@ -1,15 +1,9 @@
 #!/bin/bash -e
 
-echo "-----------------------------------------"
-echo
-echo "               HTACCESS"
-echo
-echo
-
+outputHandler "comment" "HTACCESS"
 
 if test "$install_htpassword_for_user" = "Y"; then
 
-	echo
 	
 
 	if [ ! -e "/srv/auth-file" ]; then
@@ -22,13 +16,7 @@ if test "$install_htpassword_for_user" = "Y"; then
 
 	fi
 
-	echo
-	echo
-
 else
-
-	echo
-	echo "Skipping HTACCESS"
-	echo
+	outputHandler "comment" "Skipping HTACCESS"
 
 fi

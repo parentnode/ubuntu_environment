@@ -1,0 +1,5 @@
+alias firstdata="first data test me now"
+alias seconddata="second data test me now"
+alias apache="sudo service apache2"
+alias sites="cd /srv/sites"
+alias enable_site="/srv/tools/scripts/enable_site.sh"

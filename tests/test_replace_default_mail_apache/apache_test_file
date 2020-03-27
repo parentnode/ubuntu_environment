@@ -1,0 +1,15 @@
+<VirtualHost *:80>
+        DocumentRoot /srv/sites
+        ServerAdmin mail@outlook.com
+        ErrorLog /srv/sites/apache/logs/error.log
+        CustomLog /srv/sites/apache/logs/access.log combined
+
+        <Directory /srv/sites>
+                Options Indexes FollowSymLinks MultiViews
+
+                AllowOverride All
+
+                Require all granted
+        </Directory>
+</VirtualHost>
+

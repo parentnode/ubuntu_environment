@@ -1,21 +1,12 @@
 #!/bin/bash -e
-
-echo "-----------------------------------------"
-echo
-echo "               SOFTWARE"
-echo
-echo
-
-
+outputHandler "section" "SOFTWARE"
 if test "$install_software" = "Y"; then	
-    
-	guiText "Apache2" "Start"
-    #sudo apt install -y apache2 apache2-utils ssl-cert
-	installedPackage "apache2"
-	installedPackage "apache2-utils"
-	installedPackage "ssl-cert"
-
-	guiText "PHP7.2" "Start"
+    outputHandler "comment" "Installing Software packages"
+	outputHandler "comment" "Installing Apache and extra modules"
+    outputHandler "comment" "Installing apache2"
+	command "sudo apt-get install -y apache2 apache2-utils ssl-cert"
+	
+	outputHandler "comment" "Installing PHP7.2 and extra modules"
 
 	# INSTALL PHP5.5
 	#	sudo apt install -y libapache2-mod-php5 php5 php5-cli php5-common php5-curl php5-dev php5-imagick php5-mcrypt php5-memcached php5-mysqlnd php5-xmlrpc memcached
@@ -35,52 +26,28 @@ if test "$install_software" = "Y"; then
 
 	# INSTALL PHP7.2
 	#sudo apt install -y libapache2-mod-php php7.2 php7.2-cli php7.2-common php7.2-curl php7.2-dev php7.2-mbstring php7.2-zip php7.2-mysql php7.2-xmlrpc
-	installedPackage "libapache2-mod-php"
-	installedPackage "php7.2"
-	installedPackage "php7.2-cli"
-	installedPackage "php7.2-common"
-	installedPackage "php7.2-curl"
-	installedPackage "php7.2-dev"
-	installedPackage "php7.2-mbstring"
-	installedPackage "php7.2-zip"
-	installedPackage "php7.2-mysql"
-	installedPackage "php7.2-xmlrpc"
-	#sudo apt install -y php-redis php-imagick php-igbinary php-msgpack 
-	installedPackage "php-redis"
-	installedPackage "php-imagick"
-	installedPackage "php-igbinary"
-	installedPackage "php-msgpack"
-
-	guiText "Redis" "Start"
-	sudo apt install -y redis
-	#installedPackage "redis"
-	guiText "Redis" "Done"
-
-	guiText "Zip, Log Rotation and Curl" "Start"
-	#sudo apt install -y zip logrotate curl
-	installedPackage "zip"
-	installedPackage "logrotate"
-	installedPackage "curl"
-	guiText "Zip, Log Rotation and Curl" "Done"
-
-	guiText "MariaDB" "Start"
-	#sudo -E apt install -q -y mariadb-server
+	command "sudo apt-get install -y libapache2-mod-php php7.2 php7.2-cli php7.2-common php7.2-curl php7.2-dev php7.2-mbstring php7.2-zip php7.2-mysql php7.2-xmlrpc"
+	command "sudo apt-get install -y php-redis php-imagick php-igbinary php-msgpack" 
 	
-	installedPackage "mariadb-server" "E" "q"
+	outputHandler "comment" "Installing Redis"
+	command "sudo apt-get install -y redis"
+	
+	outputHandler "comment" "Installing Zip"
+	command "sudo apt-get install -y zip" 
+
+	outputHandler "comment" "Installing Log Rotation"
+	command "sudo apt-get install -y logrotate" 
+	outputHandler "comment" "Installing Curl" 
+	command "sudo apt-get install -y curl"
+	outputHandler "comment" "Installing MariaDB Server"
+	command "sudo -E apt-get install -q -y mariadb-server"
 	# INSTALL FFMPEG
-	guiText "FFMPEF" "Start"
 	. /srv/tools/scripts/install_ffmpeg.sh
-	guiText "FFMPEG" "Done"
-
 	# INSTALL WKHTMLTO
-	guiText "WKHTML" "Start"
 	. /srv/tools/scripts/install_wkhtmlto.sh
-	guiText "WKHTML" "Done"
-
-	
 	# INSTALL SYS-INFO
 	# aptitude install landscape-client landscape-common
 
 else
-	guiText "Software" "Skip"
+	outputHandler "section" "Skipping software"
 fi
