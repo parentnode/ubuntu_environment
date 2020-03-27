@@ -6,6 +6,19 @@ if test "$install_wkhtml" = "Y"; then
 
 	# WKHTML - FORCE PASSWORD RENEWAL
 	outputHandler "comment" "Using /srv/tools/bin/wkhtmltopdf"
+	if [ -e "/srv/tools/bin/wkhtml.tar.gz" ]; then
+		outputHandler "comment" "Installing wkhtmltopdf"
+		command "tar -xzvf wkhtml.tar.gz /srv/tools/bin/wkhtmltopdf"
+		command "sudo rm /srv/tools/bin/wkhtml.tar.gz"
+		. /srv/tools/bin/wkhtmltopdf --version
+	else
+		if [ ! -e "/srv/tools/bin/wkhtmltopdf" ]; then
+			outputHandler "comment" "Something is wrong with this wkhtmltopdf scenario"
+		else 
+			outputHandler "comment" "wkhtmltopdf are installed"
+			. /srv/tools/bin/wkhtmltopdf --version
+		fi
+	fi
 	#sudo apt install -y wkhtmltopdf
 	# installedPackage "wkhtmltopdf"
 	# sudo cp /srv/tools/conf/wkhtmltoimage /usr/bin/static_wkhtmltoimage
