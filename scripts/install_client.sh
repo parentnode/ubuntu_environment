@@ -11,7 +11,8 @@ echo ""
 
 source /srv/tools/scripts/functions.sh
 enableSuperCow
-
+ubuntu_version=$(cat /etc/lsb-release | grep DISTRIB_RELEASE | cut -d \= -f2)
+outputHandler "comment" "You are running ubuntu version: $ubuntu_version"
 # GET INSTALL USER
 install_user="$(getUsername)"
 #$(whoami | awk '{print $1}')
@@ -23,6 +24,7 @@ outputHandler "comment" "Installing system for $install_user"
 
 # Checking directories
 . /srv/tools/scripts/checking_directories_client.sh
+
 
 # INSTALL SOFTWARE
 . /srv/tools/scripts/install_software.sh
