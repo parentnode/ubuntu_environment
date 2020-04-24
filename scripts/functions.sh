@@ -284,7 +284,7 @@ createOrModifyBashProfile(){
 		conf_alias="/srv/tools/conf-server/dot_profile_alias"
 	
 	fi
-	if [ "$(fileExists "$HOME/.bash_profile")" = "true" ]; then
+	if [ -f $HOME/.bash_profile ]; then
 		outputHandler "comment" ".bash_profile Exist"
 		bash_profile_modify_array=("[Yn]")
 		bash_profile_modify=$(ask "Do you want to modify existing .bash_profile (Y/n) !this will override existing .bash_profile!" "${bash_profile_modify_array[@]}" "option bash profile")
