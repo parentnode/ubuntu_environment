@@ -309,7 +309,7 @@ createOrModifyBashProfile(){
 					deleteAndAppendSection "# parentnode_alias" "$conf" "$HOME/.bash_profile"
 				else
 					# if alias is not parentnode alias add them  
-					syncronizeAlias
+					syncronizeAlias "alias" "$conf_alias" "$HOME/.bash_profile"
 				fi	
 				# if more than one user is present at the system (client only) add the multiuser section
 				deleteAndAppendSection "# parentnode_multi_user" "$conf" "$HOME/.bash_profile"
