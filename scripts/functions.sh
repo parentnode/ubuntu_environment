@@ -266,7 +266,7 @@ createOrModifyBashProfile(){
 		echo "client conf"
 		conf="/srv/tools/conf-client/dot_profile"
 		conf_alias="/srv/tools/conf-client/dot_profile_alias"
-		install_bash_profile=$(grep -E ". $HOME/.bash_profile" $HOME/.bashrc || echo "")
+		install_bash_profile=$(grep -E ".bash_profile" $HOME/.bashrc || echo "")
 		#install_bash_profile=$(grep -E "\$HOME\/\.bash_profile" /home/$install_user/.bashrc || echo "")
 		if [ -z "$install_bash_profile" ]; then
 			outputHandler "comment" "Setting up .bash_profile"
@@ -284,7 +284,7 @@ createOrModifyBashProfile(){
 		conf_alias="/srv/tools/conf-server/dot_profile_alias"
 	
 	fi
-	if [ "$(fileExists "$HOME/.bash_profile")" = true ]; then
+	if [ "$(fileExists "$HOME/.bash_profile")" = "true" ]; then
 		outputHandler "comment" ".bash_profile Exist"
 		bash_profile_modify_array=("[Yn]")
 		bash_profile_modify=$(ask "Do you want to modify existing .bash_profile (Y/n) !this will override existing .bash_profile!" "${bash_profile_modify_array[@]}" "option bash profile")
