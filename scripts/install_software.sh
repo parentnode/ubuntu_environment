@@ -6,7 +6,7 @@ if test "$install_software" = "Y"; then
     outputHandler "comment" "Installing apache2"
 	command "sudo apt-get install -y apache2 apache2-utils ssl-cert"
 	
-	outputHandler "comment" "Installing PHP7.2 and extra modules"
+	outputHandler "comment" "Installing PHP7.4 and extra modules"
 
 	# INSTALL PHP5.5
 	#	sudo apt install -y libapache2-mod-php5 php5 php5-cli php5-common php5-curl php5-dev php5-imagick php5-mcrypt php5-memcached php5-mysqlnd php5-xmlrpc memcached
