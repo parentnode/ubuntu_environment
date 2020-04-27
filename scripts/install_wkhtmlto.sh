@@ -6,8 +6,8 @@ if test "$install_wkhtml" = "Y"; then
 
 	# WKHTML - FORCE PASSWORD RENEWAL
 	outputHandler "comment" "Installing wkhtmltopdf into tools"
-	sudo tar -xzvf /srv/tools/bin/wkhtml.tar.gz /srv/tools/bin/wkhtmltopdf
-	#cp wkhtmltopdf /srv/tools/bin/
+	sudo tar -xzvf /srv/tools/bin/wkhtml.tar.gz -C /srv/tools/bin/
+	#sudp cp /home/$install_user/wkhtmltopdf /srv/tools/bin/
 	sudo rm /srv/tools/bin/wkhtml.tar.gz
 	/srv/tools/bin/wkhtmltopdf --version
 	#sudo apt install -y wkhtmltopdf
