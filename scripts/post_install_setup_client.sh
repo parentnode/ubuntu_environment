@@ -110,7 +110,7 @@ if test "$install_webserver_conf" = "Y"; then
     if [ "$apache_run_user" = "$install_user" ]; then
         outputHandler "comment" "$install_user is Running Apache User"
     else
-        sed -i 's,'"export APACHE_RUN_USER=$apache_run_user"','"export APACHE_RUN_USER=$install_user"',%g' /etc/apache2/envvars
+        sed -i 's/'"export APACHE_RUN_USER=$apache_run_user"'/'"export APACHE_RUN_USER=$install_user"'/g' /etc/apache2/envvars
     fi
     outputHandler "comment" "Restarting Apache"
     # RESTARTING APACHE ARE IMPORTANT FOR REST OF THE SCRIPT!!
