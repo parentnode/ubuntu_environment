@@ -36,8 +36,8 @@ outputHandler "comment" "Installing system for $install_user"
 
 
 # Change Folder Rights from root to current user
-outputHandler "comment" "Changing folder rights from root to $install_user"
-sudo chown -R $install_user:$install_user /home/$install_user/Sites
+#outputHandler "comment" "Changing folder rights from root to $install_user"
+#sudo chown -R $install_user:deploy /home/$install_user/Sites
 
 
 echo ""
