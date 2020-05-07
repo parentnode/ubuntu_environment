@@ -296,26 +296,11 @@ createOrModifyBashProfile(){
 	if [ "$bash_profile_modify" = "Y" ]; then 
 		outputHandler "comment" "Modifying existing .bash_profile"
 		# Switch case checking for either a git prompt definition is present or alias is present allready
-		# if git prompt definition is provided by parentnode
-		pn_git_prompt=$(grep "# parentnode_git_prompt" /home/$install_user/.bash_profile)
-		if [ -n "$pn_git_prompt" ]; then
-			# update existing git prompt definition section
-			deleteAndAppendSection "# parentnode_git_prompt" "$conf" "/home/$install_user/.bash_profile"
-		fi
-		pn_alias=$(grep "# parentnode_alias" /home/$install_user/.bash_profile)
-		# if alias is provided by parentnode
-		if [ -n "$pn_alias" ]; then
-			# update existing alias section
-			deleteAndAppendSection "# parentnode_alias" "$conf" "/home/$install_user/.bash_profile"
-		else
-			# if alias is not parentnode alias add them  
-			syncronizeAlias "alias" "$conf_alias" "/home/$install_user/.bash_profile"
-		fi	
-		# if more than one user is present at the system (client only) add the multiuser section
-		pn_multi_user=$(grep "# parentnode_multi_user" /home/$install_user/.bash_profile)
-		if [ -n "$pn_multi_user" ]; then
-			deleteAndAppendSection "# parentnode_multi_user" "$conf" "/home/$install_user/.bash_profile"
-		fi	
+		deleteAndAppendSection "# parentnode_git_prompt" "$conf" "/home/$install_user/.bash_profile"
+		deleteAndAppendSection "# parentnode_alias" "$conf" "/home/$install_user/.bash_profile"
+		
+		#syncronizeAlias "alias" "$conf_alias" "/home/$install_user/.bash_profile"
+		deleteAndAppendSection "# parentnode_multi_user" "$conf" "/home/$install_user/.bash_profile"	
 	else
 		# parentnode alias is necessary for a parentnode environment
 		syncronizeAlias "alias" "$conf_alias" "/home/$install_user/.bash_profile"
