@@ -1,4 +1,4 @@
-#begin:parentnode_alias
+# parentnode_alias
 "alias apache" alias apache="sudo service apache2"
 "alias sites" alias sites="cd /srv/sites"
 "alias enable_site" alias enable_site="/srv/tools/scripts/enable_site.sh"
@@ -7,4 +7,4 @@
 #alias update_env="sh /srv/tools/scripts/update_env.sh"
 #alias update_awstats="sudo php /srv/tools/scripts/update_awstats.php"
 #alias mysql_grant="php /srv/tools/scripts/mysql_grant.php"
-#end:parentnode_alias
+# parentnode_alias
