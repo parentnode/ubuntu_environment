@@ -34,7 +34,7 @@ if [ -e "/srv/sites" ]; then
 		echo "Creating Symlink"
 		sudo rm /srv/sites
 		sudo ln -s /home/$(echo $USER)/Sites /srv/sites
-		sudo chown -R $(echo $USER):$(echo $USER) /home/$(echo $USER)/Sites
+		sudo chown -R $(echo $USER):deploy /home/$(echo $USER)/Sites
 		sudo service apache2 restart
     fi
 fi
