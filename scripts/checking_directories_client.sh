@@ -11,7 +11,7 @@ else
         sudo ln -s /home/$install_user/Sites /srv/sites
     fi
 fi
-export Apache_Run_USER=$install_user
+
 checkFolderExistOrCreate "/srv/sites/apache"
 checkFolderExistOrCreate "/srv/sites/apache/logs"
 checkFolderExistOrCreate "/srv/sites/parentnode"

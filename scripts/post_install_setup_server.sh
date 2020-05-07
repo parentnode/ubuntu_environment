@@ -62,8 +62,6 @@ if test "$install_webserver_conf" = "Y"; then
 	outputHandler "comment" "disable original default site"
     a2dissite 000-default
 
-	apache_run_user=$(grep "export APACHE_RUN_USER | cut -d = -f2")
-	echo "Apache Run user: $apache_run_user"
 	# UPDATE PHP CONF
 	# PHP 5
 	#cat /srv/tools/conf-server/php-apache2.ini > /etc/php5/apache2/php.ini
