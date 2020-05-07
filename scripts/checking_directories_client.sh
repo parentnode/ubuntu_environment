@@ -11,7 +11,7 @@ else
         sudo ln -s /home/$install_user/Sites /srv/sites
     fi
 fi
-
+export Apache_Run_USER=$install_user
 checkFolderExistOrCreate "/srv/sites/apache"
 checkFolderExistOrCreate "/srv/sites/apache/logs"
 checkFolderExistOrCreate "/srv/sites/parentnode"
@@ -19,4 +19,4 @@ checkFolderExistOrCreate "/srv/sites/apache/ssl"
 
 outputHandler "comment" "Changing Folder rights from root to your curent user"
 # Change Folder Rights from root to current user
-sudo chown -R $install_user:$install_user /home/$install_user/Sites
+sudo chown -R $install_user:deploy /home/$install_user/Sites
