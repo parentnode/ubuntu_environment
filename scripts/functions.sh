@@ -226,7 +226,7 @@ syncronizeAlias(){
 export -f syncronizeAlias
 
 deleteAndAppendSection(){
-    sed -i "/$1/,/$1/d" "$3"
+    sed -i "/#begin:$1/,/#end:$1/d" "$3"
     readdata=$( < $2)
     echo "$readdata" | sed -n "/#begin:$1/,/#end:$1/p" >> "$3"
 }
