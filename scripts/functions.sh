@@ -297,12 +297,14 @@ createOrModifyBashProfile(){
 		outputHandler "comment" "Modifying existing .bash_profile"
 		# Switch case checking for either a git prompt definition is present or alias is present allready
 		# if git prompt definition is provided by parentnode
-		if [ "$(checkFileContent "# parentnode_git_prompt" "/home/$install_user/.bash_profile")" = "true" ]; then
+		pn_git_prompt=$(grep "# parentnode_git_prompt" /home/$install_user/.bash_profile)
+		if [ -n "$pn_git_prompt" ]; then
 			# update existing git prompt definition section
 			deleteAndAppendSection "# parentnode_git_prompt" "$conf" "/home/$install_user/.bash_profile"
 		fi
+		pn_alias=$(grep "# parentnode_alias" /home/$install_user/.bash_profile)
 		# if alias is provided by parentnode
-		if [ "$(checkFileContent "# parentnode_alias" "/home/$install_user/.bash_profile")" = "true" ]; then
+		if [ -n "$pn_alias" ]; then
 			# update existing alias section
 			deleteAndAppendSection "# parentnode_alias" "$conf" "/home/$install_user/.bash_profile"
 		else
@@ -310,7 +312,8 @@ createOrModifyBashProfile(){
 			syncronizeAlias "alias" "$conf_alias" "/home/$install_user/.bash_profile"
 		fi	
 		# if more than one user is present at the system (client only) add the multiuser section
-		if [ "$(checkFileContent "# parentnode_multi_user" "/home/$install_user/.bash_profile")" = "true" ]; then
+		pn_multi_user=$(grep "# parentnode_multi_user" /home/$install_user/.bash_profile)
+		if [ -n "$pn_multi_user" ]; then
 			deleteAndAppendSection "# parentnode_multi_user" "$conf" "/home/$install_user/.bash_profile"
 		fi	
 	else
