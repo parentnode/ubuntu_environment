@@ -296,30 +296,23 @@ createOrModifyBashProfile(){
 	if [ "$bash_profile_modify" = "Y" ]; then 
 		outputHandler "comment" "Modifying existing .bash_profile"
 		# Switch case checking for either a git prompt definition is present or alias is present allready
-		case "true" in 
-			$(checkFileContent "git_prompt ()" "/home/$install_user/.bash_profile") | $(checkFileContent "alias" "/home/$install_user/.bash_profile"))
-				# if git prompt definition is provided by parentnode
-				if [ "$(checkFileContent "# parentnode_git_prompt" "/home/$install_user/.bash_profile")" = "true" ]; then
-					# update existing git prompt definition section
-					deleteAndAppendSection "# parentnode_git_prompt" "$conf" "/home/$install_user/.bash_profile"
-				fi
-				# if alias is provided by parentnode
-				if [ "$(checkFileContent "# parentnode_alias" "/home/$install_user/.bash_profile")" = "true" ]; then
-					# update existing alias section
-					deleteAndAppendSection "# parentnode_alias" "$conf" "/home/$install_user/.bash_profile"
-				else
-					# if alias is not parentnode alias add them  
-					syncronizeAlias "alias" "$conf_alias" "/home/$install_user/.bash_profile"
-				fi	
-				# if more than one user is present at the system (client only) add the multiuser section
-				deleteAndAppendSection "# parentnode_multi_user" "$conf" "/home/$install_user/.bash_profile"
-				;;
-			# if .bash_profile is not listing any of the above, we must asume .bash_profile is broken.
-			*)
-				sudo rm /home/$install_user/.bash_profile
-				sudo cp $conf /home/$install_user/.bash_profile
-				;;
-		esac
+		# if git prompt definition is provided by parentnode
+		if [ "$(checkFileContent "# parentnode_git_prompt" "/home/$install_user/.bash_profile")" = "true" ]; then
+			# update existing git prompt definition section
+			deleteAndAppendSection "# parentnode_git_prompt" "$conf" "/home/$install_user/.bash_profile"
+		fi
+		# if alias is provided by parentnode
+		if [ "$(checkFileContent "# parentnode_alias" "/home/$install_user/.bash_profile")" = "true" ]; then
+			# update existing alias section
+			deleteAndAppendSection "# parentnode_alias" "$conf" "/home/$install_user/.bash_profile"
+		else
+			# if alias is not parentnode alias add them  
+			syncronizeAlias "alias" "$conf_alias" "/home/$install_user/.bash_profile"
+		fi	
+		# if more than one user is present at the system (client only) add the multiuser section
+		if [ "$(checkFileContent "# parentnode_multi_user" "/home/$install_user/.bash_profile")" = "true" ]; then
+			deleteAndAppendSection "# parentnode_multi_user" "$conf" "/home/$install_user/.bash_profile"
+		fi	
 	else
 		# parentnode alias is necessary for a parentnode environment
 		syncronizeAlias "alias" "$conf_alias" "/home/$install_user/.bash_profile"
