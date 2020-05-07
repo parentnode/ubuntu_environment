@@ -106,7 +106,7 @@ if test "$install_webserver_conf" = "Y"; then
 
     cp "/srv/tools/conf/ssl/star_local.crt" "/srv/sites/apache/ssl/star_local.crt"
     cp "/srv/tools/conf/ssl/star_local.key" "/srv/sites/apache/ssl/star_local.key"
-    apache_run_user=$(grep "export APACHE_RUN_USER" /etc/apache2/envvars | cut -d = -f2")
+    apache_run_user=$(grep "export APACHE_RUN_USER" /etc/apache2/envvars | cut -d = -f2)
 	echo "Apache Run user: $apache_run_user"
     
     outputHandler "comment" "Restarting Apache"
