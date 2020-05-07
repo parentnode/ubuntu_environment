@@ -228,7 +228,7 @@ export -f syncronizeAlias
 deleteAndAppendSection(){
     sed -i "/$1/,/$1/d" "$3"
     readdata=$( < $2)
-    echo "$readdata" | sed -n "/$1/,/$1/p" >> "$3"
+    echo "$readdata" | sed -n "/#begin:$1/,/#end:$1/p" >> "$3"
 }
 export -f deleteAndAppendSection
 
@@ -296,11 +296,11 @@ createOrModifyBashProfile(){
 	if [ "$bash_profile_modify" = "Y" ]; then 
 		outputHandler "comment" "Modifying existing .bash_profile"
 		# Switch case checking for either a git prompt definition is present or alias is present allready
-		deleteAndAppendSection "#\ parentnode_git_prompt" "$conf" "/home/$install_user/.bash_profile"
-		deleteAndAppendSection "#\ parentnode_alias" "$conf" "/home/$install_user/.bash_profile"
+		deleteAndAppendSection "parentnode_git_prompt" "$conf" "/home/$install_user/.bash_profile"
+		deleteAndAppendSection "parentnode_alias" "$conf" "/home/$install_user/.bash_profile"
 		
 		#syncronizeAlias "alias" "$conf_alias" "/home/$install_user/.bash_profile"
-		deleteAndAppendSection "#\ parentnode_multi_user" "$conf" "/home/$install_user/.bash_profile"	
+		deleteAndAppendSection "parentnode_multi_user" "$conf" "/home/$install_user/.bash_profile"	
 	else
 		# parentnode alias is necessary for a parentnode environment
 		syncronizeAlias "alias" "$conf_alias" "/home/$install_user/.bash_profile"
