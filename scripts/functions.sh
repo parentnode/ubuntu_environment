@@ -296,12 +296,18 @@ createOrModifyBashProfile(){
 	fi
 	if [ "$bash_profile_modify" = "Y" ]; then 
 		outputHandler "comment" "Modifying existing .bash_profile"
-		# Switch case checking for either a git prompt definition is present or alias is present allready
-		deleteAndAppendSection "parentnode_git_prompt" "$conf" "/home/$install_user/.bash_profile"
-		deleteAndAppendSection "parentnode_alias" "$conf" "/home/$install_user/.bash_profile"
-		
-		#syncronizeAlias "alias" "$conf_alias" "/home/$install_user/.bash_profile"
-		deleteAndAppendSection "parentnode_multi_user" "$conf" "/home/$install_user/.bash_profile"	
+		if [ "$(checkFileContent "#START:parentnode_git_prompt" "/home/$install_user/.bash_profile")" = "true" ]; then
+			deleteAndAppendSection "parentnode_git_prompt" "$conf" "/home/$install_user/.bash_profile"
+		fi
+		if [ "$(checkFileContent "#START:parentnode_alias" "/home/$install_user/.bash_profile")" = "true" ]; then
+			deleteAndAppendSection "parentnode_alias" "$conf" "/home/$install_user/.bash_profile"
+		else
+			syncronizeAlias "alias" "$conf_alias" "/home/$install_user/.bash_profile"
+		fi
+		if [ "$(checkFileContent "#START:parentnode_multi_user" "/home/$install_user/.bash_profile")" = "true" ]; then
+			deleteAndAppendSection "parentnode_multi_user" "$conf" "/home/$install_user/.bash_profile"
+		fi
+			
 	else
 		# parentnode alias is necessary for a parentnode environment
 		syncronizeAlias "alias" "$conf_alias" "/home/$install_user/.bash_profile"
