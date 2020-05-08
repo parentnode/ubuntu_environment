@@ -296,7 +296,6 @@ createOrModifyBashProfile(){
 	fi
 	if [ "$bash_profile_modify" = "Y" ]; then 
 		outputHandler "comment" "Modifying existing .bash_profile"
-		#if [ "$(checkFileContent "#START:parentnode_git_prompt" "/home/$install_user/.bash_profile")" = "true" ]; then
 		deleteAndAppendSection "parentnode_git_prompt" "$conf" "/home/$install_user/.bash_profile"
 		#fi
 		if [ "$(checkFileContent "#START:parentnode_alias" "/home/$install_user/.bash_profile")" = "true" ]; then
@@ -304,9 +303,7 @@ createOrModifyBashProfile(){
 		else
 			syncronizeAlias "alias" "$conf_alias" "/home/$install_user/.bash_profile"
 		fi
-		if [ "$(checkFileContent "#START:parentnode_multi_user" "/home/$install_user/.bash_profile")" = "true" ]; then
-			deleteAndAppendSection "parentnode_multi_user" "$conf" "/home/$install_user/.bash_profile"
-		fi
+		deleteAndAppendSection "parentnode_multi_user" "$conf" "/home/$install_user/.bash_profile"
 			
 	else
 		# parentnode alias is necessary for a parentnode environment
