@@ -292,7 +292,7 @@ createOrModifyBashProfile(){
 	else
 		#outputHandler "comment" "Installing \.bash_profile"´
 		sudo cp $conf /home/$install_user/.bash_profile
-		chown david:david /home/$install_user/.bash_profile
+		chown $install_user:$install_user /home/$install_user/.bash_profile
 	fi
 	if [ "$bash_profile_modify" = "Y" ]; then 
 		outputHandler "comment" "Modifying existing .bash_profile"
