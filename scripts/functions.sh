@@ -296,9 +296,9 @@ createOrModifyBashProfile(){
 	fi
 	if [ "$bash_profile_modify" = "Y" ]; then 
 		outputHandler "comment" "Modifying existing .bash_profile"
-		if [ "$(checkFileContent "#START:parentnode_git_prompt" "/home/$install_user/.bash_profile")" = "true" ]; then
-			deleteAndAppendSection "parentnode_git_prompt" "$conf" "/home/$install_user/.bash_profile"
-		fi
+		#if [ "$(checkFileContent "#START:parentnode_git_prompt" "/home/$install_user/.bash_profile")" = "true" ]; then
+		deleteAndAppendSection "parentnode_git_prompt" "$conf" "/home/$install_user/.bash_profile"
+		#fi
 		if [ "$(checkFileContent "#START:parentnode_alias" "/home/$install_user/.bash_profile")" = "true" ]; then
 			deleteAndAppendSection "parentnode_alias" "$conf" "/home/$install_user/.bash_profile"
 		else
