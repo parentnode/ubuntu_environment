@@ -113,7 +113,8 @@ testCommandResponse(){
 	do
 		command_to_test=$($1 | grep -E "${valid_responses[$response]}" || echo "")
 		if [ -n "$command_to_test" ]; then
-			echo "$(trimString "$command_to_test")" 
+			#echo "$(trimString "$command_to_test")"
+			echo "true" 
 		fi
 	done
 
@@ -138,11 +139,11 @@ checkMariadbPassword(){
 		mariadb_installed=$(service mariadb status || echo "")
 		#echo "Mariadb installed:  $mariadb_installed"
 		if [ -n "$mariadb_installed" ]; then
-			valid_status=("dead" "running")
-			mariadb_running=$(testCommandResponse "service mariadb status" "${valid_status[@]}" || echo "")
+			valid_status=("running")
+			#mariadb_running=$(testCommandResponse "service mariadb status" "${valid_status[@]}" || echo "")
 			#echo "Mariadb Running: $mariadb_running"
 			# if service is running
-			if [ -n "$(echo $mariadb_running | grep -o running)" ]; then
+			if [ "$(testCommandResponse "service mariadb status" "${valid_status[@]}")" = "true" ]; then
 				# check if we can login without password and do stuff return a line confirming if there are a password or an empty string
 				has_password=$(mysql -u root -E STATUS 2>&1 >/dev/null | grep "using password: NO" || echo "")
 				#echo "Has password: $has_password"
@@ -226,9 +227,9 @@ syncronizeAlias(){
 export -f syncronizeAlias
 
 deleteAndAppendSection(){
-    sed -i "/#START:$1/,/#END:$1/d" "$3"
+    sed -i "/$1/,/$1/d" "$3"
     readdata=$( < $2)
-    echo "$readdata" | sed -n "/#START:$1/,/#END:$1/p" >> "$3"
+    echo "$readdata" | sed -n "/$1/,/$1/p" >> "$3"
 }
 export -f deleteAndAppendSection
 
@@ -266,6 +267,7 @@ createOrModifyBashProfile(){
 		echo "client conf"
 		conf="/srv/tools/conf-client/dot_profile"
 		conf_alias="/srv/tools/conf-client/dot_profile_alias"
+		server="false"
 		install_bash_profile=$(grep -E ".bash_profile" /home/$install_user/.bashrc || echo "")
 		#install_bash_profile=$(grep -E "\$HOME\/\.bash_profile" /home/$install_user/.bashrc || echo "")
 		if [ -z "$install_bash_profile" ]; then
@@ -282,7 +284,7 @@ createOrModifyBashProfile(){
 		echo "server conf"
 		conf="/srv/tools/conf-server/dot_profile"
 		conf_alias="/srv/tools/conf-server/dot_profile_alias"
-	
+		server="true"
 	fi
 	if [ -f /home/$install_user/.bash_profile ]; then
 		outputHandler "comment" ".bash_profile Exist"
@@ -296,15 +298,24 @@ createOrModifyBashProfile(){
 	fi
 	if [ "$bash_profile_modify" = "Y" ]; then 
 		outputHandler "comment" "Modifying existing .bash_profile"
-		deleteAndAppendSection "parentnode_git_prompt" "$conf" "/home/$install_user/.bash_profile"
-		#fi
-		if [ "$(checkFileContent "#START:parentnode_alias" "/home/$install_user/.bash_profile")" = "true" ]; then
-			deleteAndAppendSection "parentnode_alias" "$conf" "/home/$install_user/.bash_profile"
+		does_git_exist=$(checkFileContent "git_prompt ()" "/home/$install_user/.bash_profile")
+		if [ "$does_git_exist" = "true" ]; then
+			does_parentnode_git_exist=$(checkFileContent "# parentnode_git_prompt" "/home/$install_user/.bash_profile")
+			if [ "$does_parentnode_git_exist" = "true" ]; then
+				deleteAndAppendSection "# parentnode_git_prompt" "$conf" "/home/$install_user/.bash_profile"
+			else
+				outputHandler "comment" "You have a git prompt in your .bash_profile, not provided by parentnNode" "more than one git prompt can make issues" \ 
+				"skipping"
+			fi
+		fi
+		if [ "$(checkFileContent "# parentnode_alias" "/home/$install_user/.bash_profile")" = "true" ]; then
+			deleteAndAppendSection "# parentnode_alias" "$conf" "/home/$install_user/.bash_profile"
 		else
 			syncronizeAlias "alias" "$conf_alias" "/home/$install_user/.bash_profile"
 		fi
-		deleteAndAppendSection "parentnode_multi_user" "$conf" "/home/$install_user/.bash_profile"
-			
+		if [ "$server" = "false" ]; then 
+			deleteAndAppendSection "# parentnode_multi_user" "$conf" "/home/$install_user/.bash_profile"
+		fi	
 	else
 		# parentnode alias is necessary for a parentnode environment
 		syncronizeAlias "alias" "$conf_alias" "/home/$install_user/.bash_profile"
