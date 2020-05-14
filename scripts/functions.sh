@@ -306,9 +306,10 @@ createOrModifyBashProfile(){
 		
 		deleteAndAppendSection "#parentnode_git_prompt" "$conf_git" "/home/$install_user/.bash_profile"
 		deleteAndAppendSection "#parentnode_alias" "$conf_alias" "/home/$install_user/.bash_profile"
-		if [ "$server" = "false" ]; then
-			deleteAndAppendSection "#parentnode_multi_user" "$conf_m_u" "/home/$install_user/.bash_profile"
-		fi
+		deleteAndAppendSection "#parentnode_multi_user" "$conf_m_u" "/home/$install_user/.bash_profile"
+		#if [ "$server" = "false" ]; then
+		#	
+		#fi
 		#if [ "$(checkFileContent "# parentnode_alias" "/home/$install_user/.bash_profile")" = "true" ]; then
 		#	deleteAndAppendSection "# parentnode_alias" "$conf" "/home/$install_user/.bash_profile"
 		#else
