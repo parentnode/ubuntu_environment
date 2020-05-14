@@ -229,8 +229,8 @@ export -f syncronizeAlias
 deleteAndAppendSection(){
     #sed -i "/$1/,/$1/d" "$3"
     readdata=$( < $2)
-	echo "$readdata"
-	#echo "$readdata" | sed -n "/$1/,/$1/p" >> "$3"
+	#echo "$readdata"
+	echo "$readdata" | sed -n "/$1/,/$1/p" >> "$3"
 	#echo "$readdata" | sed -n "/$1/,/$1/p"
 }
 export -f deleteAndAppendSection
@@ -268,7 +268,9 @@ createOrModifyBashProfile(){
 	if [ "$server" == "dpkg-query: no packages found matching ubuntu-server" ]; then
 		echo "client conf"
 		conf="/srv/tools/conf-client/dot_profile"
+		conf_git="/srv/tools/conf-client/dot_profile_git"
 		conf_alias="/srv/tools/conf-client/dot_profile_alias"
+		conf_m_u="/srv/tools/conf-client/dot_profile_multi_user"
 		server="false"
 		install_bash_profile=$(grep -E ".bash_profile" /home/$install_user/.bashrc || echo "")
 		#install_bash_profile=$(grep -E "\$HOME\/\.bash_profile" /home/$install_user/.bashrc || echo "")
@@ -285,6 +287,7 @@ createOrModifyBashProfile(){
 	else
 		echo "server conf"
 		conf="/srv/tools/conf-server/dot_profile"
+		conf_git="/srv/tools/conf-server/dot_profile_git"
 		conf_alias="/srv/tools/conf-server/dot_profile_alias"
 		server="true"
 	fi
@@ -301,9 +304,11 @@ createOrModifyBashProfile(){
 	if [ "$bash_profile_modify" = "Y" ]; then 
 		outputHandler "comment" "Modifying existing .bash_profile"
 		
-		deleteAndAppendSection "#parentnode_git_prompt" "$conf" "/home/$install_user/.bash_profile"
-		deleteAndAppendSection "#parentnode_alias" "$conf" "/home/$install_user/.bash_profile"
-		deleteAndAppendSection "#parentnode_multi_user" "$conf" "/home/$install_user/.bash_profile"
+		deleteAndAppendSection "#parentnode_git_prompt" "$conf_git" "/home/$install_user/.bash_profile"
+		deleteAndAppendSection "#parentnode_alias" "$conf_alias" "/home/$install_user/.bash_profile"
+		if [ "$server" = "false" ]; then
+			deleteAndAppendSection "#parentnode_multi_user" "$conf_m_u" "/home/$install_user/.bash_profile"
+		fi
 		#if [ "$(checkFileContent "# parentnode_alias" "/home/$install_user/.bash_profile")" = "true" ]; then
 		#	deleteAndAppendSection "# parentnode_alias" "$conf" "/home/$install_user/.bash_profile"
 		#else
