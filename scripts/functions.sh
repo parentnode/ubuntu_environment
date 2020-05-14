@@ -298,16 +298,9 @@ createOrModifyBashProfile(){
 	fi
 	if [ "$bash_profile_modify" = "Y" ]; then 
 		outputHandler "comment" "Modifying existing .bash_profile"
-		does_git_exist=$(checkFileContent "git_prompt ()" "/home/$install_user/.bash_profile")
-		if [ "$does_git_exist" = "true" ]; then
-			does_parentnode_git_exist=$(checkFileContent "# parentnode_git_prompt" "/home/$install_user/.bash_profile")
-			if [ "$does_parentnode_git_exist" = "true" ]; then
-				deleteAndAppendSection "# parentnode_git_prompt" "$conf" "/home/$install_user/.bash_profile"
-			else
-				outputHandler "comment" "You have a git prompt in your .bash_profile, not provided by parentnNode" "more than one git prompt can make issues" \ 
-				"skipping"
-			fi
-		fi
+		
+		deleteAndAppendSection "# parentnode_git_prompt" "$conf" "/home/$install_user/.bash_profile"
+
 		if [ "$(checkFileContent "# parentnode_alias" "/home/$install_user/.bash_profile")" = "true" ]; then
 			deleteAndAppendSection "# parentnode_alias" "$conf" "/home/$install_user/.bash_profile"
 		else
