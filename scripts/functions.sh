@@ -229,7 +229,9 @@ export -f syncronizeAlias
 deleteAndAppendSection(){
     sed -i "/$1/,/$1/d" "$3"
     readdata=$( < $2)
-    echo "$readdata" | sed -n "/$1/,/$1/p" >> "$3"
+	#echo "$readdata"
+	#echo "$readdata" | sed -n "/$1/,/$1/p" >> "$3"
+	echo "$readdata" | sed -n "/$1/,/$1/p"
 }
 export -f deleteAndAppendSection
 
