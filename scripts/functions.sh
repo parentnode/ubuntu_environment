@@ -271,6 +271,7 @@ createOrModifyBashProfile(){
 		conf_git="/srv/tools/conf-client/dot_profile_git"
 		conf_alias="/srv/tools/conf-client/dot_profile_alias"
 		conf_m_u="/srv/tools/conf-client/dot_profile_multi_user"
+		sync_alias="/srv/tools/conf-client/sync_alias"
 		server="false"
 		install_bash_profile=$(grep -E ".bash_profile" /home/$install_user/.bashrc || echo "")
 		#install_bash_profile=$(grep -E "\$HOME\/\.bash_profile" /home/$install_user/.bashrc || echo "")
@@ -289,6 +290,7 @@ createOrModifyBashProfile(){
 		conf="/srv/tools/conf-server/dot_profile"
 		conf_git="/srv/tools/conf-server/dot_profile_git"
 		conf_alias="/srv/tools/conf-server/dot_profile_alias"
+		sync_alias="/srv/tools/conf-server/sync_alias"
 		server="true"
 	fi
 	if [ -f /home/$install_user/.bash_profile ]; then
@@ -320,7 +322,7 @@ createOrModifyBashProfile(){
 		#fi	
 	else
 		# parentnode alias is necessary for a parentnode environment
-		syncronizeAlias "alias" "$conf_alias" "/home/$install_user/.bash_profile"
+		syncronizeAlias "alias" "$sync_alias" "/home/$install_user/.bash_profile"
 	fi
 	
 }
