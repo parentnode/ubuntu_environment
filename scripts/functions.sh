@@ -302,15 +302,15 @@ createOrModifyBashProfile(){
 		outputHandler "comment" "Modifying existing .bash_profile"
 		
 		deleteAndAppendSection "# parentnode_git_prompt" "$conf" "/home/$install_user/.bash_profile"
-
-		if [ "$(checkFileContent "# parentnode_alias" "/home/$install_user/.bash_profile")" = "true" ]; then
-			deleteAndAppendSection "# parentnode_alias" "$conf" "/home/$install_user/.bash_profile"
-		else
-			syncronizeAlias "alias" "$conf_alias" "/home/$install_user/.bash_profile"
-		fi
-		if [ "$server" = "false" ]; then 
-			deleteAndAppendSection "# parentnode_multi_user" "$conf" "/home/$install_user/.bash_profile"
-		fi	
+		deleteAndAppendSection "# parentnode_alias" "$conf" "/home/$install_user/.bash_profile"
+		#if [ "$(checkFileContent "# parentnode_alias" "/home/$install_user/.bash_profile")" = "true" ]; then
+		#	deleteAndAppendSection "# parentnode_alias" "$conf" "/home/$install_user/.bash_profile"
+		#else
+		#	syncronizeAlias "alias" "$conf_alias" "/home/$install_user/.bash_profile"
+		#fi
+		#if [ "$server" = "false" ]; then 
+		#	deleteAndAppendSection "# parentnode_multi_user" "$conf" "/home/$install_user/.bash_profile"
+		#fi	
 	else
 		# parentnode alias is necessary for a parentnode environment
 		syncronizeAlias "alias" "$conf_alias" "/home/$install_user/.bash_profile"
