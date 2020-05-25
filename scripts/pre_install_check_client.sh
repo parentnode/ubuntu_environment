@@ -47,9 +47,8 @@ fi
 
 createOrModifyBashProfile
 
-outputHandler "section" "MariaDB database password"
 if test "$install_webserver_conf" = "Y"; then
-	
+	outputHandler "section" "MariaDB database password"
 	#Check if mariadb are installed and running
 	if [ "$(checkMariadbPassword)" = "false" ]; then
 		password_array=("[A-Za-z0-9\!\@\$\#]{8,30}")
