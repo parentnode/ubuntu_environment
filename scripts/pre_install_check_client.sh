@@ -17,7 +17,7 @@ install_wkhtml_array=("[Yn]")
 install_wkhtml=$(ask "Install WKHTMLTOPDF (Y/n)" "${install_wkhtml_array[@]}" "option wkhtml")
 export install_wkhtml
 
-outputHandler "comment" "Apache email configuration"
+outputHandler "section" "Apache email configuration"
 if [ "$(fileExists "/etc/apache2/sites-available/default.conf")" = "true" ]; then 
 	outputHandler "comment" "defaul.conf Exist"
 	grep_apache_email=$(trimString "$(grep "ServerAdmin" /etc/apache2/sites-available/default.conf)")
@@ -47,7 +47,7 @@ fi
 
 createOrModifyBashProfile
 
-outputHandler "comment" "MariaDB database password"
+outputHandler "section" "MariaDB database password"
 if test "$install_webserver_conf" = "Y"; then
 	
 	#Check if mariadb are installed and running
@@ -110,7 +110,7 @@ if [ -z "$install_deploy_user" ]; then
 fi
 
 
-outputHandler "comment" "Setting Default GIT User setting"
+outputHandler "section" "Setting Default GIT User setting"
 # SETTING DEFAULT GIT USER
 
 # Checks if git credential are allready set, promts for input if not
@@ -133,19 +133,21 @@ fi
 
 git config --global core.filemode false
 outputHandler "comment" "git core.filemode: $(git config --global core.filemode)"
-git config --global user.name "$git_username"
-outputHandler "comment" "git user name: $(git config --global user.name)"
-git config --global user.email "$git_email"
-outputHandler "comment" "git user email: $(git config --global user.email)"
+git config user.name "$git_username"
+outputHandler "comment" "git user name: $(git config user.name)"
+git config user.email "$git_email"
+outputHandler "comment" "git user email: $(git config user.email)"
 git config --global credential.helper cache
 outputHandler "comment" "git credential.helper: $(git config --global credential.helper)"
 
-outputHandler "comment" "Setting Time zone"
+outputHandler "section" "Setting Time zone"
 
-look_for_ex_timezone=$(sudo timedatectl status | grep "Time zone: " | cut -d ':' -f2)
-if [ -z "$look_for_ex_timezone" ]; then
-	outputHandler "comment" "Setting Time zone to Europe/Copenhagen"
-	sudo timedatectl set-timezone "Europe/Copenhagen"
-else 
-	outputHandler "comment" "Existing time zone values: $look_for_ex_timezone"
-fi
+#look_for_ex_timezone=$(sudo timedatectl status | grep "Time zone: " | cut -d ':' -f2)
+#if [ -z "$look_for_ex_timezone" ]; then
+#	outputHandler "comment" "Setting Time zone to Europe/Copenhagen"
+#	sudo timedatectl set-timezone "Europe/Copenhagen"
+#else 
+#	outputHandler "comment" "Existing time zone values: $look_for_ex_timezone"
+#fi
+outputHandler "comment" "Setting Time zone to Europe/Copenhagen"
+sudo timedatectl set-timezone "Europe/Copenhagen"
