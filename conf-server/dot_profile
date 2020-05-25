@@ -56,3 +56,12 @@ alias sites="cd /srv/sites"
 #alias update_awstats="sudo php /srv/tools/scripts/update_awstats.php"
 #alias mysql_grant="php /srv/tools/scripts/mysql_grant.php"
 #parentnode_alias
+
+if [ ! -e "/home/$(echo $USER)/.gitconfig" ]; then
+	read -p "Enter git username: " git_user_name
+	read -p "Enter git email: " git_user_email
+	git config --global core.filemode false
+	git config --global user.name "$git_user_name"
+	git config --global user.email "$git_user_email"
+	git config --global credential.helper cache
+fi

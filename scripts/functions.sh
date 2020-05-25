@@ -123,7 +123,7 @@ export -f testCommandResponse
 
 # Check if git credential are set e.g username
 checkGitCredential(){
-	value=$(git config user.$1)
+	value=$(git config --global user.$1)
 	echo "$value"
 
 }
