@@ -42,6 +42,7 @@ git_prompt () {
 export PS1="\[$(tput bold)\]\[$(tput setaf 0)\]\u@\h \[$(tput setaf 2)\]\W\$(git_prompt)\[$(tput sgr0)\]\[$(tput setaf 4)\] \\$"
 
 export LC_ALL="en_GB.UTF-8"
+
 #parentnode_git_prompt
 #parentnode_alias
 alias apache="sudo service apache2"
@@ -57,11 +58,3 @@ alias sites="cd /srv/sites"
 #alias mysql_grant="php /srv/tools/scripts/mysql_grant.php"
 #parentnode_alias
 
-if [ ! -e "/home/$(echo $USER)/.gitconfig" ]; then
-	read -p "Enter git username: " git_user_name
-	read -p "Enter git email: " git_user_email
-	git config --global core.filemode false
-	git config --global user.name "$git_user_name"
-	git config --global user.email "$git_user_email"
-	git config --global credential.helper cache
-fi
