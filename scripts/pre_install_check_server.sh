@@ -1,4 +1,5 @@
 #!/bin/bash -e
+echo "$SUDO_USER"
 outputHandler "section" "Checking Software Prerequisites are met"
 outputHandler "comment" "To speed up the process, please select your install options now:"
 
