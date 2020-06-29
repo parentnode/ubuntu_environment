@@ -1,5 +1,5 @@
 #!/bin/bash -e
-echo "$SUDO_USER"
+
 outputHandler "section" "Checking Software Prerequisites are met"
 outputHandler "comment" "To speed up the process, please select your install options now:"
 
@@ -158,34 +158,35 @@ fi
 outputHandler "section" "Setting GIT User setting"
 # SETTING DEFAULT GIT USER
 
-# Checks if git credential are allready set, promts for input if not
-if [ -z "$(checkGitCredential "name")" ]; then
-	git_username_array=("[A-Za-z0-9[:space:]*]{2,50}")
-	git_username=$(ask "Enter git username" "${git_username_array[@]}" "git username")
-	export git_username
-else
-	git_username="$(checkGitCredential "name")"
-	export git_username
-fi
-if [ -z "$(checkGitCredential "email")" ]; then
-	git_email_array=("[A-Za-z0-9\.\-]+@[A-Za-z0-9\.\-]+\.[a-z]{2,10}")
-	git_email=$(ask "Enter git email" "${git_email_array[@]}" "git email")
-	export git_email
-else
-	git_email="$(checkGitCredential "email")"
-	export git_email
-fi
-git config --global core.filemode false
-outputHandler "comment" "git core.filemode: $(git config --global core.filemode)"
-git config --global user.name "$git_username"
-outputHandler "comment" "git user name: $(git config --global user.name)"
-git config --global user.email "$git_email"
-outputHandler "comment" "git user email: $(git config --global user.email)"
-git config --global credential.helper cache
-outputHandler "comment" "git credential.helper: $(git config --global credential.helper)"
+if [ ! -e "/home/$install_user/.gitconfig" ]; then
+	if [ -z "$(checkGitCredential "name")" ]; then
+	# Checks if git credential are allready set, promts for input if not
+		git_username_array=("[A-Za-z0-9[:space:]*]{2,50}")
+		git_username=$(ask "Enter git username" "${git_username_array[@]}" "git username")
+		export git_username
+	else
+		git_username="$(checkGitCredential "name")"
+		export git_username
+	fi
+	if [ -z "$(checkGitCredential "email")" ]; then
+		git_email_array=("[A-Za-z0-9\.\-]+@[A-Za-z0-9\.\-]+\.[a-z]{2,10}")
+		git_email=$(ask "Enter git email" "${git_email_array[@]}" "git email")
+		export git_email
+	else
+		git_email="$(checkGitCredential "email")"
+		export git_email
+	fi
+	su - $install_user -c "git config --global core.filemode false"
+	outputHandler "comment" "git core.filemode: $(git config --global core.filemode)"
+	su - $install_user -c  "git config --global user.name "$git_username""
+	outputHandler "comment" "git user name: $(git config --global user.name)"
+	su - $install_user -c "git config --global user.email "$git_email""
+	outputHandler "comment" "git user email: $(git config --global user.email)"
+	su - $install_user -c "git config --global credential.helper cache"
 
+	outputHandler "comment" "git credential.helper: $(git config --global credential.helper)"
+fi
 outputHandler "section" "Time zone"
-
 #look_for_ex_timezone=$(sudo timedatectl status | grep "Time zone: " | cut -d ':' -f2)
 #if [ -z "$look_for_ex_timezone" ]; then
 #	outputHandler "comment" "Setting Time zone to Europe/Copenhagen"
