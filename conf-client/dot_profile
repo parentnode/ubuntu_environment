@@ -40,10 +40,10 @@ alias disable_site="/srv/tools/scripts/disable_site.sh"
 #parentnode_multi_user
 
 if [ ! -e "/home/$(echo $USER)/Sites" ];then
-			mkdir /home/$(echo $USER)/Sites
-			mkdir /home/$(echo $USER)/Sites/apache
-			mkdir /home/$(echo $USER)/Sites/apache/logs
-			mkdir /home/$(echo $USER)/Sites/apache/ssl
+			sudo mkdir /home/$(echo $USER)/Sites
+			sudo mkdir /home/$(echo $USER)/Sites/apache
+			sudo mkdir /home/$(echo $USER)/Sites/apache/logs
+			sudo mkdir /home/$(echo $USER)/Sites/apache/ssl
 			
 			deploy_www_data=$(grep deploy.*www-data /etc/group)
 			if [ -z "$deploy_www_data" ]; then
