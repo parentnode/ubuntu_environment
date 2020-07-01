@@ -44,6 +44,7 @@ if [ ! -e "/home/$(echo $USER)/Sites" ];then
 			mkdir /home/$(echo $USER)/Sites/apache
 			mkdir /home/$(echo $USER)/Sites/apache/logs
 			mkdir /home/$(echo $USER)/Sites/apache/ssl
+			sudo chown -R $(echo $USER):deploy /home/$(echo $USER)/Sites
 fi
 if [ -e "/srv/sites" ]; then 
     sites_symlink_exists=$(ls -Fla /srv | grep /home/ | cut -d \/ -f3)
@@ -52,7 +53,7 @@ if [ -e "/srv/sites" ]; then
 		sudo rm /srv/sites
 		
 		sudo ln -s /home/$(echo $USER)/Sites /srv/sites
-		sudo chown -R $(echo $USER):deploy /home/$(echo $USER)/Sites
+		
 		sudo service apache2 restart
 		deploy_www_data=$(grep deploy.*www-data /etc/group)
 		if [ -z "$deploy_www_data" ]; then
@@ -65,7 +66,6 @@ if [ -e "/srv/sites" ]; then
     fi
 else
 	sudo ln -s /home/$(echo $USER)/Sites /srv/sites
-	sudo chown -R $(echo $USER):deploy /home/$(echo $USER)/Sites
 	deploy_www_data=$(grep deploy.*www-data /etc/group)
 	if [ -z "$deploy_www_data" ]; then
 		usermod -a -G deploy www-data
