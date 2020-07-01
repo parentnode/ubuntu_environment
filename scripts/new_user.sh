@@ -15,6 +15,8 @@ if [ "$chooseplatform" = "2" ]; then
     echo " . /home/$install_user/.bash_profile" >> /home/$install_user/.bashrc
     echo "fi" >> /home/$install_user/.bashrc
     cp /srv/tools/conf-client/dot_profile /home/$install_user/.bash_profile
+    outputHandler "comment" "exit and open the terminal to setup the final steps of your current user"
 else
     cp /srv/tools/conf-server/dot_profile /home/$install_user/.bash_profile
+    outputHandler "comment" "logout from the server then login again to setup the final steps of your current user"
 fi
