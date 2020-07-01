@@ -42,7 +42,7 @@ if [ -e "/srv/sites" ]; then
     sites_symlink_exists=$(ls -Fla /srv | grep /home/ | cut -d \/ -f3)
     if [ "$sites_symlink_exists" != "$(echo $USER)"  ]; then
 		echo "Creating Symlink"
-		sudo rm /srv/sites¨
+		sudo rm /srv/sites
 		if [ ! -e "/home/$(echo $USER)/Sites" ];then
 			mkdir /home/$(echo $USER)/Sites
 			mkdir /home/$(echo $USER)/Sites/apache
