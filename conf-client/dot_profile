@@ -38,17 +38,19 @@ alias disable_site="/srv/tools/scripts/disable_site.sh"
 #parentnode_alias
 
 #parentnode_multi_user
+
+if [ ! -e "/home/$(echo $USER)/Sites" ];then
+			mkdir /home/$(echo $USER)/Sites
+			mkdir /home/$(echo $USER)/Sites/apache
+			mkdir /home/$(echo $USER)/Sites/apache/logs
+			mkdir /home/$(echo $USER)/Sites/apache/ssl
+fi
 if [ -e "/srv/sites" ]; then 
     sites_symlink_exists=$(ls -Fla /srv | grep /home/ | cut -d \/ -f3)
     if [ "$sites_symlink_exists" != "$(echo $USER)"  ]; then
 		echo "Creating Symlink"
 		sudo rm /srv/sites
-		if [ ! -e "/home/$(echo $USER)/Sites" ];then
-			mkdir /home/$(echo $USER)/Sites
-			mkdir /home/$(echo $USER)/Sites/apache
-			mkdir /home/$(echo $USER)/Sites/apache/logs
-			mkdir /home/$(echo $USER)/Sites/apache/ssl
-		fi
+		
 		sudo ln -s /home/$(echo $USER)/Sites /srv/sites
 		sudo chown -R $(echo $USER):deploy /home/$(echo $USER)/Sites
 		sudo service apache2 restart
@@ -61,6 +63,17 @@ if [ -e "/srv/sites" ]; then
 			usermod -a -G deploy $(echo $USER)
 		fi
     fi
-fi
+else
+	sudo ln -s /home/$(echo $USER)/Sites /srv/sites
+	sudo chown -R $(echo $USER):deploy /home/$(echo $USER)/Sites
+	deploy_www_data=$(grep deploy.*www-data /etc/group)
+	if [ -z "$deploy_www_data" ]; then
+		usermod -a -G deploy www-data
+	fi
+	deploy_current_user=$(grep deploy.*$(echo $USER) /etc/group)
+	if [ -z "$deploy_current_user" ]; then
+		usermod -a -G deploy $(echo $USER)
+	fi
+	fi
 
 #parentnode_multi_user
