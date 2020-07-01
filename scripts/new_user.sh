@@ -8,7 +8,7 @@ outputHandler "comment" "2: client"
 chooseplatform_array=("[12]")
 chooseplatform=$(ask "Choose an option 1 or 2" "${chooseplatform_array[@]}" "Not a valid option")
 
-install_user="$(getUsername)"
+install_user="$(echo $USER)"
 if [ "$chooseplatform" = "2" ]; then
     echo "" >> /home/$install_user/.bashrc
     echo "if [ -f \"/home/$install_user/.bash_profile\" ]; then" >> /home/$install_user/.bashrc
