@@ -130,13 +130,13 @@ else
 	export git_email
 fi
 
-su - $install_user -c "git config --global core.filemode false"
+git config --global core.filemode false
 outputHandler "comment" "git core.filemode: $(git config --global core.filemode)"
-su - $install_user -c  "git config --global user.name "$git_username""
+git config --global user.name "$git_username"
 outputHandler "comment" "git user name: $(git config --global user.name)"
-su - $install_user -c "git config --global user.email "$git_email""
+git config --global user.email "$git_email"
 outputHandler "comment" "git user email: $(git config --global user.email)"
-su - $install_user -c "git config --global credential.helper cache"
+git config --global credential.helper cache
 
 outputHandler "section" "Setting Time zone"
 
