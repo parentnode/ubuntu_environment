@@ -43,16 +43,14 @@ if [ -e "/srv/sites" ]; then
     if [ "$sites_symlink_exists" != "$(echo $USER)"  ]; then
 		echo "Creating Symlink"
 		sudo rm /srv/sites¨
-		if [ ! -e "/home/$(echo $USER)/Sites" ]; then 
-			mkdir /home/$(echo $USER)/Sites
-		fi
 		sudo ln -s /home/$(echo $USER)/Sites /srv/sites
-		sudo chown -R $(echo $USER):deploy /home/$(echo $USER)/Sites
-		if [ ! -e "/home/$(echo $USER)/Sites/apache" ];then
+		if [ ! -e "/home/$(echo $USER)/Sites" ];then
+			mkdir /home/$(echo $USER)/Sites
 			mkdir /home/$(echo $USER)/Sites/apache
 			mkdir /home/$(echo $USER)/Sites/apache/logs
 			mkdir /home/$(echo $USER)/Sites/apache/ssl
 		fi
+		sudo chown -R $(echo $USER):deploy /home/$(echo $USER)/Sites
 		sudo service apache2 restart
 		deploy_www_data=$(grep deploy.*www-data /etc/group)
 		if [ -z "$deploy_www_data" ]; then
