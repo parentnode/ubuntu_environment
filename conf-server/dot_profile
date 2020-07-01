@@ -42,7 +42,14 @@ git_prompt () {
 export PS1="\[$(tput bold)\]\[$(tput setaf 0)\]\u@\h \[$(tput setaf 2)\]\W\$(git_prompt)\[$(tput sgr0)\]\[$(tput setaf 4)\] \\$"
 
 export LC_ALL="en_GB.UTF-8"
-
+if [ ! -e "/home/$(echo $USER)/.gitconfig" ]; then
+	read -p "git user name: " git_username
+	read -p "git email: " git_email
+	git config --global core.filemode false
+	git config --global user.name "$git_username"
+	git config --global user.email "$git_email"
+	git config --global credential.helper cache
+fi
 #parentnode_git_prompt
 #parentnode_alias
 alias apache="sudo service apache2"
