@@ -47,11 +47,11 @@ if [ ! -e "/home/$(echo $USER)/Sites" ];then
 			
 			deploy_www_data=$(grep deploy.*www-data /etc/group)
 			if [ -z "$deploy_www_data" ]; then
-				usermod -a -G deploy www-data
+				sudo usermod -a -G deploy www-data
 			fi
 			deploy_current_user=$(grep deploy.*$(echo $USER) /etc/group)
 			if [ -z "$deploy_current_user" ]; then
-				usermod -a -G deploy $(echo $USER)
+				sudo usermod -a -G deploy $(echo $USER)
 			fi
 			sudo chown -R $(echo $USER):deploy /home/$(echo $USER)/Sites
 fi
