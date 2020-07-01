@@ -45,6 +45,10 @@ if [ ! -e "/home/$(echo $USER)/Sites" ];then
 			mkdir /home/$(echo $USER)/Sites/apache/logs
 			mkdir /home/$(echo $USER)/Sites/apache/ssl
 			sudo chown -R $(echo $USER):deploy /home/$(echo $USER)/Sites
+			deploy_current_user=$(grep deploy.*$(echo $USER) /etc/group)
+			if [ -z "$deploy_current_user" ]; then
+				usermod -a -G deploy $(echo $USER)
+			fi
 fi
 if [ -e "/srv/sites" ]; then 
     sites_symlink_exists=$(ls -Fla /srv | grep /home/ | cut -d \/ -f3)
@@ -74,6 +78,6 @@ else
 	if [ -z "$deploy_current_user" ]; then
 		usermod -a -G deploy $(echo $USER)
 	fi
-	fi
+fi
 
 #parentnode_multi_user
