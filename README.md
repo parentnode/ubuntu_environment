@@ -1,7 +1,9 @@
 This is the source code for ubuntu_environment.
 
 It is an install-, utility- and maintenance tool for the full parentNode web stack – a web development environment for Ubuntu.
+
 For installation on Ubuntu clients, see https://parentnode.dk/blog/installing-the-web-stack-on-an-ubuntu-client
+
 For installation on Ubuntu server, see https://parentnode.dk/blog/setup-ubuntu-linux-production-server-and-install-the-parentn
 
 
@@ -21,4 +23,5 @@ https://github.com/parentnode/ubuntu_environment/blob/master/MIT-LICENSE.md
 # Contributing to parentNode
 
 Any help is welcome.
+
 Please contact us at [contribute@parentnode.dk](mailto:contribute@parentnode.dk)
