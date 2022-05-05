@@ -1,9 +1,16 @@
 #!/bin/bash -e
 outputHandler "section" "SOFTWARE"
 if test "$install_software" = "Y"; then	
+
+    outputHandler "comment" "Adding PPA:ondrej/apache2 for latest Apache updates"
+	command "sudo add-apt-repository ppa:ondrej/apache2 -y"
+	command "sudo apt-get update"
+
+
     outputHandler "comment" "Installing Software packages"
 	outputHandler "comment" "Installing Apache and extra modules"
     outputHandler "comment" "Installing apache2"
+
 	command "sudo apt-get install -y apache2 apache2-utils ssl-cert"
 	
 	outputHandler "comment" "Installing PHP7.4 and extra modules"
@@ -49,6 +56,9 @@ if test "$install_software" = "Y"; then
 	. /srv/tools/scripts/install_wkhtmlto.sh
 	# INSTALL SYS-INFO
 	# aptitude install landscape-client landscape-common
+
+	outputHandler "comment" "Making sure everything is upgraded to newest version"
+	command "sudo apt-get upgrade -y"
 
 else
 	outputHandler "section" "Skipping software"
