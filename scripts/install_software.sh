@@ -6,6 +6,10 @@ if test "$install_software" = "Y"; then
 	command "sudo add-apt-repository ppa:ondrej/apache2 -y"
 	command "sudo apt-get update"
 
+    outputHandler "comment" "Adding PPA:ondrej/php for latest PHP updates"
+	command "sudo add-apt-repository ppa:ondrej/php -y"
+	command "sudo apt-get update"
+
 
     outputHandler "comment" "Installing Software packages"
 	outputHandler "comment" "Installing Apache and extra modules"
