@@ -75,7 +75,7 @@ fi
 if test "$install_htpassword_for_user" = "Y"; then
 	outputHandler "section" "HTACCESS password"
 	#read -s -p "HTACCESS password for $install_user: " install_htaccess_password
-	password_array=("[A-Za-z0-9\!\@\$]{8,30}")
+	password_array=("[A-Za-z0-9\!\@\$]{7,30}")
 	install_htaccess_password=$( ask "HTACCESS password for $install_user" "${password_array[@]}" "password")
 	export install_htaccess_password
 fi
