@@ -92,10 +92,19 @@ if test "$install_webserver_conf" = "Y"; then
     #outputHandler "comment" "setting up php-cli.ini"
     #cat /srv/tools/conf-client/php-cli.ini > /etc/php/7.2/cli/php.ini
     #outputHandler "comment" "setting up apache2.ini"
+
     # PHP 7.4
-    cat /srv/tools/conf-client/php-apache2.ini > /etc/php/7.4/apache2/php.ini
     outputHandler "comment" "setting up php-cli.ini"
+    cat /srv/tools/conf-client/php-apache2.ini > /etc/php/7.4/apache2/php.ini
     cat /srv/tools/conf-client/php-cli.ini > /etc/php/7.4/cli/php.ini
+
+ 	# PHP 8.2
+    outputHandler "comment" "setting up php.ini"
+    cat /srv/tools/conf-client/php-8.2-apache2.ini > /etc/php/8.2/apache2/php.ini
+    cat /srv/tools/conf-client/php-8.2-cli.ini > /etc/php/8.2/cli/php.ini
+
+
+
     #bash /srv/tools/scripts/install_php.sh
 
     if [ ! -e "/srv/sites/apache/apache.conf" ]; then

@@ -83,10 +83,16 @@ if test "$install_webserver_conf" = "Y"; then
     #cat /srv/tools/conf-server/php-cli.ini > /etc/php/7.2/cli/php.ini
 
  	# PHP 7.4
-    cat /srv/tools/conf-server/php-apache2.ini > /etc/php/7.4/apache2/php.ini
+    # outputHandler "comment" "setting up php.ini"
+    # cat /srv/tools/conf-server/php-7.4-apache2.ini > /etc/php/7.4/apache2/php.ini
+    # cat /srv/tools/conf-server/php-7.4-cli.ini > /etc/php/7.4/cli/php.ini
 
-    outputHandler "comment" "setting up php-cli.ini"
-    cat /srv/tools/conf-server/php-cli.ini > /etc/php/7.4/cli/php.ini
+ 	# PHP 8.2
+    outputHandler "comment" "setting up php.ini"
+    cat /srv/tools/conf-server/php-8.2-apache2.ini > /etc/php/8.2/apache2/php.ini
+    cat /srv/tools/conf-server/php-8.2-cli.ini > /etc/php/8.2/cli/php.ini
+
+
 
 	outputHandler "comment" "Restarting Apache"
 	# RESTART APACHE
