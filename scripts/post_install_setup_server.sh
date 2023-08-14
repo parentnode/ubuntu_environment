@@ -142,9 +142,11 @@ if test "$install_webserver_conf" = "Y"; then
 
             # FOR UBUNTU 16.04/MariaDB 10
             outputHandler "comment" "setting up password"
+            # echo "UPDATE mysql.user SET plugin = 'mysql_native_password', password = PASSWORD('$db_root_password1') WHERE user = 'root'; FLUSH PRIVILEGES;" | sudo mysql -u root
+
+			# For Ubuntu 22.04
 			echo "ALTER user 'root'@'localhost' IDENTIFIED BY '$db_root_password1'; FLUSH PRIVILEGES;" | sudo mysql -u root
 			
-            # echo "UPDATE mysql.user SET plugin = 'mysql_native_password', password = PASSWORD('$db_root_password1') WHERE user = 'root'; FLUSH PRIVILEGES;" | sudo mysql -u root
             outputHandler "comment" "replacing maintenance password with your new password"
             # REPLACE PASSWORD FOR MAINTANENCE ACCOUNT
             sudo sed -i "s/password = .*/password = $db_root_password1/;" /etc/mysql/debian.cnf
