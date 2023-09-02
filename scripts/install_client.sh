@@ -33,6 +33,11 @@ outputHandler "comment" "Installing system for $install_user"
 . /srv/tools/scripts/post_install_setup_client.sh
 
 
+# RE-ACTIVATE needrestart after install is done
+if [ -e "/srv/temp-99needrestart" ] ; then
+	mv "/srv/temp-99needrestart" "/etc/apt/apt.conf.d/99needrestart"
+	echo "99needrestart moved back to re-activate package cleanup"
+fi
 
 
 # Change Folder Rights from root to current user

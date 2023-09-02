@@ -146,6 +146,14 @@ ip_address=$(hostname -I | cut -d ' ' -f1)
 # Consider replacing with:
 # curl -s http://whatismyip.akamai.com/
 
+
+# RE-ACTIVATE needrestart after install is done
+if [ -e "/srv/temp-99needrestart" ] ; then
+	mv "/srv/temp-99needrestart" "/etc/apt/apt.conf.d/99needrestart"
+	echo "99needrestart moved back to re-activate package cleanup"
+fi
+
+
 #echo
 echo
 #echo "Login command:"
