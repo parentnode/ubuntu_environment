@@ -35,7 +35,7 @@ outputHandler "comment" "Installing system for $install_user"
 
 # RE-ACTIVATE needrestart after install is done
 if [ -e "/srv/temp-99needrestart" ] ; then
-	mv "/srv/temp-99needrestart" "/etc/apt/apt.conf.d/99needrestart"
+	sudo mv "/srv/temp-99needrestart" "/etc/apt/apt.conf.d/99needrestart"
 	echo "99needrestart moved back to re-activate package cleanup"
 fi
 
