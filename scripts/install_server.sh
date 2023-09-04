@@ -148,10 +148,15 @@ ip_address=$(hostname -I | cut -d ' ' -f1)
 
 
 # RE-ACTIVATE needrestart after install is done
-if [ -e "/srv/temp-99needrestart" ] ; then
-	sudo mv "/srv/temp-99needrestart" "/etc/apt/apt.conf.d/99needrestart"
-	echo "99needrestart moved back to re-activate package cleanup"
-fi
+sudo dpkg-divert --rename --remove /etc/apt/apt.conf.d/99needrestart
+sudo dpkg-divert --rename --remove /etc/apt/apt.conf.d/20auto-upgrades
+sudo dpkg-divert --rename --remove /etc/apt/apt.conf.d/50unattended-upgrades
+
+
+# if [ -e "/srv/temp-99needrestart" ] ; then
+# 	sudo mv "/srv/temp-99needrestart" "/etc/apt/apt.conf.d/99needrestart"
+# 	echo "99needrestart moved back to re-activate package cleanup"
+# fi
 
 
 #echo
