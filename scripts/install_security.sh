@@ -113,19 +113,19 @@ if [ "$install_security" = "Y" ]; then
 	iptables -L
 
 	# SAVE NEW IPTABLES
-	iptables-save > /etc/iptables.up.rules
+	iptables-save -c > /etc/iptables/rules.v4
 
-
-	if [ ! -e "/etc/network/if-pre-up.d/iptables" ]; then
-
-		outputHandler "comment" "Enable IP TABLE on boot"
-
-		# LOAD ON BOOT
-		echo "#!/bin/sh" >> /etc/network/if-pre-up.d/iptables
-		echo "/sbin/iptables-restore < /etc/iptables.up.rules" >> /etc/network/if-pre-up.d/iptables
-		chmod +x /etc/network/if-pre-up.d/iptables
-
-	fi
+	# iptables-persistant will load iptables on boot from ubuntu 22
+	# if [ ! -e "/etc/network/if-pre-up.d/iptables" ]; then
+	#
+	# 	outputHandler "comment" "Enable IP TABLE on boot"
+	#
+	# 	# LOAD ON BOOT
+	# 	echo "#!/bin/sh" >> /etc/network/if-pre-up.d/iptables
+	# 	echo "/sbin/iptables-restore < /etc/iptables.up.rules" >> /etc/network/if-pre-up.d/iptables
+	# 	chmod +x /etc/network/if-pre-up.d/iptables
+	#
+	# fi
 
 	outputHandler "comment" "Restarting SSH service"
 
