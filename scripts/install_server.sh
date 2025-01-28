@@ -159,6 +159,20 @@ sudo dpkg-divert --rename --remove /etc/apt/apt.conf.d/50unattended-upgrades
 # fi
 
 
+
+# Set journal logging to 90 days
+journal_logging=$(grep -E "^MaxRetentionSec" /etc/systemd/journald.conf || echo "")
+if [ -z "$journal_logging" ]; then
+
+	echo "" >> /etc/systemd/journald.conf
+	echo "MaxRetentionSec=90d" >> /etc/systemd/journald.conf
+	echo "" >> /etc/systemd/journald.conf
+
+fi
+
+
+
+
 #echo
 echo
 #echo "Login command:"

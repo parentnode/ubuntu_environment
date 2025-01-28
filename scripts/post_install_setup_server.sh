@@ -159,6 +159,14 @@ if test "$install_webserver_conf" = "Y"; then
 		outputHandler "comment" "Mariadb password allready set up"
 	fi
 
+
+
+	# Certbot log rotation
+	outputHandler "comment" "Setting up Certbot log rotation"
+	cat /srv/tools/conf-server/certbot-logrotation > /etc/logrotate.d/certbot
+
+
+
 else
 
 	outputHandler "section" "Skipping Webserver configuration"

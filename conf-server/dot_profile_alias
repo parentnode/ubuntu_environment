@@ -3,6 +3,32 @@ alias apache="sudo service apache2"
 alias sites="cd /srv/sites"
 alias enable_site="/srv/tools/scripts/enable_site.sh"
 
+alias cert_add="sudo certbot --apache certonly"
+alias cert_delete="sudo certbot delete"
+
+
+
+# Mod sec helpers
+disable_sec_mod() {
+	if [ -e "$1" ]
+	then
+		sudo mv "$1" "$1.dis"
+		apache restart
+	else
+		echo "Wrong directory – go to /usr/share/modsecurity-crs/rules to use this method"
+	fi
+}
+enable_sec_mod() {
+	if [ -e "$1.dis" ]
+	then
+		sudo mv "$1".dis "$1"
+		apache restart
+	else
+		echo "Wrong directory – go to /usr/share/modsecurity-crs/rules to use this method"
+	fi
+}
+
+
 
 #alias update_env="sh /srv/tools/scripts/update_env.sh"
 #alias update_awstats="sudo php /srv/tools/scripts/update_awstats.php"

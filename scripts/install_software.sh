@@ -72,6 +72,17 @@ if test "$install_software" = "Y"; then
 	outputHandler "comment" "Making sure everything is upgraded to newest version"
 	command "sudo apt-get upgrade -y"
 
+
+
+	# Install certbot?
+	outputHandler "comment" "Install Certbot"
+	command "sudo snap install --classic certbot"
+	command "sudo ln -s /snap/bin/certbot /usr/bin/certbot"
+
+
+
+
+
 else
 	outputHandler "section" "Skipping software"
 fi
