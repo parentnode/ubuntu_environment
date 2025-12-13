@@ -2,7 +2,7 @@
 
 
 # Crontab
-# 0 0 * * 1 /srv/tools/scripts/cron/gdpr_cron_cleaner.sh >> /srv/crons/gdpr-cron-cleaner/gdpr-cron-$(date +\%Y-\%m-\%d_\%H\%M\%S).log 2>&1
+# 0 0 * * 1 mkdir -p /srv/crons/gdpr-cron-cleaner && /srv/tools/scripts/cron/gdpr_cron_cleaner.sh >> /srv/crons/gdpr-cron-cleaner/gdpr-cron-$(date +\%Y-\%m-\%d_\%H\%M\%S).log 2>&1
 
 
 CRON_DIR="/srv/crons"
