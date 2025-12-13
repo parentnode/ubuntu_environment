@@ -7,7 +7,7 @@
 
 CRON_DIR="/srv/crons"
 #EXPIRE_DAYS=180
-EXPIRE_DAYS=1500
+EXPIRE_DAYS=1650
 OUTPUT_DIR="/srv/crons/gdpr-cron-cleaner"
 
 
@@ -24,12 +24,12 @@ if [ ! -d "$OUTPUT_DIR" ]; then
 fi
 
 
-# List files older than DAYS in $DIR
+# List files older than DAYS in $DIR – FOR DEBUGGING PURPOSES
 echo "Cron output files in $CRON_DIR older than $EXPIRE_DAYS days:"
 find "$CRON_DIR" -type f -mtime +"$EXPIRE_DAYS" -printf '%TY-%Tm-%Td %TH:%TM:%TS %p\n' | sort
 
 
 # Delete safely (handles filenames with whitespace/newlines)
-#echo "Delete cron output files in $CRON_DIR older than $EXPIRE_DAYS days:"
-#find "$CRON_DIR" -type f -mtime +"$DAYS" -print0 | xargs -0 --no-run-if-empty rm -v --
+# echo "Delete cron output files in $CRON_DIR older than $EXPIRE_DAYS days:"
+# find "$CRON_DIR" -type f -mtime +"$DAYS" -print0 | xargs -0 --no-run-if-empty rm -v --
 
