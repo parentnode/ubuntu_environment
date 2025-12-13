@@ -6,7 +6,8 @@
 
 SITES_DIR="/srv/sites"
 LOG_DIR="*/theme/library/log"
-EXPIRE_DAYS=180
+#EXPIRE_DAYS=180
+EXPIRE_DAYS=3000
 OUTPUT_DIR="/srv/crons/gdpr-log-cleaner"
 
 
