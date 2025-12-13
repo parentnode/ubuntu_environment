@@ -2,13 +2,13 @@
 
 
 # Crontab
-# 0 0 * * * /srv/tools/scripts/cron/gdpr_log_cleaner.sh >> /srv/crons/gdpr-log-cleaner/gdpr-log-$(date +\%Y-\%m-\%d_\%H\%M\%S).log 2>&1
+# 0 0 * * * mkdir -p /srv/crons/gdpr-log-cleaner && /srv/tools/scripts/cron/gdpr_log_cleaner.sh >> /srv/crons/gdpr-log-cleaner/gdpr-log-$(date +\%Y-\%m-\%d_\%H\%M\%S).log 2>&1
 
 
 SITES_DIR="/srv/sites"
 LOG_DIR="*/theme/library/log"
 #EXPIRE_DAYS=180
-EXPIRE_DAYS=3000
+EXPIRE_DAYS=3300
 OUTPUT_DIR="/srv/crons/gdpr-log-cleaner"
 
 
