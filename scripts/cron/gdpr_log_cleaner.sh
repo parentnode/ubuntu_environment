@@ -26,15 +26,13 @@ fi
 
 
 # Find log files located in /srv/sites/*/theme/library/log (and list them if older than EXPIRE_DAYS)
-echo "Janitor log files in $SITES_DIR/$LOG_DIR older than $EXPIRE_DAYS days:"
-find "$SITES_DIR" -type f -path "$LOG_DIR/*" -mtime +"$EXPIRE_DAYS" -printf '%TY-%Tm-%Td %TH:%TM:%TS %p\n' | sort
+# echo "Janitor log files in $SITES_DIR/$LOG_DIR older than $EXPIRE_DAYS days:"
+# find "$SITES_DIR" -type f -path "$LOG_DIR/*" -mtime +"$EXPIRE_DAYS" -printf '%TY-%Tm-%Td %TH:%TM:%TS %p\n' | sort
 
 # Once old log files have been expired, new log files will contain .log extension
 # find "$SITES_DIR" -type f -path "$LOG_DIR/*.log" -mtime +"$EXPIRE_DAYS" -printf '%TY-%Tm-%Td %TH:%TM:%TS %p\n' | sort
 
 # Delete
-#echo "Delete Janitor log files in $SITES_DIR/$LOG_DIR older than $EXPIRE_DAYS days:"
-# find "$SITES_DIR" -type f -path "$LOG_DIR/*" -mtime +"$EXPIRE_DAYS" -print0 | xargs -0 --no-run-if-empty rm -v --
+echo "Delete Janitor log files in $SITES_DIR/$LOG_DIR older than $EXPIRE_DAYS days:"
+find "$SITES_DIR" -type f -path "$LOG_DIR/*" -mtime +"$EXPIRE_DAYS" -print0 | xargs -0 --no-run-if-empty rm -v --
 
-
-#crontab
