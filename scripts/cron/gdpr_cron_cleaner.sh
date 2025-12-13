@@ -25,11 +25,11 @@ fi
 
 
 # List files older than DAYS in $DIR – FOR DEBUGGING PURPOSES
-echo "Cron output files in $CRON_DIR older than $EXPIRE_DAYS days:"
-find "$CRON_DIR" -type f -mtime +"$EXPIRE_DAYS" -printf '%TY-%Tm-%Td %TH:%TM:%TS %p\n' | sort
+# echo "Cron output files in $CRON_DIR older than $EXPIRE_DAYS days:"
+# find "$CRON_DIR" -type f -mtime +"$EXPIRE_DAYS" -printf '%TY-%Tm-%Td %TH:%TM:%TS %p\n' | sort
 
 
 # Delete safely (handles filenames with whitespace/newlines)
-# echo "Delete cron output files in $CRON_DIR older than $EXPIRE_DAYS days:"
-# find "$CRON_DIR" -type f -mtime +"$EXPIRE_DAYS" -print0 | xargs -0 --no-run-if-empty rm -v --
+echo "Delete cron output files in $CRON_DIR older than $EXPIRE_DAYS days:"
+find "$CRON_DIR" -type f -mtime +"$EXPIRE_DAYS" -print0 | xargs -0 --no-run-if-empty rm -v --
 
