@@ -2,7 +2,7 @@
 
 
 # Crontab
-# 0 0 * * 1 /srv/tools/scripts/cron/gdpr_log_cleaner.sh >> /srv/crons/gdpr-log-cleaner/gdpr-log-$(date +\%Y-\%m-\%d_\%H\%M\%S).log 2>&1
+# 0 0 * * * /srv/tools/scripts/cron/gdpr_log_cleaner.sh >> /srv/crons/gdpr-log-cleaner/gdpr-log-$(date +\%Y-\%m-\%d_\%H\%M\%S).log 2>&1
 
 
 SITES_DIR="/srv/sites"
