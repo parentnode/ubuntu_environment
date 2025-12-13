@@ -7,7 +7,7 @@
 
 CRON_DIR="/srv/crons"
 #EXPIRE_DAYS=180
-EXPIRE_DAYS=2800
+EXPIRE_DAYS=1500
 OUTPUT_DIR="/srv/crons/gdpr-cron-cleaner"
 
 
