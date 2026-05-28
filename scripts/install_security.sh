@@ -89,7 +89,8 @@ if [ "$install_security" = "Y" ]; then
 	# IP Tables
 
 	outputHandler "comment" "Installing Persistent iptables"
-	command "sudo apt-get install -y iptables-persistent" 
+	command "sudo apt-get install -y iptables-persistent" true
+
 
 
 	if [ ! -e "/etc/iptables.up.rules" ]; then
