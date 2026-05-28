@@ -85,11 +85,17 @@ if [ "$install_security" = "Y" ]; then
 	fi
 
 
+	outputHandler "comment" "Restarting SSH service"
+
+	#
+	# RESTART SSH
+	service ssh restart
+
 
 	# IP Tables
 
 	outputHandler "comment" "Installing Persistent iptables"
-	command "sudo apt-get install -y iptables-persistent" true
+	command "apt-get install -y iptables-persistent"
 
 
 
