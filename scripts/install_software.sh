@@ -55,9 +55,6 @@ if test "$install_software" = "Y"; then
 	outputHandler "comment" "Installing Log Rotation"
 	command "sudo apt-get install -y logrotate" 
 
-	outputHandler "comment" "Installing Persistent iptables"
-	command "sudo apt-get install -y iptables-persistent" 
-
 	outputHandler "comment" "Installing Curl" 
 	command "sudo apt-get install -y curl"
 	outputHandler "comment" "Installing MariaDB Server"
