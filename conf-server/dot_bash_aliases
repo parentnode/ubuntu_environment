@@ -37,8 +37,3 @@ enable_sec_mod() {
 		echo "Wrong directory – go to /usr/share/modsecurity-crs/rules to use this method"
 	fi
 }
-
-# service helper
-service-exists() {
-	[ $(systemctl list-unit-files "${1}*" | wc -l) -gt 3 ]
-}
