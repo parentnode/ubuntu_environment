@@ -1,4 +1,3 @@
-#parentnode_git_prompt
 # ~/.profile: executed by the command interpreter for login shells.
 # This file is not read by bash(1), if ~/.bash_profile or ~/.bash_login
 # exists.
@@ -42,4 +41,11 @@ git_prompt () {
 export PS1="\[$(tput bold)\]\[$(tput setaf 0)\]\u@\h \[$(tput setaf 2)\]\W\$(git_prompt)\[$(tput sgr0)\]\[$(tput setaf 4)\] \\$"
 
 export LC_ALL="en_GB.UTF-8"
-#parentnode_git_prompt
+if [ ! -e "/home/$(echo $USER)/.gitconfig" ]; then
+	read -p "git user name: " git_username
+	read -p "git email: " git_email
+	git config --global core.filemode false
+	git config --global user.name "$git_username"
+	git config --global user.email "$git_email"
+	git config --global credential.helper cache
+fi
