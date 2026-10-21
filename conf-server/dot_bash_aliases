@@ -40,5 +40,5 @@ enable_sec_mod() {
 
 # service helper
 service-exists() {
-  [ $(systemctl list-unit-files "${1}*" | wc -l) -gt 3 ]
+	[ $(systemctl list-unit-files "${1}*" | wc -l) -gt 3 ]
 }

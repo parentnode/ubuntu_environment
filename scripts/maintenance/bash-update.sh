@@ -18,3 +18,6 @@ sudo chown kaestel:kaestel /home/$install_user/.bash_profile
 outputHandler "comment" "Update .bash_aliases"
 cp /srv/tools/conf-server/dot_bash_aliases /home/$install_user/.bash_aliases
 sudo chown kaestel:kaestel /home/$install_user/.bash_aliases
+
+# Update aliases
+source /home/$install_user/.bash_aliases
