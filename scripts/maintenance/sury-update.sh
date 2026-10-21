@@ -23,7 +23,7 @@ echo "deb [signed-by=/usr/share/keyrings/debsuryorg-archive-keyring.gpg] https:/
 
 
 outputHandler "comment" "Update server"
-update_server
+/srv/tools/scripts/update_server.sh
 
 outputHandler "comment" "Updated PHP version"
 sudo php -v
