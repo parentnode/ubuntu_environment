@@ -26,4 +26,4 @@ outputHandler "comment" "Update server"
 /srv/tools/scripts/update_server.sh
 
 outputHandler "comment" "Updated PHP version"
-sudo php -v
+sudo /usr/bin/php8.2 -v
