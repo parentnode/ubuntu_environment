@@ -3,11 +3,10 @@
 
 source /srv/tools/scripts/functions.sh
 enableSuperCow
-
 install_user="$(getUsername)"
 export install_user
 
-echo $install_user
+echo "install_user: $install_user"
 
 outputHandler "comment" "Updating bash conf"
 
