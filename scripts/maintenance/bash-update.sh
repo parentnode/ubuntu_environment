@@ -7,6 +7,7 @@ enableSuperCow
 install_user="$(getUsername)"
 export install_user
 
+echo $install_user
 
 outputHandler "comment" "Updating bash conf"
 
