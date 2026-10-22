@@ -1,5 +1,9 @@
 #!/usr/bin/php
 <?php
+include("functions.php");
+
+// start by requesting sudo power
+enableSuperCow();
 
 /**
 * Iterate through config folder
@@ -18,7 +22,7 @@ function folderIterator($path){
 				// get simple status
 				print "Repos: $path/$file\n";
 
-				$output = shell_exec("cd $path/$file\ngit status -s");
+				$output = shell_exec("cd $path/$file\nsudo git status -s");
 				if($output) {
 					print "\e[0;31m$output\e[0;34m\n";
 				}
